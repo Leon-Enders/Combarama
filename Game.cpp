@@ -47,14 +47,21 @@ void Game::HandleGameLoop()
 
 void Game::ProcessInput()
 {
+	SDL_FlushEvent(SDL_EVENT_KEY_DOWN);
+	SDL_FlushEvent(SDL_EVENT_KEY_UP);
+
+
+	bool KeyPressed = false;
 	while (SDL_PollEvent(&Event))
 	{
 		if (Event.type == SDL_EVENT_QUIT)
 		{
 			IsGameActive = false;
 		}
-		else if (Event.type == SDL_EVENT_KEY_DOWN)
+
+		if (Event.type == SDL_EVENT_KEY_DOWN)
 		{
+			KeyPressed = true;
 			switch (Event.key.key)
 			{
 			case SDLK_W:
@@ -77,11 +84,12 @@ void Game::ProcessInput()
 				SDL_Log("cannot read key pressed");
 				break;
 			}
-		}
-		else
-		{
-			UpdateDirection(0, 0);
-		}
+		}	
+	}
+
+	if (!KeyPressed)
+	{
+		UpdateDirection(0, 0);
 	}
 }
 
