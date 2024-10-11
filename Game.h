@@ -2,6 +2,8 @@
 #include <SDL3/SDL.h>
 
 
+
+
 class Game
 {
 public:
@@ -25,4 +27,12 @@ private:
 	SDL_Event Event = SDL_Event();
 
 	bool IsGameActive = false;
+
+
+
+	Uint64 FrameStart;
+	int FrameTime;
+
+	static constexpr int FPS = 60;
+	static constexpr int FrameDelay = 1000 / FPS;
 };

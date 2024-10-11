@@ -1,6 +1,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #include <iostream>
+#include "Game.h"
 
 int main(int argc, char* argv[])
 {
@@ -20,7 +21,10 @@ int main(int argc, char* argv[])
         return 1;
     }
 
- 
+    Game NewGame = Game(window);
+    NewGame.StartGame();
+
+
     SDL_DestroyWindow(window);
     SDL_Quit();
 

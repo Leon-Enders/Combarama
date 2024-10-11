@@ -17,7 +17,16 @@ void Game::StartGame()
 
 	while (IsGameActive)
 	{
+		FrameStart = SDL_GetTicks();
+
 		HandleGameLoop();
+
+		FrameTime = SDL_GetTicks() - FrameStart;
+
+		if (FrameDelay > FrameTime)
+		{
+			SDL_Delay(FrameDelay - FrameTime);
+		}
 	}
 	
 }
