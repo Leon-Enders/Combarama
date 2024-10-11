@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 
     if (!SDL_InitSubSystem(SDL_INIT_VIDEO))
     {
-        std::cerr << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
+        SDL_Log("SDL could not initialize Error: %s", SDL_GetError());
         return 1;
     }
 
@@ -19,16 +19,16 @@ int main(int argc, char* argv[])
     SDL_Window* Window = SDL_CreateWindow("Comborama",1280,720,0);
 
     if (!Window) {
-        std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+        SDL_Log("SDL_CreateWindow Error: %s", SDL_GetError());
         SDL_Quit();
         return 1;
     }
 
     SDL_Renderer* Renderer = SDL_CreateRenderer(Window, "GameRenderer");
-
+    
     if (!Renderer)
     {
-        std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+        SDL_Log("SDL_CreateRenderer Error: %s", SDL_GetError());
         SDL_Quit();
         return 1;
     }
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 
     App GameApp;
     GameApp.Window = Window;
-    GameApp.Renderer = Renderer;
+    //GameApp.Renderer = Renderer;
 
 
     Game NewGame = Game(GameApp);
