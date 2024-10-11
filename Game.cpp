@@ -47,50 +47,31 @@ void Game::HandleGameLoop()
 
 void Game::ProcessInput()
 {
-	SDL_FlushEvent(SDL_EVENT_KEY_DOWN);
-	SDL_FlushEvent(SDL_EVENT_KEY_UP);
-
-
-	bool KeyPressed = false;
 	while (SDL_PollEvent(&Event))
 	{
 		if (Event.type == SDL_EVENT_QUIT)
 		{
 			IsGameActive = false;
 		}
-
-		if (Event.type == SDL_EVENT_KEY_DOWN)
-		{
-			KeyPressed = true;
-			switch (Event.key.key)
-			{
-			case SDLK_W:
-				UpdateDirection(0, -1);
-				SDL_Log("W key pressed");
-				break;
-			case SDLK_S:
-				UpdateDirection(0, 1);
-				SDL_Log("S key pressed");
-				break;
-			case SDLK_A:
-				UpdateDirection(-1, 0);
-				SDL_Log("A key pressed");
-				break;
-			case SDLK_D:
-				UpdateDirection(1, 0);
-				SDL_Log("D key pressed");
-				break;
-			default:
-				SDL_Log("cannot read key pressed");
-				break;
-			}
-		}	
 	}
 
-	if (!KeyPressed)
-	{
-		UpdateDirection(0, 0);
+	const bool* keyStates = SDL_GetKeyboardState(NULL);
+
+	UpdateDirection(0, 0);
+	
+	if (keyStates[SDL_SCANCODE_W]) {
+		UpdateDirection(0, -1);
 	}
+	if (keyStates[SDL_SCANCODE_A]) {
+		UpdateDirection(-1, 0);
+	}
+	if (keyStates[SDL_SCANCODE_S]) {
+		UpdateDirection(0, 1);
+	}
+	if (keyStates[SDL_SCANCODE_D]) {
+		UpdateDirection(1, 0);
+	}
+	
 }
 
 void Game::Update()

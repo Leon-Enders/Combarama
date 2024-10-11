@@ -57,5 +57,5 @@ private:
 	int xCDir = 0;
 	int yCDir = 0;
 
-	int Speed = 2;
+	int Speed = 1;
 };
