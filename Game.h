@@ -1,5 +1,8 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <memory>
+#include <SDL3/SDL_video.h>
+#include <SDL3/SDL_render.h>
+#include <SDL3/SDL_events.h>
 #include "CombaramaStructs.h"
 
 
@@ -20,13 +23,16 @@ public:
 	void Update();
 	void Render();
 
+	void ComposeFrame();
+	void DrawFrame();
 
-
+	void SpawnPlayer();
 private:
 
 	SDL_Window* GameWindow = nullptr;
 	SDL_Renderer* GameRenderer = nullptr;
 
+	std::unique_ptr<SDL_FRect> Player = nullptr;
 
 	SDL_Event Event = SDL_Event();
 

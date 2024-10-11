@@ -1,5 +1,7 @@
 #include "Game.h"
 #include <iostream>
+#include <SDL3/SDL_timer.h>
+#include <SDL3/SDL_log.h>
 
 
 
@@ -16,6 +18,8 @@ Game::Game(App& GameApp)
 void Game::StartGame()
 {
 	IsGameActive = true;
+
+	SpawnPlayer();
 
 	while (IsGameActive)
 	{
@@ -58,5 +62,28 @@ void Game::Update()
 
 void Game::Render()
 {
-	SDL_Log("Render!");
+	ComposeFrame();
+	DrawFrame();
+}
+
+void Game::ComposeFrame()
+{
+	
+}
+
+void Game::DrawFrame()
+{
+
+	SDL_RenderFillRect(GameRenderer, &*Player.get());
+	SDL_RenderPresent(GameRenderer);
+
+}
+
+void Game::SpawnPlayer()
+{
+	SDL_SetRenderDrawColor(GameRenderer, 0, 143, 190, 255);
+	const SDL_FRect PlayerRect = { 255, 255, 64, 64 };
+	
+	Player = std::make_unique<SDL_FRect>(PlayerRect);
+
 }
