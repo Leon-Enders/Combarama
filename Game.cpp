@@ -23,6 +23,7 @@ void Game::StartGame()
 
 	while (IsGameActive)
 	{
+		DeltaTime = SDL_GetTicks() - FrameStart;
 		FrameStart = SDL_GetTicks();
 
 		HandleGameLoop();
@@ -52,12 +53,41 @@ void Game::ProcessInput()
 		{
 			IsGameActive = false;
 		}
+		else if (Event.type == SDL_EVENT_KEY_DOWN)
+		{
+			switch (Event.key.key)
+			{
+			case SDLK_W:
+				UpdateDirection(0, -1);
+				SDL_Log("W key pressed");
+				break;
+			case SDLK_S:
+				UpdateDirection(0, 1);
+				SDL_Log("S key pressed");
+				break;
+			case SDLK_A:
+				UpdateDirection(-1, 0);
+				SDL_Log("A key pressed");
+				break;
+			case SDLK_D:
+				UpdateDirection(1, 0);
+				SDL_Log("D key pressed");
+				break;
+			default:
+				SDL_Log("cannot read key pressed");
+				break;
+			}
+		}
+		else
+		{
+			UpdateDirection(0, 0);
+		}
 	}
 }
 
 void Game::Update()
 {
-	SDL_Log("Update!");
+	UpdatePlayer();
 }
 
 void Game::Render()
@@ -68,13 +98,15 @@ void Game::Render()
 
 void Game::ComposeFrame()
 {
-	
+	SDL_SetRenderDrawColor(GameRenderer, 0, 0, 0, 0);
+	SDL_RenderClear(GameRenderer);
 }
 
 void Game::DrawFrame()
 {
 
-	SDL_RenderFillRect(GameRenderer, &*Player.get());
+	SDL_SetRenderDrawColor(GameRenderer, 0, 143, 190, 255);
+	SDL_RenderFillRect(GameRenderer, Player.get());
 	SDL_RenderPresent(GameRenderer);
 
 }
@@ -86,4 +118,20 @@ void Game::SpawnPlayer()
 	
 	Player = std::make_unique<SDL_FRect>(PlayerRect);
 
+}
+
+void Game::UpdateDirection(int xDir, int yDir)
+{
+	xCDir = xDir;
+	yCDir = yDir;
+}
+
+void Game::UpdatePlayer()
+{
+	xVel = xCDir * DeltaTime * Speed;
+	yVel = yCDir * DeltaTime * Speed;
+
+
+	Player->x += xVel;
+	Player->y += yVel;
 }
