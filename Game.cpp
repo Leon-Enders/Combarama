@@ -47,6 +47,7 @@ void Game::HandleGameLoop()
 
 void Game::ProcessInput()
 {
+	SDL_Event Event;
 	while (SDL_PollEvent(&Event))
 	{
 		if (Event.type == SDL_EVENT_QUIT)

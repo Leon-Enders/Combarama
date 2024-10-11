@@ -33,8 +33,6 @@ private:
 	SDL_Window* GameWindow = nullptr;
 	SDL_Renderer* GameRenderer = nullptr;
 
-	SDL_Event Event = SDL_Event();
-
 	bool IsGameActive = false;
 
 	Uint64 FrameStart = 0;

@@ -19,8 +19,8 @@ void Actor::Update(float DeltaTime)
 {
 	Position += Velocity * DeltaTime;
 
-	ActorRect->x = static_cast<int>(Position.X);
-	ActorRect->y = static_cast<int>(Position.Y);
+	ActorRect->x = Position.X;
+	ActorRect->y = Position.Y;
 }
 
 void Actor::Draw(SDL_Window* GameWindow, SDL_Renderer* GameRenderer)
