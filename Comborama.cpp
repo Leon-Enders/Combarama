@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    SDL_Renderer* Renderer = SDL_CreateRenderer(Window, "GameRenderer");
+    SDL_Renderer* Renderer = SDL_CreateRenderer(Window, NULL);
     
     if (!Renderer)
     {
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 
     App GameApp;
     GameApp.Window = Window;
-    //GameApp.Renderer = Renderer;
+    GameApp.Renderer = Renderer;
 
 
     Game NewGame = Game(GameApp);
