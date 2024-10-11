@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <vector>
 #include <SDL3/SDL_video.h>
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_events.h>
@@ -26,7 +27,11 @@ public:
 
 	//Renderer
 	void ComposeFrame();
-	void RenderFrame();
+	void RenderFrame();	
+
+
+	//Test
+	void SpawnActor();
 
 private:
 
@@ -44,5 +49,7 @@ private:
 	static constexpr int FrameDelay = 1000 / FPS;
 
 	std::unique_ptr<Actor> Player = nullptr;
+
+	std::vector<std::unique_ptr<Actor>> Actors;
 
 };

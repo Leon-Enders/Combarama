@@ -54,6 +54,13 @@ void Game::ProcessInput()
 		{
 			IsGameActive = false;
 		}
+		if (Event.type == SDL_EVENT_KEY_DOWN)
+		{
+			if (Event.key.key == SDLK_SPACE)
+			{
+				SpawnActor();
+			}
+		}
 	}
 
 	const bool* keyStates = SDL_GetKeyboardState(NULL);
@@ -97,9 +104,20 @@ void Game::ComposeFrame()
 
 	// Draw Player
 	Player->Draw(GameWindow, GameRenderer);
+
+	// Draw all Spawned Actors
+	for (const auto& SpawnedActor : Actors)
+	{
+		SpawnedActor->Draw(GameWindow, GameRenderer);
+	}
 }
 
 void Game::RenderFrame()
 {
 	SDL_RenderPresent(GameRenderer);
+}
+
+void Game::SpawnActor()
+{
+	Actors.push_back(std::make_unique<Actor>(Vector2(255.f, 255.f)));
 }
