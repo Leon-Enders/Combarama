@@ -2,9 +2,12 @@
 #include <iostream>
 #include <SDL3/SDL_timer.h>
 
-Game::Game(SDL_Window* Window)
+
+
+Game::Game(App& GameApp)
 	:
-	GameWindow(Window)
+	GameWindow(GameApp.Window),
+	GameRenderer(GameApp.Renderer)
 {
 
 	

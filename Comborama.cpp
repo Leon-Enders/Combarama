@@ -1,7 +1,10 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include <SDL3/SDL_render.h>
 #include <iostream>
 #include "Game.h"
+#include "CombaramaStructs.h"
+
 
 int main(int argc, char* argv[])
 {
@@ -13,19 +16,35 @@ int main(int argc, char* argv[])
     }
 
 
-    SDL_Window* window = SDL_CreateWindow("Comborama",1280,720,0);
+    SDL_Window* Window = SDL_CreateWindow("Comborama",1280,720,0);
 
-    if (!window) {
+    if (!Window) {
         std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         SDL_Quit();
         return 1;
     }
 
-    Game NewGame = Game(window);
+    SDL_Renderer* Renderer = SDL_CreateRenderer(Window, "GameRenderer");
+
+    if (!Renderer)
+    {
+        std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+        SDL_Quit();
+        return 1;
+    }
+
+
+
+    App GameApp;
+    GameApp.Window = Window;
+    GameApp.Renderer = Renderer;
+
+
+    Game NewGame = Game(GameApp);
     NewGame.StartGame();
 
 
-    SDL_DestroyWindow(window);
+    SDL_DestroyWindow(Window);
     SDL_Quit();
 
     return 0;
