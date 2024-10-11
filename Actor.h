@@ -9,7 +9,7 @@ class Actor
 
 public:
 	Actor(const Vector2& InPosition);
-
+	~Actor() = default;
 
 	void UpdateVelocity(const Vector2& NewVelocity);
 	void Update(float DeltaTime);
@@ -29,6 +29,4 @@ private:
 	// Rendering
 	std::unique_ptr<SDL_FRect> ActorRect = nullptr;
 	SDL_Color ActorColor = {255, 0, 0, 255};
-	
-	
 };
