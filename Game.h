@@ -4,6 +4,7 @@
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_events.h>
 #include "CombaramaStructs.h"
+#include "Actor.h"
 
 
 
@@ -25,19 +26,12 @@ public:
 
 	//Renderer
 	void ComposeFrame();
-	void DrawFrame();
+	void RenderFrame();
 
-
-	//Player
-	void SpawnPlayer();
-	void UpdateDirection(int xDir, int yDir);
-	void UpdatePlayer();
 private:
 
 	SDL_Window* GameWindow = nullptr;
 	SDL_Renderer* GameRenderer = nullptr;
-
-	std::unique_ptr<SDL_FRect> Player = nullptr;
 
 	SDL_Event Event = SDL_Event();
 
@@ -51,11 +45,6 @@ private:
 	static constexpr int FPS = 60;
 	static constexpr int FrameDelay = 1000 / FPS;
 
-	int xVel = 0;
-	int yVel = 0;
+	std::unique_ptr<Actor> Player = nullptr;
 
-	int xCDir = 0;
-	int yCDir = 0;
-
-	int Speed = 1;
 };

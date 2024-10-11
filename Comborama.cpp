@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-
+    
 
     App GameApp;
     GameApp.Window = Window;

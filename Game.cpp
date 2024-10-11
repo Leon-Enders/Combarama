@@ -11,15 +11,15 @@ Game::Game(App& GameApp)
 	GameRenderer(GameApp.Renderer)
 {
 
-	
-
 }
 
 void Game::StartGame()
 {
 	IsGameActive = true;
 
-	SpawnPlayer();
+	Player = std::make_unique<Actor>(Vector2(255.f, 255.f));
+
+
 
 	while (IsGameActive)
 	{
@@ -57,70 +57,48 @@ void Game::ProcessInput()
 
 	const bool* keyStates = SDL_GetKeyboardState(NULL);
 
-	UpdateDirection(0, 0);
+	Vector2 NextVelocity = { 0,0 };
 	
 	if (keyStates[SDL_SCANCODE_W]) {
-		UpdateDirection(0, -1);
-	}
-	if (keyStates[SDL_SCANCODE_A]) {
-		UpdateDirection(-1, 0);
+		NextVelocity.Y = -1;
 	}
 	if (keyStates[SDL_SCANCODE_S]) {
-		UpdateDirection(0, 1);
+		NextVelocity.Y = 1;
+	}
+	if (keyStates[SDL_SCANCODE_A]) {
+		NextVelocity.X = -1;
 	}
 	if (keyStates[SDL_SCANCODE_D]) {
-		UpdateDirection(1, 0);
+		NextVelocity.X = 1;
 	}
 	
+
+
+	Player->UpdateVelocity(NextVelocity.Normalize());
 }
 
 void Game::Update()
 {
-	UpdatePlayer();
+	Player->Update(DeltaTime);
 }
 
 void Game::Render()
 {
 	ComposeFrame();
-	DrawFrame();
+	RenderFrame();
 }
 
 void Game::ComposeFrame()
 {
+	// Clear BackBuffer
 	SDL_SetRenderDrawColor(GameRenderer, 0, 0, 0, 0);
 	SDL_RenderClear(GameRenderer);
+
+	// Draw Player
+	Player->Draw(GameWindow, GameRenderer);
 }
 
-void Game::DrawFrame()
+void Game::RenderFrame()
 {
-
-	SDL_SetRenderDrawColor(GameRenderer, 0, 143, 190, 255);
-	SDL_RenderFillRect(GameRenderer, Player.get());
 	SDL_RenderPresent(GameRenderer);
-
-}
-
-void Game::SpawnPlayer()
-{
-	SDL_SetRenderDrawColor(GameRenderer, 0, 143, 190, 255);
-	const SDL_FRect PlayerRect = { 255, 255, 64, 64 };
-	
-	Player = std::make_unique<SDL_FRect>(PlayerRect);
-
-}
-
-void Game::UpdateDirection(int xDir, int yDir)
-{
-	xCDir = xDir;
-	yCDir = yDir;
-}
-
-void Game::UpdatePlayer()
-{
-	xVel = xCDir * DeltaTime * Speed;
-	yVel = yCDir * DeltaTime * Speed;
-
-
-	Player->x += xVel;
-	Player->y += yVel;
 }
