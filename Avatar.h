@@ -1,0 +1,23 @@
+#pragma once
+#include "SDL3/SDL_render.h"
+#include "vector"
+#include "PrimitiveHelpers.h"
+#include "Vector2.h"
+
+class Avatar
+{
+public:
+	Avatar(const Vector2& InPosition);
+
+	void Draw(SDL_Renderer* Renderer);
+
+private:
+	
+	Vector2 Position;
+
+	static constexpr float Radius = 25.f;
+	static constexpr float HeadWidth = 25.f;
+	static constexpr float HeadHeight = 15.f;
+
+	std::vector<SDL_Vertex> Triangles;
+};

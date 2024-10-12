@@ -140,11 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Avatar.cpp" />
     <ClCompile Include="Comborama.cpp" />
     <ClCompile Include="Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="Avatar.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="CombaramaStructs.h" />
     <ClInclude Include="PrimitiveHelpers.h" />

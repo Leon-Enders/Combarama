@@ -4,6 +4,7 @@
 
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <vector>
 
 
 
@@ -64,6 +65,14 @@ public:
 		{
 			Vert.position.x += DeltaX;
 			Vert.position.y += DeltaY;
+		}
+	}
+
+	void GetTriangles(std::vector<SDL_Vertex>& OutTriangles)
+	{
+		for (const auto& Vert : Triangles)
+		{
+			OutTriangles.push_back(Vert);
 		}
 	}
 
@@ -145,6 +154,13 @@ public:
 		{
 			Vert.position.x += DeltaX;
 			Vert.position.y += DeltaY;
+		}
+	}
+	void GetTriangles(std::vector<SDL_Vertex> OutTriangles)
+	{
+		for (const auto& Vert : Triangles)
+		{
+			OutTriangles.push_back(Vert);
 		}
 	}
 
