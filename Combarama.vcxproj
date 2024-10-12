@@ -147,6 +147,7 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="CombaramaStructs.h" />
+    <ClInclude Include="PrimitiveHelpers.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
