@@ -5,6 +5,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <vector>
+#include "Vector2.h"
 
 
 
@@ -22,10 +23,11 @@ public:
 	};
 
 
-	void InitializeCircle()
+	void InitializeCircle(SDL_Vertex* OutTriangles = nullptr, int Offset = 0)
 	{
-		// Populate Circle Verts for set Segments
+		if (Segments <= 0) return;
 
+		// Populate Circle Verts for Segments
 		float AngleStep = 360 / Segments;
 		for (int i = 0; i < Segments; i++)
 		{
@@ -38,12 +40,24 @@ public:
 			Vertices[i].color = Color;
 		}
 
-		// Triangulate Circle
+		
+		if (OutTriangles != nullptr)
+		{
+			Triangulate(OutTriangles, Offset);
+		}
+		else
+		{
+			Triangulate(Triangles);  
+		}
+	}
+
+	void Triangulate(SDL_Vertex* Target, int Offset = 0)
+	{
 		for (int i = 0; i < Segments; i++)
 		{
-			Triangles[i * 3] = Center;
-			Triangles[i * 3 + 1] = Vertices[i];
-			Triangles[i * 3 + 2] = Vertices[(i + 1) % Segments];
+			Target[Offset + i * 3] = Center;
+			Target[Offset + i * 3 + 1] = Vertices[i];
+			Target[Offset + i * 3 + 2] = Vertices[(i + 1) % Segments];
 		}
 	}
 
@@ -53,28 +67,7 @@ public:
 		SDL_RenderGeometry(Renderer, NULL, Triangles, TriangleVerts, NULL, 0);
 	}
 
-	void UpdatePosition(const Vector2& NewPosition)
-	{
-		float DeltaX = NewPosition.X - Center.position.x;
-		float DeltaY = NewPosition.Y - Center.position.y;
-
-		Center.position.x = NewPosition.X;
-		Center.position.y = NewPosition.Y;
-
-		for (auto& Vert : Triangles)
-		{
-			Vert.position.x += DeltaX;
-			Vert.position.y += DeltaY;
-		}
-	}
-
-	void GetTriangles(std::vector<SDL_Vertex>& OutTriangles)
-	{
-		for (const auto& Vert : Triangles)
-		{
-			OutTriangles.push_back(Vert);
-		}
-	}
+	static constexpr int GetVertNumber() { return TriangleVerts; }
 
 private:
 
@@ -104,8 +97,10 @@ public:
 	};
 
 
-	void InitializeRectangle()
+	void InitializeRectangle(SDL_Vertex* OutTriangles = nullptr, int Offset = 0)
 	{
+		//Populate Rectangle Verts
+
 		float HalfWidth = Width / 2;
 		float HalfHeight = Height / 2;
 
@@ -127,52 +122,42 @@ public:
 		Vertices[3].color = Color;
 
 		
-		Triangles[0] = Vertices[0];
-		Triangles[1] = Vertices[1];
-		Triangles[2] = Vertices[2];
-		Triangles[3] = Vertices[3];
-		Triangles[4] = Vertices[2];
-		Triangles[5] = Vertices[1];
+		if (OutTriangles != nullptr)
+		{
+			Triangulate(OutTriangles, Offset);
+		}
+		else
+		{
+			Triangulate(Triangles);
+		}
+	}
+
+	void Triangulate(SDL_Vertex* Target, int Offset = 0)
+	{
+		Target[Offset + 0] = Vertices[0];
+		Target[Offset + 1] = Vertices[1];
+		Target[Offset + 2] = Vertices[2];
+		Target[Offset + 3] = Vertices[3];
+		Target[Offset + 4] = Vertices[2];
+		Target[Offset + 5] = Vertices[1];
 		
 	}
 
-
-	void Draw(SDL_Renderer* Renderer)
+	void Draw(SDL_Renderer* Renderer)const
 	{
 		SDL_RenderGeometry(Renderer, NULL, Triangles, TriangleVerts, NULL, 0);
 	}
 
-	void UpdatePosition(const Vector2& NewPosition)
-	{
-		float DeltaX = NewPosition.X - Center.position.x;
-		float DeltaY = NewPosition.Y - Center.position.y - 25.f;
 
-		Center.position.x = NewPosition.X;
-		Center.position.y = NewPosition.Y - 25.f;
-
-		for (auto& Vert : Triangles)
-		{
-			Vert.position.x += DeltaX;
-			Vert.position.y += DeltaY;
-		}
-	}
-	void GetTriangles(std::vector<SDL_Vertex> OutTriangles)
-	{
-		for (const auto& Vert : Triangles)
-		{
-			OutTriangles.push_back(Vert);
-		}
-	}
+	static constexpr int GetVertNumber() { return TriangleVerts; }
+	
 
 private:
-
-	
 	float Width;
 	float Height;
 
 	SDL_Vertex Center;
 	SDL_FColor Color;
-
 
 	static constexpr int VertNum = 4;
 	static constexpr int TriangleVerts = 6;
