@@ -11,7 +11,7 @@ Avatar::Avatar(const Vector2& InPosition)
 	SDL_FColor BodyColor = { 0.f,0.2f,1.f, 1.f };
 
 	Circle ACircle = Circle(Radius, CircleCenter, BodyColor);
-	ACircle.InitializeCircle(Triangles);
+	ACircle.Initialize(Triangles);
 
 
 
@@ -22,7 +22,7 @@ Avatar::Avatar(const Vector2& InPosition)
 	SDL_FColor HeadColor = { 0.f, 0.3f,0.6f,1.f };
 
 	Rectangle ARect = Rectangle(RectCenter, HeadWidth, HeadHeight, HeadColor);
-	ARect.InitializeRectangle(Triangles, Circle::GetVertNumber());
+	ARect.Initialize(Triangles, Circle::GetVertNumber());
 
 }
 void Avatar::Draw(SDL_Renderer* Renderer)

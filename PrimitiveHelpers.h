@@ -7,10 +7,17 @@
 #include <vector>
 #include "Vector2.h"
 
+class  PrimitiveShape
+{
+protected:
+
+	virtual void Initialize(SDL_Vertex* OutTriangles = nullptr, int Offset = 0) = 0;
+	virtual void Triangulate(SDL_Vertex* Target, int Offset = 0) = 0;
+	virtual void Draw(SDL_Renderer* Renderer)const = 0;
+};
 
 
-
-class Circle
+class Circle : public PrimitiveShape
 {
 public:
 	Circle(float InRadius, SDL_Vertex InCenter, SDL_FColor InColor)
@@ -23,7 +30,7 @@ public:
 	};
 
 
-	void InitializeCircle(SDL_Vertex* OutTriangles = nullptr, int Offset = 0)
+	void Initialize(SDL_Vertex* OutTriangles = nullptr, int Offset = 0) override
 	{
 		if (Segments <= 0) return;
 
@@ -51,7 +58,7 @@ public:
 		}
 	}
 
-	void Triangulate(SDL_Vertex* Target, int Offset = 0)
+	void Triangulate(SDL_Vertex* Target, int Offset = 0) override
 	{
 		for (int i = 0; i < Segments; i++)
 		{
@@ -62,7 +69,7 @@ public:
 	}
 
 
-	void Draw(SDL_Renderer* Renderer)
+	void Draw(SDL_Renderer* Renderer)const override
 	{
 		SDL_RenderGeometry(Renderer, NULL, Triangles, TriangleVerts, NULL, 0);
 	}
@@ -83,7 +90,7 @@ private:
 	SDL_Vertex Triangles[TriangleVerts];
 };
 
-class Rectangle
+class Rectangle : public PrimitiveShape
 {
 public:
 	Rectangle(SDL_Vertex InCenter,float InWidth, float InHeight, SDL_FColor InColor)
@@ -97,7 +104,7 @@ public:
 	};
 
 
-	void InitializeRectangle(SDL_Vertex* OutTriangles = nullptr, int Offset = 0)
+	virtual void Initialize(SDL_Vertex* OutTriangles = nullptr, int Offset = 0) override
 	{
 		//Populate Rectangle Verts
 
@@ -132,7 +139,7 @@ public:
 		}
 	}
 
-	void Triangulate(SDL_Vertex* Target, int Offset = 0)
+	virtual void Triangulate(SDL_Vertex* Target, int Offset = 0) override
 	{
 		Target[Offset + 0] = Vertices[0];
 		Target[Offset + 1] = Vertices[1];
@@ -143,7 +150,7 @@ public:
 		
 	}
 
-	void Draw(SDL_Renderer* Renderer)const
+	virtual void Draw(SDL_Renderer* Renderer)const override
 	{
 		SDL_RenderGeometry(Renderer, NULL, Triangles, TriangleVerts, NULL, 0);
 	}
