@@ -32,13 +32,11 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    
-
     App GameApp;
     GameApp.Window = Window;
     GameApp.Renderer = Renderer;
-
-
+    
+    
     Game NewGame = Game(GameApp);
     NewGame.StartGame();
 

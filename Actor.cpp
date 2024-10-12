@@ -5,9 +5,21 @@ Actor::Actor(const Vector2& InPosition)
 	:
 	Position(InPosition)
 {
-	const SDL_FRect Rect = { Position.X, Position.Y, Width, Height };
-	
-	ActorRect = std::make_unique<SDL_FRect>(Rect);
+	Awake();
+}
+
+void Actor::Awake()
+{
+	// Create Circle as visual representation for actor
+	SDL_Vertex Center;
+	Center.position.x = Position.X;
+	Center.position.y = Position.Y;
+
+
+	Circle ACircle = Circle(Radius, Center, ActorColor);
+	ACircle.InitializeCircle();
+
+	ActorCircle = std::make_unique<Circle>(ACircle);
 }
 
 void Actor::UpdateVelocity(const Vector2& NewVelocity)
@@ -19,12 +31,10 @@ void Actor::Update(float DeltaTime)
 {
 	Position += Velocity * DeltaTime;
 
-	ActorRect->x = Position.X;
-	ActorRect->y = Position.Y;
+	ActorCircle->UpdatePosition(Position);
 }
 
-void Actor::Draw(SDL_Window* GameWindow, SDL_Renderer* GameRenderer)
+void Actor::Draw(SDL_Renderer* GameRenderer)
 {
-	SDL_SetRenderDrawColor(GameRenderer, ActorColor.r, ActorColor.g, ActorColor.b, ActorColor.a);
-	SDL_RenderFillRect(GameRenderer, ActorRect.get());
+	ActorCircle->Draw(GameRenderer);
 }

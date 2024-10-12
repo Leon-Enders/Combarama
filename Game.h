@@ -50,6 +50,6 @@ private:
 
 	std::unique_ptr<Actor> Player = nullptr;
 
-	std::vector<std::unique_ptr<Actor>> Actors;
+	//std::vector<std::unique_ptr<Actor>> Actors;
 
 };

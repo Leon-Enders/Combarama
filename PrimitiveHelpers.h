@@ -47,9 +47,17 @@ public:
 	}
 
 
-	void Draw(SDL_Renderer* Renderer, SDL_Window* Window)
+	void Draw(SDL_Renderer* Renderer)
 	{
 		SDL_RenderGeometry(Renderer, NULL, Triangles, segments * 3, NULL, 0);
+	}
+
+	void UpdatePosition(const Vector2& NewPosition)
+	{
+		Center.position.x = NewPosition.X;
+		Center.position.y = NewPosition.Y;
+
+		InitializeCircle();
 	}
 
 private:

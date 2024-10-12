@@ -35,7 +35,6 @@ void Game::StartGame()
 			SDL_Delay(FrameDelay - FrameTime);
 		}
 	}
-	
 }
 
 void Game::HandleGameLoop()
@@ -99,17 +98,17 @@ void Game::Render()
 void Game::ComposeFrame()
 {
 	// Clear BackBuffer
-	SDL_SetRenderDrawColor(GameRenderer, 0, 0, 0, 0);
+	SDL_SetRenderDrawColor(GameRenderer, 0, 0, 0, 255);
 	SDL_RenderClear(GameRenderer);
 
 	// Draw Player
-	Player->Draw(GameWindow, GameRenderer);
+	Player->Draw(GameRenderer);
 
 	// Draw all Spawned Actors
-	for (const auto& SpawnedActor : Actors)
-	{
-		SpawnedActor->Draw(GameWindow, GameRenderer);
-	}
+	//for (const auto& SpawnedActor : Actors)
+	//{
+	//	SpawnedActor->Draw(GameRenderer);
+	//}
 }
 
 void Game::RenderFrame()
@@ -119,5 +118,5 @@ void Game::RenderFrame()
 
 void Game::SpawnActor()
 {
-	Actors.push_back(std::make_unique<Actor>(Vector2(255.f, 255.f)));
+	//Actors.push_back(std::make_unique<Actor>(Vector2(255.f, 255.f)));
 }
