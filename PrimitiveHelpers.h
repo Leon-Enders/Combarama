@@ -2,56 +2,47 @@
 #include <SDL3/SDL_render.h>
 #include <cmath>
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
+
+
+
 class Circle
 {
 public:
-	Circle() {};
+	Circle(float InRadius, SDL_Vertex InCenter, SDL_FColor InColor)
+		:
+		Radius(InRadius),
+		Center(InCenter),
+		Color(InColor)
+	{
+		Center.color = Color;
+	};
 
 
 	void InitializeCircle()
 	{
-		// Populate Circle Verts for given segments
+		// Populate Circle Verts for set segments
 
 		float AngleStep = 360 / segments;
 		for (int i = 0; i < segments; i++)
 		{
-			float CurrentAngle = AngleStep * i;
+			float CurrentAngle = AngleStep * i * (M_PI / 180.f);
 
-			SDL_FPoint NewVertexPoint = { std::cos(CurrentAngle) * Radius + Center.x, std::sin(CurrentAngle) * Radius + Center.y};
-			Vertices[i].position = NewVertexPoint;
-			Vertices[i].color = CircleColor;
+
+			Vertices[i].position.x = Center.position.x + Radius * cos(CurrentAngle);
+			Vertices[i].position.y = Center.position.y + Radius * sin(CurrentAngle);
+
+			Vertices[i].color = Color;
 		}
 
-		int TriangleCounter = 0;
 		// Triangulate Circle
-		for (int i = 0; i < segments * 3; i++)
+		for (int i = 0; i < segments; i++)
 		{
-
-			// Blank VertexPoint
-			SDL_FPoint NewVertexPoint;
-
-			// Add Correct Vertice to TriangleVertices
-			switch (TriangleCounter)
-			{
-			case 0:
-				NewVertexPoint = Center;
-				break;
-			case 1:
-				NewVertexPoint = Vertices[i - 2].position;
-				break;
-			case 2:
-				NewVertexPoint = Vertices[i - 1].position;
-				break;
-			}
-			
-			TriangleCounter++;
-			if (TriangleCounter >= 3)
-			{
-				TriangleCounter = 0;
-			}
-
-			Triangles[i].position = NewVertexPoint;
-			Triangles[i].color = CircleColor;
+			Triangles[i * 3] = Center;
+			Triangles[i * 3 + 1] = Vertices[i];
+			Triangles[i * 3 + 2] = Vertices[(i + 1) % segments];
 		}
 	}
 
@@ -63,12 +54,12 @@ public:
 
 private:
 
-	SDL_FPoint Center = { 255, 255 };
-	int Radius = 64;
+	int Radius = 0;
+	SDL_Vertex Center;
+	SDL_FColor Color;
 
 
 	static constexpr int segments = 120;
-	static constexpr SDL_FColor CircleColor = { 1.f, 0.f, 0.f, 1.f };
 
 	SDL_Vertex Vertices[segments];
 	SDL_Vertex Triangles[segments * 3];
