@@ -23,7 +23,7 @@ void Game::StartGame()
 
 	while (IsGameActive)
 	{
-		DeltaTime = SDL_GetTicks() - FrameStart;
+		DeltaTime = static_cast<float>(SDL_GetTicks() - FrameStart);
 		FrameStart = SDL_GetTicks();
 
 		HandleGameLoop();
@@ -32,7 +32,7 @@ void Game::StartGame()
 
 		if (FrameDelay > FrameTime)
 		{
-			SDL_Delay(FrameDelay - FrameTime);
+			SDL_Delay(FrameDelay - static_cast<Uint32>(FrameTime));
 		}
 	}
 }

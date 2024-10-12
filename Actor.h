@@ -32,5 +32,6 @@ private:
 
 	// Rendering
 	std::unique_ptr<Circle> ActorCircle = nullptr;
+	std::unique_ptr<Rectangle> ActorRectangle = nullptr;
 	SDL_FColor ActorColor = { 0.f,0.2f,1.f, 1.f};
 };

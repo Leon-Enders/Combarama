@@ -41,8 +41,8 @@ private:
 	bool IsGameActive = false;
 
 	Uint64 FrameStart = 0;
-	int FrameTime = 0;
-	int DeltaTime = 0;
+	Uint64 FrameTime = 0;
+	float DeltaTime = 0;
 
 
 	static constexpr int FPS = 60;
