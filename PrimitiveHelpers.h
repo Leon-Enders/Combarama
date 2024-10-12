@@ -54,10 +54,17 @@ public:
 
 	void UpdatePosition(const Vector2& NewPosition)
 	{
+		float DeltaX = NewPosition.X - Center.position.x;
+		float DeltaY = NewPosition.Y - Center.position.y;
+
 		Center.position.x = NewPosition.X;
 		Center.position.y = NewPosition.Y;
 
-		InitializeCircle();
+		for (auto& Vert : Triangles)
+		{
+			Vert.position.x += DeltaX;
+			Vert.position.y += DeltaY;
+		}
 	}
 
 private:
