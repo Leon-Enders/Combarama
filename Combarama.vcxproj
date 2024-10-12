@@ -18,6 +18,23 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Actor.cpp" />
+    <ClCompile Include="Source\Avatar.cpp" />
+    <ClCompile Include="Source\Comborama.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Actor.h" />
+    <ClInclude Include="Source\Avatar.h" />
+    <ClInclude Include="Source\CombaramaStructs.h" />
+    <ClInclude Include="Source\Game.h" />
+    <ClInclude Include="Source\PrimitiveHelpers.h" />
+    <ClInclude Include="Source\Vector2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\BackGround.bmp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -138,20 +155,6 @@
       <AdditionalDependencies>SDL3.lib;SDL3_test.lib;SDL3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Avatar.cpp" />
-    <ClCompile Include="Comborama.cpp" />
-    <ClCompile Include="Game.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="Avatar.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="CombaramaStructs.h" />
-    <ClInclude Include="PrimitiveHelpers.h" />
-    <ClInclude Include="Vector2.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
