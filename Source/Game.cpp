@@ -12,7 +12,8 @@ Game::Game(App& GameApp)
 	GameWindow(GameApp.Window),
 	GameRenderer(GameApp.Renderer)
 {
-
+	const char* BasePath = SDL_GetBasePath();
+	ImagePath = std::string(BasePath) + "../../Assets/BackGround.bmp";
 }
 
 void Game::StartGame()
@@ -133,10 +134,8 @@ void Game::SpawnActor()
 
 void Game::LoadBackground()
 {
-	auto* basePath = SDL_GetBasePath();
-	SDL_Log("Base Path: %s", basePath);
-
-	SDL_Surface* BackgroundSurface = SDL_LoadBMP("BackGround.bmp");
+	
+	SDL_Surface* BackgroundSurface = SDL_LoadBMP(ImagePath.c_str());
 
 	if (!BackgroundSurface)
 	{
