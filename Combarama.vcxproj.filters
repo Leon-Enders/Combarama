@@ -27,7 +27,9 @@
     <ClCompile Include="Source\Input\InputSystem.cpp">
       <Filter>Source\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Controller.cpp" />
+    <ClCompile Include="Source\Controller.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
