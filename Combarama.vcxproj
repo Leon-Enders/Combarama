@@ -25,6 +25,7 @@
     <ClCompile Include="Source\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Source\Actor.h" />
     <ClInclude Include="Source\Avatar.h" />
     <ClInclude Include="Source\CombaramaStructs.h" />

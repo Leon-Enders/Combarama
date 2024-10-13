@@ -54,15 +54,17 @@ void Game::ProcessInput()
 	SDL_Event Event;
 	while (SDL_PollEvent(&Event))
 	{
+		
 		if (Event.type == SDL_EVENT_QUIT)
 		{
 			IsGameActive = false;
 		}
 		if (Event.type == SDL_EVENT_KEY_DOWN)
 		{
+			
 			if (Event.key.key == SDLK_SPACE)
 			{
-				SpawnActor();
+				// Do something
 			}
 		}
 	}
@@ -106,20 +108,12 @@ void Game::ComposeFrame()
 	SDL_SetRenderDrawColor(GameRenderer, 0, 0, 0, 255);
 	SDL_RenderClear(GameRenderer);
 
-	// Draw Player
-
-
+	//TODO: Refactor this into Level
 	const SDL_FRect BackGround = { 0.f,0.f,1920.f,1080.f};
-
 	SDL_RenderTexture(GameRenderer, GameBackground, &BackGround, NULL);
 
 	Player->Draw(GameRenderer);
 
-	// Draw all Spawned Actors
-	//for (const auto& SpawnedActor : Actors)
-	//{
-	//	SpawnedActor->Draw(GameRenderer);
-	//}
 }
 
 void Game::RenderFrame()
@@ -127,10 +121,6 @@ void Game::RenderFrame()
 	SDL_RenderPresent(GameRenderer);
 }
 
-void Game::SpawnActor()
-{
-	//Actors.push_back(std::make_unique<Actor>(Vector2(255.f, 255.f)));
-}
 
 void Game::LoadBackground()
 {

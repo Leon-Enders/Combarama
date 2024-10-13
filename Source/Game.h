@@ -30,9 +30,6 @@ public:
 	void ComposeFrame();
 	void RenderFrame();	
 
-
-	//Test
-	void SpawnActor();
 	void LoadBackground();
 private:
 

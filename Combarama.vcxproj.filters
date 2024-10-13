@@ -41,6 +41,7 @@
     <ClInclude Include="Source\CombaramaStructs.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="InputComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">
