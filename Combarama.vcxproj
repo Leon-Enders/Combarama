@@ -22,12 +22,15 @@
     <ClCompile Include="Source\Actor.cpp" />
     <ClCompile Include="Source\Avatar.cpp" />
     <ClCompile Include="Source\Comborama.cpp" />
+    <ClCompile Include="Source\Controller.cpp" />
     <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\Input\InputSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Actor.h" />
     <ClInclude Include="Source\Avatar.h" />
     <ClInclude Include="Source\CombaramaStructs.h" />
+    <ClInclude Include="Source\Controller.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\Input\InputComponent.h" />
     <ClInclude Include="Source\Input\InputSystem.h" />

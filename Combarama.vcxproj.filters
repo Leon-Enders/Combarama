@@ -24,6 +24,10 @@
     <ClCompile Include="Source\Avatar.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Input\InputSystem.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -49,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="Source\Input\InputSystem.h">
       <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Controller.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

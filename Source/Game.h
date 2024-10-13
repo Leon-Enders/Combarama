@@ -7,8 +7,7 @@
 #include <SDL3/SDL_events.h>
 #include "CombaramaStructs.h"
 #include "Actor.h"
-
-
+#include "Controller.h"
 
 
 class Game
@@ -48,9 +47,6 @@ private:
 	static constexpr int FrameDelay = 1000 / FPS;
 
 	std::unique_ptr<Actor> Player = nullptr;
+	std::unique_ptr<Controller> PlayerController = nullptr;
 	std::string ImagePath;
-
-	//std::vector<std::unique_ptr<Actor>> Actors;
-
-	std::unique_ptr<InputComponent> PlayerInputComponent = nullptr;
 };

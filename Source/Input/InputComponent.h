@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <memory>
 #include <functional>
+#include "InputSystem.h"
 
 
 class InputAction
@@ -80,9 +81,16 @@ public:
 
 		//Test Actions
 		ActionContext->AddInputAction(SDLK_SPACE, Action);
+
+		InputSystem::Get().AddInputComponent(this);
 	}
 
-	void AddInputEvent(const SDL_Event& InputEvent)
+	~InputComponent()
+	{
+		InputSystem::Get().RemoveInputComponent(this);
+	}
+
+	void ReceiveInputEvent(const SDL_Event& InputEvent)
 	{
 		ProcessedInputEvents.push_back(InputEvent);
 	}

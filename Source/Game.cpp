@@ -4,7 +4,7 @@
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_surface.h>
 #include <SDL3/SDL_filesystem.h>
-
+#include "Input/InputSystem.h"
 
 
 Game::Game(App& GameApp)
@@ -14,16 +14,16 @@ Game::Game(App& GameApp)
 {
 	const char* BasePath = SDL_GetBasePath();
 	ImagePath = std::string(BasePath) + "../../Assets/BackGround.bmp";
+	
 }
 
 void Game::StartGame()
 {
 	IsGameActive = true;
 	LoadBackground();
-	
-	Player = std::make_unique<Actor>(Vector2(255.f, 255.f));
 
-	
+	PlayerController = std::make_unique<Controller>();
+	Player = std::make_unique<Actor>(Vector2(255.f, 255.f));
 
 
 	while (IsGameActive)
@@ -61,15 +61,16 @@ void Game::ProcessInput()
 		}
 		if (Event.type == SDL_EVENT_KEY_DOWN)
 		{
-			Player->AddInput(Event);
+			//Player->AddInput(Event);
 			if (Event.key.key == SDLK_SPACE)
 			{
-				// Do something
+				SDL_Log("Do I have an Delay?");
 			}
+			InputSystem::Get().ProcessInputEvent(Event);
 		}
 	}
 
-	Player->HandleInput();
+	InputSystem::Get().HandleInput();
 
 	const bool* keyStates = SDL_GetKeyboardState(NULL);
 

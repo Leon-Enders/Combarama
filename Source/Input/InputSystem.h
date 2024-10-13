@@ -1,13 +1,24 @@
 #pragma once
 #include <vector>
-#include "InputComponent.h"
+#include "SDL3/SDL_events.h"
 
-//TODO This class gets initialized when the game starts and handles Processing Input and delegating it to all InputComponents registered
+class InputComponent;
+
+//Singleton Class handeling Input for all InputComponents
 class InputSystem
 {
 public:
-	InputSystem(){}
+	static InputSystem& Get() { return SInputSystem; }
 
+	void ProcessInputEvent(const SDL_Event& InputEvent);
+	void HandleInput();
+
+	void AddInputComponent(InputComponent* InputComponentToAdd);
+	void RemoveInputComponent(InputComponent* InputComponentToRemove);
 private:
-	std::vector<InputComponent> InputComponents;
+	
+	
+	static InputSystem SInputSystem;
+
+	std::vector<InputComponent*> InputComponents;
 };
