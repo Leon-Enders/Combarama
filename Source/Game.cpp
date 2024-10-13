@@ -61,13 +61,15 @@ void Game::ProcessInput()
 		}
 		if (Event.type == SDL_EVENT_KEY_DOWN)
 		{
-			
+			Player->AddInput(Event);
 			if (Event.key.key == SDLK_SPACE)
 			{
 				// Do something
 			}
 		}
 	}
+
+	Player->HandleInput();
 
 	const bool* keyStates = SDL_GetKeyboardState(NULL);
 

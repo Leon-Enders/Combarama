@@ -52,4 +52,5 @@ private:
 
 	//std::vector<std::unique_ptr<Actor>> Actors;
 
+	std::unique_ptr<InputComponent> PlayerInputComponent = nullptr;
 };

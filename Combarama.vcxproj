@@ -25,11 +25,11 @@
     <ClCompile Include="Source\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Source\Actor.h" />
     <ClInclude Include="Source\Avatar.h" />
     <ClInclude Include="Source\CombaramaStructs.h" />
     <ClInclude Include="Source\Game.h" />
+    <ClInclude Include="Source\Input\InputComponent.h" />
     <ClInclude Include="Source\PrimitiveHelpers.h" />
     <ClInclude Include="Source\Vector2.h" />
   </ItemGroup>

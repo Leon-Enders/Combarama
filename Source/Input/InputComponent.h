@@ -38,7 +38,7 @@ public:
 		KeyToInputActionMap.insert(std::make_pair(KeyPressed, InputAction));
 	}
 
-	const InputAction* GetInputAction(SDL_Keycode KeyPressed)
+	InputAction* GetInputAction(SDL_Keycode KeyPressed)
 	{
 		auto Iterator = KeyToInputActionMap.find(KeyPressed);
 		if (Iterator != KeyToInputActionMap.end())
@@ -46,6 +46,7 @@ public:
 			return Iterator->second.get();
 		}
 		SDL_Log("InputAction not found");
+		return nullptr;
 	}
 
 private:
@@ -59,9 +60,12 @@ class InputComponent
 public:
 	InputComponent()
 	{
-		Action = std::make_shared<InputAction>(TestPrint);
+		Action = std::make_shared<InputAction>(std::bind(&InputComponent::TestPrint, this));
 
 		ActionContext = std::make_unique<InputActionContext>();
+		
+
+		//Test Actions
 		ActionContext->AddInputAction(SDLK_SPACE, Action);
 	}
 
@@ -69,6 +73,22 @@ public:
 	{
 		ProcessedInputEvents.push_back(InputEvent);
 	}
+
+	void HandleInput()
+	{
+		// Go through all processed Inputs and Try to Execute Input Actions which may bound to them
+		for (const auto& InputEvent : ProcessedInputEvents)
+		{
+			if (InputAction* CurrentInputAction = ActionContext->GetInputAction(InputEvent.key.key))
+			{
+				CurrentInputAction->Execute();
+			}
+		}
+
+		// Clear all Inputs
+		ProcessedInputEvents.clear();
+	}
+
 
 	void TestPrint()
 	{

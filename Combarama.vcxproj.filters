@@ -7,6 +7,9 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{36462288-7c9a-419b-8113-9e509cb64680}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Input">
+      <UniqueIdentifier>{714c0c4c-f659-4d87-a351-1d011f7f228d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Comborama.cpp">
@@ -41,7 +44,9 @@
     <ClInclude Include="Source\CombaramaStructs.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="Source\Input\InputComponent.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">
