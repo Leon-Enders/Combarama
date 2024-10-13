@@ -33,9 +33,10 @@ class InputActionContext
 public:
 	InputActionContext(){}
 
-	void AddInputAction(SDL_Keycode KeyPressed, const std::shared_ptr<InputAction>& InputAction)
+	void AddInputAction(SDL_Keycode KeyToBind, const std::shared_ptr<InputAction>& InputAction)
 	{
-		KeyToInputActionMap.insert(std::make_pair(KeyPressed, InputAction));
+		BoundKeys.push_back(KeyToBind);
+		KeyToInputActionMap.insert(std::make_pair(KeyToBind, InputAction));
 	}
 
 	InputAction* GetInputAction(SDL_Keycode KeyPressed)
@@ -49,7 +50,19 @@ public:
 		return nullptr;
 	}
 
+	const bool HasKeycode(const SDL_Keycode& KeyToCheck)const
+	{
+		for (const auto& KeyCode : BoundKeys)
+		{
+			if (KeyToCheck == KeyCode)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 private:
+	std::vector<SDL_Keycode> BoundKeys;
 	std::unordered_map<SDL_Keycode, std::shared_ptr<InputAction>> KeyToInputActionMap;
 };
 
@@ -79,10 +92,16 @@ public:
 		// Go through all processed Inputs and Try to Execute Input Actions which may bound to them
 		for (const auto& InputEvent : ProcessedInputEvents)
 		{
-			if (InputAction* CurrentInputAction = ActionContext->GetInputAction(InputEvent.key.key))
+			SDL_Keycode CurrentKey = InputEvent.key.key;
+
+			if (ActionContext->HasKeycode(CurrentKey))
 			{
-				CurrentInputAction->Execute();
+				if (InputAction* CurrentInputAction = ActionContext->GetInputAction(CurrentKey))
+				{
+					CurrentInputAction->Execute();
+				}
 			}
+			
 		}
 
 		// Clear all Inputs

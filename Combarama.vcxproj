@@ -30,6 +30,7 @@
     <ClInclude Include="Source\CombaramaStructs.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\Input\InputComponent.h" />
+    <ClInclude Include="Source\Input\InputSystem.h" />
     <ClInclude Include="Source\PrimitiveHelpers.h" />
     <ClInclude Include="Source\Vector2.h" />
   </ItemGroup>
