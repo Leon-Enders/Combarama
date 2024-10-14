@@ -44,31 +44,6 @@ struct std::hash<KeycodePackage>
 };
 
 
-//Helper struct binding keycodes to an Input Action
-//struct InputActionBinding
-//{
-//	InputActionBinding() = default;
-//
-//	void AddInputAction(const std::shared_ptr<InputAction>& InInputAction)
-//	{
-//		Action = InInputAction;
-//	}
-//
-//	void AddKeyBind(SDL_Keycode KeyToBind, E_AxisMapping AxisMapping)
-//	{
-//		BoundKeys.push_back(KeyToBind);
-//		KeysToAxisMap.insert({ KeyToBind,AxisMapping });
-//	}
-//
-//	std::shared_ptr<InputAction> Action;
-//	std::vector<SDL_Keycode> BoundKeys;
-//
-//	std::unordered_map<SDL_Keycode, E_AxisMapping> KeysToAxisMap;
-//	
-//};
-
-
-
 class InputActionContext
 {
 public:
@@ -76,12 +51,6 @@ public:
 	{
 
 	}
-
-	//TODO: InputAction should get added by SDL_Event, Key is too specific
-	//TODO: Keycode is also too specific need something
-	// like a wrapper which can take multiple keys,
-	// then I can switch on keys and set InputActionValue
-	// for each Key case for a single Action
 	void AddInputActionBinding(KeycodePackage KeycodePackageToAdd, const std::shared_ptr<InputAction>& InputActionToAdd)
 	{
 		KeycodePackageToInputActions.insert({ KeycodePackageToAdd , InputActionToAdd });
@@ -90,6 +59,7 @@ public:
 		// populate keycode for KeycodePackageMap
 		for (const auto& KeycodeAxisPair : KeycodePackageToAdd.KeysToAxisMap)
 		{
+			BoundKeys.push_back(KeycodeAxisPair.first);
 			KeycodeToPackage.insert({ KeycodeAxisPair.first,KeycodePackageToAdd });
 		}
 	}

@@ -58,12 +58,13 @@ public:
 
 	void ReceiveReleaseKey(SDL_Event ReleaseEvent)
 	{
+		if (!ActionContext->HasKeycode(ReleaseEvent.key.key)) return;
+	
 		ProcessedReleasedKeys.push_back(ReleaseEvent.key.key);
 	}
 
 	void HandleInput()
 	{
-		// Go through all processed Inputs and Try to Execute Input Actions which may bound to them
 		for (const auto& InputKey : ProcessedInputKeys)
 		{		
 			ActionContext->HandleKeyExecution(InputKey);
