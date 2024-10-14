@@ -45,7 +45,16 @@ public:
 			{
 				if (InputAction* CurrentInputAction = ActionContext->GetInputAction(CurrentKey))
 				{
-					CurrentInputAction->Execute();
+					switch (CurrentInputAction->GetActionValue())
+					{
+					case ActionValueType::None:
+						CurrentInputAction->Execute();
+						break;
+					case ActionValueType::Vector:
+						CurrentInputAction->Execute(UpVector);
+					default:
+						break;
+					}
 				}
 			}
 			
@@ -56,6 +65,8 @@ public:
 	}
 
 private:
+	Vector2 UpVector = Vector2(-1.f, 0.f);
+
 	std::vector<SDL_Event> ProcessedInputEvents;
 
 	InputActionContext* ActionContext = nullptr;

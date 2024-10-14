@@ -11,7 +11,7 @@ public:
 	Actor() {};
 	Actor(const Vector2& InPosition);
 
-	void UpdateVelocity(const Vector2& NewVelocity);
+	void UpdateVelocity(Vector2 NewVelocity);
 	void Update(float DeltaTime);
 
 	void Draw(SDL_Renderer* GameRenderer);

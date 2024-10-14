@@ -9,7 +9,7 @@ Actor::Actor(const Vector2& InPosition)
 	ActorAvatar = std::make_unique<Avatar>(Position);	
 }
 
-void Actor::UpdateVelocity(const Vector2& NewVelocity)
+void Actor::UpdateVelocity(Vector2 NewVelocity)
 {
 	Velocity = NewVelocity;
 }

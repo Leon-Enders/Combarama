@@ -24,7 +24,7 @@ void Game::StartGame()
 
 	PlayerController = std::make_unique<Controller>(this);
 	Player = std::make_unique<Actor>(Vector2(255.f, 255.f));
-
+	PlayerController->PossessActor(Player.get());
 
 	while (IsGameActive)
 	{
@@ -56,24 +56,24 @@ void Game::ProcessInput()
 
 	const bool* keyStates = SDL_GetKeyboardState(NULL);
 
-	Vector2 NextVelocity = { 0,0 };
-	
-	if (keyStates[SDL_SCANCODE_W]) {
-		NextVelocity.Y = -1;
-	}
-	if (keyStates[SDL_SCANCODE_S]) {
-		NextVelocity.Y = 1;
-	}
-	if (keyStates[SDL_SCANCODE_A]) {
-		NextVelocity.X = -1;
-	}
-	if (keyStates[SDL_SCANCODE_D]) {
-		NextVelocity.X = 1;
-	}
-	
-
-
-	Player->UpdateVelocity(NextVelocity.Normalize());
+	//Vector2 NextVelocity = { 0,0 };
+	//
+	//if (keyStates[SDL_SCANCODE_W]) {
+	//	NextVelocity.Y = -1;
+	//}
+	//if (keyStates[SDL_SCANCODE_S]) {
+	//	NextVelocity.Y = 1;
+	//}
+	//if (keyStates[SDL_SCANCODE_A]) {
+	//	NextVelocity.X = -1;
+	//}
+	//if (keyStates[SDL_SCANCODE_D]) {
+	//	NextVelocity.X = 1;
+	//}
+	//
+	//
+	//
+	//Player->UpdateVelocity(NextVelocity.Normalize());
 }
 
 void Game::Update()
