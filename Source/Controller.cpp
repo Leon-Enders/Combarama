@@ -36,9 +36,9 @@ void Controller::Move(const InputActionValue& Value)
 void Controller::Initialize()
 {
 	
-	ActionContext->AddInputAction(SDLK_ESCAPE, QuitAction);
+	//ActionContext->AddInputAction(SDLK_ESCAPE, QuitAction);
 
-	ActionContext->AddInputAction(SDLK_Q, MoveAction);
+	ActionContext->AddInputAction(MoveAction);
 
 
 	ControllerInputComponent->SetInputActionContext(ActionContext.get());

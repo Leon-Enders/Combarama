@@ -29,36 +29,85 @@ public:
 	}
 
 	//TODO: Before pushing input event filter if it is in the Action Context
-	void ReceiveInputEvent(const SDL_Event& InputEvent)
+	void ReceiveInputEvent(const bool* InputEvent)
 	{
-		ProcessedInputEvents.push_back(InputEvent);
+		if (InputEvent[SDL_SCANCODE_W])
+		{
+			ProcessedInputEvents.push_back(SDLK_W);
+		}
+		else if(!InputEvent[SDL_SCANCODE_A] && !InputEvent[SDL_SCANCODE_D] && !InputEvent[SDL_SCANCODE_S])
+		{
+			ProcessedInputReleases.push_back(SDLK_W);
+		}
+		if (InputEvent[SDL_SCANCODE_A])
+		{
+			ProcessedInputEvents.push_back(SDLK_A);
+		}
+		else if(!InputEvent[SDL_SCANCODE_W] && !InputEvent[SDL_SCANCODE_D] && !InputEvent[SDL_SCANCODE_S])
+		{
+			ProcessedInputReleases.push_back(SDLK_A);
+		}
+		if (InputEvent[SDL_SCANCODE_S])
+		{
+			ProcessedInputEvents.push_back(SDLK_S);
+		}
+		else if(!InputEvent[SDL_SCANCODE_A] && !InputEvent[SDL_SCANCODE_D] && !InputEvent[SDL_SCANCODE_W])
+		{
+			ProcessedInputReleases.push_back(SDLK_S);
+		}
+		if (InputEvent[SDL_SCANCODE_D])
+		{
+			ProcessedInputEvents.push_back(SDLK_D);
+		}
+		else if(!InputEvent[SDL_SCANCODE_A] && !InputEvent[SDL_SCANCODE_W] && !InputEvent[SDL_SCANCODE_S])
+		{
+			ProcessedInputReleases.push_back(SDLK_D);
+		}
 	}
+
+	
 
 	void HandleInput()
 	{
 		// Go through all processed Inputs and Try to Execute Input Actions which may bound to them
 		for (const auto& InputEvent : ProcessedInputEvents)
 		{
-			SDL_Keycode CurrentKey = InputEvent.key.key;
+			SDL_Keycode CurrentKey = InputEvent;
 
 			if (ActionContext->HasKeycode(CurrentKey))
 			{
 				if (InputAction* CurrentInputAction = ActionContext->GetInputAction(CurrentKey))
 				{
+					E_AxisMapping BoundAxis = ActionContext->KeyToAxisMap[CurrentKey];
+					CurrentInputAction->GetActionValue().UpdateValue(BoundAxis);
 					CurrentInputAction->Execute();
 				}
 			}
 			
 		}
+		for (const auto& InputRelease : ProcessedInputReleases)
+		{
+			SDL_Keycode CurrentKey = InputRelease;
+
+			if (ActionContext->HasKeycode(CurrentKey))
+			{
+				if (InputAction* CurrentInputAction = ActionContext->GetInputAction(CurrentKey))
+				{
+					CurrentInputAction->GetActionValue().ClearValue();
+					CurrentInputAction->Execute();
+				}
+			}
+		}
 
 		// Clear all Inputs
 		ProcessedInputEvents.clear();
+		ProcessedInputReleases.clear();
 	}
 
 private:
-	Vector2 UpVector = Vector2(-1.f, 0.f);
 
-	std::vector<SDL_Event> ProcessedInputEvents;
+	std::vector<SDL_Keycode> ProcessedInputEvents;
+	std::vector<SDL_Keycode> ProcessedInputReleases;
 
 	InputActionContext* ActionContext = nullptr;
 };

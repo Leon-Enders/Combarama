@@ -19,22 +19,40 @@ void InputSystem::CaptureInput()
 	{
 		if (Event.type == SDL_EVENT_KEY_DOWN)
 		{
-			if (Event.key.key == SDLK_SPACE)
-			{
-				SDL_Log("Do I have an Delay?");
-			}
-			SInputSystem.DispatchInputEvent(Event);
+			
 		}
+
 	}
+	const bool* keyStates = SDL_GetKeyboardState(NULL);
+
+	SInputSystem.DispatchInputEvent(keyStates);
+
 }
 
-void InputSystem::DispatchInputEvent(const SDL_Event& InputEvent)
+void InputSystem::DispatchInputEvent(const bool* InputEvent)
 {
 	for (auto& PlayerInputComponent : InputComponents)
-	{
-		PlayerInputComponent->ReceiveInputEvent(InputEvent);
-	}
+			{
+				PlayerInputComponent->ReceiveInputEvent(InputEvent);
+			}
 }
+
+//void InputSystem::DispatchInputEvent(const SDL_Event& InputEvent)
+//{
+//	for (auto& PlayerInputComponent : InputComponents)
+//	{
+//		PlayerInputComponent->ReceiveInputEvent(InputEvent);
+//	}
+//}
+
+//void InputSystem::DispatchInputRelease(const SDL_Event& InputEvent)
+//{
+//	for (auto& PlayerInputComponent : InputComponents)
+//	{
+//		PlayerInputComponent->ReceiveInputReleaase(InputEvent);
+//	}
+//}
+
 
 void InputSystem::ProcessInputComponents()
 {

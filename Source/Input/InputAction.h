@@ -29,7 +29,7 @@ public:
 			InputActionDelegate(ActionValue);
 		}
 	}
-	inline const InputActionValue& GetActionValue()const { return ActionValue; }
+	inline InputActionValue& GetActionValue() { return ActionValue; }
 
 private:
 	

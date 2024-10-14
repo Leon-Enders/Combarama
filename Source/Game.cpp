@@ -51,29 +51,7 @@ void Game::HandleGameLoop()
 
 void Game::ProcessInput()
 {
-
 	InputSystem::Get().HandleInput();
-
-	const bool* keyStates = SDL_GetKeyboardState(NULL);
-
-	//Vector2 NextVelocity = { 0,0 };
-	//
-	//if (keyStates[SDL_SCANCODE_W]) {
-	//	NextVelocity.Y = -1;
-	//}
-	//if (keyStates[SDL_SCANCODE_S]) {
-	//	NextVelocity.Y = 1;
-	//}
-	//if (keyStates[SDL_SCANCODE_A]) {
-	//	NextVelocity.X = -1;
-	//}
-	//if (keyStates[SDL_SCANCODE_D]) {
-	//	NextVelocity.X = 1;
-	//}
-	//
-	//
-	//
-	//Player->UpdateVelocity(NextVelocity.Normalize());
 }
 
 void Game::Update()
@@ -94,11 +72,9 @@ void Game::ComposeFrame()
 	SDL_RenderClear(GameRenderer);
 
 	//TODO: Refactor this into Level
-	const SDL_FRect BackGround = { 0.f,0.f,1920.f,1080.f};
 	SDL_RenderTexture(GameRenderer, GameBackground, &BackGround, NULL);
 
 	Player->Draw(GameRenderer);
-
 }
 
 void Game::RenderFrame()

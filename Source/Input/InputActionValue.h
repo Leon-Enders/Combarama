@@ -1,7 +1,13 @@
 #pragma once
 #include "../Vector2.h"
 
-
+enum E_AxisMapping
+{
+	Down,
+	Up,
+	Left,
+	Right
+};
 enum ActionValueType
 {
 	None,
@@ -29,6 +35,34 @@ struct InputActionValue
 			ValueType = Other.ValueType;
 		}
 		return *this;
+	}
+	void ClearValue()
+	{
+		Value.X = 0.f;
+		Value.Y = 0.f;
+	}
+
+	void UpdateValue(E_AxisMapping AxisToUpdate)
+	{
+		//if (ValueType != ActionValueType::Axis2D) return;
+
+		switch (AxisToUpdate)
+		{
+		case E_AxisMapping::Up:
+			Value.Y = -1.f;
+			break;
+		case E_AxisMapping::Down:
+			Value.Y = 1.f;
+			break;
+		case E_AxisMapping::Left:
+			Value.X = -1.f;
+			break;
+		case E_AxisMapping::Right:
+			Value.X = 1.f;
+			break;
+		default:
+			break;
+		}
 	}
 
 	bool IsNonZero(float Tolerance = 0.0001f) const { return Value.SizeSquared() >= Tolerance * Tolerance; };

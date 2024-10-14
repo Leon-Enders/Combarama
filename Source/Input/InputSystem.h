@@ -18,8 +18,9 @@ public:
 
 private:
 	void CaptureInput();
-	void DispatchInputEvent(const SDL_Event& InputEvent);
+	void DispatchInputEvent(const bool* InputEvent);
 	void ProcessInputComponents();
+	
 
 	static InputSystem SInputSystem;
 	std::vector<InputComponent*> InputComponents;
