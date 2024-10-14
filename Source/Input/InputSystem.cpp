@@ -17,41 +17,21 @@ void InputSystem::CaptureInput()
 	SDL_Event Event;
 	while (SDL_PollEvent(&Event))
 	{
-		if (Event.type == SDL_EVENT_KEY_DOWN)
-		{
-			
-		}
-
+		
 	}
-	const bool* keyStates = SDL_GetKeyboardState(NULL);
+	const bool* KeyState = SDL_GetKeyboardState(NULL);
 
-	SInputSystem.DispatchInputEvent(keyStates);
+	SInputSystem.DispatchKeyState(KeyState);
 
 }
 
-void InputSystem::DispatchInputEvent(const bool* InputEvent)
+void InputSystem::DispatchKeyState(const bool* KeyState)
 {
 	for (auto& PlayerInputComponent : InputComponents)
 			{
-				PlayerInputComponent->ReceiveInputEvent(InputEvent);
+				PlayerInputComponent->ReceiveKeyState(KeyState);
 			}
 }
-
-//void InputSystem::DispatchInputEvent(const SDL_Event& InputEvent)
-//{
-//	for (auto& PlayerInputComponent : InputComponents)
-//	{
-//		PlayerInputComponent->ReceiveInputEvent(InputEvent);
-//	}
-//}
-
-//void InputSystem::DispatchInputRelease(const SDL_Event& InputEvent)
-//{
-//	for (auto& PlayerInputComponent : InputComponents)
-//	{
-//		PlayerInputComponent->ReceiveInputReleaase(InputEvent);
-//	}
-//}
 
 
 void InputSystem::ProcessInputComponents()

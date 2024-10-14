@@ -10,6 +10,22 @@
 
 
 
+// Helper struct declaring all valid Keybindings
+struct KeyBindInfo
+{
+	KeyBindInfo()
+	{
+		KeyBindings.insert({
+			{SDL_SCANCODE_W, SDLK_W},
+			{SDL_SCANCODE_S, SDLK_S},
+			{SDL_SCANCODE_A, SDLK_A},
+			{SDL_SCANCODE_D, SDLK_D},
+			});
+	}
+
+	std::unordered_map<SDL_Scancode, SDL_Keycode> KeyBindings;
+};
+
 class InputComponent
 {
 public:
@@ -28,41 +44,16 @@ public:
 		ActionContext = InActionContext;
 	}
 
-	//TODO: Before pushing input event filter if it is in the Action Context
-	void ReceiveInputEvent(const bool* InputEvent)
+	
+	void ReceiveKeyState(const bool* KeyState)
 	{
-		if (InputEvent[SDL_SCANCODE_W])
+		for (const auto& KeyCodePair : KeyBindInfo.KeyBindings)
 		{
-			ProcessedInputEvents.push_back(SDLK_W);
-		}
-		else if(!InputEvent[SDL_SCANCODE_A] && !InputEvent[SDL_SCANCODE_D] && !InputEvent[SDL_SCANCODE_S])
-		{
-			ProcessedInputReleases.push_back(SDLK_W);
-		}
-		if (InputEvent[SDL_SCANCODE_A])
-		{
-			ProcessedInputEvents.push_back(SDLK_A);
-		}
-		else if(!InputEvent[SDL_SCANCODE_W] && !InputEvent[SDL_SCANCODE_D] && !InputEvent[SDL_SCANCODE_S])
-		{
-			ProcessedInputReleases.push_back(SDLK_A);
-		}
-		if (InputEvent[SDL_SCANCODE_S])
-		{
-			ProcessedInputEvents.push_back(SDLK_S);
-		}
-		else if(!InputEvent[SDL_SCANCODE_A] && !InputEvent[SDL_SCANCODE_D] && !InputEvent[SDL_SCANCODE_W])
-		{
-			ProcessedInputReleases.push_back(SDLK_S);
-		}
-		if (InputEvent[SDL_SCANCODE_D])
-		{
-			ProcessedInputEvents.push_back(SDLK_D);
-		}
-		else if(!InputEvent[SDL_SCANCODE_A] && !InputEvent[SDL_SCANCODE_W] && !InputEvent[SDL_SCANCODE_S])
-		{
-			ProcessedInputReleases.push_back(SDLK_D);
-		}
+			if (KeyState[KeyCodePair.first])
+			{
+				ProcessedInputKeys.push_back(KeyCodePair.second);
+			}
+		}		
 	}
 
 	
@@ -70,44 +61,35 @@ public:
 	void HandleInput()
 	{
 		// Go through all processed Inputs and Try to Execute Input Actions which may bound to them
-		for (const auto& InputEvent : ProcessedInputEvents)
-		{
-			SDL_Keycode CurrentKey = InputEvent;
-
-			if (ActionContext->HasKeycode(CurrentKey))
-			{
-				if (InputAction* CurrentInputAction = ActionContext->GetInputAction(CurrentKey))
-				{
-					E_AxisMapping BoundAxis = ActionContext->KeyToAxisMap[CurrentKey];
-					CurrentInputAction->GetActionValue().UpdateValue(BoundAxis);
-					CurrentInputAction->Execute();
-				}
-			}
-			
+		for (const auto& InputKey : ProcessedInputKeys)
+		{		
+			ActionContext->HandleKeyExecution(InputKey);
 		}
-		for (const auto& InputRelease : ProcessedInputReleases)
-		{
-			SDL_Keycode CurrentKey = InputRelease;
 
-			if (ActionContext->HasKeycode(CurrentKey))
-			{
-				if (InputAction* CurrentInputAction = ActionContext->GetInputAction(CurrentKey))
-				{
-					CurrentInputAction->GetActionValue().ClearValue();
-					CurrentInputAction->Execute();
-				}
-			}
-		}
+		//for (const auto& InputRelease : ProcessedReleasedKeys)
+		//{
+		//	SDL_Keycode CurrentKey = InputRelease;
+		//
+		//	const KeycodePackage CurrentKeyPackage = ActionContext->GetKeyCodePackage(CurrentKey);
+		//	const E_AxisMapping BoundAxis = CurrentKeyPackage.KeysToAxisMap[CurrentKey];
+		//
+		//		if (InputAction* CurrentInputAction = ActionContext->GetInputAction(CurrentKeyPackage))
+		//		{
+		//			CurrentInputAction->GetActionValue().ClearValue();
+		//			CurrentInputAction->Execute();
+		//		}
+		//}
 
 		// Clear all Inputs
-		ProcessedInputEvents.clear();
-		ProcessedInputReleases.clear();
+		ProcessedInputKeys.clear();
+		//ProcessedReleasedKeys.clear();
 	}
 
 private:
 
-	std::vector<SDL_Keycode> ProcessedInputEvents;
-	std::vector<SDL_Keycode> ProcessedInputReleases;
+	std::vector<SDL_Keycode> ProcessedInputKeys;
+	std::vector<SDL_Keycode> ProcessedReleasedKeys;
 
 	InputActionContext* ActionContext = nullptr;
+	KeyBindInfo KeyBindInfo;
 };

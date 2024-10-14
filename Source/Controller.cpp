@@ -35,10 +35,14 @@ void Controller::Move(const InputActionValue& Value)
 
 void Controller::Initialize()
 {
-	
+	KeycodePackage MoveKeyPackage;
+	MoveKeyPackage.AddKeycode(SDLK_W, E_AxisMapping::Up);
+	MoveKeyPackage.AddKeycode(SDLK_S, E_AxisMapping::Down);
+	MoveKeyPackage.AddKeycode(SDLK_A, E_AxisMapping::Left);
+	MoveKeyPackage.AddKeycode(SDLK_D, E_AxisMapping::Right);
 	//ActionContext->AddInputAction(SDLK_ESCAPE, QuitAction);
 
-	ActionContext->AddInputAction(MoveAction);
+	ActionContext->AddInputActionBinding(MoveKeyPackage, MoveAction);
 
 
 	ControllerInputComponent->SetInputActionContext(ActionContext.get());

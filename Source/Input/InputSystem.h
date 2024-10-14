@@ -18,7 +18,7 @@ public:
 
 private:
 	void CaptureInput();
-	void DispatchInputEvent(const bool* InputEvent);
+	void DispatchKeyState(const bool* KeyState);
 	void ProcessInputComponents();
 	
 

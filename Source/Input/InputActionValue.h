@@ -36,10 +36,25 @@ struct InputActionValue
 		}
 		return *this;
 	}
-	void ClearValue()
+	void ClearValue(E_AxisMapping AxisToUpdate)
 	{
-		Value.X = 0.f;
-		Value.Y = 0.f;
+		switch (AxisToUpdate)
+		{
+		case E_AxisMapping::Up:
+			Value.Y = 0.f;
+			break;
+		case E_AxisMapping::Down:
+			Value.Y = 0.f;
+			break;
+		case E_AxisMapping::Left:
+			Value.X = 0.f;
+			break;
+		case E_AxisMapping::Right:
+			Value.X = 0.f;
+			break;
+		default:
+			break;
+		}
 	}
 
 	void UpdateValue(E_AxisMapping AxisToUpdate)
