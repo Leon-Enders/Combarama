@@ -6,9 +6,33 @@
 enum ActionValueType
 {
 	None,
-	Vector
+	Axis1D,
+	Axis2D
 };
 
+
+
+struct InputActionValue
+{
+	InputActionValue(){}
+	InputActionValue(const InputActionValue& Other)
+	{
+		ActionValue = Other.ActionValue;
+		ValueType = Other.ValueType;
+	}
+
+	InputActionValue& operator=(const InputActionValue& Other)
+	{
+		if (this == &Other) return *this;
+		ActionValue = Other.ActionValue;
+		ValueType = Other.ValueType;
+
+		return *this;
+	}
+
+	Vector2 ActionValue = { 0.f,0.f };
+	ActionValueType ValueType = ActionValueType::None;
+};
 
 
 class InputAction
