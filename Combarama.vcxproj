@@ -34,6 +34,7 @@
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\Input\InputAction.h" />
     <ClInclude Include="Source\Input\InputActionContext.h" />
+    <ClInclude Include="Source\Input\InputActionValue.h" />
     <ClInclude Include="Source\Input\InputComponent.h" />
     <ClInclude Include="Source\Input\InputSystem.h" />
     <ClInclude Include="Source\PrimitiveHelpers.h" />

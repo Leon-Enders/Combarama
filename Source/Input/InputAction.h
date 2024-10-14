@@ -1,38 +1,7 @@
 #pragma once
 #include <functional>
-#include "../Vector2.h"
+#include "InputActionValue.h"
 
-
-enum ActionValueType
-{
-	None,
-	Axis1D,
-	Axis2D
-};
-
-
-
-struct InputActionValue
-{
-	InputActionValue(){}
-	InputActionValue(const InputActionValue& Other)
-	{
-		ActionValue = Other.ActionValue;
-		ValueType = Other.ValueType;
-	}
-
-	InputActionValue& operator=(const InputActionValue& Other)
-	{
-		if (this == &Other) return *this;
-		ActionValue = Other.ActionValue;
-		ValueType = Other.ValueType;
-
-		return *this;
-	}
-
-	Vector2 ActionValue = { 0.f,0.f };
-	ActionValueType ValueType = ActionValueType::None;
-};
 
 
 class InputAction
@@ -40,50 +9,31 @@ class InputAction
 
 public:
 	
-	InputAction(ActionValueType Type = ActionValueType::None)
-		: 
-	ValueType(Type)
+	InputAction() = default;
+
+	void SetActionValue(const InputActionValue& InActionValue)
 	{
-
-	}
-
-
-	template<typename T>
-	void BindFunction(const std::function<void(T)>& ActionDelegate)
-	{
-		InputActionDelegate = [ActionDelegate](void* value)
-			{
-				ActionDelegate(*static_cast<T*>(value)); 
-			};
+		ActionValue = InActionValue;
 	}
 
 	
-	void BindFunction(const std::function<void(void*)>& ActionDelegate)
+	void BindFunction(const std::function<void(const InputActionValue&)>& ActionDelegate)
 	{
 		InputActionDelegate = ActionDelegate;
-	}
-	
-	void Execute(Vector2 InputVector)
-	{
-		if (InputActionDelegate && ValueType == ActionValueType::Vector)
-		{
-			InputActionDelegate(static_cast<void*>(&InputVector));
-		}
 	}
 	
 	void Execute()
 	{
 		if (InputActionDelegate)
 		{
-			InputActionDelegate(nullptr);
+			InputActionDelegate(ActionValue);
 		}
 	}
-
-	inline const ActionValueType GetActionValue()const { return ValueType; }
+	inline const InputActionValue& GetActionValue()const { return ActionValue; }
 
 private:
 	
-	std::function<void(void*)> InputActionDelegate = nullptr;
+	std::function<void(const InputActionValue&)> InputActionDelegate = nullptr;
 
-	ActionValueType ValueType = ActionValueType::None;
+	InputActionValue ActionValue;
 };

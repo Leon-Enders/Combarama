@@ -12,8 +12,20 @@ public:
 	InputActionContext() {}
 
 	//TODO: InputAction should get added by SDL_Event, Key is too specific
+	//TODO: Keycode is also too specific need something
+	// like a wrapper which can take multiple keys,
+	// then I can switch on keys and set InputActionValue
+	// for each Key case for a single Action
 	void AddInputAction(SDL_Keycode KeyToBind, const std::shared_ptr<InputAction>& InputAction)
 	{
+		switch (KeyToBind)
+		{
+		case SDLK_Q:
+			InputActionValue val;
+			val.Value.Y = -1;
+
+			InputAction->SetActionValue(val);
+		}
 		BoundKeys.push_back(KeyToBind);
 		KeyToInputActionMap.insert(std::make_pair(KeyToBind, InputAction));
 	}

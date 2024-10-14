@@ -19,14 +19,13 @@ public:
 
 private:
 
-	void Move(const Vector2& InVelocity);
+	void Move(const InputActionValue& Value);
 
 	void Initialize();
 
 private:
 	Game* OwningGame = nullptr;
 	Actor* ControlledActor = nullptr;
-
 
 	std::unique_ptr<InputComponent> ControllerInputComponent = nullptr;
 	std::unique_ptr<InputActionContext> ActionContext = nullptr;

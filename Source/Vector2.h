@@ -35,7 +35,7 @@ struct Vector2
 	{
 		return X == Other.X && Y == Other.Y;
 	}
-
+	
 	Vector2& operator+=(const Vector2& Other)
 	{
 		X += Other.X;
@@ -64,15 +64,20 @@ struct Vector2
 		return Vector2(X * Scale, Y * Scale);
 	}
 
-	float Magnitude() const
+	float Size() const
 	{
 		return std::sqrt(X * X + Y * Y);
+	}
+
+	float SizeSquared() const
+	{
+		return X * X + Y * Y;
 	}
 
 	
 	Vector2 Normalize() const
 	{
-		float Mag = Magnitude();
+		float Mag = Size();
 
 		if (Mag > 0.0f)
 		{

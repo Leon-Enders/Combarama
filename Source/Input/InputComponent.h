@@ -45,16 +45,7 @@ public:
 			{
 				if (InputAction* CurrentInputAction = ActionContext->GetInputAction(CurrentKey))
 				{
-					switch (CurrentInputAction->GetActionValue())
-					{
-					case ActionValueType::None:
-						CurrentInputAction->Execute();
-						break;
-					case ActionValueType::Vector:
-						CurrentInputAction->Execute(UpVector);
-					default:
-						break;
-					}
+					CurrentInputAction->Execute();
 				}
 			}
 			
