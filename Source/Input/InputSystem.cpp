@@ -17,7 +17,10 @@ void InputSystem::CaptureInput()
 	SDL_Event Event;
 	while (SDL_PollEvent(&Event))
 	{
-		
+		if (Event.type == SDL_EventType::SDL_EVENT_KEY_UP)
+		{
+			DispatchReleasedKey(Event);
+		}
 	}
 	const bool* KeyState = SDL_GetKeyboardState(NULL);
 
@@ -28,9 +31,17 @@ void InputSystem::CaptureInput()
 void InputSystem::DispatchKeyState(const bool* KeyState)
 {
 	for (auto& PlayerInputComponent : InputComponents)
-			{
-				PlayerInputComponent->ReceiveKeyState(KeyState);
-			}
+	{
+		PlayerInputComponent->ReceiveKeyState(KeyState);
+	}
+}
+
+void InputSystem::DispatchReleasedKey(const SDL_Event& Event)
+{
+	for (auto& PlayerInputComponent : InputComponents)
+	{
+		PlayerInputComponent->ReceiveReleaseKey(Event);
+	}
 }
 
 

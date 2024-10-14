@@ -94,6 +94,7 @@ public:
 		}
 	}
 
+	//TODO a KeycodePackage should get passed here then I can iterate through all Keycodes of the keycode package and updatevalue on the input action and then execute it once
 	void HandleKeyExecution(SDL_Keycode Keycode)
 	{
 		KeycodePackage CurrentKeycodePackage = KeycodeToPackage[Keycode];
@@ -103,11 +104,15 @@ public:
 		CurrentInputAction->GetActionValue().UpdateValue(CurrentAxis);
 		CurrentInputAction->Execute();
 	}
+	void HandleKeyRelease(SDL_Keycode Keycode)
+	{
+		KeycodePackage CurrentKeycodePackage = KeycodeToPackage[Keycode];
+		E_AxisMapping CurrentAxis = CurrentKeycodePackage.KeysToAxisMap[Keycode];
 
-	//InputAction* GetInputAction(const KeycodePackage& InKeycodePackage)
-	//{
-	//	return KeycodePackageToInputActions[InKeycodePackage].get();
-	//}
+		InputAction* CurrentInputAction = KeycodePackageToInputActions[CurrentKeycodePackage].get();
+		CurrentInputAction->GetActionValue().ClearValue(CurrentAxis);
+		CurrentInputAction->Execute();
+	}
 
 	const bool HasKeycode(const SDL_Keycode& KeyToCheck)const
 	{
@@ -121,18 +126,6 @@ public:
 		return false;
 	}
 
-	//const KeycodePackage& GetKeyCodePackage(SDL_Keycode KeyToFind)
-	//{
-	//	return KeycodeToPackage[KeyToFind];
-	//}
-
-	//std::unordered_map<SDL_Keycode, E_AxisMapping> KeyToAxisMap
-	//{
-	//	{SDLK_W, E_AxisMapping::Up},
-	//	{SDLK_S, E_AxisMapping::Down},
-	//	{SDLK_D, E_AxisMapping::Right},
-	//	{SDLK_A, E_AxisMapping::Left}
-	//};
 private:
 	std::vector<SDL_Keycode> BoundKeys;
 	std::unordered_map<KeycodePackage,std::shared_ptr<InputAction>> KeycodePackageToInputActions;

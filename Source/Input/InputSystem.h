@@ -19,6 +19,7 @@ public:
 private:
 	void CaptureInput();
 	void DispatchKeyState(const bool* KeyState);
+	void DispatchReleasedKey(const SDL_Event& Event);
 	void ProcessInputComponents();
 	
 

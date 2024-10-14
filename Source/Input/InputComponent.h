@@ -10,7 +10,7 @@
 
 
 
-// Helper struct declaring all valid Keybindings
+// Helper struct mapping scancode to keycode
 struct KeyBindInfo
 {
 	KeyBindInfo()
@@ -47,16 +47,19 @@ public:
 	
 	void ReceiveKeyState(const bool* KeyState)
 	{
-		for (const auto& KeyCodePair : KeyBindInfo.KeyBindings)
+		for (const auto& KeycodePair : KeyBindInfo.KeyBindings)
 		{
-			if (KeyState[KeyCodePair.first])
+			if (KeyState[KeycodePair.first])
 			{
-				ProcessedInputKeys.push_back(KeyCodePair.second);
+				ProcessedInputKeys.push_back(KeycodePair.second);
 			}
 		}		
 	}
 
-	
+	void ReceiveReleaseKey(SDL_Event ReleaseEvent)
+	{
+		ProcessedReleasedKeys.push_back(ReleaseEvent.key.key);
+	}
 
 	void HandleInput()
 	{
@@ -66,23 +69,14 @@ public:
 			ActionContext->HandleKeyExecution(InputKey);
 		}
 
-		//for (const auto& InputRelease : ProcessedReleasedKeys)
-		//{
-		//	SDL_Keycode CurrentKey = InputRelease;
-		//
-		//	const KeycodePackage CurrentKeyPackage = ActionContext->GetKeyCodePackage(CurrentKey);
-		//	const E_AxisMapping BoundAxis = CurrentKeyPackage.KeysToAxisMap[CurrentKey];
-		//
-		//		if (InputAction* CurrentInputAction = ActionContext->GetInputAction(CurrentKeyPackage))
-		//		{
-		//			CurrentInputAction->GetActionValue().ClearValue();
-		//			CurrentInputAction->Execute();
-		//		}
-		//}
+		for (const auto& InputRelease : ProcessedReleasedKeys)
+		{
+			ActionContext->HandleKeyRelease(InputRelease);
+		}
 
 		// Clear all Inputs
 		ProcessedInputKeys.clear();
-		//ProcessedReleasedKeys.clear();
+		ProcessedReleasedKeys.clear();
 	}
 
 private:
