@@ -15,14 +15,6 @@ class InputComponent
 public:
 	InputComponent()
 	{
-		Action = std::make_shared<InputAction>(std::bind(&InputComponent::TestPrint, this));
-
-		ActionContext = std::make_unique<InputActionContext>();
-		
-
-		//Test Actions
-		ActionContext->AddInputAction(SDLK_SPACE, Action);
-
 		InputSystem::Get().AddInputComponent(this);
 	}
 
@@ -31,6 +23,12 @@ public:
 		InputSystem::Get().RemoveInputComponent(this);
 	}
 
+	void SetInputActionContext(InputActionContext* InActionContext)
+	{
+		ActionContext = InActionContext;
+	}
+
+	//TODO: Before pushing input event filter if it is in the Action Context
 	void ReceiveInputEvent(const SDL_Event& InputEvent)
 	{
 		ProcessedInputEvents.push_back(InputEvent);
@@ -57,15 +55,8 @@ public:
 		ProcessedInputEvents.clear();
 	}
 
-
-	void TestPrint()
-	{
-		SDL_Log("ActionExecuted");
-	}
-
 private:
 	std::vector<SDL_Event> ProcessedInputEvents;
 
-	std::shared_ptr<InputAction> Action = nullptr;
-	std::unique_ptr<InputActionContext> ActionContext = nullptr;
+	InputActionContext* ActionContext = nullptr;
 };

@@ -1,11 +1,34 @@
 #include "InputSystem.h"
-#include "InputComponent.h"
 #include <algorithm>
+#include "SDL3/SDL_events.h"
+#include "InputComponent.h"
 
 
 InputSystem InputSystem::SInputSystem;
 
-void InputSystem::ProcessInputEvent(const SDL_Event& InputEvent)
+void InputSystem::HandleInput()
+{
+	CaptureInput();
+	ProcessInputComponents();
+}
+
+void InputSystem::CaptureInput()
+{
+	SDL_Event Event;
+	while (SDL_PollEvent(&Event))
+	{
+		if (Event.type == SDL_EVENT_KEY_DOWN)
+		{
+			if (Event.key.key == SDLK_SPACE)
+			{
+				SDL_Log("Do I have an Delay?");
+			}
+			SInputSystem.DispatchInputEvent(Event);
+		}
+	}
+}
+
+void InputSystem::DispatchInputEvent(const SDL_Event& InputEvent)
 {
 	for (auto& PlayerInputComponent : InputComponents)
 	{
@@ -13,7 +36,7 @@ void InputSystem::ProcessInputEvent(const SDL_Event& InputEvent)
 	}
 }
 
-void InputSystem::HandleInput()
+void InputSystem::ProcessInputComponents()
 {
 	for (auto& PlayerInputComponent : InputComponents)
 	{

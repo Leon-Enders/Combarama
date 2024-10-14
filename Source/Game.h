@@ -29,7 +29,9 @@ public:
 	void ComposeFrame();
 	void RenderFrame();	
 
+	//Temp
 	void LoadBackground();
+	void QuitGame();
 private:
 
 	SDL_Texture* GameBackground = nullptr;

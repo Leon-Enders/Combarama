@@ -22,7 +22,7 @@ void Game::StartGame()
 	IsGameActive = true;
 	LoadBackground();
 
-	PlayerController = std::make_unique<Controller>();
+	PlayerController = std::make_unique<Controller>(this);
 	Player = std::make_unique<Actor>(Vector2(255.f, 255.f));
 
 
@@ -51,24 +51,6 @@ void Game::HandleGameLoop()
 
 void Game::ProcessInput()
 {
-	SDL_Event Event;
-	while (SDL_PollEvent(&Event))
-	{
-		
-		if (Event.type == SDL_EVENT_QUIT)
-		{
-			IsGameActive = false;
-		}
-		if (Event.type == SDL_EVENT_KEY_DOWN)
-		{
-			//Player->AddInput(Event);
-			if (Event.key.key == SDLK_SPACE)
-			{
-				SDL_Log("Do I have an Delay?");
-			}
-			InputSystem::Get().ProcessInputEvent(Event);
-		}
-	}
 
 	InputSystem::Get().HandleInput();
 
@@ -144,5 +126,10 @@ void Game::LoadBackground()
 		SDL_Log("Unable to create texture: %s", SDL_GetError());
 	}
 
+}
+
+void Game::QuitGame()
+{
+	IsGameActive = false;
 }
 

@@ -11,6 +11,7 @@ class InputActionContext
 public:
 	InputActionContext() {}
 
+	//TODO: InputAction should get added by SDL_Event, Key is too specific
 	void AddInputAction(SDL_Keycode KeyToBind, const std::shared_ptr<InputAction>& InputAction)
 	{
 		BoundKeys.push_back(KeyToBind);
