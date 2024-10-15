@@ -11,6 +11,8 @@ public:
 	Actor() {};
 	Actor(const Vector2& InPosition);
 
+
+	void UpdatePosition(const Vector2& NewPosition);
 	void UpdateVelocity(Vector2 NewVelocity);
 	void Update(float DeltaTime);
 

@@ -68,6 +68,9 @@
     <ClInclude Include="Source\Input\InputActionValue.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Input\InputActionMapping.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">

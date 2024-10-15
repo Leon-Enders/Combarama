@@ -15,8 +15,10 @@ public:
 	{
 		ActionValue = InActionValue;
 	}
-
-	
+	void SetActionValue(const Vector2& InActionValue)
+	{
+		ActionValue.Value = InActionValue;
+	}
 	void BindFunction(const std::function<void(const InputActionValue&)>& ActionDelegate)
 	{
 		InputActionDelegate = ActionDelegate;

@@ -44,7 +44,16 @@ public:
 		ActionContext = InActionContext;
 	}
 
-	
+	void ReceiveMouseEvent(const SDL_Event& MouseEvent)
+	{
+		ActionContext->HandleMouseEvent(MouseEvent);
+	}
+
+	void ReceiveQuitEvent(const SDL_Event& QuitEvent)
+	{
+		ActionContext->HandleQuitEvent(QuitEvent);
+	}
+
 	void ReceiveKeyState(const bool* KeyState)
 	{
 		for (const auto& KeycodePair : KeyBindInfo.KeyBindings)
@@ -84,6 +93,7 @@ private:
 
 	std::vector<SDL_Keycode> ProcessedInputKeys;
 	std::vector<SDL_Keycode> ProcessedReleasedKeys;
+
 
 	InputActionContext* ActionContext = nullptr;
 	KeyBindInfo KeyBindInfo;

@@ -18,6 +18,8 @@ Controller::Controller(Game* InOwningGame)
 	MoveAction = std::make_shared<InputAction>();
 	MoveAction->BindFunction(std::bind(&Controller::Move, this, _1));
 
+	LookAction = std::make_shared<InputAction>();
+	LookAction->BindFunction(std::bind(&Controller::Look, this, _1));
 
 	Initialize();
 }
@@ -33,6 +35,11 @@ void Controller::Move(const InputActionValue& Value)
 	ControlledActor->UpdateVelocity(Value.Get<Vector2>());
 }
 
+void Controller::Look(const InputActionValue& Value)
+{
+	ControlledActor->UpdatePosition(Value.Get<Vector2>());
+}
+
 void Controller::Initialize()
 {
 	KeycodePackage MoveKeyPackage;
@@ -43,6 +50,8 @@ void Controller::Initialize()
 	//ActionContext->AddInputAction(SDLK_ESCAPE, QuitAction);
 
 	ActionContext->AddInputActionBinding(MoveKeyPackage, MoveAction);
+	ActionContext->AddLookInputAction(LookAction);
+	ActionContext->AddQuitInputAction(QuitAction);
 
 
 	ControllerInputComponent->SetInputActionContext(ActionContext.get());

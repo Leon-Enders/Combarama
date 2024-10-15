@@ -17,7 +17,15 @@ void InputSystem::CaptureInput()
 	SDL_Event Event;
 	while (SDL_PollEvent(&Event))
 	{
-		if (Event.type == SDL_EventType::SDL_EVENT_KEY_UP)
+		if (Event.type == SDL_EventType::SDL_EVENT_QUIT)
+		{
+			DispatchQuitEvent(Event);
+		}
+		else if (Event.type == SDL_EventType::SDL_EVENT_MOUSE_MOTION)
+		{
+			DispatchMouseEvent(Event);
+		}
+		else if (Event.type == SDL_EventType::SDL_EVENT_KEY_UP)
 		{
 			DispatchReleasedKey(Event);
 		}
@@ -41,6 +49,22 @@ void InputSystem::DispatchReleasedKey(const SDL_Event& Event)
 	for (auto& PlayerInputComponent : InputComponents)
 	{
 		PlayerInputComponent->ReceiveReleaseKey(Event);
+	}
+}
+
+void InputSystem::DispatchMouseEvent(const SDL_Event& MouseEvent)
+{
+	for (auto& PlayerInputComponent : InputComponents)
+	{
+		PlayerInputComponent->ReceiveMouseEvent(MouseEvent);
+	}
+}
+
+void InputSystem::DispatchQuitEvent(const SDL_Event& QuitEvent)
+{
+	for (auto& PlayerInputComponent : InputComponents)
+	{
+		PlayerInputComponent->ReceiveQuitEvent(QuitEvent);
 	}
 }
 

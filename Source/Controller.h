@@ -20,6 +20,7 @@ public:
 private:
 
 	void Move(const InputActionValue& Value);
+	void Look(const InputActionValue& Value);
 
 	void Initialize();
 
@@ -32,4 +33,5 @@ private:
 
 	std::shared_ptr<InputAction> QuitAction = nullptr;
 	std::shared_ptr<InputAction> MoveAction = nullptr;
+	std::shared_ptr<InputAction> LookAction = nullptr;
 };

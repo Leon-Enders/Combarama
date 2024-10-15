@@ -47,7 +47,7 @@ private:
 
 	static constexpr int FPS = 60;
 	static constexpr int FrameDelay = 1000 / FPS;
-	static constexpr SDL_FRect BackGround = { 0.f,0.f,1920.f,1080.f };
+	static constexpr SDL_FRect BackGround = { 0.f,0.f,1280.f,720 };
 	std::unique_ptr<Actor> Player = nullptr;
 	std::unique_ptr<Controller> PlayerController = nullptr;
 	std::string ImagePath;

@@ -64,6 +64,39 @@ public:
 		}
 	}
 
+	void AddLookInputAction(const std::shared_ptr<InputAction>& InputActionToAdd)
+	{
+		MouseInputAction = InputActionToAdd;
+	}
+
+	void AddQuitInputAction(const std::shared_ptr<InputAction>& InputActionToAdd)
+	{
+		QuitInputAction = InputActionToAdd;
+	}
+
+	void HandleQuitEvent(const SDL_Event& QuitEvent)
+	{
+		if (QuitInputAction)
+		{
+			QuitInputAction->Execute();
+		}
+	}
+
+	void HandleMouseEvent(const SDL_Event& MouseEvent)
+	{
+		MouseInput.X = MouseEvent.motion.x;
+		MouseInput.Y = MouseEvent.motion.y;
+
+		if (MouseInputAction)
+		{
+			MouseInputAction->SetActionValue(MouseInput);
+			SDL_Log("x Motion: %f", MouseEvent.motion.xrel);
+			SDL_Log("x Motion: %f", MouseEvent.motion.yrel);
+			MouseInputAction->Execute();
+		}
+	}
+
+
 	//TODO a KeycodePackage should get passed here then I can iterate through all Keycodes of the keycode package and updatevalue on the input action and then execute it once
 	void HandleKeyExecution(SDL_Keycode Keycode)
 	{
@@ -100,4 +133,7 @@ private:
 	std::vector<SDL_Keycode> BoundKeys;
 	std::unordered_map<KeycodePackage,std::shared_ptr<InputAction>> KeycodePackageToInputActions;
 	std::unordered_map<SDL_Keycode, KeycodePackage> KeycodeToPackage;
+	std::shared_ptr<InputAction> MouseInputAction;
+	std::shared_ptr<InputAction> QuitInputAction;
+	Vector2 MouseInput;
 };
