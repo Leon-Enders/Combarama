@@ -9,44 +9,9 @@ class Avatar
 public:
 	Avatar(const Vector2& InPosition);
 
-
-	void UpdatePosition(const Vector2& NewPosition)
-	{
-		float DeltaX = NewPosition.X - Position.X;
-		float DeltaY = NewPosition.Y - Position.Y;
-
-		Position.X = NewPosition.X;
-		Position.Y = NewPosition.Y;
-
-		for (auto& Vert : Triangles)
-		{
-			Vert.position.x += DeltaX;
-			Vert.position.y += DeltaY;
-		}
-	}
-
-	void Rotate(float DeltaRotation)
-	{
-		
-
-		float CosTheta = cos(DeltaRotation);
-		float SinTheta = sin(DeltaRotation);
-
-		for (int i = 0; i < MaxVerts; ++i)
-		{
-		
-			float RelativeX = Triangles[i].position.x - Position.X;
-			float RelativeY = Triangles[i].position.y - Position.Y;
-
-			
-			float RotatedX = RelativeX * CosTheta - RelativeY * SinTheta;
-			float RotatedY = RelativeX * SinTheta + RelativeY * CosTheta;
-
-			
-			Triangles[i].position.x = RotatedX + Position.X;
-			Triangles[i].position.y = RotatedY + Position.Y;
-		}
-	}
+	void UpdatePosition(const Vector2& NewPosition);
+	void UpdateRotation(float DeltaRotation);
+	
 	void Draw(SDL_Renderer* Renderer);
 
 private:

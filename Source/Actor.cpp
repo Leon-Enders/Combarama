@@ -10,9 +10,10 @@ Actor::Actor(const Vector2& InPosition)
 	ActorAvatar = std::make_unique<Avatar>(Position);	
 }
 
-void Actor::UpdatePosition(const Vector2& NewPosition)
+void Actor::UpdatePosition(float DeltaTime)
 {
-	Position = NewPosition;
+	Position += Velocity * DeltaTime * MoveSpeed;
+
 	ActorAvatar->UpdatePosition(Position);
 }
 
@@ -37,13 +38,13 @@ void Actor::UpdateRotation()
 
 	if (AngleInRad < 0)
 	{
-		AngleInRad += 2 * M_PI;
+		AngleInRad += static_cast<float>(2 * M_PI);
 	}
 
 	float DeltaRotation = Rotation - AngleInRad;
 
 	Rotation = AngleInRad;
-	ActorAvatar->Rotate(DeltaRotation);
+	ActorAvatar->UpdateRotation(DeltaRotation);
 }
 
 
@@ -52,12 +53,8 @@ void Actor::UpdateRotation()
 
 void Actor::Update(float DeltaTime)
 {
-	Position += Velocity * DeltaTime * MoveSpeed;
-
-	ActorAvatar->UpdatePosition(Position);
-
+	UpdatePosition(DeltaTime);
 	UpdateRotation();
-	
 }
 
 void Actor::Draw(SDL_Renderer* GameRenderer)

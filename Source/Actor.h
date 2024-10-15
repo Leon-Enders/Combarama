@@ -4,7 +4,6 @@
 #include "Vector2.h"
 #include "Avatar.h"
 
-//TODO: Move Rotation into from Avatar to Actor, since we want to use the Actor rotation for stuff
 class Actor
 {
 
@@ -12,10 +11,10 @@ public:
 	Actor() {};
 	Actor(const Vector2& InPosition);
 
-
-	void UpdatePosition(const Vector2& NewPosition);
 	void UpdateVelocity(Vector2 NewVelocity);
 	void ReceiveMouseInput(Vector2 TargetPosition);
+
+	void UpdatePosition(float DeltaTime);
 	void UpdateRotation();
 	void Update(float DeltaTime);
 
@@ -24,12 +23,11 @@ public:
 
 private:
 
-	// Physics
 	Vector2 Position;
 	float Rotation = 0.f;
 	Vector2 Velocity = {0.f, 0.f};
-	float MoveSpeed = 0.5f;
 
+	float MoveSpeed = 0.5f;
 	Vector2 LastMousePosition;
 
 	// Rendering
