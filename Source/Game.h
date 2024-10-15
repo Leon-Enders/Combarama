@@ -6,8 +6,8 @@
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_events.h>
 #include "CombaramaStructs.h"
-#include "Actor.h"
-#include "Controller.h"
+#include "PlayerCharacter.h"
+#include "PlayerController.h"
 
 
 class Game
@@ -48,7 +48,9 @@ private:
 	static constexpr int FPS = 60;
 	static constexpr int FrameDelay = 1000 / FPS;
 	static constexpr SDL_FRect BackGround = { 0.f,0.f,1280.f,720 };
-	std::unique_ptr<Actor> Player = nullptr;
-	std::unique_ptr<Controller> PlayerController = nullptr;
 	std::string ImagePath;
+
+	std::unique_ptr<PlayerCharacter> Player = nullptr;
+	std::unique_ptr<PlayerController> TPlayerController = nullptr;
+	
 };

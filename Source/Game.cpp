@@ -22,9 +22,9 @@ void Game::StartGame()
 	IsGameActive = true;
 	LoadBackground();
 
-	PlayerController = std::make_unique<Controller>(this);
-	Player = std::make_unique<Actor>(Vector2(255.f, 255.f));
-	PlayerController->PossessActor(Player.get());
+	TPlayerController = std::make_unique<PlayerController>();
+	Player = std::make_unique<PlayerCharacter>(Vector2(255.f, 255.f));
+	TPlayerController->PossessCharacter(Player.get());
 
 	while (IsGameActive)
 	{

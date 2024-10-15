@@ -28,6 +28,7 @@
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\Input\InputSystem.cpp" />
     <ClCompile Include="Source\PlayerCharacter.cpp" />
+    <ClCompile Include="Source\PlayerController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Actor.h" />
@@ -44,6 +45,7 @@
     <ClInclude Include="Source\Input\InputComponent.h" />
     <ClInclude Include="Source\Input\InputSystem.h" />
     <ClInclude Include="Source\PlayerCharacter.h" />
+    <ClInclude Include="Source\PlayerController.h" />
     <ClInclude Include="Source\PrimitiveHelpers.h" />
     <ClInclude Include="Source\Vector2.h" />
   </ItemGroup>

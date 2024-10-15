@@ -2,14 +2,16 @@
 #include <memory>
 #include "Actor.h"
 #include "Controller.h"
-#include "Vector2.h"
 
 class Character : public Actor
 {
 public:
-	Character();
+	Character(const Vector2& InPosition);
 	
 	void OnPossessed(Controller* OwningContoller);
 protected:
+	virtual void Initialize() override;
+
+	
 	Controller* OwningController = nullptr;
 };

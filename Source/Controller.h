@@ -7,31 +7,21 @@
 //TODO: This class creates InputActions and an InputActionContext
 struct Vector2;
 class Game;
-class Actor;
+class Character;
 
 class Controller
 {
 public:
 	
-	Controller(Game* InOwningGame);
+	Controller();//Game* InOwningGame);
 
-	void PossessActor(Actor* ActorToPossess);
+	virtual void PossessCharacter(Character* CharacterToPossess);
 
-private:
+	
 
-	void Move(const InputActionValue& Value);
-	void Look(const InputActionValue& Value);
+protected:
+	virtual void Initialize();
 
-	void Initialize();
-
-private:
+	Character* ControlledCharacter = nullptr;
 	Game* OwningGame = nullptr;
-	Actor* ControlledActor = nullptr;
-
-	std::unique_ptr<InputComponent> ControllerInputComponent = nullptr;
-	std::unique_ptr<InputActionContext> ActionContext = nullptr;
-
-	std::shared_ptr<InputAction> QuitAction = nullptr;
-	std::shared_ptr<InputAction> MoveAction = nullptr;
-	std::shared_ptr<InputAction> LookAction = nullptr;
 };

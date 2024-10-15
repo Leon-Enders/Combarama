@@ -33,6 +33,7 @@
     <ClCompile Include="Source\Character.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\PlayerCharacter.cpp" />
+    <ClCompile Include="Source\PlayerController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -83,6 +84,7 @@
     <ClInclude Include="Source\ColorHelper.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlayerController.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">

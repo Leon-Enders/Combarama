@@ -6,8 +6,10 @@
 class Enemy : public Character
 {
 public:
-	Enemy();
+	Enemy(const Vector2& InPosition);
 
+protected:
+	virtual void Initialize() override;
 
 private:
 
