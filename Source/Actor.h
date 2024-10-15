@@ -14,6 +14,7 @@ public:
 
 	void UpdatePosition(const Vector2& NewPosition);
 	void UpdateVelocity(Vector2 NewVelocity);
+	void UpdateRotation(Vector2 TargetPosition);
 	void Update(float DeltaTime);
 
 	void Draw(SDL_Renderer* GameRenderer);
@@ -23,6 +24,7 @@ private:
 
 	// Physics
 	Vector2 Position;
+	float Rotation = 1.5708f;
 	Vector2 Velocity = {0.f, 0.f};
 
 	// Rendering

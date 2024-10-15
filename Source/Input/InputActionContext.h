@@ -90,8 +90,8 @@ public:
 		if (MouseInputAction)
 		{
 			MouseInputAction->SetActionValue(MouseInput);
-			SDL_Log("x Motion: %f", MouseEvent.motion.xrel);
-			SDL_Log("x Motion: %f", MouseEvent.motion.yrel);
+			SDL_Log("x Motion: %f", MouseEvent.motion.x);
+			SDL_Log("y Motion: %f", MouseEvent.motion.y);
 			MouseInputAction->Execute();
 		}
 	}

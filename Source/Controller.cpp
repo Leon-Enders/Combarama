@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Actor.h"
 #include "Vector2.h"
+#include <cmath>
 
 
 Controller::Controller(Game* InOwningGame)
@@ -37,7 +38,8 @@ void Controller::Move(const InputActionValue& Value)
 
 void Controller::Look(const InputActionValue& Value)
 {
-	ControlledActor->UpdatePosition(Value.Get<Vector2>());
+	Vector2 TargetMousePosition = Value.Get<Vector2>();
+	ControlledActor->UpdateRotation(TargetMousePosition);
 }
 
 void Controller::Initialize()

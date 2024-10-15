@@ -87,7 +87,10 @@ struct Vector2
 		return Vector2(0, 0);
 	}
 
-
+	static Vector2 UP()
+	{
+		return Vector2(0.f, -1.f);
+	}
 	float X =0;
 	float Y =0;
 };

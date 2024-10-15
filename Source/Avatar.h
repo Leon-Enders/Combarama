@@ -24,12 +24,41 @@ public:
 			Vert.position.y += DeltaY;
 		}
 	}
+
+	void Rotate(float AngleInRad)
+	{
+		if (AngleInRad < 0) {
+			AngleInRad += 2 * M_PI;
+		}
+
+		float DeltaRotation = CurrentRotation - AngleInRad;
+
+		CurrentRotation = AngleInRad;
+
+		float CosTheta = cos(DeltaRotation);
+		float SinTheta = sin(DeltaRotation);
+
+		for (int i = 0; i < MaxVerts; ++i)
+		{
+		
+			float RelativeX = Triangles[i].position.x - Position.X;
+			float RelativeY = Triangles[i].position.y - Position.Y;
+
+			
+			float RotatedX = RelativeX * CosTheta - RelativeY * SinTheta;
+			float RotatedY = RelativeX * SinTheta + RelativeY * CosTheta;
+
+			
+			Triangles[i].position.x = RotatedX + Position.X;
+			Triangles[i].position.y = RotatedY + Position.Y;
+		}
+	}
 	void Draw(SDL_Renderer* Renderer);
 
 private:
 	
 	Vector2 Position;
-
+	float CurrentRotation = 0.f;
 	static constexpr float Radius = 25.f;
 	static constexpr float HeadWidth = 25.f;
 	static constexpr float HeadHeight = 15.f;
