@@ -24,8 +24,10 @@ private:
 
 	// Physics
 	Vector2 Position;
-	float Rotation = 1.5708f;
 	Vector2 Velocity = {0.f, 0.f};
+	float MoveSpeed = 0.5f;
+
+	Vector2 LastMousePosition;
 
 	// Rendering
 	std::unique_ptr<Avatar> ActorAvatar = nullptr;

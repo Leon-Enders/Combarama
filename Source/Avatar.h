@@ -25,9 +25,17 @@ public:
 		}
 	}
 
-	void Rotate(float AngleInRad)
+	void Rotate(const Vector2& TargetPosition)
 	{
-		if (AngleInRad < 0) {
+		float DeltaX = Position.X - TargetPosition.X;
+		float DeltaY = Position.Y - TargetPosition.Y;
+
+		// Calculate the angle in radians
+		float AngleInRad = std::atan2f(DeltaX, DeltaY);
+
+
+		if (AngleInRad < 0)
+		{
 			AngleInRad += 2 * M_PI;
 		}
 
