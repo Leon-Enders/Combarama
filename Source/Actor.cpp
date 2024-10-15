@@ -21,9 +21,29 @@ void Actor::UpdateVelocity(Vector2 NewVelocity)
 	Velocity = NewVelocity;
 }
 
-void Actor::UpdateRotation(Vector2 TargetPosition)
+void Actor::ReceiveMouseInput(Vector2 TargetPosition)
 {
 	LastMousePosition = TargetPosition;
+}
+
+void Actor::UpdateRotation()
+{
+	float DeltaX = Position.X - LastMousePosition.X;
+	float DeltaY = Position.Y - LastMousePosition.Y;
+
+	// Calculate the angle in radians
+	float AngleInRad = std::atan2f(DeltaX, DeltaY);
+
+
+	if (AngleInRad < 0)
+	{
+		AngleInRad += 2 * M_PI;
+	}
+
+	float DeltaRotation = Rotation - AngleInRad;
+
+	Rotation = AngleInRad;
+	ActorAvatar->Rotate(DeltaRotation);
 }
 
 
@@ -35,7 +55,9 @@ void Actor::Update(float DeltaTime)
 	Position += Velocity * DeltaTime * MoveSpeed;
 
 	ActorAvatar->UpdatePosition(Position);
-	ActorAvatar->Rotate(LastMousePosition);
+
+	UpdateRotation();
+	
 }
 
 void Actor::Draw(SDL_Renderer* GameRenderer)

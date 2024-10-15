@@ -25,23 +25,9 @@ public:
 		}
 	}
 
-	void Rotate(const Vector2& TargetPosition)
+	void Rotate(float DeltaRotation)
 	{
-		float DeltaX = Position.X - TargetPosition.X;
-		float DeltaY = Position.Y - TargetPosition.Y;
-
-		// Calculate the angle in radians
-		float AngleInRad = std::atan2f(DeltaX, DeltaY);
-
-
-		if (AngleInRad < 0)
-		{
-			AngleInRad += 2 * M_PI;
-		}
-
-		float DeltaRotation = CurrentRotation - AngleInRad;
-
-		CurrentRotation = AngleInRad;
+		
 
 		float CosTheta = cos(DeltaRotation);
 		float SinTheta = sin(DeltaRotation);
@@ -66,7 +52,6 @@ public:
 private:
 	
 	Vector2 Position;
-	float CurrentRotation = 0.f;
 	static constexpr float Radius = 25.f;
 	static constexpr float HeadWidth = 25.f;
 	static constexpr float HeadHeight = 15.f;

@@ -39,7 +39,7 @@ void Controller::Move(const InputActionValue& Value)
 void Controller::Look(const InputActionValue& Value)
 {
 	Vector2 TargetMousePosition = Value.Get<Vector2>();
-	ControlledActor->UpdateRotation(TargetMousePosition);
+	ControlledActor->ReceiveMouseInput(TargetMousePosition);
 }
 
 void Controller::Initialize()
