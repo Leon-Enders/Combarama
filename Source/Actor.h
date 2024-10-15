@@ -4,6 +4,7 @@
 #include "Vector2.h"
 #include "Avatar.h"
 
+//TODO: Move Rotation into from Avatar to Actor, since we want to use the Actor rotation for stuff
 class Actor
 {
 
