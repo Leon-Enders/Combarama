@@ -1,6 +1,6 @@
 #include "Avatar.h"
 
-Avatar::Avatar(const Vector2& InPosition)
+Avatar::Avatar(const Vector2& InPosition, SDL_FColor BodyColor, SDL_FColor HeadColor)
 	:
 	Position(InPosition)
 {
@@ -8,7 +8,6 @@ Avatar::Avatar(const Vector2& InPosition)
 	SDL_Vertex CircleCenter;
 	CircleCenter.position.x = Position.X;
 	CircleCenter.position.y = Position.Y;
-	SDL_FColor BodyColor = { 0.f,0.2f,1.f, 1.f };
 
 	Circle ACircle = Circle(Radius, CircleCenter, BodyColor);
 	ACircle.Initialize(Triangles);
@@ -19,7 +18,6 @@ Avatar::Avatar(const Vector2& InPosition)
 	SDL_Vertex RectCenter;
 	RectCenter.position.x = Position.X;
 	RectCenter.position.y = Position.Y - 25.f;
-	SDL_FColor HeadColor = { 0.f, 0.3f,0.6f,1.f };
 
 	Rectangle ARect = Rectangle(RectCenter, HeadWidth, HeadHeight, HeadColor);
 	ARect.Initialize(Triangles, Circle::GetVertNumber());
@@ -59,6 +57,18 @@ void Avatar::UpdateRotation(float DeltaRotation)
 		Triangles[i].position.y = RotatedY + Position.Y;
 	}
 	
+}
+void Avatar::SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor)
+{
+	for (int i = 0; i < Circle::GetVertNumber(); ++i)
+	{
+		Triangles[i].color = BodyColor;
+	}
+
+	for (int i = Circle::GetVertNumber() + 1; i < Rectangle::GetVertNumber(); i++)
+	{
+		Triangles[i].color = HeadColor;
+	}
 }
 void Avatar::Draw(SDL_Renderer* Renderer)
 {

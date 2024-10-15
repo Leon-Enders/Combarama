@@ -90,14 +90,11 @@ public:
 		if (MouseInputAction)
 		{
 			MouseInputAction->SetActionValue(MouseInput);
-			SDL_Log("x Motion: %f", MouseEvent.motion.x);
-			SDL_Log("y Motion: %f", MouseEvent.motion.y);
 			MouseInputAction->Execute();
 		}
 	}
 
 
-	//TODO a KeycodePackage should get passed here then I can iterate through all Keycodes of the keycode package and updatevalue on the input action and then execute it once
 	void HandleKeyExecution(SDL_Keycode Keycode)
 	{
 		KeycodePackage CurrentKeycodePackage = KeycodeToPackage[Keycode];

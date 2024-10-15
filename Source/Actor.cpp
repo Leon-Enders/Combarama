@@ -17,14 +17,19 @@ void Actor::UpdatePosition(float DeltaTime)
 	ActorAvatar->UpdatePosition(Position);
 }
 
-void Actor::UpdateVelocity(Vector2 NewVelocity)
+void Actor::UpdateVelocity(const Vector2& NewVelocity)
 {
 	Velocity = NewVelocity;
 }
 
-void Actor::ReceiveMouseInput(Vector2 TargetPosition)
+void Actor::ReceiveMouseInput(const Vector2& TargetPosition)
 {
 	LastMousePosition = TargetPosition;
+}
+
+void Actor::SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor)
+{
+	ActorAvatar->SetColor(BodyColor, HeadColor);
 }
 
 void Actor::UpdateRotation()

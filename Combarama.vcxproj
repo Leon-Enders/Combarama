@@ -21,23 +21,29 @@
   <ItemGroup>
     <ClCompile Include="Source\Actor.cpp" />
     <ClCompile Include="Source\Avatar.cpp" />
+    <ClCompile Include="Source\Character.cpp" />
     <ClCompile Include="Source\Comborama.cpp" />
     <ClCompile Include="Source\Controller.cpp" />
+    <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\Input\InputSystem.cpp" />
+    <ClCompile Include="Source\PlayerCharacter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Actor.h" />
     <ClInclude Include="Source\Avatar.h" />
+    <ClInclude Include="Source\Character.h" />
+    <ClInclude Include="Source\ColorHelper.h" />
     <ClInclude Include="Source\CombaramaStructs.h" />
     <ClInclude Include="Source\Controller.h" />
+    <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\Input\InputAction.h" />
     <ClInclude Include="Source\Input\InputActionContext.h" />
-    <ClInclude Include="Source\Input\InputActionMapping.h" />
     <ClInclude Include="Source\Input\InputActionValue.h" />
     <ClInclude Include="Source\Input\InputComponent.h" />
     <ClInclude Include="Source\Input\InputSystem.h" />
+    <ClInclude Include="Source\PlayerCharacter.h" />
     <ClInclude Include="Source\PrimitiveHelpers.h" />
     <ClInclude Include="Source\Vector2.h" />
   </ItemGroup>
