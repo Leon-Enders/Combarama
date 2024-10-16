@@ -4,7 +4,6 @@
 #include "../Input/InputAction.h"
 
 
-//TODO: This class creates InputActions and an InputActionContext
 struct Vector2;
 class Game;
 class Character;

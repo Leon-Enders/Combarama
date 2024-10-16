@@ -29,8 +29,11 @@
     <ClCompile Include="Source\Entity\PlayerCharacter.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\Render\Avatar.cpp" />
-    <ClCompile Include="Source\System\AISystem.cpp" />
-    <ClCompile Include="Source\System\InputSystem.cpp" />
+    <ClCompile Include="Source\Render\RenderComponent.cpp" />
+    <ClCompile Include="Source\Subsystem\AISystem.cpp" />
+    <ClCompile Include="Source\Subsystem\InputSystem.cpp" />
+    <ClCompile Include="Source\Subsystem\RenderingSystem.cpp" />
+    <ClCompile Include="Source\System\Subsystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Controller\AIController.h" />
@@ -47,8 +50,11 @@
     <ClInclude Include="Source\Input\InputComponent.h" />
     <ClInclude Include="Source\Math\Vector2.h" />
     <ClInclude Include="Source\Render\Avatar.h" />
-    <ClInclude Include="Source\System\AISystem.h" />
-    <ClInclude Include="Source\System\InputSystem.h" />
+    <ClInclude Include="Source\Render\RenderComponent.h" />
+    <ClInclude Include="Source\Subsystem\AISystem.h" />
+    <ClInclude Include="Source\Subsystem\InputSystem.h" />
+    <ClInclude Include="Source\Subsystem\RenderingSystem.h" />
+    <ClInclude Include="Source\System\Subsystem.h" />
     <ClInclude Include="Source\Utility\ColorHelper.h" />
     <ClInclude Include="Source\Utility\CombaramaStructs.h" />
     <ClInclude Include="Source\Utility\PrimitiveHelpers.h" />

@@ -8,7 +8,7 @@
 #include "Utility/CombaramaStructs.h"
 #include "Entity/PlayerCharacter.h"
 #include "Controller/PlayerController.h"
-#include "System/AISystem.h"
+#include "Subsystem/AISystem.h"
 
 
 class Game

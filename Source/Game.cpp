@@ -4,7 +4,7 @@
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_surface.h>
 #include <SDL3/SDL_filesystem.h>
-#include "System/InputSystem.h"
+#include "Subsystem/InputSystem.h"
 
 
 Game::Game(App& GameApp)
