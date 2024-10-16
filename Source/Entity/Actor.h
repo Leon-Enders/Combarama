@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
 #include <SDL3/SDL_render.h>
-#include "Vector2.h"
-#include "Avatar.h"
+#include "../Math/Vector2.h"
+#include "../Render/Avatar.h"
 
 class Actor
 {

@@ -1,8 +1,9 @@
 #pragma once
 #include <memory>
 #include "Actor.h"
-#include "Controller.h"
+#include "../Controller/Controller.h"
 
+//TODO: Create overload for OwningController for PlayerController
 class Character : public Actor
 {
 public:

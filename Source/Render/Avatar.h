@@ -1,8 +1,8 @@
 #pragma once
 #include "SDL3/SDL_render.h"
 #include "vector"
-#include "PrimitiveHelpers.h"
-#include "Vector2.h"
+#include "../Utility/PrimitiveHelpers.h"
+#include "../Math/Vector2.h"
 
 class Avatar
 {

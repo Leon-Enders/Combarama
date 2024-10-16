@@ -5,9 +5,9 @@
 #include <SDL3/SDL_video.h>
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_events.h>
-#include "CombaramaStructs.h"
-#include "PlayerCharacter.h"
-#include "PlayerController.h"
+#include "Utility/CombaramaStructs.h"
+#include "Entity/PlayerCharacter.h"
+#include "Controller/PlayerController.h"
 
 
 class Game

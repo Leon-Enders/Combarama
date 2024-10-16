@@ -1,6 +1,6 @@
 #include "PlayerController.h"
-#include "Game.h"
-#include "PlayerCharacter.h"
+#include "../Game.h"
+#include "../Entity/PlayerCharacter.h"
 
 PlayerController::PlayerController()//Game* InOwningGame)
 {

@@ -2,7 +2,7 @@
 #include <SDL3/SDL_main.h>
 #include <iostream>
 #include "Game.h"
-#include "CombaramaStructs.h"
+#include "Utility/CombaramaStructs.h"
 
 
 int main(int argc, char* argv[])

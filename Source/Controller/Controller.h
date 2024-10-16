@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
-#include "Input/InputComponent.h"
-#include "Input/InputAction.h"
+#include "../Input/InputComponent.h"
+#include "../Input/InputAction.h"
 
 
 //TODO: This class creates InputActions and an InputActionContext

@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include "ColorHelper.h"
+#include "../Utility/ColorHelper.h"
 
 Enemy::Enemy(const Vector2& InPosition)
 	:

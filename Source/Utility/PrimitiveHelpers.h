@@ -5,7 +5,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <vector>
-#include "Vector2.h"
+#include "../Math/Vector2.h"
 
 class  PrimitiveShape
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "Character.h"
-#include "ColorHelper.h"
+#include "../Utility/ColorHelper.h"
 
 
 class Enemy : public Character
