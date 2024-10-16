@@ -17,6 +17,8 @@ public:
 	void RemoveInputComponent(InputComponent* InputComponentToRemove);
 
 private:
+	InputSystem() = default;
+
 	void CaptureInput();
 	void DispatchKeyState(const bool* KeyState);
 	void DispatchReleasedKey(const SDL_Event& Event);

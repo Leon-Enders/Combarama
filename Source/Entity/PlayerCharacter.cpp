@@ -1,5 +1,6 @@
 #include "PlayerCharacter.h"
 #include "../Utility/ColorHelper.h"
+#include "../Utility/MathConstants.h"
 
 PlayerCharacter::PlayerCharacter(const Vector2& InPosition)
 	:
@@ -31,7 +32,7 @@ void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
 	float DeltaRotation = Rotation - AngleInRad;
 	
 	Rotation = AngleInRad;
-	ActorAvatar->UpdateRotation(DeltaRotation);
+	OwnedRenderComponent->UpdateRotation(DeltaRotation);
 }
 
 void PlayerCharacter::Initialize()

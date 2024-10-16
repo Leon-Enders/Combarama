@@ -57,6 +57,7 @@
     <ClInclude Include="Source\System\Subsystem.h" />
     <ClInclude Include="Source\Utility\ColorHelper.h" />
     <ClInclude Include="Source\Utility\CombaramaStructs.h" />
+    <ClInclude Include="Source\Utility\MathConstants.h" />
     <ClInclude Include="Source\Utility\PrimitiveHelpers.h" />
   </ItemGroup>
   <ItemGroup>

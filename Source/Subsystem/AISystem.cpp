@@ -36,14 +36,6 @@ void AISystem::Update(float DeltaTime)
 	}
 }
 
-void AISystem::Draw(SDL_Renderer* Renderer)
-{
-	for (auto& ActiveEnemy : ActiveEnemies)
-	{
-		ActiveEnemy->Draw(Renderer);
-	}
-}
-
 void AISystem::SpawnEnemy()
 {
 	//TODO: Create viewport constant and it use here

@@ -1,40 +1,35 @@
 #pragma once
 #include <SDL3/SDL_render.h>
 #include <cmath>
-
-#define _USE_MATH_DEFINES
-#include <math.h>
 #include <vector>
 #include "../Math/Vector2.h"
+#include "MathConstants.h"
 
 class  PrimitiveShape
 {
 protected:
 
-	virtual void Initialize(SDL_Vertex* OutTriangles = nullptr, int Offset = 0) = 0;
-	virtual void Triangulate(SDL_Vertex* Target, int Offset = 0) = 0;
-	virtual void Draw(SDL_Renderer* Renderer)const = 0;
+	virtual void GetVerts(std::vector<SDL_Vertex>& OutTriangles) = 0;
+	virtual void Triangulate() = 0;
 };
 
 
 class Circle : public PrimitiveShape
 {
 public:
-	Circle(float InRadius, SDL_Vertex InCenter, SDL_FColor InColor)
+	Circle(float InRadius, SDL_Vertex InCenter)
 		:
 		Radius(InRadius),
-		Center(InCenter),
-		Color(InColor)
+		Center(InCenter)
 	{
-		Center.color = Color;
 	};
 
 
-	void Initialize(SDL_Vertex* OutTriangles = nullptr, int Offset = 0) override
+	void GetVerts(std::vector<SDL_Vertex>& OutTriangles) override
 	{
 		if (Segments <= 0) return;
 
-		// Populate Circle Verts for Segments
+		// Generate Verts for Circle Properties
 		float AngleStep = 360 / Segments;
 		for (int i = 0; i < Segments; i++)
 		{
@@ -43,131 +38,112 @@ public:
 
 			Vertices[i].position.x = Center.position.x + Radius * cos(CurrentAngle);
 			Vertices[i].position.y = Center.position.y + Radius * sin(CurrentAngle);
-
-			Vertices[i].color = Color;
 		}
 
+		// Triangulate Circle Verts
+		Triangulate();
 		
-		if (OutTriangles != nullptr)
+		// Populate OutTriangles with triangulated Circle Verts
+		for (auto& Vert : Triangles)
 		{
-			Triangulate(OutTriangles, Offset);
-		}
-		else
-		{
-			Triangulate(Triangles);  
+			Vert.color = DefaultColor;
+			OutTriangles.push_back(Vert);
 		}
 	}
 
-	void Triangulate(SDL_Vertex* Target, int Offset = 0) override
+	void Triangulate() override
 	{
 		for (int i = 0; i < Segments; i++)
 		{
-			Target[Offset + i * 3] = Center;
-			Target[Offset + i * 3 + 1] = Vertices[i];
-			Target[Offset + i * 3 + 2] = Vertices[(i + 1) % Segments];
+			Triangles[i * 3] = Center;
+			Triangles[i * 3 + 1] = Vertices[i];
+			Triangles[i * 3 + 2] = Vertices[(i + 1) % Segments];
 		}
 	}
 
-
-	void Draw(SDL_Renderer* Renderer)const override
-	{
-		SDL_RenderGeometry(Renderer, NULL, Triangles, TriangleVerts, NULL, 0);
-	}
-
-	static constexpr int GetVertNumber() { return TriangleVerts; }
+	static constexpr int GetNumberOfVerts() { return TriangleVerts; }
 
 private:
 
 	float Radius = 0;
 	SDL_Vertex Center;
-	SDL_FColor Color;
-
+	SDL_FColor DefaultColor = {1.f,1.f,1.f,1.f};
 
 	static constexpr int Segments = 120;
 	static constexpr int TriangleVerts = Segments * 3;
 
-	SDL_Vertex Vertices[Segments];
-	SDL_Vertex Triangles[TriangleVerts];
+	SDL_Vertex Vertices[Segments] = {};
+	SDL_Vertex Triangles[TriangleVerts] = {};
 };
 
 class Rectangle : public PrimitiveShape
 {
 public:
-	Rectangle(SDL_Vertex InCenter,float InWidth, float InHeight, SDL_FColor InColor)
+	Rectangle(SDL_Vertex InCenter,float InWidth, float InHeight)
 		:
 		Center(InCenter),
 		Width(InWidth),
-		Height(InHeight),
-		Color(InColor)
+		Height(InHeight)
 	{
-		Center.color = Color;
 	};
 
 
-	virtual void Initialize(SDL_Vertex* OutTriangles = nullptr, int Offset = 0) override
+	virtual void GetVerts(std::vector<SDL_Vertex>& OutTriangles) override
 	{
-		//Populate Rectangle Verts
+		//Generate Verts for Rectangle
 
 		float HalfWidth = Width / 2;
 		float HalfHeight = Height / 2;
-
-
+		
 		Vertices[0].position.x = Center.position.x - HalfWidth;
 		Vertices[0].position.y = Center.position.y + HalfHeight;
-		Vertices[0].color = Color;
 
 		Vertices[1].position.x = Center.position.x + HalfWidth;
 		Vertices[1].position.y = Center.position.y + HalfHeight;
-		Vertices[1].color = Color;
 
 		Vertices[2].position.x = Center.position.x - HalfWidth;
 		Vertices[2].position.y = Center.position.y - HalfHeight;
-		Vertices[2].color = Color;
 
 		Vertices[3].position.x = Center.position.x + HalfWidth;
 		Vertices[3].position.y = Center.position.y - HalfHeight;
-		Vertices[3].color = Color;
 
-		
-		if (OutTriangles != nullptr)
+
+		//Triangulate Rectangle Verts
+		Triangulate();
+
+
+		//Populate OutTriangles with triangulated Rectangle Verts
+		for (auto& Vert : Triangles)
 		{
-			Triangulate(OutTriangles, Offset);
+			Vert.color = DefaultColor;
+			OutTriangles.push_back(Vert);
 		}
-		else
-		{
-			Triangulate(Triangles);
-		}
+
 	}
 
-	virtual void Triangulate(SDL_Vertex* Target, int Offset = 0) override
+	virtual void Triangulate() override
 	{
-		Target[Offset + 0] = Vertices[0];
-		Target[Offset + 1] = Vertices[1];
-		Target[Offset + 2] = Vertices[2];
-		Target[Offset + 3] = Vertices[3];
-		Target[Offset + 4] = Vertices[2];
-		Target[Offset + 5] = Vertices[1];
+		Triangles[0] = Vertices[0];
+		Triangles[1] = Vertices[1];
+		Triangles[2] = Vertices[2];
+		Triangles[3] = Vertices[3];
+		Triangles[4] = Vertices[2];
+		Triangles[5] = Vertices[1];
 		
 	}
 
-	virtual void Draw(SDL_Renderer* Renderer)const override
-	{
-		SDL_RenderGeometry(Renderer, NULL, Triangles, TriangleVerts, NULL, 0);
-	}
-
-
-	static constexpr int GetVertNumber() { return TriangleVerts; }
+	static constexpr int GetNumberOfVerts(){ return TriangleVerts; }
 	
 
 private:
 	float Width;
 	float Height;
 
-	SDL_Vertex Center;
-	SDL_FColor Color;
+	SDL_FColor DefaultColor = { 1.f,1.f,1.f,1.f };
 
+	SDL_Vertex Center;
 	static constexpr int VertNum = 4;
 	static constexpr int TriangleVerts = 6;
-	SDL_Vertex Vertices[VertNum];
-	SDL_Vertex Triangles[TriangleVerts];
+	SDL_Vertex Vertices[VertNum] = {};
+	SDL_Vertex Triangles[TriangleVerts] = {};
 };

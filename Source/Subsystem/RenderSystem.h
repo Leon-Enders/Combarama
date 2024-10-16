@@ -2,18 +2,21 @@
 #include <vector>
 
 class RenderComponent;
-class SDL_Renderer;
+struct SDL_Renderer;
 
 class RenderSystem
 {
 public:
-	RenderSystem(SDL_Renderer* InGameRenderer);
+	static RenderSystem& Get() { return Instance; }
 
 	void Update(float DeltaTime);
+	void Draw(SDL_Renderer* GameRenderer);
 
+	void AddRenderComponent(RenderComponent* RenderComponentToAdd);
+	void RemoveRenderComponent(RenderComponent* RenderComponentToRemove);
 
 private:
-	SDL_Renderer* GameRenderer = nullptr;
-
+	RenderSystem() = default;
+	static RenderSystem Instance;
 	std::vector<RenderComponent*> RenderComponents;
 };

@@ -5,6 +5,7 @@
 #include <SDL3/SDL_surface.h>
 #include <SDL3/SDL_filesystem.h>
 #include "Subsystem/InputSystem.h"
+#include "Subsystem/RenderSystem.h"
 
 
 Game::Game(App& GameApp)
@@ -15,6 +16,7 @@ Game::Game(App& GameApp)
 	const char* BasePath = SDL_GetBasePath();
 	ImagePath = std::string(BasePath) + "../../Assets/BackGround.bmp";
 	
+	InitializeSubsystems();
 }
 
 void Game::StartGame()
@@ -24,10 +26,11 @@ void Game::StartGame()
 
 	TPlayerController = std::make_unique<PlayerController>();
 	Player = std::make_unique<PlayerCharacter>(Vector2(255.f, 255.f));
+	Player->Initialize();
 	TPlayerController->PossessCharacter(Player.get());
 
 
-	ActiveAISystem.Initialize(Player.get());
+	
 
 
 
@@ -45,6 +48,11 @@ void Game::StartGame()
 			SDL_Delay(FrameDelay - static_cast<Uint32>(FrameTime));
 		}
 	}
+}
+
+void Game::InitializeSubsystems()
+{
+	ActiveAISystem.Initialize(Player.get());
 }
 
 void Game::HandleGameLoop()
@@ -80,8 +88,7 @@ void Game::ComposeFrame()
 	//TODO: Refactor this into Level
 	SDL_RenderTexture(GameRenderer, GameBackground, &BackGround, NULL);
 
-	Player->Draw(GameRenderer);
-	ActiveAISystem.Draw(GameRenderer);
+	RenderSystem::Get().Draw(GameRenderer);
 }
 
 void Game::RenderFrame()

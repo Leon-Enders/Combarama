@@ -18,6 +18,7 @@ public:
 
 	void StartGame();
 	
+	void InitializeSubsystems();
 
 	//GameLoop
 	void HandleGameLoop();

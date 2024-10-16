@@ -26,6 +26,7 @@ struct KeyBindInfo
 	std::unordered_map<SDL_Scancode, SDL_Keycode> KeyBindings;
 };
 
+//TODO: create InputComponent.cpp
 class InputComponent
 {
 public:

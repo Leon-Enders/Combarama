@@ -67,8 +67,10 @@
       <Filter>Source\Subsystem</Filter>
     </ClCompile>
     <ClCompile Include="Source\System\Subsystem.cpp" />
-    <ClCompile Include="Source\Subsystem\RenderSystem.cpp" />
     <ClCompile Include="Source\Render\RenderComponent.cpp" />
+    <ClCompile Include="Source\Subsystem\RenderSystem.cpp">
+      <Filter>Source\Subsystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -136,6 +138,9 @@
     </ClInclude>
     <ClInclude Include="Source\Render\RenderComponent.h">
       <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility\MathConstants.h">
+      <Filter>Source\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

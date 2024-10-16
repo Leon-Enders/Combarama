@@ -1,9 +1,11 @@
 #pragma once
 #include <memory>
-#include <SDL3/SDL_render.h>
 #include "../Math/Vector2.h"
 #include "../Render/Avatar.h"
 
+class RenderComponent;
+
+//TODO: Actor should not have an avatar per se, because avatar is a base shape for a character, I can create another primitive shape as a base for actor or even none
 class Actor
 {
 
@@ -12,9 +14,7 @@ public:
 	virtual void Initialize();
 	void Update(float DeltaTime);
 
-	void SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor);
-
-	void Draw(SDL_Renderer* GameRenderer);
+	void SetColor(const SDL_FColor& BodyColor, const SDL_FColor& HeadColor);
 
 	const Vector2 GetPosition()const { return Position; }
 
@@ -30,4 +30,5 @@ protected:
 
 	
 	std::unique_ptr<Avatar> ActorAvatar = nullptr;
+	RenderComponent* OwnedRenderComponent;
 };
