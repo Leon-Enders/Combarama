@@ -7,6 +7,7 @@
 
 class Game;
 
+//TODO: Make this a singleton and fix the ugly Initialize method, was only for testing purposes
 //QUESTION: Should AIControllers own the enemies, since I want to destroy and spawn enemies but not the controllers?
 class AISystem
 {
@@ -15,8 +16,6 @@ public:
 
 	void Initialize(Character* TargetCharacter);
 	void Update(float DeltaTime);
-
-	void Draw(SDL_Renderer* Renderer);
 	
 
 private:

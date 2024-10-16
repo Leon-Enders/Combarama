@@ -16,7 +16,7 @@ Game::Game(App& GameApp)
 	const char* BasePath = SDL_GetBasePath();
 	ImagePath = std::string(BasePath) + "../../Assets/BackGround.bmp";
 	
-	InitializeSubsystems();
+	
 }
 
 void Game::StartGame()
@@ -29,7 +29,7 @@ void Game::StartGame()
 	Player->Initialize();
 	TPlayerController->PossessCharacter(Player.get());
 
-
+	InitializeSubsystems();
 	
 
 
