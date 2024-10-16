@@ -67,7 +67,7 @@
       <Filter>Source\Subsystem</Filter>
     </ClCompile>
     <ClCompile Include="Source\System\Subsystem.cpp" />
-    <ClCompile Include="Source\Subsystem\RenderingSystem.cpp" />
+    <ClCompile Include="Source\Subsystem\RenderSystem.cpp" />
     <ClCompile Include="Source\Render\RenderComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -125,7 +125,7 @@
     <ClInclude Include="Source\Subsystem\InputSystem.h">
       <Filter>Source\Subsystem</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Subsystem\RenderingSystem.h">
+    <ClInclude Include="Source\Subsystem\RenderSystem.h">
       <Filter>Source\Subsystem</Filter>
     </ClInclude>
     <ClInclude Include="Source\Subsystem\AISystem.h">
