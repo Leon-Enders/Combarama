@@ -13,7 +13,7 @@ class AISystem
 public:
 	AISystem();
 
-	void Initialize();
+	void Initialize(Character* TargetCharacter);
 	void Update(float DeltaTime);
 
 	void Draw(SDL_Renderer* Renderer);

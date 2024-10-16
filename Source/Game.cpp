@@ -27,7 +27,7 @@ void Game::StartGame()
 	TPlayerController->PossessCharacter(Player.get());
 
 
-	ActiveAISystem.Initialize();
+	ActiveAISystem.Initialize(Player.get());
 
 
 
@@ -62,6 +62,7 @@ void Game::ProcessInput()
 void Game::Update()
 {
 	Player->Update(DeltaTime);
+	ActiveAISystem.Update(DeltaTime);
 }
 
 void Game::Render()

@@ -10,17 +10,30 @@ AISystem::AISystem()
 {
 }
 
-void AISystem::Initialize()
+void AISystem::Initialize(Character* TargetCharacter)
 {
 	for (int i = 0; i < 3; i++)
 	{
 		SpawnEnemy();
 	}
+
+	for (auto& ActiveAIController : AIControllers)
+	{
+		ActiveAIController.SetTarget(TargetCharacter);
+	}
 }
 
 void AISystem::Update(float DeltaTime)
 {
-	
+	for (auto& ActiveAIController : AIControllers)
+	{
+		ActiveAIController.MoveEnemy();
+	}
+
+	for (auto& ActiveEnemy : ActiveEnemies)
+	{
+		ActiveEnemy->Update(DeltaTime);
+	}
 }
 
 void AISystem::Draw(SDL_Renderer* Renderer)
