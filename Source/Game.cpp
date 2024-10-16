@@ -4,7 +4,7 @@
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_surface.h>
 #include <SDL3/SDL_filesystem.h>
-#include "Input/InputSystem.h"
+#include "System/InputSystem.h"
 
 
 Game::Game(App& GameApp)
@@ -25,6 +25,11 @@ void Game::StartGame()
 	TPlayerController = std::make_unique<PlayerController>();
 	Player = std::make_unique<PlayerCharacter>(Vector2(255.f, 255.f));
 	TPlayerController->PossessCharacter(Player.get());
+
+
+	ActiveAISystem.Initialize();
+
+
 
 	while (IsGameActive)
 	{
@@ -75,6 +80,7 @@ void Game::ComposeFrame()
 	SDL_RenderTexture(GameRenderer, GameBackground, &BackGround, NULL);
 
 	Player->Draw(GameRenderer);
+	ActiveAISystem.Draw(GameRenderer);
 }
 
 void Game::RenderFrame()

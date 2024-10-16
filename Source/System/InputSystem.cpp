@@ -1,7 +1,7 @@
 #include "InputSystem.h"
 #include <algorithm>
 #include "SDL3/SDL_events.h"
-#include "InputComponent.h"
+#include "../Input/InputComponent.h"
 
 
 InputSystem InputSystem::SInputSystem;

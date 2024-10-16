@@ -65,7 +65,7 @@ void Avatar::SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor)
 		Triangles[i].color = BodyColor;
 	}
 
-	for (int i = Circle::GetVertNumber() + 1; i < Rectangle::GetVertNumber(); i++)
+	for (int i = Circle::GetVertNumber(); i < MaxVerts; i++)
 	{
 		Triangles[i].color = HeadColor;
 	}

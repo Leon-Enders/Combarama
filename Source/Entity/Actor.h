@@ -9,7 +9,7 @@ class Actor
 
 public:
 	Actor(const Vector2& InPosition);
-
+	virtual void Initialize();
 	void Update(float DeltaTime);
 
 	void SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor);
@@ -17,8 +17,6 @@ public:
 	void Draw(SDL_Renderer* GameRenderer);
 
 protected:
-	virtual void Initialize();
-
 	void UpdatePosition(float DeltaTime);
 	virtual void UpdateRotation();
 

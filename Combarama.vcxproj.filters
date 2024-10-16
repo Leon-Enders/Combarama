@@ -25,13 +25,13 @@
     <Filter Include="Source\Math">
       <UniqueIdentifier>{ee4f634a-9924-4174-8e9e-95b7cf8cebb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\System">
+      <UniqueIdentifier>{823f1337-b38d-4a66-a60f-6eae43e37308}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Input\InputSystem.cpp">
-      <Filter>Source\Input</Filter>
     </ClCompile>
     <ClCompile Include="Source\Render\Avatar.cpp">
       <Filter>Source\Render</Filter>
@@ -57,15 +57,19 @@
     <ClCompile Include="Source\Comborama.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Controller\AIController.cpp">
+      <Filter>Source\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\InputSystem.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\AISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Input\InputComponent.h">
-      <Filter>Source\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Input\InputSystem.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
     <ClInclude Include="Source\Input\InputAction.h">
@@ -109,6 +113,15 @@
     </ClInclude>
     <ClInclude Include="Source\Controller\Controller.h">
       <Filter>Source\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Controller\AIController.h">
+      <Filter>Source\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\System\AISystem.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\System\InputSystem.h">
+      <Filter>Source\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

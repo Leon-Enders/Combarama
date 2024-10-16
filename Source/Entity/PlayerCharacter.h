@@ -5,12 +5,12 @@ class PlayerCharacter : public Character
 {
 public:
 	PlayerCharacter(const Vector2& InPosition);
+	virtual void Initialize() override;
 
 	void UpdateVelocity(const Vector2& NewVelocity);
 	void ReceiveMouseInput(const Vector2& TargetPosition);
 
 protected:
-	virtual void Initialize() override;
 	virtual void UpdateRotation() override;
 
 

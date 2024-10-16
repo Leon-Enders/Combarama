@@ -1,8 +1,8 @@
 #pragma once
-
+#include <memory>
 #include "Controller.h"
+#include "../Entity/Enemy.h"
 
-class Enemy;
 
 class AIController : public Controller
 {
@@ -16,5 +16,5 @@ protected:
 
 private:
 	
-	Enemy* ControlledEnemy = nullptr;
+	std::unique_ptr<Enemy> ControlledEnemy = nullptr;
 };

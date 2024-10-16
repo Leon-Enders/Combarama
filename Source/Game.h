@@ -8,6 +8,7 @@
 #include "Utility/CombaramaStructs.h"
 #include "Entity/PlayerCharacter.h"
 #include "Controller/PlayerController.h"
+#include "System/AISystem.h"
 
 
 class Game
@@ -50,7 +51,13 @@ private:
 	static constexpr SDL_FRect BackGround = { 0.f,0.f,1280.f,720 };
 	std::string ImagePath;
 
+
+	//Player
 	std::unique_ptr<PlayerCharacter> Player = nullptr;
 	std::unique_ptr<PlayerController> TPlayerController = nullptr;
-	
+
+
+	//System
+	AISystem ActiveAISystem;
+
 };

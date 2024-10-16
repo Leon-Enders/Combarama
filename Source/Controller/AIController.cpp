@@ -8,8 +8,15 @@ AIController::AIController()
 
 void AIController::PossessCharacter(Character* CharacterToPossess)
 {
-	ControlledEnemy = static_cast<Enemy*>(CharacterToPossess);
-	ControlledEnemy->OnPossessed(this);
+    Enemy* EnemyToPossess = static_cast<Enemy*>(CharacterToPossess);
+
+    if (EnemyToPossess)
+    {
+        ControlledEnemy = std::unique_ptr<Enemy>(EnemyToPossess);
+
+        
+        ControlledEnemy->OnPossessed(this);
+    }
 }
 
 void AIController::Initialize()
