@@ -33,7 +33,7 @@
     <ClCompile Include="Source\Subsystem\AISystem.cpp" />
     <ClCompile Include="Source\Subsystem\InputSystem.cpp" />
     <ClCompile Include="Source\Subsystem\RenderSystem.cpp" />
-    <ClCompile Include="Source\System\Subsystem.cpp" />
+    <ClCompile Include="Source\Subsystem\Subsystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Controller\AIController.h" />
@@ -54,7 +54,7 @@
     <ClInclude Include="Source\Subsystem\AISystem.h" />
     <ClInclude Include="Source\Subsystem\InputSystem.h" />
     <ClInclude Include="Source\Subsystem\RenderSystem.h" />
-    <ClInclude Include="Source\System\Subsystem.h" />
+    <ClInclude Include="Source\Subsystem\Subsystem.h" />
     <ClInclude Include="Source\Utility\ColorHelper.h" />
     <ClInclude Include="Source\Utility\CombaramaStructs.h" />
     <ClInclude Include="Source\Utility\MathConstants.h" />
