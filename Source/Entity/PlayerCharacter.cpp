@@ -1,6 +1,7 @@
 #include "PlayerCharacter.h"
 #include "../Utility/ColorHelper.h"
 #include "../Utility/MathConstants.h"
+#include "../Math/ComboramaMath.h"
 
 PlayerCharacter::PlayerCharacter(const Vector2& InPosition)
 	:
@@ -21,27 +22,36 @@ void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
 {
 	float DeltaX = Position.X - TargetPosition.X;
 	float DeltaY = Position.Y - TargetPosition.Y;
-	
-	// Calculate the angle in radians
-	float AngleInRad = std::atan2f(DeltaX, DeltaY);
-	
-	
-	if (AngleInRad < 0)
-	{
-		AngleInRad += static_cast<float>(2 * M_PI);
-	}
-	
-	float DeltaRotation = Rotation - AngleInRad;
-	
-	Rotation = AngleInRad;
 
-	OwnedRenderComponent->UpdateRotation(DeltaRotation);
-	RenderedSword->GetRenderComponent()->UpdateRotation(DeltaRotation);
+	float AngleInRad = std::atan2f(DeltaX, DeltaY);
+
+	DesiredRotation = AngleInRad;
 }
 
 void PlayerCharacter::Initialize()
 {
 	SetColor(COLOR_BLUE, COLOR_LIGHTBLUE);
+}
+
+void PlayerCharacter::Update(float DeltaTime)
+{
+	Actor::Update(DeltaTime);
+
+	float DeltaTimeMS = DeltaTime / 1000.f;
+
+	if (ComboramaMath::FIsSame(Rotation, DesiredRotation, 0.01f))
+	{
+		Rotation = DesiredRotation;
+		return;
+	}
+
+	float CachedRotation = Rotation;	
+	Rotation = ComboramaMath::Slerpf(Rotation, DesiredRotation, DeltaTimeMS * RotationSpeed);
+	
+	float DeltaRotation = CachedRotation - Rotation;
+
+	OwnedRenderComponent->UpdateRotation(DeltaRotation);
+	RenderedSword->GetRenderComponent()->UpdateRotation(DeltaRotation);
 }
 
 void PlayerCharacter::UpdatePosition(float DeltaTime)
@@ -53,25 +63,5 @@ void PlayerCharacter::UpdatePosition(float DeltaTime)
 
 void PlayerCharacter::UpdateRotation()
 {
-	/*
-	* This can be used to create a Target Lock On mechanic
-	* We want strafing for our player though
-	*/
-	
-	//float DeltaX = Position.X - LastMousePosition.X;
-	//float DeltaY = Position.Y - LastMousePosition.Y;
-	//
-	//// Calculate the angle in radians
-	//float AngleInRad = std::atan2f(DeltaX, DeltaY);
-	//
-	//
-	//if (AngleInRad < 0)
-	//{
-	//	AngleInRad += static_cast<float>(2 * M_PI);
-	//}
-	//
-	//float DeltaRotation = Rotation - AngleInRad;
-	//
-	//Rotation = AngleInRad;
-	//ActorAvatar->UpdateRotation(DeltaRotation);
+
 }

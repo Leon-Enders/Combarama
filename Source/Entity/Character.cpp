@@ -20,3 +20,8 @@ void Character::UpdatePosition(float DeltaTime)
 void Character::Initialize()
 {
 }
+
+void Character::Update(float DeltaTime)
+{
+	Actor::Update(DeltaTime);
+}

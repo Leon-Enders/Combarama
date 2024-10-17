@@ -152,6 +152,9 @@
     <ClInclude Include="Source\Render\Sword.h">
       <Filter>Source\Render</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Math\ComboramaMath.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">

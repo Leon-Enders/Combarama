@@ -9,7 +9,7 @@ class Character : public Actor
 public:
 	Character(const Vector2& InPosition);
 	virtual void Initialize() override;
-
+	virtual void Update(float DeltaTime) override;
 	void OnPossessed(Controller* OwningContoller);
 
 protected:

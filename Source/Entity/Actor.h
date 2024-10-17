@@ -12,7 +12,7 @@ class Actor
 public:
 	Actor(const Vector2& InPosition);
 	virtual void Initialize();
-	void Update(float DeltaTime);
+	virtual void Update(float DeltaTime);
 
 	void SetColor(const SDL_FColor& BodyColor, const SDL_FColor& HeadColor);
 
