@@ -15,14 +15,17 @@ public:
 	};
 
 
-    static float Slerpf(float Start, float End, float T) {
+    static float Slerpf(float Start, float End, float T)
+    {
         
-        float Delta = std::fmod(End - Start, 2.0f * M_PI);
-        if (Delta < -M_PI) {
-            Delta += 2.0f * M_PI;
+        float Delta = static_cast<float>(std::fmod(End - Start, 2.0f * M_PI));
+        if (Delta < -static_cast<float>(M_PI))
+        {
+            Delta += 2.0f * static_cast<float>(M_PI);
         }
-        else if (Delta > M_PI) {
-            Delta -= 2.0f * M_PI;
+        else if (Delta > static_cast<float>(M_PI))
+        {
+            Delta -= 2.0f * static_cast<float>(M_PI);
         }
 
         return Start + Delta * T;
