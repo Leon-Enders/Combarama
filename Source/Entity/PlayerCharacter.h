@@ -12,6 +12,7 @@ public:
 	void ReceiveMouseInput(const Vector2& TargetPosition);
 
 protected:
+	virtual void UpdatePosition(float DeltaTime)override;
 	virtual void UpdateRotation() override;
 
 

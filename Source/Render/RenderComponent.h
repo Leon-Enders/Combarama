@@ -8,7 +8,7 @@ struct SDL_Renderer;
 class RenderComponent
 {
 public:
-	RenderComponent(const std::vector<SDL_Vertex>&& InTriangles, const Vector2& InPosition, float InRotation);
+	RenderComponent(const std::vector<SDL_Vertex>&& InTriangles, const Vector2& InPosition, float InRotation, const Vector2& InOffset=Vector2(0.f,0.f));
 	~RenderComponent();
 	void Draw(SDL_Renderer* GameRenderer);
 

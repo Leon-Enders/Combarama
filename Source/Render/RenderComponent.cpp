@@ -1,10 +1,10 @@
 #include "RenderComponent.h"
 #include "../Subsystem/RenderSystem.h"
 
-RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles, const Vector2& InPosition, float InRotation)
+RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles, const Vector2& InPosition, float InRotation, const Vector2& InOffset)
 	:
 	Triangles(InTriangles),
-	Position(InPosition),
+	Position(InPosition + InOffset),
 	Rotation(InRotation)
 {
 	RenderSystem::Get().AddRenderComponent(this);

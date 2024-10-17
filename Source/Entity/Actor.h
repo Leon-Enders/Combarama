@@ -19,7 +19,7 @@ public:
 	const Vector2 GetPosition()const { return Position; }
 
 protected:
-	void UpdatePosition(float DeltaTime);
+	virtual void UpdatePosition(float DeltaTime);
 	virtual void UpdateRotation();
 
 	Vector2 Position;

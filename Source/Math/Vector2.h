@@ -44,6 +44,16 @@ struct Vector2
 		return *this;
 	}
 
+	friend Vector2 operator+(const Vector2& A, const Vector2& B)
+	{
+		return Vector2(A.X + B.X, A.Y + B.Y);
+	}
+
+	friend Vector2 operator-(const Vector2& A, const Vector2& B)
+	{
+		return Vector2(A.X - B.X, A.Y - B.Y);
+	}
+
 	Vector2& operator-=(const Vector2& Other)
 	{
 		X -= Other.X;

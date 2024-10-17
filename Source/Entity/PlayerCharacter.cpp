@@ -7,7 +7,9 @@ PlayerCharacter::PlayerCharacter(const Vector2& InPosition)
 	Character(InPosition)
 {
 	Position = InPosition;
-	RenderedSword = std::make_unique<Sword>(InPosition, Rotation);
+
+	//Construct a Sword
+	RenderedSword = std::make_unique<Sword>(InPosition, Rotation, Vector2(0.f,100.f));
 }
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
@@ -32,12 +34,21 @@ void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
 	float DeltaRotation = Rotation - AngleInRad;
 	
 	Rotation = AngleInRad;
+
 	OwnedRenderComponent->UpdateRotation(DeltaRotation);
+	RenderedSword->GetRenderComponent()->UpdateRotation(DeltaRotation);
 }
 
 void PlayerCharacter::Initialize()
 {
 	SetColor(COLOR_BLUE, COLOR_LIGHTBLUE);
+}
+
+void PlayerCharacter::UpdatePosition(float DeltaTime)
+{
+	Actor::UpdatePosition(DeltaTime);
+
+	RenderedSword->GetRenderComponent()->UpdatePosition(Position);
 }
 
 void PlayerCharacter::UpdateRotation()

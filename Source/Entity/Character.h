@@ -13,6 +13,7 @@ public:
 	void OnPossessed(Controller* OwningContoller);
 
 protected:
+	virtual void UpdatePosition(float DeltaTime)override;
 
 	Controller* OwningController = nullptr;
 };

@@ -9,32 +9,34 @@
 class Sword
 {
 public:
-	Sword(const Vector2& InPosition , float Rotation);
+	Sword(const Vector2& InPosition , float Rotation, const Vector2& SwordOffset);
 
-
+    RenderComponent* GetRenderComponent() { return SwordRenderComponent.get(); }
 private:
+
+   
 
     SDL_Vertex SwordTriangles[15] =
     {
-        {  118.f, 200.f },
-        { 118.f, 100.f },
-        { 132.f, 100.f },
+        {  18.f, 100.f },
+        { 18.f, 0.f },
+        { 32.f, 0.f },
 
-        { 118.f, 200.f },
-        { 132.f, 100.f },
-        { 132.f, 200.f },
+        { 18.f, 100.f },
+        { 32.f, 0.f },
+        { 32.f, 100.f },
 
-        { 100.f, 180.f},
-        { 100.f, 170.f},
-        { 150.f, 170.f },
+        { 0.f, 80.f},
+        { 0.f, 70.f},
+        { 50.f, 70.f },
 
-        { 100.f, 180.f},
-        { 150.f, 170.f },
-        { 150.f, 180.f },
+        { 0.f, 80.f},
+        { 50.f, 70.f },
+        { 50.f, 80.f },
 
-        { 115.f, 100.f },
-        { 135.f, 100.f },
-        { 125.f, 75.f}
+        { 15.f, 0.f },
+        { 35.f, 0.f },
+        { 25.f, -25.f}
     };
 	std::unique_ptr<RenderComponent> SwordRenderComponent;
 };
