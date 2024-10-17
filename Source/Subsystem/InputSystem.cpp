@@ -29,6 +29,10 @@ void InputSystem::CaptureInput()
 		{
 			DispatchReleasedKey(Event);
 		}
+		else if (Event.type == SDL_EventType::SDL_EVENT_MOUSE_BUTTON_DOWN)
+		{
+			DispatchAttackEvent(Event);
+		}
 	}
 	const bool* KeyState = SDL_GetKeyboardState(NULL);
 
@@ -57,6 +61,14 @@ void InputSystem::DispatchMouseEvent(const SDL_Event& MouseEvent)
 	for (auto& PlayerInputComponent : InputComponents)
 	{
 		PlayerInputComponent->ReceiveMouseEvent(MouseEvent);
+	}
+}
+
+void InputSystem::DispatchAttackEvent(const SDL_Event& Event)
+{
+	for (auto& PlayerInputComponent : InputComponents)
+	{
+		PlayerInputComponent->ReceiveAttackEvent(Event);
 	}
 }
 

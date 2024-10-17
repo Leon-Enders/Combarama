@@ -74,11 +74,24 @@ public:
 		QuitInputAction = InputActionToAdd;
 	}
 
+	void AddAttackInputAction(const std::shared_ptr<InputAction>& InputActionToAdd)
+	{
+		AttackInputAction = InputActionToAdd;
+	}
+
 	void HandleQuitEvent(const SDL_Event& QuitEvent)
 	{
 		if (QuitInputAction)
 		{
 			QuitInputAction->Execute();
+		}
+	}
+
+	void HandleAttackEvent()
+	{
+		if (AttackInputAction)
+		{
+			AttackInputAction->Execute();
 		}
 	}
 
@@ -132,5 +145,6 @@ private:
 	std::unordered_map<SDL_Keycode, KeycodePackage> KeycodeToPackage;
 	std::shared_ptr<InputAction> MouseInputAction;
 	std::shared_ptr<InputAction> QuitInputAction;
+	std::shared_ptr<InputAction> AttackInputAction;
 	Vector2 MouseInput;
 };

@@ -17,6 +17,10 @@ PlayerController::PlayerController()//Game* InOwningGame)
 	LookAction = std::make_shared<InputAction>();
 	LookAction->BindFunction(std::bind(&PlayerController::Look, this, _1));
 
+	AttackAction = std::make_shared<InputAction>();
+	AttackAction->BindFunction(std::bind(&PlayerController::Attack, this, _1));
+
+
 	Initialize();
 }
 
@@ -32,7 +36,7 @@ void PlayerController::Initialize()
 	ActionContext->AddInputActionBinding(MoveKeyPackage, MoveAction);
 	ActionContext->AddLookInputAction(LookAction);
 	ActionContext->AddQuitInputAction(QuitAction);
-
+	ActionContext->AddAttackInputAction(AttackAction);
 
 	ControllerInputComponent->SetInputActionContext(ActionContext.get());
 }
@@ -52,4 +56,9 @@ void PlayerController::Look(const InputActionValue& Value)
 {
 	Vector2 TargetMousePosition = Value.Get<Vector2>();
 	ControlledPlayerCharacter->ReceiveMouseInput(TargetMousePosition);
+}
+
+void PlayerController::Attack(const InputActionValue& Value)
+{
+	SDL_Log("Attack!");
 }

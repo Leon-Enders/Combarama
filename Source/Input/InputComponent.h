@@ -55,6 +55,11 @@ public:
 		ActionContext->HandleQuitEvent(QuitEvent);
 	}
 
+	void ReceiveAttackEvent(const SDL_Event& AttackEvent)
+	{
+		ActionContext->HandleAttackEvent();
+	}
+
 	void ReceiveKeyState(const bool* KeyState)
 	{
 		for (const auto& KeycodePair : KeyBindInfo.KeyBindings)

@@ -23,6 +23,7 @@ private:
 	void DispatchKeyState(const bool* KeyState);
 	void DispatchReleasedKey(const SDL_Event& Event);
 	void DispatchMouseEvent(const SDL_Event& MouseEvent);
+	void DispatchAttackEvent(const SDL_Event& Event);
 	void DispatchQuitEvent(const SDL_Event& QuitEvent);
 	void ProcessInputComponents();
 	
