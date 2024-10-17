@@ -20,6 +20,7 @@ public:
 
 protected:
 	virtual void UpdatePosition(float DeltaTime);
+	//TODO: Actor should have a default rotate method implementing the method from playercharacter
 	virtual void UpdateRotation();
 
 	Vector2 Position;

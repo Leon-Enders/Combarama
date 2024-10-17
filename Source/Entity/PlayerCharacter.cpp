@@ -37,6 +37,7 @@ void PlayerCharacter::Update(float DeltaTime)
 {
 	Actor::Update(DeltaTime);
 
+	//TODO: DeltaTime should be in s
 	float DeltaTimeMS = DeltaTime / 1000.f;
 
 	if (ComboramaMath::FIsSame(Rotation, DesiredRotation, 0.01f))
