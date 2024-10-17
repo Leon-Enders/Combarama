@@ -66,12 +66,17 @@
     <ClCompile Include="Source\Subsystem\AISystem.cpp">
       <Filter>Source\Subsystem</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Render\RenderComponent.cpp" />
     <ClCompile Include="Source\Subsystem\RenderSystem.cpp">
       <Filter>Source\Subsystem</Filter>
     </ClCompile>
     <ClCompile Include="Source\Subsystem\Subsystem.cpp">
       <Filter>Source\Subsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\RenderComponent.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Render\Sword.cpp">
+      <Filter>Source\Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Source\Subsystem\Subsystem.h">
       <Filter>Source\Subsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Sword.h">
+      <Filter>Source\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 #pragma once
 #include "Character.h"
+#include "../Render/Sword.h"
 
 class PlayerCharacter : public Character
 {
@@ -15,4 +16,6 @@ protected:
 
 
 	Vector2 LastMousePosition = {0.f,0.f};
+
+	std::unique_ptr<Sword> RenderedSword;
 };

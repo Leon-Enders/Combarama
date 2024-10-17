@@ -17,10 +17,10 @@ void AISystem::Initialize(Character* TargetCharacter)
 		SpawnEnemy();
 	}
 
-	for (auto& ActiveAIController : AIControllers)
-	{
-		ActiveAIController.SetTarget(TargetCharacter);
-	}
+	//for (auto& ActiveAIController : AIControllers)
+	//{
+	//	ActiveAIController.SetTarget(TargetCharacter);
+	//}
 }
 
 void AISystem::Update(float DeltaTime)

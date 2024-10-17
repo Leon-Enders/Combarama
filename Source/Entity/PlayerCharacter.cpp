@@ -7,7 +7,7 @@ PlayerCharacter::PlayerCharacter(const Vector2& InPosition)
 	Character(InPosition)
 {
 	Position = InPosition;
-	
+	RenderedSword = std::make_unique<Sword>(InPosition, Rotation);
 }
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
