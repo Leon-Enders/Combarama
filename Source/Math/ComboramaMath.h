@@ -45,4 +45,14 @@ public:
         float Result = Start + Delta * T;
         return NormalizeAngle(Result);
     }
+
+    static float Clamp(float Value, float MinVal, float MaxVal)
+    {
+        if (Value < MinVal)
+            return MinVal;
+        else if (Value > MaxVal)
+            return MaxVal;
+        else
+            return Value;
+    }
 };

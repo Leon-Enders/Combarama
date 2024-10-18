@@ -22,12 +22,12 @@ protected:
 	float RotationSpeed = 10.f;
 	float DesiredRotation = 0.f;
 	
+
+	float AttackSpeed = 1.f;
 	float SwordRotation = 0.f;
 	float DesiredSwordRotation = 0.f;
 
-	float SwordOriginalRotation = 0.f;
-
-	int CurrentAttackReset = 0;
+	int CurrentAttackFrame = 0;
 	int AttackResetCounter = 60;
 
 	bool IsAttacking = false;
