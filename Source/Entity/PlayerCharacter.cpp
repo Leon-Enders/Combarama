@@ -20,6 +20,8 @@ void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
 
 void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
 {
+	if (IsAttacking) return;
+
 	float DeltaX = Position.X - TargetPosition.X;
 	float DeltaY = Position.Y - TargetPosition.Y;
 
@@ -36,7 +38,19 @@ void PlayerCharacter::Initialize()
 void PlayerCharacter::Update(float DeltaTime)
 {
 	Actor::Update(DeltaTime);
-
+	
+	if (IsAttacking)
+	{
+		CurrentAttackReset += 1;
+		if (CurrentAttackReset >= AttackResetCounter)
+		{
+			CurrentAttackReset = 0;
+			IsAttacking = false;
+		}
+		return;
+	}
+		
+	
 	//TODO: DeltaTime should be in s
 	float DeltaTimeMS = DeltaTime / 1000.f;
 
@@ -51,8 +65,20 @@ void PlayerCharacter::Update(float DeltaTime)
 	
 	float DeltaRotation = CachedRotation - Rotation;
 
+
 	OwnedRenderComponent->UpdateRotation(DeltaRotation);
 	RenderedSword->GetRenderComponent()->UpdateRotation(DeltaRotation);
+}
+
+void PlayerCharacter::Attack()
+{
+	if (IsAttacking) return;
+
+	IsAttacking = true;
+
+
+
+
 }
 
 void PlayerCharacter::UpdatePosition(float DeltaTime)

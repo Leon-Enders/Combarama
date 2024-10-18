@@ -60,5 +60,5 @@ void PlayerController::Look(const InputActionValue& Value)
 
 void PlayerController::Attack(const InputActionValue& Value)
 {
-	SDL_Log("Attack!");
+	ControlledPlayerCharacter->Attack();
 }
