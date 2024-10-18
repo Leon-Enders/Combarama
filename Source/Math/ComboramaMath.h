@@ -12,7 +12,21 @@ public:
 	static bool FIsSame(float a, float b,float Tolerance = 0.0001f)
 	{
 		return std::fabs(a - b) < Tolerance;
-	};
+	}
+
+    static float NormalizeAngle(float Angle)
+    {
+        
+        while (Angle < -static_cast<float>(M_PI))
+        {
+            Angle += 2.0f * static_cast<float>(M_PI);
+        }
+        while (Angle > static_cast<float>(M_PI))
+        {
+            Angle -= 2.0f * static_cast<float>(M_PI);
+        }
+        return Angle;
+    }
 
 
     static float Slerpf(float Start, float End, float T)
@@ -28,6 +42,7 @@ public:
             Delta -= 2.0f * static_cast<float>(M_PI);
         }
 
-        return Start + Delta * T;
+        float Result = Start + Delta * T;
+        return NormalizeAngle(Result);
     }
 };
