@@ -12,6 +12,7 @@ PlayerCharacter::PlayerCharacter(const Vector2& InPosition)
 
 	//Construct a Sword
 	RenderedSword = std::make_unique<Sword>(InPosition, Rotation, Vector2(0.f,100.f));
+	RenderedSword->GetRenderComponent()->SetRenderActive(false);
 }
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
@@ -77,6 +78,7 @@ void PlayerCharacter::Update(float DeltaTime)
 
 			// Reset Sword Rotation
 			RenderedSword->GetRenderComponent()->UpdateRotation(Rotation);
+			RenderedSword->GetRenderComponent()->SetRenderActive(false);
 			return;
 		}
 		
@@ -95,7 +97,7 @@ void PlayerCharacter::Attack()
 {
 	if (IsAttacking) return;
 
-	
+	RenderedSword->GetRenderComponent()->SetRenderActive(true);
 	IsAttacking = true;
 	SwordRotation = 1.25f+Rotation;
 

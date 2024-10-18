@@ -19,9 +19,12 @@ public:
 	void Rotate(float DeltaRotation);
 	void SetRotation(float NewRotation);
 	void SetColor(SDL_FColor NewColor, int Offset=0);
+
+	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
+
 private:
 	Vector2 Position = {0.f,0.f};
 	float Rotation = 0.f;
-
+	bool IsRenderActive = true;
 	std::vector<SDL_Vertex> Triangles;
 };

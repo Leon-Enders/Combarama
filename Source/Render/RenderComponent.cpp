@@ -17,6 +17,7 @@ RenderComponent::~RenderComponent()
 
 void RenderComponent::Draw(SDL_Renderer* GameRenderer)
 {
+	if (!IsRenderActive) return;
 	SDL_RenderGeometry(GameRenderer, NULL, Triangles.data(), static_cast<int>(Triangles.size()), NULL, 0);
 }
 
