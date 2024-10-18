@@ -20,14 +20,16 @@ void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
 
 void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
 {
-	if (IsAttacking) return;
 
 	float DeltaX = Position.X - TargetPosition.X;
 	float DeltaY = Position.Y - TargetPosition.Y;
 
 	float AngleInRad = std::atan2f(DeltaX, DeltaY);
 
+	
 	DesiredRotation = AngleInRad;
+	//SDL_Log("Desired Rotation: %f", DesiredRotation);
+	//SDL_Log("Rotation: %f", Rotation);
 }
 
 void PlayerCharacter::Initialize()
@@ -38,47 +40,61 @@ void PlayerCharacter::Initialize()
 void PlayerCharacter::Update(float DeltaTime)
 {
 	Actor::Update(DeltaTime);
-	
-	if (IsAttacking)
-	{
-		CurrentAttackReset += 1;
-		if (CurrentAttackReset >= AttackResetCounter)
-		{
-			CurrentAttackReset = 0;
-			IsAttacking = false;
-		}
-		return;
-	}
 		
 	
 	//TODO: DeltaTime should be in s
 	float DeltaTimeMS = DeltaTime / 1000.f;
 
-	if (ComboramaMath::FIsSame(Rotation, DesiredRotation, 0.01f))
+	if (!IsAttacking)
 	{
-		Rotation = DesiredRotation;
-		return;
+		if (ComboramaMath::FIsSame(Rotation, DesiredRotation, 0.01f))
+		{
+			Rotation = DesiredRotation;
+			return;
+		}
+
+		Rotation = ComboramaMath::Slerpf(Rotation, DesiredRotation, DeltaTimeMS * RotationSpeed);
+
+		OwnedRenderComponent->UpdateRotation(Rotation);
+		RenderedSword->GetRenderComponent()->UpdateRotation(Rotation);
 	}
+	else
+	{
+		// Handle AttackWindow
+		
+		CurrentAttackReset += 1;
+		if (CurrentAttackReset >= AttackResetCounter)
+		{
+			CurrentAttackReset = 0;
+			IsAttacking = false;
+			RenderedSword->GetRenderComponent()->UpdateRotation(DesiredSwordRotation);
+			return;
+		}
 
-	float CachedRotation = Rotation;	
-	Rotation = ComboramaMath::Slerpf(Rotation, DesiredRotation, DeltaTimeMS * RotationSpeed);
-	
-	float DeltaRotation = CachedRotation - Rotation;
-
-
-	OwnedRenderComponent->UpdateRotation(DeltaRotation);
-	RenderedSword->GetRenderComponent()->UpdateRotation(DeltaRotation);
+		//SDL_Log("SwordRotation: %f", SwordRotation);
+		//SDL_Log("DesiredSwordRotation: %f", SwordRotation);
+		//
+		////// Handle Sword Rotation
+		//
+		//SwordRotation = ComboramaMath::Lerp(SwordRotation, DesiredSwordRotation, DeltaTimeMS * RotationSpeed);
+		//
+		//RenderedSword->GetRenderComponent()->UpdateRotation(SwordRotation);
+	}
 }
 
 void PlayerCharacter::Attack()
 {
 	if (IsAttacking) return;
 
+	
 	IsAttacking = true;
+	
+	SwordRotation = 0.78f;
+	SwordOriginalRotation = SwordRotation * -1.f;
 
 
-
-
+	DesiredSwordRotation = -0.78f;
+	RenderedSword->GetRenderComponent()->UpdateRotation(SwordRotation);
 }
 
 void PlayerCharacter::UpdatePosition(float DeltaTime)

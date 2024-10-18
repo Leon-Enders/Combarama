@@ -25,6 +25,8 @@ protected:
 	float SwordRotation = 0.f;
 	float DesiredSwordRotation = 0.f;
 
+	float SwordOriginalRotation = 0.f;
+
 	int CurrentAttackReset = 0;
 	int AttackResetCounter = 60;
 

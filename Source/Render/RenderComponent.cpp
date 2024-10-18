@@ -20,6 +20,11 @@ void RenderComponent::Draw(SDL_Renderer* GameRenderer)
 	SDL_RenderGeometry(GameRenderer, NULL, Triangles.data(), static_cast<int>(Triangles.size()), NULL, 0);
 }
 
+void RenderComponent::Update(float DeltaTime)
+{
+
+}
+
 void RenderComponent::UpdatePosition(const Vector2& NewPosition)
 {
 	float DeltaX = NewPosition.X - Position.X;
@@ -35,10 +40,19 @@ void RenderComponent::UpdatePosition(const Vector2& NewPosition)
 	}
 }
 
-void RenderComponent::UpdateRotation(float DeltaRotation)
+void RenderComponent::UpdateRotation(float NewRotation)
+{
+	float DeltaRotation = Rotation - NewRotation;
+
+	Rotate(DeltaRotation);
+	Rotation = NewRotation;
+}
+
+void RenderComponent::Rotate(float DeltaRotation)
 {
 	float CosTheta = cos(DeltaRotation);
 	float SinTheta = sin(DeltaRotation);
+
 
 	for (auto& Vert : Triangles)
 	{
@@ -51,6 +65,11 @@ void RenderComponent::UpdateRotation(float DeltaRotation)
 		Vert.position.x = RotatedX + Position.X;
 		Vert.position.y = RotatedY + Position.Y;
 	}
+}
+
+void RenderComponent::SetRotation(float NewRotation)
+{
+	Rotation = NewRotation;
 }
 
 void RenderComponent::SetColor(SDL_FColor NewColor, int Offset)

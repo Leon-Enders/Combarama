@@ -12,9 +12,12 @@ public:
 	~RenderComponent();
 	void Draw(SDL_Renderer* GameRenderer);
 
-	void UpdatePosition(const Vector2& NewPosition);
-	void UpdateRotation(float DeltaRotation);
 
+	void Update(float DeltaTime);
+	void UpdatePosition(const Vector2& NewPosition);
+	void UpdateRotation(float NewRotation);
+	void Rotate(float DeltaRotation);
+	void SetRotation(float NewRotation);
 	void SetColor(SDL_FColor NewColor, int Offset=0);
 private:
 	Vector2 Position = {0.f,0.f};
