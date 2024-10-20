@@ -27,6 +27,7 @@
     <ClCompile Include="Source\Entity\Character.cpp" />
     <ClCompile Include="Source\Entity\Enemy.cpp" />
     <ClCompile Include="Source\Entity\PlayerCharacter.cpp" />
+    <ClCompile Include="Source\Entity\Weapon.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\Render\Avatar.cpp" />
     <ClCompile Include="Source\Render\RenderComponent.cpp" />
@@ -44,6 +45,7 @@
     <ClInclude Include="Source\Entity\Character.h" />
     <ClInclude Include="Source\Entity\Enemy.h" />
     <ClInclude Include="Source\Entity\PlayerCharacter.h" />
+    <ClInclude Include="Source\Entity\Weapon.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\Input\InputAction.h" />
     <ClInclude Include="Source\Input\InputActionContext.h" />

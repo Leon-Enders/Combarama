@@ -3,22 +3,13 @@
 #include "../Utility/MathConstants.h"
 #include "../Math/ComboramaMath.h"
 #include "../Render/Avatar.h"
-#include "../Render/Sword.h"
 
-
+//TODO: Refactor Attack functionality and Sword Transform handling
 PlayerCharacter::PlayerCharacter(const Transform& InTransform)
 	:
 	Character(InTransform)
 {
-	std::vector<SDL_Vertex> SwordTriangles;
-
-	Sword::GenerateVertices(SwordTriangles, InTransform);
-
-	Transform SwordTransform = InTransform;
-	SwordTransform.Position += {0.f, 100.f};
-
-	SwordRenderComponent = std::make_unique<RenderComponent>(std::move(SwordTriangles), this);
-	SwordRenderComponent->SetRenderActive(false);
+	Sword = std::make_unique<Weapon>(InTransform);
 }
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
@@ -62,6 +53,7 @@ void PlayerCharacter::Update(float DeltaTime)
 		}
 
 		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, DesiredRotation, ClampedLerpTime);
+		Sword->SetRotation(EntityTransform.Rotation);
 	}
 	else
 	{
@@ -75,7 +67,8 @@ void PlayerCharacter::Update(float DeltaTime)
 			IsAttacking = false;
 
 			// Reset Sword Rotation
-			SwordRenderComponent->SetRenderActive(false);
+			Sword->SetRotation(EntityTransform.Rotation);
+			Sword->GetRenderComponent()->SetRenderActive(false);
 			return;
 		}
 		
@@ -84,7 +77,7 @@ void PlayerCharacter::Update(float DeltaTime)
 
 		//// Handle Sword Rotation
 		SwordRotation = ComboramaMath::Lerp(SwordRotation, DesiredSwordRotation, ClampedSwordLerpTime);
-
+		Sword->SetRotation(SwordRotation);
 		
 	}
 }
@@ -93,7 +86,7 @@ void PlayerCharacter::Attack()
 {
 	if (IsAttacking) return;
 
-	SwordRenderComponent->SetRenderActive(true);
+	Sword->GetRenderComponent()->SetRenderActive(true);
 	IsAttacking = true;
 	SwordRotation = 1.25f+EntityTransform.Rotation;
 
@@ -103,6 +96,10 @@ void PlayerCharacter::Attack()
 void PlayerCharacter::UpdatePosition(float DeltaTime)
 {
 	Character::UpdatePosition(DeltaTime);
+
+	//Update the Sword Position with the owning Players Position
+	//TODO: Create a system in which you can attach actors to actors, so you dont have to manual update the transform
+	Sword->SetPosition(EntityTransform.Position);
 }
 
 void PlayerCharacter::UpdateRotation()

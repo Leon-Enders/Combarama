@@ -1,5 +1,6 @@
 #pragma once
 #include "Character.h"
+#include "Weapon.h"
 
 class PlayerCharacter : public Character
 {
@@ -31,5 +32,5 @@ protected:
 
 	bool IsAttacking = false;
 
-	std::unique_ptr<RenderComponent> SwordRenderComponent = nullptr;
+	std::unique_ptr<Weapon> Sword = nullptr;
 };
