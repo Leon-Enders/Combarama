@@ -1,11 +1,19 @@
 #include "RenderComponent.h"
 #include "../Subsystem/RenderSystem.h"
+#include "../Entity/Actor.h"
 
-RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles,const Transform& InTransform)
+RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles,const Actor* InOwningActor)
 	:
 	Triangles(InTriangles),
-	RenderTransform(InTransform)
+	OwningActor(InOwningActor)
 {
+	if (OwningActor)
+	{
+		// Cache the Initial Transform of the Actor who owns this Component
+		RenderTransform = InOwningActor->GetTransform();
+	}
+
+
 	RenderSystem::Get().AddRenderComponent(this);
 }
 
@@ -22,14 +30,17 @@ void RenderComponent::Draw(SDL_Renderer* GameRenderer)
 
 void RenderComponent::Update(float DeltaTime)
 {
-
+	UpdatePosition();
+	UpdateRotation();
 }
 
-void RenderComponent::UpdatePosition(const Vector2& NewPosition)
+void RenderComponent::UpdatePosition()
 {
-	Vector2 DeltaPosition = NewPosition - RenderTransform.Position;
+	//Calculate Delta To current Owner Position
+	Vector2 DeltaPosition = OwningActor->GetPosition()- RenderTransform.Position;
 
-	RenderTransform.Position = NewPosition;
+	//Update the RenderTransform
+	RenderTransform.Position = OwningActor->GetPosition();
 
 	for (auto& Vert : Triangles)
 	{
@@ -38,12 +49,15 @@ void RenderComponent::UpdatePosition(const Vector2& NewPosition)
 	}
 }
 
-void RenderComponent::UpdateRotation(float NewRotation)
+void RenderComponent::UpdateRotation()
 {
-	float DeltaRotation = RenderTransform.Rotation - NewRotation;
+	//Calculate DeltaRotation to current Owner Rotation
+	float DeltaRotation = RenderTransform.Rotation - OwningActor->GetRotation();
 
 	Rotate(DeltaRotation);
-	RenderTransform.Rotation = NewRotation;
+
+	//Update RenderTransform
+	RenderTransform.Rotation = OwningActor->GetRotation();
 }
 
 void RenderComponent::Rotate(float DeltaRotation)

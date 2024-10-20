@@ -10,7 +10,7 @@ Character::Character(const Transform& InTransform)
 	Avatar::GenerateVertices(AvatarTriangles, EntityTransform);
 
 	//Move Avatar Triangles into Render Component
-	CharacterRenderComponent = std::make_unique<RenderComponent>(std::move(AvatarTriangles),EntityTransform);
+	CharacterRenderComponent = std::make_unique<RenderComponent>(std::move(AvatarTriangles),this);
 }
 
 void Character::OnPossessed(Controller* OwningContoller)
@@ -21,7 +21,6 @@ void Character::OnPossessed(Controller* OwningContoller)
 void Character::UpdatePosition(float DeltaTime)
 {
 	EntityTransform.Position += Velocity * DeltaTime * Speed;
-	CharacterRenderComponent->UpdatePosition(EntityTransform.Position);
 }
 
 void Character::UpdateRotation()

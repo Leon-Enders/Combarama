@@ -3,26 +3,27 @@
 #include "SDL3/SDL_render.h"
 #include <vector>
 
-struct SDL_Renderer;
+class Actor;
 
 class RenderComponent
 {
 public:
-	RenderComponent(const std::vector<SDL_Vertex>&& InTriangles, const Transform& InTransform);
+	RenderComponent(const std::vector<SDL_Vertex>&& InTriangles, const Actor* InOwningActor);
 	~RenderComponent();
-	void Draw(SDL_Renderer* GameRenderer);
-
 
 	void Update(float DeltaTime);
-	void UpdatePosition(const Vector2& NewPosition);
-	void UpdateRotation(float NewRotation);
-	void Rotate(float DeltaRotation);
+	void Draw(SDL_Renderer* GameRenderer);
+	
 	void SetColor(SDL_FColor NewColor, int Offset=0);
-
 	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
 
 private:
+	void UpdatePosition();
+	void UpdateRotation();
+	void Rotate(float DeltaRotation);
+
 	Transform RenderTransform;
+	const Actor* OwningActor = nullptr;
 	bool IsRenderActive = true;
 	std::vector<SDL_Vertex> Triangles;
 };

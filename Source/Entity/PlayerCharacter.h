@@ -1,6 +1,5 @@
 #pragma once
 #include "Character.h"
-#include "../Render/Sword.h"
 
 class PlayerCharacter : public Character
 {
@@ -31,5 +30,6 @@ protected:
 	int AttackResetCounter = 60;
 
 	bool IsAttacking = false;
-	std::unique_ptr<Sword> PlayerSword;
+
+	std::unique_ptr<RenderComponent> SwordRenderComponent = nullptr;
 };

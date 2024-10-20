@@ -1,22 +1,18 @@
 #pragma once
-#include <memory>
-#include "RenderComponent.h"
+#include <vector>
 #include "SDL3/SDL_render.h"
 
-
-
+struct Transform;
 
 class Sword
 {
 public:
-	Sword(const Transform& InTransform, const Vector2& SwordOffset);
+	Sword()=default;
 
-    RenderComponent* GetRenderComponent() { return SwordRenderComponent.get(); }
+    static void GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& OriginTransform);
 private:
 
-   
-
-    SDL_Vertex SwordTriangles[15] =
+    static constexpr SDL_Vertex SwordTriangles[15] =
     {
         {  18.f, 100.f },
         { 18.f, 0.f },
@@ -38,5 +34,4 @@ private:
         { 35.f, 0.f },
         { 25.f, -25.f}
     };
-	std::unique_ptr<RenderComponent> SwordRenderComponent;
 };

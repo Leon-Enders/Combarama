@@ -3,14 +3,22 @@
 #include "../Utility/MathConstants.h"
 #include "../Math/ComboramaMath.h"
 #include "../Render/Avatar.h"
+#include "../Render/Sword.h"
 
 
 PlayerCharacter::PlayerCharacter(const Transform& InTransform)
 	:
 	Character(InTransform)
 {
-	PlayerSword = std::make_unique<Sword>(InTransform, Vector2(0.f, 100.f));
-	PlayerSword->GetRenderComponent()->SetRenderActive(false);
+	std::vector<SDL_Vertex> SwordTriangles;
+
+	Sword::GenerateVertices(SwordTriangles, InTransform);
+
+	Transform SwordTransform = InTransform;
+	SwordTransform.Position += {0.f, 100.f};
+
+	SwordRenderComponent = std::make_unique<RenderComponent>(std::move(SwordTriangles), this);
+	SwordRenderComponent->SetRenderActive(false);
 }
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
@@ -54,9 +62,6 @@ void PlayerCharacter::Update(float DeltaTime)
 		}
 
 		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, DesiredRotation, ClampedLerpTime);
-
-		CharacterRenderComponent->UpdateRotation(EntityTransform.Rotation);
-		PlayerSword->GetRenderComponent()->UpdateRotation(EntityTransform.Rotation);
 	}
 	else
 	{
@@ -70,8 +75,7 @@ void PlayerCharacter::Update(float DeltaTime)
 			IsAttacking = false;
 
 			// Reset Sword Rotation
-			PlayerSword->GetRenderComponent()->UpdateRotation(EntityTransform.Rotation);
-			PlayerSword->GetRenderComponent()->SetRenderActive(false);
+			SwordRenderComponent->SetRenderActive(false);
 			return;
 		}
 		
@@ -82,7 +86,6 @@ void PlayerCharacter::Update(float DeltaTime)
 		SwordRotation = ComboramaMath::Lerp(SwordRotation, DesiredSwordRotation, ClampedSwordLerpTime);
 
 		
-		PlayerSword->GetRenderComponent()->UpdateRotation(SwordRotation);
 	}
 }
 
@@ -90,7 +93,7 @@ void PlayerCharacter::Attack()
 {
 	if (IsAttacking) return;
 
-	PlayerSword->GetRenderComponent()->SetRenderActive(true);
+	SwordRenderComponent->SetRenderActive(true);
 	IsAttacking = true;
 	SwordRotation = 1.25f+EntityTransform.Rotation;
 
@@ -100,8 +103,6 @@ void PlayerCharacter::Attack()
 void PlayerCharacter::UpdatePosition(float DeltaTime)
 {
 	Character::UpdatePosition(DeltaTime);
-
-	PlayerSword->GetRenderComponent()->UpdatePosition(EntityTransform.Position);
 }
 
 void PlayerCharacter::UpdateRotation()

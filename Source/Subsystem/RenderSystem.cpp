@@ -6,7 +6,10 @@ RenderSystem RenderSystem::Instance;
 
 void RenderSystem::Update(float DeltaTime)
 {
-
+	for (auto& ActiveRenderComponent : RenderComponents)
+	{
+		ActiveRenderComponent->Update(DeltaTime);
+	}
 }
 
 void RenderSystem::Draw(SDL_Renderer* GameRenderer)

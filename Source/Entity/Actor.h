@@ -11,9 +11,11 @@ public:
 	virtual void Initialize();
 	virtual void Update(float DeltaTime);
 
-	const Vector2 GetPosition()const { return EntityTransform.Position; }
-	const float GetRotation()const { return EntityTransform.Rotation; }
-	const Vector2 GetScale()const { return EntityTransform.Scale; }
+	inline const Vector2 GetPosition()const { return EntityTransform.Position; }
+	inline const float GetRotation()const { return EntityTransform.Rotation; }
+	inline const Vector2 GetScale()const { return EntityTransform.Scale; }
+	inline const Transform GetTransform()const { return EntityTransform; }
+
 
 	void SetPosition(const Vector2& NewPosition) { EntityTransform.Position = NewPosition; }
 	void SetRotation(float NewRotation) { EntityTransform.Rotation = NewRotation; }

@@ -74,8 +74,12 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
+	//First Update Actor Positions
 	Player->Update(DeltaTime);
 	ActiveAISystem.Update(DeltaTime);
+
+	//Update Verts to Render
+	RenderSystem::Get().Update(DeltaTime);
 }
 
 void Game::Render()
@@ -93,6 +97,7 @@ void Game::ComposeFrame()
 	//TODO: Refactor this into Level
 	SDL_RenderTexture(GameRenderer, GameBackground, &BackGround, NULL);
 
+	//Draw Verts to Render
 	RenderSystem::Get().Draw(GameRenderer);
 }
 

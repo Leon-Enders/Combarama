@@ -20,7 +20,6 @@ protected:
 	Controller* OwningController = nullptr;
 	std::unique_ptr<RenderComponent> CharacterRenderComponent = nullptr;
 
-
 	Vector2 Velocity = { 0.f, 0.f };
 
 	float Speed = 0.5f;
