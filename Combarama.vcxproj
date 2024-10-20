@@ -50,6 +50,7 @@
     <ClInclude Include="Source\Input\InputActionValue.h" />
     <ClInclude Include="Source\Input\InputComponent.h" />
     <ClInclude Include="Source\Math\ComboramaMath.h" />
+    <ClInclude Include="Source\Math\Transform.h" />
     <ClInclude Include="Source\Math\Vector2.h" />
     <ClInclude Include="Source\Render\Avatar.h" />
     <ClInclude Include="Source\Render\RenderComponent.h" />

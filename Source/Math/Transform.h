@@ -5,7 +5,7 @@
 struct Transform
 {
 	Transform()
-		:Position(0.f,0.f), Rotation(0.f), Scale(0.f,0.f){}
+		:Position(0.f,0.f), Rotation(0.f), Scale(1.f,1.f){}
 
 	Transform(const Vector2& InPosition, float InRotation, const Vector2& InScale)
 		:Position(InPosition),Rotation(InRotation),Scale(InScale){}

@@ -5,7 +5,7 @@
 class PlayerCharacter : public Character
 {
 public:
-	PlayerCharacter(const Vector2& InPosition);
+	PlayerCharacter(const Transform& InTransform);
 	virtual void Initialize() override;
 	virtual void Update(float DeltaTime) override;
 
@@ -31,5 +31,5 @@ protected:
 	int AttackResetCounter = 60;
 
 	bool IsAttacking = false;
-	std::unique_ptr<Sword> RenderedSword;
+	std::unique_ptr<Sword> PlayerSword;
 };

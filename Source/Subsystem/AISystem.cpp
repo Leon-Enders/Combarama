@@ -2,7 +2,7 @@
 #include <random>
 #include <ctime>
 #include <memory>
-#include "../Math/Vector2.h"
+#include "../Math/Transform.h"
 
 AISystem::AISystem()
 	:
@@ -43,9 +43,9 @@ void AISystem::SpawnEnemy()
 	std::uniform_real_distribution<float> DistFloatWidth(50.f, 1100.f);
 	std::uniform_real_distribution<float> DistFloatHeight(50.f, 600.f);
 
-
-	Vector2 RandomSpawnPosition = { DistFloatWidth(RandomGenerator) , DistFloatHeight(RandomGenerator) };
-	Enemy* NewEnemy = new Enemy(RandomSpawnPosition);
+	Transform RandomSpawnTransform;
+	RandomSpawnTransform.Position = { DistFloatWidth(RandomGenerator) , DistFloatHeight(RandomGenerator) };
+	Enemy* NewEnemy = new Enemy(RandomSpawnTransform);
 	NewEnemy->Initialize();
 
 	ActiveEnemies.emplace_back(NewEnemy);

@@ -1,16 +1,17 @@
 #include "Enemy.h"
 #include "../Utility/ColorHelper.h"
+#include "../Render/Avatar.h"
 
-Enemy::Enemy(const Vector2& InPosition)
+Enemy::Enemy(const Transform& InTransform)
 	:
-	Character(InPosition)
+	Character(InTransform)
 {
 	Speed = 0.2f;
 }
 
 void Enemy::Initialize()
 {
-	SetColor(COLOR_YELLOW, COLOR_LIGHTYELLOW);
+	Avatar::SetColor(COLOR_YELLOW, COLOR_LIGHTYELLOW, CharacterRenderComponent.get());
 }
 
 void Enemy::UpdateVelocity(const Vector2& NewVelocity)

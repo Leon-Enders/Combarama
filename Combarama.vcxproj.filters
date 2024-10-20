@@ -155,6 +155,9 @@
     <ClInclude Include="Source\Math\ComboramaMath.h">
       <Filter>Source\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Math\Transform.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">

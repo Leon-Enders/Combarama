@@ -9,7 +9,7 @@
 class Sword
 {
 public:
-	Sword(const Vector2& InPosition , float Rotation, const Vector2& SwordOffset);
+	Sword(const Transform& InTransform, const Vector2& SwordOffset);
 
     RenderComponent* GetRenderComponent() { return SwordRenderComponent.get(); }
 private:

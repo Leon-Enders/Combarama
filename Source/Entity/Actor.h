@@ -1,35 +1,24 @@
 #pragma once
-#include <memory>
-#include "../Math/Vector2.h"
-#include "../Render/Avatar.h"
+#include "../Math/Transform.h"
 
-class RenderComponent;
 
 //TODO: Actor should not have an avatar per se, because avatar is a base shape for a character, I can create another primitive shape as a base for actor or even none
 class Actor
 {
 
 public:
-	Actor(const Vector2& InPosition);
+	Actor(const Transform& InTransform);
 	virtual void Initialize();
 	virtual void Update(float DeltaTime);
 
-	void SetColor(const SDL_FColor& BodyColor, const SDL_FColor& HeadColor);
+	const Vector2 GetPosition()const { return EntityTransform.Position; }
+	const float GetRotation()const { return EntityTransform.Rotation; }
+	const Vector2 GetScale()const { return EntityTransform.Scale; }
 
-	const Vector2 GetPosition()const { return Position; }
-
+	void SetPosition(const Vector2& NewPosition) { EntityTransform.Position = NewPosition; }
+	void SetRotation(float NewRotation) { EntityTransform.Rotation = NewRotation; }
+	void SetScale(const Vector2& NewScale) { EntityTransform.Scale = NewScale; }
 protected:
-	virtual void UpdatePosition(float DeltaTime);
-	//TODO: Actor should have a default rotate method implementing the method from playercharacter
-	virtual void UpdateRotation();
 
-	Vector2 Position;
-	float Rotation = 0.f;
-	Vector2 Velocity = { 0.f, 0.f };
-
-	float Speed = 0.5f;
-
-	
-	std::unique_ptr<Avatar> ActorAvatar = nullptr;
-	RenderComponent* OwnedRenderComponent;
+	Transform EntityTransform;
 };

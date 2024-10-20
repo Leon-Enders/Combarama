@@ -25,7 +25,12 @@ void Game::StartGame()
 	LoadBackground();
 
 	TPlayerController = std::make_unique<PlayerController>();
-	Player = std::make_unique<PlayerCharacter>(Vector2(255.f, 255.f));
+
+
+	Transform PlayerSpawnTransform;
+	PlayerSpawnTransform.Position = { 255.f,255.f };
+
+	Player = std::make_unique<PlayerCharacter>(PlayerSpawnTransform);
 	Player->Initialize();
 	TPlayerController->PossessCharacter(Player.get());
 

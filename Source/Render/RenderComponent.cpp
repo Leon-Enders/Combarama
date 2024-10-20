@@ -1,11 +1,10 @@
 #include "RenderComponent.h"
 #include "../Subsystem/RenderSystem.h"
 
-RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles, const Vector2& InPosition, float InRotation, const Vector2& InOffset)
+RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles,const Transform& InTransform)
 	:
 	Triangles(InTriangles),
-	Position(InPosition + InOffset),
-	Rotation(InRotation)
+	RenderTransform(InTransform)
 {
 	RenderSystem::Get().AddRenderComponent(this);
 }
@@ -28,25 +27,23 @@ void RenderComponent::Update(float DeltaTime)
 
 void RenderComponent::UpdatePosition(const Vector2& NewPosition)
 {
-	float DeltaX = NewPosition.X - Position.X;
-	float DeltaY = NewPosition.Y - Position.Y;
+	Vector2 DeltaPosition = NewPosition - RenderTransform.Position;
 
-	Position.X = NewPosition.X;
-	Position.Y = NewPosition.Y;
+	RenderTransform.Position = NewPosition;
 
 	for (auto& Vert : Triangles)
 	{
-		Vert.position.x += DeltaX;
-		Vert.position.y += DeltaY;
+		Vert.position.x += DeltaPosition.X;
+		Vert.position.y += DeltaPosition.Y;
 	}
 }
 
 void RenderComponent::UpdateRotation(float NewRotation)
 {
-	float DeltaRotation = Rotation - NewRotation;
+	float DeltaRotation = RenderTransform.Rotation - NewRotation;
 
 	Rotate(DeltaRotation);
-	Rotation = NewRotation;
+	RenderTransform.Rotation = NewRotation;
 }
 
 void RenderComponent::Rotate(float DeltaRotation)
@@ -57,20 +54,15 @@ void RenderComponent::Rotate(float DeltaRotation)
 
 	for (auto& Vert : Triangles)
 	{
-		float RelativeX = Vert.position.x - Position.X;
-		float RelativeY = Vert.position.y - Position.Y;
+		float RelativeX = Vert.position.x - RenderTransform.Position.X;
+		float RelativeY = Vert.position.y - RenderTransform.Position.Y;
 
 		float RotatedX = RelativeX * CosTheta - RelativeY * SinTheta;
 		float RotatedY = RelativeX * SinTheta + RelativeY * CosTheta;
 
-		Vert.position.x = RotatedX + Position.X;
-		Vert.position.y = RotatedY + Position.Y;
+		Vert.position.x = RotatedX + RenderTransform.Position.X;
+		Vert.position.y = RotatedY + RenderTransform.Position.Y;
 	}
-}
-
-void RenderComponent::SetRotation(float NewRotation)
-{
-	Rotation = NewRotation;
 }
 
 void RenderComponent::SetColor(SDL_FColor NewColor, int Offset)

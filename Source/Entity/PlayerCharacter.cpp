@@ -2,17 +2,15 @@
 #include "../Utility/ColorHelper.h"
 #include "../Utility/MathConstants.h"
 #include "../Math/ComboramaMath.h"
+#include "../Render/Avatar.h"
 
 
-PlayerCharacter::PlayerCharacter(const Vector2& InPosition)
+PlayerCharacter::PlayerCharacter(const Transform& InTransform)
 	:
-	Character(InPosition)
+	Character(InTransform)
 {
-	Position = InPosition;
-
-	//Construct a Sword
-	RenderedSword = std::make_unique<Sword>(InPosition, Rotation, Vector2(0.f,100.f));
-	RenderedSword->GetRenderComponent()->SetRenderActive(false);
+	PlayerSword = std::make_unique<Sword>(InTransform, Vector2(0.f, 100.f));
+	PlayerSword->GetRenderComponent()->SetRenderActive(false);
 }
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
@@ -22,26 +20,21 @@ void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
 
 void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
 {
+	Vector2 DeltaPosition = EntityTransform.Position - TargetPosition;
+	float AngleInRad = std::atan2f(DeltaPosition.X, DeltaPosition.Y);
 
-	float DeltaX = Position.X - TargetPosition.X;
-	float DeltaY = Position.Y - TargetPosition.Y;
-
-	float AngleInRad = std::atan2f(DeltaX, DeltaY);
-
-	
 	DesiredRotation = AngleInRad;
-	//SDL_Log("Desired Rotation: %f", DesiredRotation);
-	//SDL_Log("Rotation: %f", Rotation);
+	
 }
 
 void PlayerCharacter::Initialize()
 {
-	SetColor(COLOR_BLUE, COLOR_LIGHTBLUE);
+	Avatar::SetColor(COLOR_BLUE, COLOR_LIGHTBLUE, CharacterRenderComponent.get());
 }
 
 void PlayerCharacter::Update(float DeltaTime)
 {
-	Actor::Update(DeltaTime);
+	Character::Update(DeltaTime);
 		
 	
 	//TODO: DeltaTime should be in seconds
@@ -54,16 +47,16 @@ void PlayerCharacter::Update(float DeltaTime)
 
 	if (!IsAttacking)
 	{
-		if (ComboramaMath::FIsSame(Rotation, DesiredRotation, 0.01f))
+		if (ComboramaMath::FIsSame(EntityTransform.Rotation, DesiredRotation, 0.01f))
 		{
-			Rotation = DesiredRotation;
+			EntityTransform.Rotation = DesiredRotation;
 			return;
 		}
 
-		Rotation = ComboramaMath::Slerpf(Rotation, DesiredRotation, ClampedLerpTime);
+		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, DesiredRotation, ClampedLerpTime);
 
-		OwnedRenderComponent->UpdateRotation(Rotation);
-		RenderedSword->GetRenderComponent()->UpdateRotation(Rotation);
+		CharacterRenderComponent->UpdateRotation(EntityTransform.Rotation);
+		PlayerSword->GetRenderComponent()->UpdateRotation(EntityTransform.Rotation);
 	}
 	else
 	{
@@ -77,8 +70,8 @@ void PlayerCharacter::Update(float DeltaTime)
 			IsAttacking = false;
 
 			// Reset Sword Rotation
-			RenderedSword->GetRenderComponent()->UpdateRotation(Rotation);
-			RenderedSword->GetRenderComponent()->SetRenderActive(false);
+			PlayerSword->GetRenderComponent()->UpdateRotation(EntityTransform.Rotation);
+			PlayerSword->GetRenderComponent()->SetRenderActive(false);
 			return;
 		}
 		
@@ -89,7 +82,7 @@ void PlayerCharacter::Update(float DeltaTime)
 		SwordRotation = ComboramaMath::Lerp(SwordRotation, DesiredSwordRotation, ClampedSwordLerpTime);
 
 		
-		RenderedSword->GetRenderComponent()->UpdateRotation(SwordRotation);
+		PlayerSword->GetRenderComponent()->UpdateRotation(SwordRotation);
 	}
 }
 
@@ -97,18 +90,18 @@ void PlayerCharacter::Attack()
 {
 	if (IsAttacking) return;
 
-	RenderedSword->GetRenderComponent()->SetRenderActive(true);
+	PlayerSword->GetRenderComponent()->SetRenderActive(true);
 	IsAttacking = true;
-	SwordRotation = 1.25f+Rotation;
+	SwordRotation = 1.25f+EntityTransform.Rotation;
 
-	DesiredSwordRotation = -1.25f +Rotation;
+	DesiredSwordRotation = -1.25f + EntityTransform.Rotation;
 }
 
 void PlayerCharacter::UpdatePosition(float DeltaTime)
 {
-	Actor::UpdatePosition(DeltaTime);
+	Character::UpdatePosition(DeltaTime);
 
-	RenderedSword->GetRenderComponent()->UpdatePosition(Position);
+	PlayerSword->GetRenderComponent()->UpdatePosition(EntityTransform.Position);
 }
 
 void PlayerCharacter::UpdateRotation()
