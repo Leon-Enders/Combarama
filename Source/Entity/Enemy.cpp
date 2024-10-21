@@ -2,15 +2,15 @@
 #include "../Utility/ColorHelper.h"
 #include "../Render/Avatar.h"
 
-Enemy::Enemy()
+Enemy::Enemy(World* GameWorld)
 	:
-	Character()
+	Character(GameWorld)
 {
 }
 
-Enemy::Enemy(const Transform& InTransform)
+Enemy::Enemy(World* GameWorld, const Transform& InTransform)
 	:
-	Character(InTransform)
+	Character(GameWorld, InTransform)
 {
 	Speed = 0.2f;
 }

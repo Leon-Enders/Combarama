@@ -1,15 +1,15 @@
 #include "Character.h"
 #include "../Render/Avatar.h"
 
-Character::Character()
+Character::Character(World* GameWorld)
 	:
-	Actor()
+	Actor(GameWorld)
 {
 }
 
-Character::Character(const Transform& InTransform)
+Character::Character(World* GameWorld, const Transform& InTransform)
 	:
-	Actor(InTransform)
+	Actor(GameWorld,InTransform)
 {
 	//Use helper function to generate Avatar Triangles
 	std::vector<SDL_Vertex> AvatarTriangles;

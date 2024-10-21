@@ -1,15 +1,15 @@
 #include "Weapon.h"
 #include "../Render/Sword.h"
 
-Weapon::Weapon()
+Weapon::Weapon(World* GameWorld)
 	:
-	Actor()
+	Actor(GameWorld)
 {
 }
 
-Weapon::Weapon(const Transform& InTransform)
+Weapon::Weapon(World* GameWorld, const Transform& InTransform)
 	:
-	Actor(InTransform)
+	Actor(GameWorld, InTransform)
 {
 	std::vector<SDL_Vertex> SwordTriangles;
 

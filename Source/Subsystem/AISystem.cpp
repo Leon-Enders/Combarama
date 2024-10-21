@@ -45,11 +45,11 @@ void AISystem::SpawnEnemy()
 
 	Transform RandomSpawnTransform;
 	RandomSpawnTransform.Position = { DistFloatWidth(RandomGenerator) , DistFloatHeight(RandomGenerator) };
-	Enemy* NewEnemy = new Enemy(RandomSpawnTransform);
-	NewEnemy->Initialize();
-
-	ActiveEnemies.emplace_back(NewEnemy);
-
-	AIControllers.emplace_back();
-	AIControllers.back().PossessCharacter(ActiveEnemies.back());
+	//Enemy* NewEnemy = new Enemy(RandomSpawnTransform);
+	//NewEnemy->Initialize();
+	//
+	//ActiveEnemies.emplace_back(NewEnemy);
+	//
+	//AIControllers.emplace_back();
+	//AIControllers.back().PossessCharacter(ActiveEnemies.back());
 }

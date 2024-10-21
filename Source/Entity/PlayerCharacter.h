@@ -1,12 +1,13 @@
 #pragma once
 #include "Character.h"
-#include "Weapon.h"
+
+class Weapon;
 
 class PlayerCharacter : public Character
 {
 public:
-	PlayerCharacter();
-	PlayerCharacter(const Transform& InTransform);
+	PlayerCharacter(World* GameWorld);
+	PlayerCharacter(World* GameWorld, const Transform& InTransform);
 	virtual void Initialize() override;
 	virtual void Update(float DeltaTime) override;
 
@@ -33,5 +34,5 @@ protected:
 
 	bool IsAttacking = false;
 
-	std::unique_ptr<Weapon> Sword = nullptr;
+	Weapon* Sword = nullptr;
 };

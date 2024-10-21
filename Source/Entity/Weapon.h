@@ -6,8 +6,8 @@
 class Weapon : public Actor
 {
 public:
-	Weapon();
-	Weapon(const Transform& InTransform);
+	Weapon(World* GameWorld);
+	Weapon(World* GameWorld, const Transform& InTransform);
 
 	RenderComponent* GetRenderComponent() { return SwordRenderComponent.get(); }
 private:

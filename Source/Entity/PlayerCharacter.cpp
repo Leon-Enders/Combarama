@@ -3,19 +3,22 @@
 #include "../Utility/MathConstants.h"
 #include "../Math/ComboramaMath.h"
 #include "../Render/Avatar.h"
+#include "Weapon.h"
+#include "../World/World.h"
 
-PlayerCharacter::PlayerCharacter()
+PlayerCharacter::PlayerCharacter(World* GameWorld)
 	:
-	Character()
+	Character(GameWorld)
 {
 }
 
 //TODO: Refactor Attack functionality and Sword Transform handling
-PlayerCharacter::PlayerCharacter(const Transform& InTransform)
+PlayerCharacter::PlayerCharacter(World* GameWorld, const Transform& InTransform)
 	:
-	Character(InTransform)
+	Character(GameWorld, InTransform)
 {
-	Sword = std::make_unique<Weapon>(InTransform);
+	Sword = GetWorld()->SpawnActor<Weapon>(InTransform);
+
 	Initialize();
 }
 

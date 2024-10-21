@@ -8,8 +8,8 @@
 class Character : public Actor
 {
 public:
-	Character();
-	Character(const Transform& InTransform);
+	Character(World* GameWorld);
+	Character(World* GameWorld, const Transform& InTransform);
 	virtual void Initialize() override;
 	virtual void Update(float DeltaTime) override;
 	void OnPossessed(Controller* OwningContoller);

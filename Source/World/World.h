@@ -44,7 +44,7 @@ inline T* World::SpawnActor()
     static_assert(std::is_base_of<Actor, T>::value,
         "T must be a class derived from Actor");
   
-    std::unique_ptr<T> NewActor = std::make_unique<T>();
+    std::unique_ptr<T> NewActor = std::make_unique<T>(this);
 
     T* NewActorRaw = NewActor.get();
 
@@ -59,7 +59,7 @@ inline T* World::SpawnActor(const Transform& SpawnTransform)
 	static_assert(std::is_base_of<Actor, T>::value,
 		"T must be a class derived from Actor");
 
-	std::unique_ptr<T> NewActor = std::make_unique<T>(SpawnTransform);
+	std::unique_ptr<T> NewActor = std::make_unique<T>(this, SpawnTransform);
 
 	T* NewActorRaw = NewActor.get();
 

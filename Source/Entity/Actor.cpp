@@ -2,13 +2,16 @@
 #include "../Subsystem/ActorSystem.h"
 
 
-Actor::Actor()
+Actor::Actor(World* GameWorld)
+	:
+	OwningWorld(GameWorld)
 {
 }
 
-Actor::Actor(const Transform& InTransform)
+Actor::Actor(World* GameWorld, const Transform& InTransform)
 	:
-	EntityTransform(InTransform)
+	EntityTransform(InTransform),
+	OwningWorld(GameWorld)
 {
 	Initialize();
 }
