@@ -15,8 +15,6 @@ AISystem::AISystem(World* InGameWorld)
 
 void AISystem::Initialize()
 {
-
-	
 	RandomGenerator = std::mt19937(static_cast<unsigned int>(std::time(nullptr)));
 }
 
@@ -25,11 +23,6 @@ void AISystem::Update(float DeltaTime)
 	for (auto& ActiveAIController : ActiveAIControllers)
 	{
 		ActiveAIController->MoveEnemy();
-	}
-
-	for (auto& ActiveEnemy : ActiveEnemies)
-	{
-		ActiveEnemy->Update(DeltaTime);
 	}
 }
 
@@ -44,8 +37,9 @@ void AISystem::SpawnRandomEnemy()
 	RandomSpawnTransform.Position = { DistFloatWidth(RandomGenerator) , DistFloatHeight(RandomGenerator) };
 	
 	Enemy* NewEnemy = GetWorld()->SpawnActor<Enemy>(RandomSpawnTransform);
-	ActiveEnemies.push_back(std::move(NewEnemy));
-
 	AIController* NewAIController = GetWorld()->CreateController<AIController>();
+
+	NewAIController->PossessCharacter(NewEnemy);
+
 	ActiveAIControllers.push_back(std::move(NewAIController));
 }

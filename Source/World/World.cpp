@@ -15,6 +15,12 @@ void World::Initialize()
 
 void World::Update(float DeltaTime)
 {
+	for (auto& Subsystem : SubsystemCollection)
+	{
+		Subsystem->Update(DeltaTime);
+	}
+
+
 	for (auto& InstancedActor : InstancedActors)
 	{
 		InstancedActor->Update(DeltaTime);

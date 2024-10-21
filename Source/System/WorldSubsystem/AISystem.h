@@ -19,6 +19,5 @@ public:
 private:
 
 	std::mt19937 RandomGenerator;
-	std::vector<Enemy*> ActiveEnemies;
 	std::vector<AIController*> ActiveAIControllers;
 };
