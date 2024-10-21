@@ -11,7 +11,7 @@ public:
 	RenderComponent(const std::vector<SDL_Vertex>&& InTriangles, const Actor* InOwningActor);
 	~RenderComponent();
 
-	void Update(float DeltaTime);
+	void Update();
 	void Draw(SDL_Renderer* GameRenderer);
 	
 	void SetColor(SDL_FColor NewColor, int Offset=0);

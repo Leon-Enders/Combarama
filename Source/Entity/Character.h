@@ -22,5 +22,5 @@ protected:
 
 	Vector2 Velocity = { 0.f, 0.f };
 
-	float Speed = 0.5f;
+	float Speed = 500.f;
 };

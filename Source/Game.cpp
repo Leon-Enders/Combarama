@@ -6,6 +6,7 @@
 #include <SDL3/SDL_filesystem.h>
 #include "Subsystem/InputSystem.h"
 #include "Subsystem/RenderSystem.h"
+#include "Subsystem/ActorSystem.h"
 
 
 Game::Game(App& GameApp)
@@ -24,6 +25,9 @@ void Game::StartGame()
 	IsGameActive = true;
 	LoadBackground();
 
+	InitializeSubsystems();
+
+
 	TPlayerController = std::make_unique<PlayerController>();
 
 
@@ -34,14 +38,11 @@ void Game::StartGame()
 	Player->Initialize();
 	TPlayerController->PossessCharacter(Player.get());
 
-	InitializeSubsystems();
-	
-
 
 
 	while (IsGameActive)
 	{
-		DeltaTime = static_cast<float>(SDL_GetTicks() - FrameStart);
+		DeltaTime = static_cast<float>((SDL_GetTicks() - FrameStart))/1000;
 		FrameStart = SDL_GetTicks();
 
 		HandleGameLoop();
@@ -57,7 +58,7 @@ void Game::StartGame()
 
 void Game::InitializeSubsystems()
 {
-	ActiveAISystem.Initialize(Player.get());
+	ActorSystem::Get().Initialize();
 }
 
 void Game::HandleGameLoop()
@@ -74,12 +75,11 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
-	//First Update Actor Positions
-	Player->Update(DeltaTime);
-	ActiveAISystem.Update(DeltaTime);
-
+	//First Update all Actors
+	ActorSystem::Get().Update(DeltaTime);
+	
 	//Update Verts to Render
-	RenderSystem::Get().Update(DeltaTime);
+	RenderSystem::Get().Update();
 }
 
 void Game::Render()

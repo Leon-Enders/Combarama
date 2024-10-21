@@ -9,7 +9,7 @@ class RenderSystem
 public:
 	static RenderSystem& Get() { return Instance; }
 
-	void Update(float DeltaTime);
+	void Update();
 	void Draw(SDL_Renderer* GameRenderer);
 
 	void AddRenderComponent(RenderComponent* RenderComponentToAdd);

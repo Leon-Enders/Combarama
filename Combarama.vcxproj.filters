@@ -78,7 +78,12 @@
     <ClCompile Include="Source\Render\Sword.cpp">
       <Filter>Source\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Entity\Weapon.cpp" />
+    <ClCompile Include="Source\Entity\Weapon.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Subsystem\ActorSystem.cpp">
+      <Filter>Source\Subsystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -161,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="Source\Entity\Weapon.h">
       <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Subsystem\ActorSystem.h">
+      <Filter>Source\Subsystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

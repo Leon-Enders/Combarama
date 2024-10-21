@@ -28,7 +28,7 @@ void RenderComponent::Draw(SDL_Renderer* GameRenderer)
 	SDL_RenderGeometry(GameRenderer, NULL, Triangles.data(), static_cast<int>(Triangles.size()), NULL, 0);
 }
 
-void RenderComponent::Update(float DeltaTime)
+void RenderComponent::Update()
 {
 	UpdatePosition();
 	UpdateRotation();

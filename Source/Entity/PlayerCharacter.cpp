@@ -35,11 +35,8 @@ void PlayerCharacter::Update(float DeltaTime)
 {
 	Character::Update(DeltaTime);
 		
-	
-	//TODO: DeltaTime should be in seconds
-	float DeltaTimeS = DeltaTime / 1000.f;
 
-	float LerpTime = DeltaTimeS * RotationSpeed;
+	float LerpTime = DeltaTime * RotationSpeed;
 
 	float ClampedLerpTime = ComboramaMath::Clamp(LerpTime, LerpTime, 1.f);
 
@@ -72,7 +69,7 @@ void PlayerCharacter::Update(float DeltaTime)
 			return;
 		}
 		
-		float SwordLerpTime = DeltaTimeS * CurrentAttackFrame * AttackSpeed;
+		float SwordLerpTime = DeltaTime * CurrentAttackFrame * AttackSpeed;
 		float ClampedSwordLerpTime = ComboramaMath::Clamp(SwordLerpTime, SwordLerpTime, 1.f);
 
 		//// Handle Sword Rotation

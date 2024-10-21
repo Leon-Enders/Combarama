@@ -2,12 +2,12 @@
 #include "../Math/Transform.h"
 
 
-//TODO: Actor should not have an avatar per se, because avatar is a base shape for a character, I can create another primitive shape as a base for actor or even none
 class Actor
 {
 
 public:
 	Actor(const Transform& InTransform);
+	~Actor();
 	virtual void Initialize();
 	virtual void Update(float DeltaTime);
 

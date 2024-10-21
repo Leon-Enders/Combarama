@@ -4,11 +4,11 @@
 
 RenderSystem RenderSystem::Instance;
 
-void RenderSystem::Update(float DeltaTime)
+void RenderSystem::Update()
 {
 	for (auto& ActiveRenderComponent : RenderComponents)
 	{
-		ActiveRenderComponent->Update(DeltaTime);
+		ActiveRenderComponent->Update();
 	}
 }
 
