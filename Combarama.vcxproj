@@ -32,9 +32,11 @@
     <ClCompile Include="Source\Render\Avatar.cpp" />
     <ClCompile Include="Source\Render\RenderComponent.cpp" />
     <ClCompile Include="Source\Render\Sword.cpp" />
-    <ClCompile Include="Source\Subsystem\GameSubsystem\RenderSystem.cpp" />
-    <ClCompile Include="Source\Subsystem\InputSystem.cpp" />
-    <ClCompile Include="Source\Subsystem\WorldSubsystem\AISystem.cpp" />
+    <ClCompile Include="Source\System\GameSubsystem\GameSubsystem.cpp" />
+    <ClCompile Include="Source\System\InputSystem.cpp" />
+    <ClCompile Include="Source\System\RenderSystem.cpp" />
+    <ClCompile Include="Source\System\WorldSubsystem\AISystem.cpp" />
+    <ClCompile Include="Source\System\WorldSubsystem\WorldSubsystem.cpp" />
     <ClCompile Include="Source\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -57,9 +59,11 @@
     <ClInclude Include="Source\Render\Avatar.h" />
     <ClInclude Include="Source\Render\RenderComponent.h" />
     <ClInclude Include="Source\Render\Sword.h" />
-    <ClInclude Include="Source\Subsystem\GameSubsystem\RenderSystem.h" />
-    <ClInclude Include="Source\Subsystem\InputSystem.h" />
-    <ClInclude Include="Source\Subsystem\WorldSubsystem\AISystem.h" />
+    <ClInclude Include="Source\System\GameSubsystem\GameSubsystem.h" />
+    <ClInclude Include="Source\System\InputSystem.h" />
+    <ClInclude Include="Source\System\RenderSystem.h" />
+    <ClInclude Include="Source\System\WorldSubsystem\AISystem.h" />
+    <ClInclude Include="Source\System\WorldSubsystem\WorldSubsystem.h" />
     <ClInclude Include="Source\Utility\ColorHelper.h" />
     <ClInclude Include="Source\Utility\CombaramaStructs.h" />
     <ClInclude Include="Source\Utility\MathConstants.h" />

@@ -1,5 +1,5 @@
 #include "RenderComponent.h"
-#include "../Subsystem/GameSubsystem/RenderSystem.h"
+#include "../System/RenderSystem.h"
 #include "../Entity/Actor.h"
 
 RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles,const Actor* InOwningActor)

@@ -3,31 +3,23 @@
 #include <ctime>
 #include <memory>
 #include "../../Math/Transform.h"
+#include "../../World/World.h"
 
-AISystem::AISystem()
-	:
-	RandomGenerator(static_cast<unsigned int>(std::time(nullptr)))
+
+void AISystem::Initialize(World* InGameWorld)
 {
-}
+	WorldSubsystem::Initialize(InGameWorld);
 
-void AISystem::Initialize(Character* TargetCharacter)
-{
-	for (int i = 0; i < 3; i++)
-	{
-		SpawnEnemy();
-	}
+	
+	RandomGenerator = std::mt19937(static_cast<unsigned int>(std::time(nullptr)));
 
-	//for (auto& ActiveAIController : AIControllers)
-	//{
-	//	ActiveAIController.SetTarget(TargetCharacter);
-	//}
 }
 
 void AISystem::Update(float DeltaTime)
 {
-	for (auto& ActiveAIController : AIControllers)
+	for (auto& ActiveAIController : ActiveAIControllers)
 	{
-		ActiveAIController.MoveEnemy();
+		ActiveAIController->MoveEnemy();
 	}
 
 	for (auto& ActiveEnemy : ActiveEnemies)
@@ -36,7 +28,7 @@ void AISystem::Update(float DeltaTime)
 	}
 }
 
-void AISystem::SpawnEnemy()
+void AISystem::SpawnRandomEnemy()
 {
 	//TODO: Create viewport constant and it use here
 	// Create distribution for width and height where enemies can spawn with some padding
@@ -45,11 +37,10 @@ void AISystem::SpawnEnemy()
 
 	Transform RandomSpawnTransform;
 	RandomSpawnTransform.Position = { DistFloatWidth(RandomGenerator) , DistFloatHeight(RandomGenerator) };
-	//Enemy* NewEnemy = new Enemy(RandomSpawnTransform);
-	//NewEnemy->Initialize();
-	//
-	//ActiveEnemies.emplace_back(NewEnemy);
-	//
-	//AIControllers.emplace_back();
-	//AIControllers.back().PossessCharacter(ActiveEnemies.back());
+	
+	Enemy* NewEnemy = GetWorld()->SpawnActor<Enemy>(RandomSpawnTransform);
+	ActiveEnemies.push_back(std::move(NewEnemy));
+
+	AIController* NewAIController = GetWorld()->CreateController<AIController>();
+	ActiveAIControllers.push_back(std::move(NewAIController));
 }
