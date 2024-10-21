@@ -8,6 +8,7 @@
 class Character : public Actor
 {
 public:
+	Character();
 	Character(const Transform& InTransform);
 	virtual void Initialize() override;
 	virtual void Update(float DeltaTime) override;

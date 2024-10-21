@@ -16,6 +16,8 @@ Game::Game(App& GameApp)
 {
 	const char* BasePath = SDL_GetBasePath();
 	ImagePath = std::string(BasePath) + "../../Assets/BackGround.bmp";
+
+	GameWorld = std::make_unique<World>();
 	
 	
 }
@@ -25,20 +27,13 @@ void Game::StartGame()
 	IsGameActive = true;
 	LoadBackground();
 
-	InitializeSubsystems();
-
-
-	TPlayerController = std::make_unique<PlayerController>();
-
-
 	Transform PlayerSpawnTransform;
 	PlayerSpawnTransform.Position = { 255.f,255.f };
 
-	Player = std::make_unique<PlayerCharacter>(PlayerSpawnTransform);
-	Player->Initialize();
-	TPlayerController->PossessCharacter(Player.get());
+	PlayerCharacter* SpawnedPlayer = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
+	PlayerController* IPlayerController = GameWorld->CreateController<PlayerController>();
 
-
+	IPlayerController->PossessCharacter(SpawnedPlayer);
 
 	while (IsGameActive)
 	{
@@ -56,10 +51,6 @@ void Game::StartGame()
 	}
 }
 
-void Game::InitializeSubsystems()
-{
-	ActorSystem::Get().Initialize();
-}
 
 void Game::HandleGameLoop()
 {
@@ -75,9 +66,8 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
-	//First Update all Actors
-	ActorSystem::Get().Update(DeltaTime);
-	
+	GameWorld->Update(DeltaTime);
+
 	//Update Verts to Render
 	RenderSystem::Get().Update();
 }

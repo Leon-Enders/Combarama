@@ -6,6 +6,7 @@
 class Weapon : public Actor
 {
 public:
+	Weapon();
 	Weapon(const Transform& InTransform);
 
 	RenderComponent* GetRenderComponent() { return SwordRenderComponent.get(); }

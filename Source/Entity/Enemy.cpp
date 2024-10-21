@@ -2,6 +2,12 @@
 #include "../Utility/ColorHelper.h"
 #include "../Render/Avatar.h"
 
+Enemy::Enemy()
+	:
+	Character()
+{
+}
+
 Enemy::Enemy(const Transform& InTransform)
 	:
 	Character(InTransform)

@@ -5,6 +5,7 @@
 class PlayerCharacter : public Character
 {
 public:
+	PlayerCharacter();
 	PlayerCharacter(const Transform& InTransform);
 	virtual void Initialize() override;
 	virtual void Update(float DeltaTime) override;

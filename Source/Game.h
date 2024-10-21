@@ -9,6 +9,7 @@
 #include "Entity/PlayerCharacter.h"
 #include "Controller/PlayerController.h"
 #include "Subsystem/AISystem.h"
+#include "World/World.h"
 
 
 class Game
@@ -17,8 +18,6 @@ public:
 	Game(App& GameApp);
 
 	void StartGame();
-	
-	void InitializeSubsystems();
 
 	//GameLoop
 	void HandleGameLoop();
@@ -53,10 +52,13 @@ private:
 	std::string ImagePath;
 
 
+	//World
+	std::unique_ptr<World> GameWorld;
+
 	//Player
 	std::unique_ptr<PlayerCharacter> Player = nullptr;
 	std::unique_ptr<PlayerController> TPlayerController = nullptr;
-
+	
 
 	//System
 	AISystem ActiveAISystem;

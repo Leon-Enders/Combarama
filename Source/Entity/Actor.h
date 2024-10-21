@@ -6,6 +6,7 @@ class Actor
 {
 
 public:
+	Actor();
 	Actor(const Transform& InTransform);
 	~Actor();
 	virtual void Initialize();
@@ -16,7 +17,7 @@ public:
 	inline const Vector2 GetScale()const { return EntityTransform.Scale; }
 	inline const Transform GetTransform()const { return EntityTransform; }
 
-
+	void SetTransform(const Transform& NewTransform) { EntityTransform = NewTransform; }
 	void SetPosition(const Vector2& NewPosition) { EntityTransform.Position = NewPosition; }
 	void SetRotation(float NewRotation) { EntityTransform.Rotation = NewRotation; }
 	void SetScale(const Vector2& NewScale) { EntityTransform.Scale = NewScale; }

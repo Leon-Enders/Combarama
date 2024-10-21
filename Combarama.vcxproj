@@ -37,6 +37,7 @@
     <ClCompile Include="Source\Subsystem\InputSystem.cpp" />
     <ClCompile Include="Source\Subsystem\RenderSystem.cpp" />
     <ClCompile Include="Source\Subsystem\Subsystem.cpp" />
+    <ClCompile Include="Source\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Controller\AIController.h" />
@@ -67,6 +68,7 @@
     <ClInclude Include="Source\Utility\CombaramaStructs.h" />
     <ClInclude Include="Source\Utility\MathConstants.h" />
     <ClInclude Include="Source\Utility\PrimitiveHelpers.h" />
+    <ClInclude Include="Source\World\World.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp" />

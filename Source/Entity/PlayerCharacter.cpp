@@ -4,12 +4,19 @@
 #include "../Math/ComboramaMath.h"
 #include "../Render/Avatar.h"
 
+PlayerCharacter::PlayerCharacter()
+	:
+	Character()
+{
+}
+
 //TODO: Refactor Attack functionality and Sword Transform handling
 PlayerCharacter::PlayerCharacter(const Transform& InTransform)
 	:
 	Character(InTransform)
 {
 	Sword = std::make_unique<Weapon>(InTransform);
+	Initialize();
 }
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)

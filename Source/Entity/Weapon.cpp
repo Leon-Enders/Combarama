@@ -1,6 +1,12 @@
 #include "Weapon.h"
 #include "../Render/Sword.h"
 
+Weapon::Weapon()
+	:
+	Actor()
+{
+}
+
 Weapon::Weapon(const Transform& InTransform)
 	:
 	Actor(InTransform)

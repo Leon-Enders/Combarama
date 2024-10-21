@@ -2,16 +2,20 @@
 #include "../Subsystem/ActorSystem.h"
 
 
+Actor::Actor()
+{
+}
+
 Actor::Actor(const Transform& InTransform)
 	:
 	EntityTransform(InTransform)
 {
-	ActorSystem::Get().AddActor(this);
+	Initialize();
 }
 
 Actor::~Actor()
 {
-	ActorSystem::Get().RemoveActor(this);
+	
 }
 
 void Actor::Initialize()

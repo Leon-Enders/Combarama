@@ -1,6 +1,12 @@
 #include "Character.h"
 #include "../Render/Avatar.h"
 
+Character::Character()
+	:
+	Actor()
+{
+}
+
 Character::Character(const Transform& InTransform)
 	:
 	Actor(InTransform)
@@ -29,6 +35,7 @@ void Character::UpdateRotation()
 
 void Character::Initialize()
 {
+
 }
 
 void Character::Update(float DeltaTime)
