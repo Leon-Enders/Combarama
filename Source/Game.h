@@ -6,7 +6,7 @@
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_events.h>
 #include "Utility/CombaramaStructs.h"
-#include "Subsystem/AISystem.h"
+#include "Subsystem/WorldSubsystem/AISystem.h"
 #include "World/World.h"
 
 

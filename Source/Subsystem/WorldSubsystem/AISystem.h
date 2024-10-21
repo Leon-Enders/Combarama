@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "../Entity/Enemy.h"
-#include "../Controller/AIController.h"
+#include "../../Entity/Enemy.h"
+#include "../../Controller/AIController.h"
 #include <random>
 
 

@@ -1,6 +1,6 @@
 #include "RenderSystem.h"
 #include "SDL3/SDL_render.h"
-#include "../Render/RenderComponent.h"
+#include "../../Render/RenderComponent.h"
 
 RenderSystem RenderSystem::Instance;
 
