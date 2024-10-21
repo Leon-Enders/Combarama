@@ -1,5 +1,4 @@
 #include "Actor.h"
-#include "../Subsystem/ActorSystem.h"
 
 
 Actor::Actor(World* GameWorld)

@@ -6,8 +6,6 @@
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_events.h>
 #include "Utility/CombaramaStructs.h"
-#include "Entity/PlayerCharacter.h"
-#include "Controller/PlayerController.h"
 #include "Subsystem/AISystem.h"
 #include "World/World.h"
 
@@ -54,10 +52,6 @@ private:
 
 	//World
 	std::unique_ptr<World> GameWorld;
-
-	//Player
-	std::unique_ptr<PlayerCharacter> Player = nullptr;
-	std::unique_ptr<PlayerController> TPlayerController = nullptr;
 	
 
 	//System

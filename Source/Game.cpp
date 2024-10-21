@@ -6,7 +6,8 @@
 #include <SDL3/SDL_filesystem.h>
 #include "Subsystem/InputSystem.h"
 #include "Subsystem/RenderSystem.h"
-#include "Subsystem/ActorSystem.h"
+#include "Entity/PlayerCharacter.h"
+#include "Controller/PlayerController.h"
 
 
 Game::Game(App& GameApp)
