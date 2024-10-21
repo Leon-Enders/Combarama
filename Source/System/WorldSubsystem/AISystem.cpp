@@ -6,13 +6,18 @@
 #include "../../World/World.h"
 
 
-void AISystem::Initialize(World* InGameWorld)
+AISystem::AISystem(World* InGameWorld)
+	:
+	WorldSubsystem(InGameWorld)
 {
-	WorldSubsystem::Initialize(InGameWorld);
+
+}
+
+void AISystem::Initialize()
+{
 
 	
 	RandomGenerator = std::mt19937(static_cast<unsigned int>(std::time(nullptr)));
-
 }
 
 void AISystem::Update(float DeltaTime)

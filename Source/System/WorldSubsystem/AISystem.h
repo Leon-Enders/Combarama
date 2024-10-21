@@ -11,7 +11,8 @@ class Game;
 class AISystem : public WorldSubsystem
 {
 public:
-	virtual void Initialize(World* InGameWorld);
+	AISystem(World* InGameWorld);
+	virtual void Initialize();
 	virtual void Update(float DeltaTime);
 	void SpawnRandomEnemy();
 

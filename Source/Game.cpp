@@ -6,6 +6,7 @@
 #include <SDL3/SDL_filesystem.h>
 #include "System/InputSystem.h"
 #include "System/RenderSystem.h"
+#include "System/WorldSubsystem/AISystem.h"
 #include "Entity/PlayerCharacter.h"
 #include "Controller/PlayerController.h"
 
@@ -19,6 +20,7 @@ Game::Game(App& GameApp)
 	ImagePath = std::string(BasePath) + "../../Assets/BackGround.bmp";
 
 	GameWorld = std::make_unique<World>();
+	GameWorld->Initialize();
 	
 	
 }
@@ -33,8 +35,14 @@ void Game::StartGame()
 
 	PlayerCharacter* SpawnedPlayer = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
 	PlayerController* IPlayerController = GameWorld->CreateController<PlayerController>();
-
 	IPlayerController->PossessCharacter(SpawnedPlayer);
+
+
+	AISystem* AISubsystem = GameWorld->GetSubsystem<AISystem>();
+	if (AISubsystem)
+	{
+		AISubsystem->SpawnRandomEnemy();
+	}
 
 	while (IsGameActive)
 	{

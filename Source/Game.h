@@ -6,7 +6,6 @@
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_events.h>
 #include "Utility/CombaramaStructs.h"
-#include "System/WorldSubsystem/AISystem.h"
 #include "World/World.h"
 
 
@@ -52,9 +51,4 @@ private:
 
 	//World
 	std::unique_ptr<World> GameWorld;
-	
-
-	//System
-	AISystem ActiveAISystem;
-
 };

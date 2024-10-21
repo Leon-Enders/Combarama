@@ -6,12 +6,14 @@ Enemy::Enemy(World* GameWorld)
 	:
 	Character(GameWorld)
 {
+	Initialize();
 }
 
 Enemy::Enemy(World* GameWorld, const Transform& InTransform)
 	:
 	Character(GameWorld, InTransform)
 {
+	Initialize();
 	Speed = 0.2f;
 }
 

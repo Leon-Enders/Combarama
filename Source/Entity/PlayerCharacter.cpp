@@ -10,6 +10,7 @@ PlayerCharacter::PlayerCharacter(World* GameWorld)
 	:
 	Character(GameWorld)
 {
+	Initialize();
 }
 
 //TODO: Refactor Attack functionality and Sword Transform handling

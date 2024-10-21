@@ -1,13 +1,16 @@
 #include "World.h"
+#include "../System/WorldSubsystem/AISystem.h"
 
-World::World()
-{
-
-}
 
 void World::Initialize()
 {
+	// Add all WorldSubsystems and Initialize them
+	FillSubsystemCollection();
 
+	for (const auto& ActiveSubsystem : SubsystemCollection)
+	{
+		ActiveSubsystem->Initialize();
+	}
 }
 
 void World::Update(float DeltaTime)
@@ -26,4 +29,9 @@ void World::RemoveActor(Actor* ActorToRemove)
 	//{
 	//	InstancedActors.erase(Iterator);
 	//}
+}
+
+void World::FillSubsystemCollection()
+{
+	SubsystemCollection.emplace_back(std::make_unique<AISystem>(this));
 }

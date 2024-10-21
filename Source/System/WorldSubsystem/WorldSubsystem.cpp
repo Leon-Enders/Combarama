@@ -1,11 +1,16 @@
 #include "WorldSubsystem.h"
 #include "../../World/World.h"
 
-WorldSubsystem WorldSubsystem::Instance;
 
-void WorldSubsystem::Initialize(World* InGameWorld)
+WorldSubsystem::WorldSubsystem(World* InGameWorld)
+	:
+	GameWorld(InGameWorld)
 {
-	GameWorld = InGameWorld;
+}
+
+void WorldSubsystem::Initialize()
+{
+
 }
 
 void WorldSubsystem::Update(float DeltaTime)

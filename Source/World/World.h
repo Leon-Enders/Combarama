@@ -4,14 +4,19 @@
 #include "../Entity/Actor.h"
 #include "../Controller/Controller.h"
 #include "../Math/Transform.h"
+#include "../System/WorldSubsystem/WorldSubsystem.h"
 
 
 class World
 {
 public:
 
-	World();
+	World() = default;
 
+	void Initialize();
+	
+	void Update(float DeltaTime);
+	
 	template<typename T>
 	T* SpawnActor();
 
@@ -22,10 +27,8 @@ public:
 	T* CreateController();
 
 
-	void Initialize();
-	
-	void Update(float DeltaTime);
-
+	template<typename T>
+	T* GetSubsystem();
 
 	//TODO: Every Actor should have a destroy function calling this Function
 	void RemoveActor(Actor* ActorToRemove);
@@ -33,7 +36,11 @@ public:
 
 
 private:
+	void FillSubsystemCollection();
 
+
+
+	std::vector<std::unique_ptr<WorldSubsystem>> SubsystemCollection;
 	std::vector<std::unique_ptr<Actor>> InstancedActors;
 	std::vector <std::unique_ptr<Controller>> InstancedControllers;
 };
@@ -81,4 +88,25 @@ inline T* World::CreateController()
 	InstancedControllers.push_back(std::move(NewController));
 
 	return NewControllerRaw;
+}
+
+template<typename T>
+inline T* World::GetSubsystem()
+{
+	static_assert(std::is_base_of<WorldSubsystem, T>::value,
+		"T must be a class derived from Controller");
+
+	auto Iterator = std::find_if(SubsystemCollection.begin(), SubsystemCollection.end(),
+		[](const std::unique_ptr<WorldSubsystem>& Subsystem)
+		{
+			return dynamic_cast<T*>(Subsystem.get()) != nullptr;
+		}
+	);
+
+	if (Iterator != SubsystemCollection.end())
+	{
+		return dynamic_cast<T*>(Iterator->get());
+	}
+
+	return nullptr;
 }
