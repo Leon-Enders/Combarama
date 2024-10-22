@@ -10,9 +10,6 @@
 class World
 {
 public:
-
-	World() = default;
-
 	void Initialize();
 	
 	void Update(float DeltaTime);
