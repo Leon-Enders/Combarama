@@ -42,6 +42,7 @@ void Game::StartGame()
 	if (AISubsystem)
 	{
 		AISubsystem->SpawnRandomEnemy();
+		AISubsystem->SpawnRandomEnemy();
 	}
 
 	while (IsGameActive)
