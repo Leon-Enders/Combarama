@@ -7,6 +7,7 @@
 #include "System/InputSystem.h"
 #include "System/RenderSystem.h"
 #include "System/WorldSubsystem/AISystem.h"
+#include "System/CollisionSystem.h"
 #include "Entity/PlayerCharacter.h"
 #include "Controller/PlayerController.h"
 
@@ -100,6 +101,7 @@ void Game::ComposeFrame()
 
 	//Draw Verts to Render
 	RenderSystem::Get().Draw(GameRenderer);
+	CollisionSystem::Get().Draw(GameRenderer);
 }
 
 void Game::RenderFrame()

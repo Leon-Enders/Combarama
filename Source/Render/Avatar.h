@@ -11,7 +11,8 @@ struct Avatar
 
 	static void SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor, RenderComponent* InRenderComponent);
 	static void GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& OriginTransform);
-	
+	static const float GetRadius(){ return Radius; }
+
 	static constexpr float Radius = 25.f;
 	static constexpr float HeadWidth = 25.f;
 	static constexpr float HeadHeight = 15.f;

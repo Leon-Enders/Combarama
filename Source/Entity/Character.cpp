@@ -17,6 +17,11 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 
 	//Move Avatar Triangles into Render Component
 	CharacterRenderComponent = std::make_unique<RenderComponent>(std::move(AvatarTriangles),this);
+
+	float ColliderWidth, ColliderHeight = Avatar::GetRadius() * 2.f;
+
+	CharacterCollider = std::make_unique<Collider>(InTransform.Position, ColliderWidth, ColliderHeight);
+
 }
 
 void Character::OnPossessed(Controller* OwningContoller)
@@ -27,6 +32,9 @@ void Character::OnPossessed(Controller* OwningContoller)
 void Character::UpdatePosition(float DeltaTime)
 {
 	EntityTransform.Position += Velocity * DeltaTime * Speed;
+
+
+	CharacterCollider->UpdatePosition(EntityTransform.Position);
 }
 
 void Character::UpdateRotation()

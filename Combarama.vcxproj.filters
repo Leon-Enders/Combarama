@@ -99,6 +99,8 @@
     <ClCompile Include="Source\World\World.cpp">
       <Filter>Source\World</Filter>
     </ClCompile>
+    <ClCompile Include="Source\System\CollisionSystem.cpp" />
+    <ClCompile Include="Source\Collision\Collider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -193,6 +195,9 @@
     </ClInclude>
     <ClInclude Include="Source\Collision\Collider.h">
       <Filter>Source\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\System\CollisionSystem.h">
+      <Filter>Source\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

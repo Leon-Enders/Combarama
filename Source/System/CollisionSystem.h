@@ -2,7 +2,7 @@
 #include <vector>
 
 class Collider;
-class SDL_Renderer;
+struct SDL_Renderer;
 
 class CollisionSystem
 {

@@ -2,7 +2,7 @@
 #include "../Math/Vector2.h"
 #include "SDL3/SDL_rect.h"
 
-class SDL_Renderer;
+struct SDL_Renderer;
 
 class Collider
 {

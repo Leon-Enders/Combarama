@@ -3,6 +3,7 @@
 #include "Actor.h"
 #include "../Controller/Controller.h"
 #include "../Render/RenderComponent.h"
+#include "../Collision/Collider.h"
 
 //TODO: Create overload for OwningController for PlayerController
 class Character : public Actor
@@ -18,10 +19,12 @@ protected:
 	virtual void UpdatePosition(float DeltaTime);
 	virtual void UpdateRotation();
 
+	float Speed = 500.f;
+	Vector2 Velocity = { 0.f, 0.f };
+	
+
 	Controller* OwningController = nullptr;
 	std::unique_ptr<RenderComponent> CharacterRenderComponent = nullptr;
 
-	Vector2 Velocity = { 0.f, 0.f };
-
-	float Speed = 500.f;
+	std::unique_ptr<Collider> CharacterCollider = nullptr;
 };

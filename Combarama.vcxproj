@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Collision\Collider.cpp" />
     <ClCompile Include="Source\Comborama.cpp" />
     <ClCompile Include="Source\Controller\AIController.cpp" />
     <ClCompile Include="Source\Controller\Controller.cpp" />
@@ -32,6 +33,7 @@
     <ClCompile Include="Source\Render\Avatar.cpp" />
     <ClCompile Include="Source\Render\RenderComponent.cpp" />
     <ClCompile Include="Source\Render\Sword.cpp" />
+    <ClCompile Include="Source\System\CollisionSystem.cpp" />
     <ClCompile Include="Source\System\GameSubsystem\GameSubsystem.cpp" />
     <ClCompile Include="Source\System\InputSystem.cpp" />
     <ClCompile Include="Source\System\RenderSystem.cpp" />
@@ -61,6 +63,7 @@
     <ClInclude Include="Source\Render\Avatar.h" />
     <ClInclude Include="Source\Render\RenderComponent.h" />
     <ClInclude Include="Source\Render\Sword.h" />
+    <ClInclude Include="Source\System\CollisionSystem.h" />
     <ClInclude Include="Source\System\GameSubsystem\GameSubsystem.h" />
     <ClInclude Include="Source\System\InputSystem.h" />
     <ClInclude Include="Source\System\RenderSystem.h" />
