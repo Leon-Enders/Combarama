@@ -10,11 +10,14 @@ public:
 	Collider(const Vector2& Origin, float InWidth, float InHeight);
 	~Collider();
 	void UpdatePosition(const Vector2& NewPosition);
-
-
 	void Draw(SDL_Renderer* Renderer);
 
+	void OnCollisionEnter(const Collider* Other);
+
+
 	bool DrawDebug = true;
+
+	const SDL_FRect* GetColliderBox()const { return &ColliderBox; }
 private:
 
 	// since FRects have their center on the upper left corner

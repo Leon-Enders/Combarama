@@ -4,6 +4,22 @@
 
 CollisionSystem CollisionSystem::Instance;
 
+void CollisionSystem::Update()
+{
+	for (const auto& ActiveCollider : ActiveColliders)
+	{
+		for (const auto& aCollider : ActiveColliders)
+		{
+			if (ActiveCollider == aCollider) break;
+
+			if (SDL_HasRectIntersectionFloat(ActiveCollider->GetColliderBox(), aCollider->GetColliderBox()))
+			{
+				ActiveCollider->OnCollisionEnter(aCollider);
+			}
+		}
+	}
+}
+
 void CollisionSystem::Draw(SDL_Renderer* GameRenderer)
 {
 	for (const auto& ActiveCollider : ActiveColliders)

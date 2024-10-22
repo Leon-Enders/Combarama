@@ -9,7 +9,7 @@ class CollisionSystem
 public:
 	static CollisionSystem& Get() { return Instance; };
 
-
+	void Update();
 	void Draw(SDL_Renderer* GameRenderer);
 
 	void AddCollider(Collider* ColliderToAdd);

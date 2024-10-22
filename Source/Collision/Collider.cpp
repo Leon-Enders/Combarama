@@ -1,5 +1,6 @@
 #include "Collider.h"
 #include "SDL3/SDL_render.h"
+#include "SDL3/SDL_log.h"
 #include "../System/CollisionSystem.h"
 
 Collider::Collider(const Vector2& Origin, float InWidth, float InHeight)
@@ -33,4 +34,9 @@ void Collider::Draw(SDL_Renderer* Renderer)
 	{
 		SDL_RenderRect(Renderer, &ColliderBox);
 	}
+}
+
+void Collider::OnCollisionEnter(const Collider* Other)
+{
+	SDL_Log("Collision!");
 }
