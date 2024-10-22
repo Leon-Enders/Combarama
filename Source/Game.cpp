@@ -57,6 +57,7 @@ void Game::StartGame()
 		{
 			SDL_Delay(FrameDelay - static_cast<Uint32>(FrameTime));
 		}
+		SDL_Log("Frametime: %i", FrameTime);
 	}
 }
 

@@ -25,8 +25,17 @@
     <Filter Include="Source\Math">
       <UniqueIdentifier>{ee4f634a-9924-4174-8e9e-95b7cf8cebb3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Subsystem">
-      <UniqueIdentifier>{823f1337-b38d-4a66-a60f-6eae43e37308}</UniqueIdentifier>
+    <Filter Include="Source\System">
+      <UniqueIdentifier>{2e025957-2763-40fa-b5c3-3cc1a6ea6184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\System\GameSubsystem">
+      <UniqueIdentifier>{094bc4dc-3f1a-42bb-8059-77d73d7f5634}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\System\WorldSubsystem">
+      <UniqueIdentifier>{ea2c99b6-42d6-4f2b-a791-832f17da8acd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\World">
+      <UniqueIdentifier>{0a860b4a-a36f-476d-9e2c-0bf2a50f56da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,18 +69,6 @@
     <ClCompile Include="Source\Controller\AIController.cpp">
       <Filter>Source\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Subsystem\InputSystem.cpp">
-      <Filter>Source\Subsystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Subsystem\AISystem.cpp">
-      <Filter>Source\Subsystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Subsystem\RenderSystem.cpp">
-      <Filter>Source\Subsystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Subsystem\Subsystem.cpp">
-      <Filter>Source\Subsystem</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Render\RenderComponent.cpp">
       <Filter>Source\Render</Filter>
     </ClCompile>
@@ -81,8 +78,23 @@
     <ClCompile Include="Source\Entity\Weapon.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Subsystem\ActorSystem.cpp">
-      <Filter>Source\Subsystem</Filter>
+    <ClCompile Include="Source\System\InputSystem.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\RenderSystem.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\WorldSubsystem\WorldSubsystem.cpp">
+      <Filter>Source\System\WorldSubsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\WorldSubsystem\AISystem.cpp">
+      <Filter>Source\System\WorldSubsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\GameSubsystem\GameSubsystem.cpp">
+      <Filter>Source\System\GameSubsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\World\World.cpp">
+      <Filter>Source\World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,23 +149,11 @@
     <ClInclude Include="Source\Controller\AIController.h">
       <Filter>Source\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Subsystem\InputSystem.h">
-      <Filter>Source\Subsystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Subsystem\RenderSystem.h">
-      <Filter>Source\Subsystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Subsystem\AISystem.h">
-      <Filter>Source\Subsystem</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Render\RenderComponent.h">
       <Filter>Source\Render</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utility\MathConstants.h">
       <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Subsystem\Subsystem.h">
-      <Filter>Source\Subsystem</Filter>
     </ClInclude>
     <ClInclude Include="Source\Render\Sword.h">
       <Filter>Source\Render</Filter>
@@ -167,8 +167,23 @@
     <ClInclude Include="Source\Entity\Weapon.h">
       <Filter>Source\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Subsystem\ActorSystem.h">
-      <Filter>Source\Subsystem</Filter>
+    <ClInclude Include="Source\System\RenderSystem.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\System\InputSystem.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\System\WorldSubsystem\WorldSubsystem.h">
+      <Filter>Source\System\WorldSubsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\System\WorldSubsystem\AISystem.h">
+      <Filter>Source\System\WorldSubsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\System\GameSubsystem\GameSubsystem.h">
+      <Filter>Source\System\GameSubsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\World\World.h">
+      <Filter>Source\World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
