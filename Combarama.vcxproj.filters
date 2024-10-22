@@ -37,6 +37,9 @@
     <Filter Include="Source\World">
       <UniqueIdentifier>{0a860b4a-a36f-476d-9e2c-0bf2a50f56da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Collision">
+      <UniqueIdentifier>{58ff6b6c-5d10-4ffb-a570-e8333b489f83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
@@ -184,6 +187,12 @@
     </ClInclude>
     <ClInclude Include="Source\World\World.h">
       <Filter>Source\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision\Collision.h">
+      <Filter>Source\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision\Collider.h">
+      <Filter>Source\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

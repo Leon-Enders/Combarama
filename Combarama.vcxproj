@@ -40,6 +40,8 @@
     <ClCompile Include="Source\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Collision\Collider.h" />
+    <ClInclude Include="Source\Collision\Collision.h" />
     <ClInclude Include="Source\Controller\AIController.h" />
     <ClInclude Include="Source\Controller\Controller.h" />
     <ClInclude Include="Source\Controller\PlayerController.h" />
