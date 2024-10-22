@@ -16,7 +16,7 @@ void Avatar::GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform
 	CircleCenter.position.x = OriginTransform.Position.X;
 	CircleCenter.position.y = OriginTransform.Position.Y;
 
-	Circle ACircle = Circle(Radius, CircleCenter);
+	Circle ACircle = Circle(Radius);
 	ACircle.GetVerts(OutVerts);
 
 
@@ -24,7 +24,7 @@ void Avatar::GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform
 	RectCenter.position.x = OriginTransform.Position.X;
 	RectCenter.position.y = OriginTransform.Position.Y - 25.f;
 
-	Rectangle ARect = Rectangle(RectCenter, HeadWidth, HeadHeight);
+	Rectangle ARect = Rectangle(HeadWidth, HeadHeight);
 
 	ARect.GetVerts(OutVerts);
 }

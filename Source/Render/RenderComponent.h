@@ -26,4 +26,5 @@ private:
 	const Actor* OwningActor = nullptr;
 	bool IsRenderActive = true;
 	std::vector<SDL_Vertex> Triangles;
+	std::vector<SDL_Vertex> TransformedTriangles;
 };

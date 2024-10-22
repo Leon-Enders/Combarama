@@ -1,12 +1,15 @@
 #include "RenderComponent.h"
 #include "../System/RenderSystem.h"
 #include "../Entity/Actor.h"
+#include "../Math/Matrix.h"
 
 RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles,const Actor* InOwningActor)
 	:
 	Triangles(InTriangles),
 	OwningActor(InOwningActor)
 {
+
+	TransformedTriangles.resize(Triangles.size());
 	if (OwningActor)
 	{
 		// Cache the Initial Transform of the Actor who owns this Component
@@ -25,28 +28,39 @@ RenderComponent::~RenderComponent()
 void RenderComponent::Draw(SDL_Renderer* GameRenderer)
 {
 	if (!IsRenderActive) return;
-	SDL_RenderGeometry(GameRenderer, NULL, Triangles.data(), static_cast<int>(Triangles.size()), NULL, 0);
+	SDL_RenderGeometry(GameRenderer, NULL, TransformedTriangles.data(), static_cast<int>(Triangles.size()), NULL, 0);
 }
 
 void RenderComponent::Update()
 {
-	UpdatePosition();
-	UpdateRotation();
+	Matrix3x3 translate = Matrix3x3::translation(OwningActor->GetPosition().X, OwningActor->GetPosition().Y);
+	// Apply the model matrix to all vertices (translation only for now)
+	
+	
+	for (size_t i = 0; i < Triangles.size(); ++i)
+	{
+		// Apply the translation to the local vertex position
+		SDL_FPoint TransformedPos = translate * Triangles[i].position;
+
+		// Update the transformed vertex position
+		TransformedTriangles[i].position = TransformedPos;
+		TransformedTriangles[i].color = Triangles[i].color; // Copy the color if needed
+	}
 }
 
 void RenderComponent::UpdatePosition()
 {
-	//Calculate Delta To current Owner Position
-	Vector2 DeltaPosition = OwningActor->GetPosition()- RenderTransform.Position;
-
-	//Update the RenderTransform
-	RenderTransform.Position = OwningActor->GetPosition();
-
-	for (auto& Vert : Triangles)
-	{
-		Vert.position.x += DeltaPosition.X;
-		Vert.position.y += DeltaPosition.Y;
-	}
+	////Calculate Delta To current Owner Position
+	//Vector2 DeltaPosition = OwningActor->GetPosition()- RenderTransform.Position;
+	//
+	////Update the RenderTransform
+	//RenderTransform.Position = OwningActor->GetPosition();
+	//
+	//for (auto& Vert : Triangles)
+	//{
+	//	Vert.position.x += DeltaPosition.X;
+	//	Vert.position.y += DeltaPosition.Y;
+	//}
 }
 
 void RenderComponent::UpdateRotation()

@@ -203,6 +203,9 @@
     <ClInclude Include="Source\System\CollisionSystem.h">
       <Filter>Source\System</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Math\Matrix.h">
+      <Filter>Source\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">
