@@ -1,5 +1,6 @@
 #include "AIController.h"
 #include "../Entity/Enemy.h"
+#include "../Math/ComboramaMath.h"
 
 AIController::AIController()
 {
@@ -17,27 +18,28 @@ void AIController::PossessCharacter(Character* CharacterToPossess)
 
     if (EnemyToPossess)
     {
-        ControlledEnemy = std::unique_ptr<Enemy>(EnemyToPossess);
-
-        
+        ControlledEnemy = EnemyToPossess;
         ControlledEnemy->OnPossessed(this);
     }
+
+    StartPosition = ControlledEnemy->GetPosition();
+    ControlledEnemy->UpdateVelocity({ 1.f,0.f });
 }
 
 void AIController::MoveEnemy()
 {
-    if (!Target || !ControlledEnemy) return;
-    float DeltaX = Target->GetPosition().X - ControlledEnemy->GetPosition().X;
-    float DeltaY = Target->GetPosition().Y - ControlledEnemy->GetPosition().Y;
-
-    Vector2 TargetDelta = { DeltaX , DeltaY };
-    Vector2 TargetDirection = TargetDelta.Normalize();
-
-
-    ControlledEnemy->UpdateVelocity(TargetDirection);
+    if (!ControlledEnemy) return;
+    if (ControlledEnemy->GetPosition().X > StartPosition.X + MaxXDistance)
+    {
+        ControlledEnemy->UpdateVelocity({-1.f,0.f});
+    }
+    if (ControlledEnemy->GetPosition().X < StartPosition.X - MaxXDistance)
+    {
+        ControlledEnemy->UpdateVelocity({ 1.f,0.f });
+    }
 }
 
 void AIController::Initialize()
 {
-
+   
 }

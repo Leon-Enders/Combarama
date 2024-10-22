@@ -16,7 +16,11 @@ protected:
 	virtual void Initialize() override;
 
 private:
-	
+	Vector2 StartPosition = {};
+
 	Character* Target = nullptr;
-	std::unique_ptr<Enemy> ControlledEnemy = nullptr;
+	Enemy* ControlledEnemy = nullptr;
+
+	float MaxXDistance = 200.f;
+
 };
