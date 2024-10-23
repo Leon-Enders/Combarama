@@ -2,7 +2,8 @@
 #include <SDL3/SDL_render.h>
 #include <cmath>
 #include <vector>
-#include "../Math/Vector2.h"
+#include "../Math/Transform.h"
+#include "../Math/Matrix.h"
 #include "MathConstants.h"
 
 class  PrimitiveShape
@@ -17,7 +18,7 @@ protected:
 class Circle : public PrimitiveShape
 {
 public:
-	Circle(float InRadius, const Vector2& InOffset = {0.f,0.f})
+	Circle(float InRadius, const Transform& InOffset = {})
 		:
 		Radius(InRadius),
 		Offset(InOffset)
@@ -29,6 +30,9 @@ public:
 	{
 		if (Segments <= 0) return;
 
+
+		Matrix3x3 TransformMatrix = Matrix3x3::Transform(Offset);
+
 		// Generate Verts for Circle Properties
 		float AngleStep = 360 / Segments;
 		for (int i = 0; i < Segments; i++)
@@ -36,8 +40,8 @@ public:
 			float CurrentAngle = static_cast<float>(AngleStep * i * (M_PI / 180.f));
 
 
-			Vertices[i].position.x = Offset.X + Radius * cos(CurrentAngle);
-			Vertices[i].position.y = Offset.Y + Radius * sin(CurrentAngle);
+			Vertices[i].position.x = Radius * cos(CurrentAngle);
+			Vertices[i].position.y = Radius * sin(CurrentAngle);
 		}
 
 		// Triangulate Circle Verts
@@ -47,6 +51,9 @@ public:
 		for (auto& Vert : Triangles)
 		{
 			Vert.color = DefaultColor;
+			
+			Vert.position = TransformMatrix * Vert.position;
+
 			OutTriangles.push_back(Vert);
 		}
 	}
@@ -55,7 +62,7 @@ public:
 	{
 		for (int i = 0; i < Segments; i++)
 		{
-			Triangles[i * 3] = SDL_Vertex({Offset.X,Offset.Y});
+			Triangles[i * 3] = SDL_Vertex();
 			Triangles[i * 3 + 1] = Vertices[i];
 			Triangles[i * 3 + 2] = Vertices[(i + 1) % Segments];
 		}
@@ -66,7 +73,7 @@ public:
 private:
 
 	float Radius = 0;
-	Vector2 Offset = {};
+	Transform Offset = {};
 	SDL_FColor DefaultColor = {1.f,1.f,1.f,1.f};
 
 	static constexpr int Segments = 120;
@@ -79,7 +86,7 @@ private:
 class Rectangle : public PrimitiveShape
 {
 public:
-	Rectangle(float InWidth, float InHeight, const Vector2& InOffset = { 0.f,0.f })
+	Rectangle(float InWidth, float InHeight, const Transform& InOffset = {})
 		:
 		Width(InWidth),
 		Height(InHeight),
@@ -90,22 +97,22 @@ public:
 
 	virtual void GetVerts(std::vector<SDL_Vertex>& OutTriangles) override
 	{
+		Matrix3x3 TransformMatrix = Matrix3x3::Transform(Offset);
 		//Generate Verts for Rectangle
-
 		float HalfWidth = Width / 2;
 		float HalfHeight = Height / 2;
 		
-		Vertices[0].position.x = Offset.X - HalfWidth;
-		Vertices[0].position.y = Offset.Y + HalfHeight;
+		Vertices[0].position.x -= HalfWidth;
+		Vertices[0].position.y += HalfHeight;
 
-		Vertices[1].position.x = Offset.X + HalfWidth;
-		Vertices[1].position.y = Offset.Y + HalfHeight;
+		Vertices[1].position.x += HalfWidth;
+		Vertices[1].position.y += HalfHeight;
 
-		Vertices[2].position.x = Offset.X - HalfWidth;
-		Vertices[2].position.y = Offset.Y - HalfHeight;
+		Vertices[2].position.x -= HalfWidth;
+		Vertices[2].position.y -= HalfHeight;
 
-		Vertices[3].position.x = Offset.X + HalfWidth;
-		Vertices[3].position.y = Offset.Y - HalfHeight;
+		Vertices[3].position.x += HalfWidth;
+		Vertices[3].position.y -= HalfHeight;
 
 
 		//Triangulate Rectangle Verts
@@ -116,6 +123,7 @@ public:
 		for (auto& Vert : Triangles)
 		{
 			Vert.color = DefaultColor;
+			Vert.position = TransformMatrix * Vert.position;
 			OutTriangles.push_back(Vert);
 		}
 
@@ -138,7 +146,7 @@ public:
 private:
 	float Width;
 	float Height;
-	Vector2 Offset = {};
+	Transform Offset = {};
 
 	SDL_FColor DefaultColor = { 1.f,1.f,1.f,1.f };
 

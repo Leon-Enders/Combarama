@@ -17,7 +17,8 @@ void Avatar::GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform
 	ACircle.GetVerts(OutVerts);
 
 	// Offset In local Space
-	Vector2 HeadOffset = { 0.f,-25.f };
+	Transform HeadOffset;
+	HeadOffset.Position = { 0.f,-25.f };
 	Rectangle ARect = Rectangle(HeadWidth, HeadHeight, HeadOffset);
 
 	ARect.GetVerts(OutVerts);

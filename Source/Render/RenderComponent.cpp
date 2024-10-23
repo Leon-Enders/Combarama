@@ -40,10 +40,9 @@ void RenderComponent::Update()
 	for (size_t i = 0; i < Triangles.size(); ++i)
 	{
 		// Apply the translation to the local vertex position
-		SDL_FPoint TransformedPos = TransformMatrix * Triangles[i].position;
 
 		// Update the transformed vertex position
-		TransformedTriangles[i].position = TransformedPos;
+		TransformedTriangles[i].position = TransformMatrix * Triangles[i].position;
 		TransformedTriangles[i].color = Triangles[i].color; // Copy the color if needed
 	}
 }
