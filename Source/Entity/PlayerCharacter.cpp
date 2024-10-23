@@ -18,7 +18,7 @@ PlayerCharacter::PlayerCharacter(World* GameWorld, const Transform& InTransform)
 	:
 	Character(GameWorld, InTransform)
 {
-	Sword = GetWorld()->SpawnActor<Weapon>(InTransform);
+	Sword = GetWorld()->SpawnActor<Weapon>();
 
 	Initialize();
 }
@@ -93,9 +93,9 @@ void PlayerCharacter::Attack()
 
 	Sword->GetRenderComponent()->SetRenderActive(true);
 	IsAttacking = true;
-	SwordRotation = 1.25f+EntityTransform.Rotation;
+	SwordRotation = -1.25f+EntityTransform.Rotation;
 
-	DesiredSwordRotation = -1.25f + EntityTransform.Rotation;
+	DesiredSwordRotation = 1.25f + EntityTransform.Rotation;
 }
 
 void PlayerCharacter::UpdatePosition(float DeltaTime)

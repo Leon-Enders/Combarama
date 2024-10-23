@@ -5,6 +5,12 @@ Weapon::Weapon(World* GameWorld)
 	:
 	Actor(GameWorld)
 {
+	std::vector<SDL_Vertex> SwordTriangles;
+
+	Sword::GenerateVertices(SwordTriangles);
+
+	SwordRenderComponent = std::make_unique<RenderComponent>(std::move(SwordTriangles), this);
+	SwordRenderComponent->SetRenderActive(false);
 }
 
 Weapon::Weapon(World* GameWorld, const Transform& InTransform)
@@ -13,9 +19,7 @@ Weapon::Weapon(World* GameWorld, const Transform& InTransform)
 {
 	std::vector<SDL_Vertex> SwordTriangles;
 
-	Sword::GenerateVertices(SwordTriangles, InTransform);
-
-	EntityTransform.Position += WeaponOffset;
+	Sword::GenerateVertices(SwordTriangles);
 
 	SwordRenderComponent = std::make_unique<RenderComponent>(std::move(SwordTriangles), this);
 	SwordRenderComponent->SetRenderActive(false);

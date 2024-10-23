@@ -1,15 +1,15 @@
 #pragma once
 #include <vector>
 #include "SDL3/SDL_render.h"
+#include "../Math/Transform.h"
 
-struct Transform;
 
 class Sword
 {
 public:
 	Sword()=default;
 
-    static void GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& OriginTransform);
+    static void GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& LocalTransform = {});
 private:
 
     static constexpr SDL_Vertex SwordTriangles[15] =

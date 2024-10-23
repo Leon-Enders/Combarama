@@ -12,7 +12,7 @@ public:
 	RenderComponent* GetRenderComponent() { return SwordRenderComponent.get(); }
 private:
 
-	Vector2 WeaponOffset = { 0.f, 100.f };
-
+	Transform LocalTransform = { {0.f,100.f},-3.f,{1.f,1.f} };
 	std::unique_ptr<RenderComponent> SwordRenderComponent = nullptr;
+	
 };
