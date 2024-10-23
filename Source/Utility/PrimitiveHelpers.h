@@ -1,10 +1,10 @@
 #pragma once
 #include <SDL3/SDL_render.h>
 #include <cmath>
+#include <numbers>
 #include <vector>
 #include "../Math/Transform.h"
 #include "../Math/Matrix.h"
-#include "MathConstants.h"
 
 class  PrimitiveShape
 {
@@ -37,7 +37,7 @@ public:
 		float AngleStep = 360 / Segments;
 		for (int i = 0; i < Segments; i++)
 		{
-			float CurrentAngle = static_cast<float>(AngleStep * i * (M_PI / 180.f));
+			float CurrentAngle = static_cast<float>(AngleStep * i * (std::numbers::pi_v<float> / 180.f));
 
 
 			Vertices[i].position.x = Radius * cos(CurrentAngle);

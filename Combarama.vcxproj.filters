@@ -161,9 +161,6 @@
     <ClInclude Include="Source\Render\RenderComponent.h">
       <Filter>Source\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Utility\MathConstants.h">
-      <Filter>Source\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Render\Sword.h">
       <Filter>Source\Render</Filter>
     </ClInclude>

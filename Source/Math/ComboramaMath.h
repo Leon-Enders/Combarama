@@ -1,6 +1,7 @@
 #pragma once
+#include <numbers>
 #include "Vector2.h"
-#include "../Utility/MathConstants.h"
+
 
 class ComboramaMath
 {
@@ -18,13 +19,13 @@ public:
     static float NormalizeAngle(float Angle)
     {
         
-        while (Angle < -static_cast<float>(M_PI))
+        while (Angle < -std::numbers::pi_v<float>)
         {
-            Angle += 2.0f * static_cast<float>(M_PI);
+            Angle += 2.0f * std::numbers::pi_v<float>;
         }
-        while (Angle > static_cast<float>(M_PI))
+        while (Angle > std::numbers::pi_v<float>)
         {
-            Angle -= 2.0f * static_cast<float>(M_PI);
+            Angle -= 2.0f * std::numbers::pi_v<float>;
         }
         return Angle;
     }
@@ -33,14 +34,14 @@ public:
     static float Slerpf(float Start, float End, float T)
     {
         
-        float Delta = static_cast<float>(std::fmod(End - Start, 2.0f * M_PI));
-        if (Delta < -static_cast<float>(M_PI))
+        float Delta = std::fmod(End - Start, 2.0f * std::numbers::pi_v<float>);
+        if (Delta < -std::numbers::pi_v<float>)
         {
-            Delta += 2.0f * static_cast<float>(M_PI);
+            Delta += 2.0f * std::numbers::pi_v<float>;
         }
-        else if (Delta > static_cast<float>(M_PI))
+        else if (Delta > std::numbers::pi_v<float>)
         {
-            Delta -= 2.0f * static_cast<float>(M_PI);
+            Delta -= 2.0f * std::numbers::pi_v<float>;
         }
 
         float Result = Start + Delta * T;

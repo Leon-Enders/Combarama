@@ -72,7 +72,6 @@
     <ClInclude Include="Source\System\WorldSubsystem\WorldSubsystem.h" />
     <ClInclude Include="Source\Utility\ColorHelper.h" />
     <ClInclude Include="Source\Utility\CombaramaStructs.h" />
-    <ClInclude Include="Source\Utility\MathConstants.h" />
     <ClInclude Include="Source\Utility\PrimitiveHelpers.h" />
     <ClInclude Include="Source\World\World.h" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 #include "PlayerCharacter.h"
+#include <numbers>
 #include "../Utility/ColorHelper.h"
-#include "../Utility/MathConstants.h"
 #include "../Math/ComboramaMath.h"
 #include "../Render/Avatar.h"
 #include "Weapon.h"
