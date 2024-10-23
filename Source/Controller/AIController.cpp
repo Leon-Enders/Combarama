@@ -7,6 +7,11 @@ AIController::AIController()
 
 }
 
+void AIController::Initialize()
+{
+
+}
+
 void AIController::SetTarget(Character* TargetCharacter)
 {
     Target = TargetCharacter;
@@ -39,7 +44,4 @@ void AIController::MoveEnemy()
     }
 }
 
-void AIController::Initialize()
-{
-   
-}
+

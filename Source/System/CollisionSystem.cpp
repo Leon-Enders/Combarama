@@ -32,5 +32,5 @@ void CollisionSystem::Draw(SDL_Renderer* GameRenderer)
 
 void CollisionSystem::AddCollider(Collider& ColliderToAdd)
 {
-	ActiveColliders.push_back(ColliderToAdd);
+	ActiveColliders.push_back(std::ref(ColliderToAdd));
 }

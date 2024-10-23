@@ -23,7 +23,7 @@ void RenderSystem::Draw(SDL_Renderer* GameRenderer)const
 void RenderSystem::AddRenderComponent(RenderComponent& RenderComponentToAdd)
 {
 	
-	RenderComponents.push_back(RenderComponentToAdd);
+	RenderComponents.push_back(std::ref(RenderComponentToAdd));
 	
 }
 

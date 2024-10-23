@@ -39,5 +39,5 @@ void AISystem::SpawnRandomEnemy()
 
 	NewAIController->PossessCharacter(NewEnemy);
 
-	ActiveAIControllers.push_back(*NewAIController);
+	ActiveAIControllers.push_back(std::ref(*NewAIController));
 }
