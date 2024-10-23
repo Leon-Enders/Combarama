@@ -7,6 +7,14 @@
 #include "../Math/Transform.h"
 #include "../System/WorldSubsystem/WorldSubsystem.h"
 
+template<typename T>
+concept IsActor = std::is_base_of<Actor, T>::value;
+
+template<typename T>
+concept IsController = std::is_base_of<Controller, T>::value;
+
+template<typename T>
+concept IsSubsystem = std::is_base_of<WorldSubsystem, T>::value;
 
 class World
 {
@@ -15,17 +23,17 @@ public:
 	
 	void Update(float DeltaTime);
 	
-	template<typename T>
+	template<IsActor T>
 	T* SpawnActor();
 
-	template<typename T>
+	template<IsActor T>
 	T* SpawnActor(const Transform& SpawnTransform);
 
-	template<typename T>
+	template<IsController T>
 	T* CreateController();
 
 
-	template<typename T>
+	template<IsSubsystem T>
 	T* GetSubsystem();
 
 	//TODO: Every Actor should have a destroy function calling this Function
@@ -40,10 +48,12 @@ private:
 
 	std::vector<std::unique_ptr<WorldSubsystem>> SubsystemCollection;
 	std::vector<std::unique_ptr<Actor>> InstancedActors;
-	std::vector <std::unique_ptr<Controller>> InstancedControllers;
+	std::vector<std::unique_ptr<Controller>> InstancedControllers;
 };
 
-template<typename T>
+
+
+template<IsActor T>
 inline T* World::SpawnActor()
 {
     static_assert(std::is_base_of<Actor, T>::value,
@@ -58,12 +68,9 @@ inline T* World::SpawnActor()
     return NewActorRaw;
 }
 
-template<typename T>
+template<IsActor T>
 inline T* World::SpawnActor(const Transform& SpawnTransform)
 {
-	static_assert(std::is_base_of<Actor, T>::value,
-		"T must be a class derived from Actor");
-
 	std::unique_ptr<T> NewActor = std::make_unique<T>(this, SpawnTransform);
 
 	T* NewActorRaw = NewActor.get();
@@ -73,12 +80,9 @@ inline T* World::SpawnActor(const Transform& SpawnTransform)
 	return NewActorRaw;
 }
 
-template<typename T>
+template<IsController T>
 inline T* World::CreateController()
 {
-	static_assert(std::is_base_of<Controller, T>::value,
-		"T must be a class derived from Controller");
-
 	std::unique_ptr<T> NewController = std::make_unique<T>();
 
 	T* NewControllerRaw = NewController.get();
@@ -88,7 +92,7 @@ inline T* World::CreateController()
 	return NewControllerRaw;
 }
 
-template<typename T>
+template<IsSubsystem T>
 inline T* World::GetSubsystem()
 {
 	static_assert(std::is_base_of<WorldSubsystem, T>::value,
