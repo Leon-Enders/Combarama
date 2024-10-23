@@ -93,7 +93,7 @@ void PlayerCharacter::Attack()
 
 	Sword->GetRenderComponent()->SetRenderActive(true);
 	IsAttacking = true;
-	SwordRotation = -1.25f+EntityTransform.Rotation;
+	SwordRotation = -1.25f + EntityTransform.Rotation;
 
 	DesiredSwordRotation = 1.25f + EntityTransform.Rotation;
 }
