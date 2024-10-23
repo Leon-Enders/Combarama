@@ -18,10 +18,10 @@ protected:
 class Circle : public PrimitiveShape
 {
 public:
-	Circle(float InRadius, const Transform& InOffset = {})
+	Circle(float InRadius, const Transform& InLocalTransform = {})
 		:
 		Radius(InRadius),
-		Offset(InOffset)
+		LocalTransform(InLocalTransform)
 	{
 	};
 
@@ -31,7 +31,7 @@ public:
 		if (Segments <= 0) return;
 
 
-		Matrix3x3 TransformMatrix = Matrix3x3::Transform(Offset);
+		Matrix3x3 TransformMatrix = Matrix3x3::Transform(LocalTransform);
 
 		// Generate Verts for Circle Properties
 		float AngleStep = 360 / Segments;
@@ -73,7 +73,7 @@ public:
 private:
 
 	float Radius = 0;
-	Transform Offset = {};
+	Transform LocalTransform = {};
 	SDL_FColor DefaultColor = {1.f,1.f,1.f,1.f};
 
 	static constexpr int Segments = 120;
@@ -86,18 +86,18 @@ private:
 class Rectangle : public PrimitiveShape
 {
 public:
-	Rectangle(float InWidth, float InHeight, const Transform& InOffset = {})
+	Rectangle(float InWidth, float InHeight, const Transform& InLocalTransform = {})
 		:
 		Width(InWidth),
 		Height(InHeight),
-		Offset(InOffset)
+		LocalTransform(InLocalTransform)
 	{
 	};
 
 
 	virtual void GetVerts(std::vector<SDL_Vertex>& OutTriangles) override
 	{
-		Matrix3x3 TransformMatrix = Matrix3x3::Transform(Offset);
+		Matrix3x3 TransformMatrix = Matrix3x3::Transform(LocalTransform);
 		//Generate Verts for Rectangle
 		float HalfWidth = Width / 2;
 		float HalfHeight = Height / 2;
@@ -146,7 +146,7 @@ public:
 private:
 	float Width;
 	float Height;
-	Transform Offset = {};
+	Transform LocalTransform = {};
 
 	SDL_FColor DefaultColor = { 1.f,1.f,1.f,1.f };
 
