@@ -17,6 +17,14 @@ struct Transform
 		Scale = Other.Scale;
 	}
 
+	bool operator==(const Transform& Other) const
+	{
+		const float Epsilon = 0.0001f;
+		return Position == Other.Position &&
+			fabs(Rotation - Other.Rotation) < Epsilon &&
+			Scale == Other.Scale;
+	}
+
 	Vector2 Position;
 	float Rotation;
 	Vector2 Scale;

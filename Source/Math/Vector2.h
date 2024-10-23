@@ -31,9 +31,11 @@ struct Vector2
 	~Vector2() = default;
 
 
-	bool operator==(const Vector2& Other)
+	bool operator==(const Vector2& Other) const
 	{
-		return X == Other.X && Y == Other.Y;
+		const float Epsilon = 0.0001f;
+		return (fabs(X - Other.X) < Epsilon) &&
+			(fabs(Y - Other.Y) < Epsilon);
 	}
 	
 	Vector2& operator+=(const Vector2& Other)

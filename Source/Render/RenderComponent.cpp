@@ -32,7 +32,12 @@ void RenderComponent::Draw(SDL_Renderer* GameRenderer)
 
 void RenderComponent::Update()
 {
-	Matrix3x3 TransformMatrix = Matrix3x3::Transform(OwningActor->GetTransform());
+	if (RenderTransform == OwningActor->GetTransform())
+	{
+		return;
+	}
+	RenderTransform = OwningActor->GetTransform();
+	Matrix3x3 TransformMatrix = Matrix3x3::Transform(RenderTransform);
 	
 	
 	for (size_t i = 0; i < Triangles.size(); ++i)
