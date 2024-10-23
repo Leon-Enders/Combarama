@@ -55,7 +55,6 @@ struct Matrix3x3 {
     
     static Matrix3x3 Rotation(float Angle)
     {
-        float rad = Angle;
         float cosA = cos(Angle);
         float sinA = sin(Angle);
 
