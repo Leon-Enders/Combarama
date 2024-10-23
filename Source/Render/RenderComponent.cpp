@@ -34,61 +34,12 @@ void RenderComponent::Draw(SDL_Renderer* GameRenderer)
 void RenderComponent::Update()
 {
 	Matrix3x3 TransformMatrix = Matrix3x3::Transform(OwningActor->GetTransform());
-	// Apply the model matrix to all vertices (translation only for now)
 	
 	
 	for (size_t i = 0; i < Triangles.size(); ++i)
 	{
-		// Apply the translation to the local vertex position
-
-		// Update the transformed vertex position
 		TransformedTriangles[i].position = TransformMatrix * Triangles[i].position;
-		TransformedTriangles[i].color = Triangles[i].color; // Copy the color if needed
-	}
-}
-
-void RenderComponent::UpdatePosition()
-{
-	////Calculate Delta To current Owner Position
-	//Vector2 DeltaPosition = OwningActor->GetPosition()- RenderTransform.Position;
-	//
-	////Update the RenderTransform
-	//RenderTransform.Position = OwningActor->GetPosition();
-	//
-	//for (auto& Vert : Triangles)
-	//{
-	//	Vert.position.x += DeltaPosition.X;
-	//	Vert.position.y += DeltaPosition.Y;
-	//}
-}
-
-void RenderComponent::UpdateRotation()
-{
-	//Calculate DeltaRotation to current Owner Rotation
-	float DeltaRotation = RenderTransform.Rotation - OwningActor->GetRotation();
-
-	Rotate(DeltaRotation);
-
-	//Update RenderTransform
-	RenderTransform.Rotation = OwningActor->GetRotation();
-}
-
-void RenderComponent::Rotate(float DeltaRotation)
-{
-	float CosTheta = cos(DeltaRotation);
-	float SinTheta = sin(DeltaRotation);
-
-
-	for (auto& Vert : Triangles)
-	{
-		float RelativeX = Vert.position.x - RenderTransform.Position.X;
-		float RelativeY = Vert.position.y - RenderTransform.Position.Y;
-
-		float RotatedX = RelativeX * CosTheta - RelativeY * SinTheta;
-		float RotatedY = RelativeX * SinTheta + RelativeY * CosTheta;
-
-		Vert.position.x = RotatedX + RenderTransform.Position.X;
-		Vert.position.y = RotatedY + RenderTransform.Position.Y;
+		TransformedTriangles[i].color = Triangles[i].color; 
 	}
 }
 
