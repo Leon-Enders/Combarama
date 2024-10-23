@@ -2,7 +2,7 @@
 #include <algorithm>
 #include "SDL3/SDL_events.h"
 #include "../Input/InputComponent.h"
-
+#include <chrono>
 
 InputSystem InputSystem::SInputSystem;
 
@@ -14,6 +14,8 @@ void InputSystem::HandleInput()
 
 void InputSystem::CaptureInput()
 {
+	auto starti = std::chrono::high_resolution_clock::now();
+	
 	SDL_Event Event;
 	while (SDL_PollEvent(&Event))
 	{
@@ -34,6 +36,11 @@ void InputSystem::CaptureInput()
 			DispatchAttackEvent(Event);
 		}
 	}
+	auto endi = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float, std::milli> frameTimei = endi - starti;
+
+	SDL_Log("CaputeInput: %f", frameTimei.count());
+
 	const bool* KeyState = SDL_GetKeyboardState(NULL);
 
 	SInputSystem.DispatchKeyState(KeyState);
@@ -44,7 +51,7 @@ void InputSystem::DispatchKeyState(const bool* KeyState)
 {
 	for (auto& PlayerInputComponent : InputComponents)
 	{
-		PlayerInputComponent->ReceiveKeyState(KeyState);
+		PlayerInputComponent.get().ReceiveKeyState(KeyState);
 	}
 }
 
@@ -52,7 +59,7 @@ void InputSystem::DispatchReleasedKey(const SDL_Event& Event)
 {
 	for (auto& PlayerInputComponent : InputComponents)
 	{
-		PlayerInputComponent->ReceiveReleaseKey(Event);
+		PlayerInputComponent.get().ReceiveReleaseKey(Event);
 	}
 }
 
@@ -60,7 +67,7 @@ void InputSystem::DispatchMouseEvent(const SDL_Event& MouseEvent)
 {
 	for (auto& PlayerInputComponent : InputComponents)
 	{
-		PlayerInputComponent->ReceiveMouseEvent(MouseEvent);
+		PlayerInputComponent.get().ReceiveMouseEvent(MouseEvent);
 	}
 }
 
@@ -68,7 +75,7 @@ void InputSystem::DispatchAttackEvent(const SDL_Event& Event)
 {
 	for (auto& PlayerInputComponent : InputComponents)
 	{
-		PlayerInputComponent->ReceiveAttackEvent(Event);
+		PlayerInputComponent.get().ReceiveAttackEvent(Event);
 	}
 }
 
@@ -76,7 +83,7 @@ void InputSystem::DispatchQuitEvent(const SDL_Event& QuitEvent)
 {
 	for (auto& PlayerInputComponent : InputComponents)
 	{
-		PlayerInputComponent->ReceiveQuitEvent(QuitEvent);
+		PlayerInputComponent.get().ReceiveQuitEvent(QuitEvent);
 	}
 }
 
@@ -85,25 +92,21 @@ void InputSystem::ProcessInputComponents()
 {
 	for (auto& PlayerInputComponent : InputComponents)
 	{
-		PlayerInputComponent->HandleInput();
+		PlayerInputComponent.get().HandleInput();
 	}
 }
 
-void InputSystem::AddInputComponent(InputComponent* InputComponentToAdd)
+void InputSystem::AddInputComponent(InputComponent& InputComponentToAdd)
 {
-	if (InputComponentToAdd)
-	{
-		InputComponents.push_back(InputComponentToAdd);
-	}
+	InputComponents.push_back(std::ref(InputComponentToAdd));
 }
 
-void InputSystem::RemoveInputComponent(InputComponent* InputComponentToRemove)
+void InputSystem::RemoveInputComponent(InputComponent& InputComponentToRemove)
 {
-	
-	auto Iterator = std::find(InputComponents.begin(), InputComponents.end(), InputComponentToRemove);
-
-	if (Iterator != InputComponents.end())
-	{
-		InputComponents.erase(Iterator);
-	}
+	InputComponents.erase(
+		std::remove_if(InputComponents.begin(), InputComponents.end(),
+			[&](std::reference_wrapper<InputComponent> component) {
+				return &component.get() == &InputComponentToRemove;
+			}),
+		InputComponents.end());
 }

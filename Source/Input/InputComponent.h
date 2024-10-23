@@ -32,12 +32,12 @@ class InputComponent
 public:
 	InputComponent()
 	{
-		InputSystem::Get().AddInputComponent(this);
+		InputSystem::Get().AddInputComponent(*this);
 	}
 
 	~InputComponent()
 	{
-		InputSystem::Get().RemoveInputComponent(this);
+		InputSystem::Get().RemoveInputComponent(*this);
 	}
 
 	void SetInputActionContext(InputActionContext* InActionContext)

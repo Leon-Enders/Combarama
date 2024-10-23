@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <functional>
 
 
 union SDL_Event;
@@ -13,8 +14,8 @@ public:
 
 	void HandleInput();
 
-	void AddInputComponent(InputComponent* InputComponentToAdd);
-	void RemoveInputComponent(InputComponent* InputComponentToRemove);
+	void AddInputComponent(InputComponent& InputComponentToAdd);
+	void RemoveInputComponent(InputComponent& InputComponentToRemove);
 
 private:
 	InputSystem() = default;
@@ -29,5 +30,5 @@ private:
 	
 
 	static InputSystem SInputSystem;
-	std::vector<InputComponent*> InputComponents;
+	std::vector<std::reference_wrapper<InputComponent>> InputComponents;
 };
