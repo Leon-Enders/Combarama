@@ -9,7 +9,7 @@ Weapon::Weapon(World* GameWorld)
 
 	Sword::GenerateVertices(SwordTriangles, LocalTransform);
 
-	SwordRenderComponent = std::make_unique<RenderComponent>(std::move(SwordTriangles), this);
+	SwordRenderComponent = std::make_unique<RenderComponent>(std::move(SwordTriangles), *this);
 	SwordRenderComponent->SetRenderActive(false);
 }
 
@@ -21,6 +21,6 @@ Weapon::Weapon(World* GameWorld, const Transform& InTransform)
 
 	Sword::GenerateVertices(SwordTriangles, LocalTransform);
 
-	SwordRenderComponent = std::make_unique<RenderComponent>(std::move(SwordTriangles), this);
+	SwordRenderComponent = std::make_unique<RenderComponent>(std::move(SwordTriangles), *this);
 	SwordRenderComponent->SetRenderActive(false);
 }

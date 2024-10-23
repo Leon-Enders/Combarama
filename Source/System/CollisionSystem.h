@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <functional>
 
 class Collider;
 struct SDL_Renderer;
@@ -12,10 +13,10 @@ public:
 	void Update();
 	void Draw(SDL_Renderer* GameRenderer);
 
-	void AddCollider(Collider* ColliderToAdd);
+	void AddCollider(Collider& ColliderToAdd);
 private:
 
 
-	std::vector<Collider*> ActiveColliders;
+	std::vector<std::reference_wrapper<Collider>> ActiveColliders;
 	static CollisionSystem Instance;
 };

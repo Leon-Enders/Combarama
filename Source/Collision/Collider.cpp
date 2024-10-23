@@ -14,7 +14,7 @@ Collider::Collider(const Vector2& Origin, float InWidth, float InHeight)
 	ColliderBox.x = Origin.X - CenterOffset.X;
 	ColliderBox.y = Origin.Y - CenterOffset.Y;
 
-	CollisionSystem::Get().AddCollider(this);
+	CollisionSystem::Get().AddCollider(*this);
 }
 
 Collider::~Collider()
@@ -36,7 +36,7 @@ void Collider::Draw(SDL_Renderer* Renderer)
 	}
 }
 
-void Collider::OnCollisionEnter(const Collider* Other)
+void Collider::OnCollisionEnter(const Collider& Other)
 {
 	SDL_Log("Collision!");
 }

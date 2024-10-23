@@ -3,28 +3,25 @@
 #include "../Entity/Actor.h"
 #include "../Math/Matrix.h"
 
-RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles,const Actor* InOwningActor)
+RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles,const Actor& InOwningActor)
 	:
 	Triangles(InTriangles),
 	OwningActor(InOwningActor)
 {
 
 	RenderTriangles.resize(Triangles.size());
-	if (OwningActor)
-	{
-		// Cache the Initial Transform of the Actor who owns this Component
-		RenderTransform = InOwningActor->GetTransform();
-	}
+	RenderTransform = OwningActor.get().GetTransform();
+	
 
-	RenderSystem::Get().AddRenderComponent(this);
+	RenderSystem::Get().AddRenderComponent(*this);
 }
 
 RenderComponent::~RenderComponent()
 {
-	RenderSystem::Get().RemoveRenderComponent(this);
+	RenderSystem::Get().RemoveRenderComponent(*this);
 }
 
-void RenderComponent::Draw(SDL_Renderer* GameRenderer)
+void RenderComponent::Draw(SDL_Renderer* GameRenderer)const
 {
 	if (!IsRenderActive) return;
 	SDL_RenderGeometry(GameRenderer, NULL, RenderTriangles.data(), static_cast<int>(Triangles.size()), NULL, 0);
@@ -32,11 +29,11 @@ void RenderComponent::Draw(SDL_Renderer* GameRenderer)
 
 void RenderComponent::Update()
 {
-	if (RenderTransform == OwningActor->GetTransform())
+	if (RenderTransform == OwningActor.get().GetTransform())
 	{
 		return;
 	}
-	RenderTransform = OwningActor->GetTransform();
+	RenderTransform = OwningActor.get().GetTransform();
 	Matrix3x3 TransformMatrix = Matrix3x3::Transform(RenderTransform);
 	
 	

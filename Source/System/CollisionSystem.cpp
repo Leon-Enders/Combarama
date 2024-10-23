@@ -7,38 +7,30 @@ CollisionSystem CollisionSystem::Instance;
 
 void CollisionSystem::Update()
 {
-	std::unordered_map<Collider*, Collider*> TriggeredColliders;
-
+	
 	for (const auto& ActiveCollider : ActiveColliders)
 	{
 		for (const auto& aCollider : ActiveColliders)
 		{
-			if (ActiveCollider == aCollider) break;
+			if (&ActiveCollider == &aCollider) break;
 
-			if (SDL_HasRectIntersectionFloat(ActiveCollider->GetColliderBox(), aCollider->GetColliderBox()))
+			if (SDL_HasRectIntersectionFloat(ActiveCollider.get().GetColliderBox(), aCollider.get().GetColliderBox()))
 			{
-				TriggeredColliders.insert({ ActiveCollider, aCollider });
+				ActiveCollider.get().OnCollisionEnter(aCollider);
 			}
 		}
 	}
-	for (const auto& ColliderPair : TriggeredColliders)
-	{
-		ColliderPair.first->OnCollisionEnter(ColliderPair.second);
-	}
-
 }
 
 void CollisionSystem::Draw(SDL_Renderer* GameRenderer)
 {
 	for (const auto& ActiveCollider : ActiveColliders)
 	{
-		ActiveCollider->Draw(GameRenderer);
+		ActiveCollider.get().Draw(GameRenderer);
 	}
 }
 
-void CollisionSystem::AddCollider(Collider* ColliderToAdd)
+void CollisionSystem::AddCollider(Collider& ColliderToAdd)
 {
-	if (!ColliderToAdd) return;
-
 	ActiveColliders.push_back(ColliderToAdd);
 }

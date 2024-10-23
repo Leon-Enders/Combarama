@@ -4,36 +4,33 @@
 
 RenderSystem RenderSystem::Instance;
 
-void RenderSystem::Update()
+void RenderSystem::Update()const
 {
 	for (auto& ActiveRenderComponent : RenderComponents)
 	{
-		ActiveRenderComponent->Update();
+		ActiveRenderComponent.get().Update();
 	}
 }
 
-void RenderSystem::Draw(SDL_Renderer* GameRenderer)
+void RenderSystem::Draw(SDL_Renderer* GameRenderer)const
 {
 	for (auto& ActiveRenderComponent : RenderComponents)
 	{
-		ActiveRenderComponent->Draw(GameRenderer);
+		ActiveRenderComponent.get().Draw(GameRenderer);
 	}
 }
 
-void RenderSystem::AddRenderComponent(RenderComponent* RenderComponentToAdd)
+void RenderSystem::AddRenderComponent(RenderComponent& RenderComponentToAdd)
 {
-	if (RenderComponentToAdd)
-	{
-		RenderComponents.push_back(RenderComponentToAdd);
-	}
+	
+	RenderComponents.push_back(RenderComponentToAdd);
+	
 }
 
-void RenderSystem::RemoveRenderComponent(RenderComponent* RenderComponentToRemove)
+void RenderSystem::RemoveRenderComponent(RenderComponent& RenderComponentToRemove)
 {
-	auto Iterator = std::find(RenderComponents.begin(), RenderComponents.end(), RenderComponentToRemove);
-
-	if (Iterator != RenderComponents.end())
-	{
-		RenderComponents.erase(Iterator);
-	}
+	std::erase_if(RenderComponents, [&](std::reference_wrapper<RenderComponent> Component)
+		{
+			return &Component.get() == &RenderComponentToRemove;
+		});
 }

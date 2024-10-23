@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <ranges>
 #include "../Entity/Actor.h"
 #include "../Controller/Controller.h"
 #include "../Math/Transform.h"
@@ -93,14 +94,14 @@ inline T* World::GetSubsystem()
 	static_assert(std::is_base_of<WorldSubsystem, T>::value,
 		"T must be a class derived from Controller");
 
-	auto Iterator = std::find_if(SubsystemCollection.begin(), SubsystemCollection.end(),
+
+	auto Iterator = std::ranges::find_if(SubsystemCollection,
 		[](const std::unique_ptr<WorldSubsystem>& Subsystem)
 		{
 			return dynamic_cast<T*>(Subsystem.get()) != nullptr;
-		}
-	);
+		});
 
-	if (Iterator != SubsystemCollection.end())
+	if (Iterator != SubsystemCollection.end()) 
 	{
 		return dynamic_cast<T*>(Iterator->get());
 	}

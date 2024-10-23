@@ -1,9 +1,11 @@
 #pragma once
 #include <vector>
+#include <random>
+#include <functional>
 #include "WorldSubsystem.h"
 #include "../../Entity/Enemy.h"
 #include "../../Controller/AIController.h"
-#include <random>
+
 
 
 class Game;
@@ -19,5 +21,5 @@ public:
 private:
 
 	std::mt19937 RandomGenerator;
-	std::vector<AIController*> ActiveAIControllers;
+	std::vector<std::reference_wrapper<AIController>> ActiveAIControllers;
 };

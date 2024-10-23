@@ -1,7 +1,5 @@
 #include "AISystem.h"
-#include <random>
 #include <ctime>
-#include <memory>
 #include "../../Math/Transform.h"
 #include "../../World/World.h"
 
@@ -22,7 +20,7 @@ void AISystem::Update(float DeltaTime)
 {
 	for (auto& ActiveAIController : ActiveAIControllers)
 	{
-		ActiveAIController->MoveEnemy();
+		ActiveAIController.get().MoveEnemy();
 	}
 }
 
@@ -41,5 +39,5 @@ void AISystem::SpawnRandomEnemy()
 
 	NewAIController->PossessCharacter(NewEnemy);
 
-	ActiveAIControllers.push_back(std::move(NewAIController));
+	ActiveAIControllers.push_back(*NewAIController);
 }

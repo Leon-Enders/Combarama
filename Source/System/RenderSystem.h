@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <functional>
 
 class RenderComponent;
 struct SDL_Renderer;
@@ -9,14 +10,14 @@ class RenderSystem
 public:
 	static RenderSystem& Get() { return Instance; }
 
-	void Update();
-	void Draw(SDL_Renderer* GameRenderer);
+	void Update()const;
+	void Draw(SDL_Renderer* GameRenderer)const;
 
-	void AddRenderComponent(RenderComponent* RenderComponentToAdd);
-	void RemoveRenderComponent(RenderComponent* RenderComponentToRemove);
+	void AddRenderComponent(RenderComponent& RenderComponentToAdd);
+	void RemoveRenderComponent(RenderComponent& RenderComponentToRemove);
 
 private:
 	RenderSystem() = default;
 	static RenderSystem Instance;
-	std::vector<RenderComponent*> RenderComponents;
+	std::vector<std::reference_wrapper<RenderComponent>> RenderComponents;
 };

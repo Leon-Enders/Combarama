@@ -1,8 +1,8 @@
 #include "InputSystem.h"
 #include <algorithm>
+#include <chrono>
 #include "SDL3/SDL_events.h"
 #include "../Input/InputComponent.h"
-#include <chrono>
 
 InputSystem InputSystem::SInputSystem;
 
@@ -103,10 +103,8 @@ void InputSystem::AddInputComponent(InputComponent& InputComponentToAdd)
 
 void InputSystem::RemoveInputComponent(InputComponent& InputComponentToRemove)
 {
-	InputComponents.erase(
-		std::remove_if(InputComponents.begin(), InputComponents.end(),
-			[&](std::reference_wrapper<InputComponent> component) {
-				return &component.get() == &InputComponentToRemove;
-			}),
-		InputComponents.end());
+	std::erase_if(InputComponents, [&](std::reference_wrapper<InputComponent> Component)
+		{
+			return &Component.get() == &InputComponentToRemove;
+		});
 }

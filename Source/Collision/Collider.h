@@ -12,7 +12,7 @@ public:
 	void UpdatePosition(const Vector2& NewPosition);
 	void Draw(SDL_Renderer* Renderer);
 
-	void OnCollisionEnter(const Collider* Other);
+	void OnCollisionEnter(const Collider& Other);
 
 
 	bool DrawDebug = true;

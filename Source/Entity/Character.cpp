@@ -16,7 +16,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	Avatar::GenerateVertices(AvatarTriangles, EntityTransform);
 
 	//Move Avatar Triangles into Render Component
-	CharacterRenderComponent = std::make_unique<RenderComponent>(std::move(AvatarTriangles),this);
+	CharacterRenderComponent = std::make_unique<RenderComponent>(std::move(AvatarTriangles),*this);
 
 	float ColliderWidth = Avatar::GetRadius() * 2.f;
 	float ColliderHeight = Avatar::GetRadius() * 2.f;
