@@ -18,9 +18,6 @@ public:
 	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
 
 private:
-	void UpdatePosition();
-	void UpdateRotation();
-	void Rotate(float DeltaRotation);
 
 	Transform RenderTransform;
 	const Actor* OwningActor = nullptr;
