@@ -72,7 +72,7 @@ void Game::HandleGameLoop()
 	auto endi = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<float, std::milli> frameTimei = endi - starti;
 
-	SDL_Log("ProcessInputTime: %f", frameTimei.count());
+	//SDL_Log("ProcessInputTime: %f", frameTimei.count());
 	
 
 	auto start = std::chrono::high_resolution_clock::now();

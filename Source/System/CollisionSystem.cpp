@@ -1,11 +1,14 @@
 #include "CollisionSystem.h"
 #include "SDL3/SDL_render.h"
 #include "../Collision/Collider.h"
+#include <unordered_map>
 
 CollisionSystem CollisionSystem::Instance;
 
 void CollisionSystem::Update()
 {
+	std::unordered_map<Collider*, Collider*> TriggeredColliders;
+
 	for (const auto& ActiveCollider : ActiveColliders)
 	{
 		for (const auto& aCollider : ActiveColliders)
@@ -14,10 +17,15 @@ void CollisionSystem::Update()
 
 			if (SDL_HasRectIntersectionFloat(ActiveCollider->GetColliderBox(), aCollider->GetColliderBox()))
 			{
-				ActiveCollider->OnCollisionEnter(aCollider);
+				TriggeredColliders.insert({ ActiveCollider, aCollider });
 			}
 		}
 	}
+	for (const auto& ColliderPair : TriggeredColliders)
+	{
+		ColliderPair.first->OnCollisionEnter(ColliderPair.second);
+	}
+
 }
 
 void CollisionSystem::Draw(SDL_Renderer* GameRenderer)
