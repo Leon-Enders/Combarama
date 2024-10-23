@@ -10,6 +10,7 @@
 #include "System/CollisionSystem.h"
 #include "Entity/PlayerCharacter.h"
 #include "Controller/PlayerController.h"
+#include <chrono>
 
 
 Game::Game(App& GameApp)
@@ -59,16 +60,35 @@ void Game::StartGame()
 		{
 			SDL_Delay(FrameDelay - static_cast<Uint32>(FrameTime));
 		}
-		SDL_Log("Frametime: %i", FrameTime);
+		//SDL_Log("Frametime: %i", FrameTime);
 	}
 }
 
 
 void Game::HandleGameLoop()
 {
+	auto starti = std::chrono::high_resolution_clock::now();
 	ProcessInput();
+	auto endi = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float, std::milli> frameTimei = endi - starti;
+
+	SDL_Log("ProcessInputTime: %f", frameTimei.count());
+	
+
+	auto start = std::chrono::high_resolution_clock::now();
 	Update();
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float, std::milli> frameTime = end - start;
+
+	//SDL_Log("UpdateTime: %f",frameTime.count());
+
+	auto startr = std::chrono::high_resolution_clock::now();
 	Render();
+	auto endr = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float, std::milli> frameTimer = endr - startr;
+
+	//SDL_Log("RenderTime: %f", frameTimer.count());
+	
 }
 
 void Game::ProcessInput()
