@@ -31,7 +31,9 @@ void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
 void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
 {
 	Vector2 DeltaPosition = EntityTransform.Position - TargetPosition;
-	float AngleInRad = std::atan2f(DeltaPosition.X, DeltaPosition.Y);
+	float AngleInRad = std::atan2f(DeltaPosition.X, -DeltaPosition.Y);
+
+	
 
 	DesiredRotation = AngleInRad;
 	
@@ -54,11 +56,6 @@ void PlayerCharacter::Update(float DeltaTime)
 
 	if (!IsAttacking)
 	{
-		if (ComboramaMath::FIsSame(EntityTransform.Rotation, DesiredRotation, 0.01f))
-		{
-			EntityTransform.Rotation = DesiredRotation;
-			return;
-		}
 
 		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, DesiredRotation, ClampedLerpTime);
 		Sword->SetRotation(EntityTransform.Rotation);
