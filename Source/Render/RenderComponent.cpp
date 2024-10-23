@@ -33,14 +33,14 @@ void RenderComponent::Draw(SDL_Renderer* GameRenderer)
 
 void RenderComponent::Update()
 {
-	Matrix3x3 translate = Matrix3x3::translation(OwningActor->GetPosition().X, OwningActor->GetPosition().Y);
+	Matrix3x3 TransformMatrix = Matrix3x3::Transform(OwningActor->GetTransform());
 	// Apply the model matrix to all vertices (translation only for now)
 	
 	
 	for (size_t i = 0; i < Triangles.size(); ++i)
 	{
 		// Apply the translation to the local vertex position
-		SDL_FPoint TransformedPos = translate * Triangles[i].position;
+		SDL_FPoint TransformedPos = TransformMatrix * Triangles[i].position;
 
 		// Update the transformed vertex position
 		TransformedTriangles[i].position = TransformedPos;
