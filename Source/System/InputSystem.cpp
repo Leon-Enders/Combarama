@@ -1,29 +1,42 @@
 #include "InputSystem.h"
 #include <algorithm>
 #include "SDL3/SDL_events.h"
+#include "SDL3/SDL_log.h"
 #include "../Input/InputComponent.h"
+#include <chrono>
 
 
 InputSystem InputSystem::SInputSystem;
 
 void InputSystem::HandleInput()
 {
+	auto starti = std::chrono::high_resolution_clock::now();
 	CaptureInput();
+	auto endi = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float, std::milli> frameTimei = endi - starti;
+
+	//SDL_Log("CaptureInput: %f", frameTimei.count());
+	
+	
+	auto start = std::chrono::high_resolution_clock::now();
 	ProcessInputComponents();
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float, std::milli> frameTime = end - start;
+
+	//SDL_Log("ProcessInputComponents: %f",frameTime.count());
 }
 
 void InputSystem::CaptureInput()
 {
 	SDL_Event Event;
+	auto start = std::chrono::high_resolution_clock::now();
+	
+
 	while (SDL_PollEvent(&Event))
 	{
 		if (Event.type == SDL_EventType::SDL_EVENT_QUIT)
 		{
 			DispatchQuitEvent(Event);
-		}
-		else if (Event.type == SDL_EventType::SDL_EVENT_MOUSE_MOTION)
-		{
-			DispatchMouseEvent(Event);
 		}
 		else if (Event.type == SDL_EventType::SDL_EVENT_KEY_UP)
 		{
@@ -33,7 +46,18 @@ void InputSystem::CaptureInput()
 		{
 			DispatchAttackEvent(Event);
 		}
+		else if (Event.type == SDL_EventType::SDL_EVENT_MOUSE_MOTION)
+		{
+
+			DispatchMouseEvent(Event);
+			break;
+		}
 	}
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float, std::milli> frameTime = end - start;
+
+	SDL_Log("PollEventTime: %f", frameTime.count());
+
 	const bool* KeyState = SDL_GetKeyboardState(NULL);
 
 	SInputSystem.DispatchKeyState(KeyState);
