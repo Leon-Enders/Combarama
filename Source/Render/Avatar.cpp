@@ -12,19 +12,13 @@ void Avatar::SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor, RenderComponen
 
 void Avatar::GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& OriginTransform)
 {
-	SDL_Vertex CircleCenter;
-	CircleCenter.position.x = OriginTransform.Position.X;
-	CircleCenter.position.y = OriginTransform.Position.Y;
 
 	Circle ACircle = Circle(Radius);
 	ACircle.GetVerts(OutVerts);
 
-
-	SDL_Vertex RectCenter;
-	RectCenter.position.x = OriginTransform.Position.X;
-	RectCenter.position.y = OriginTransform.Position.Y - 25.f;
-
-	Rectangle ARect = Rectangle(HeadWidth, HeadHeight);
+	// Offset In local Space
+	Vector2 HeadOffset = { 0.f,-25.f };
+	Rectangle ARect = Rectangle(HeadWidth, HeadHeight, HeadOffset);
 
 	ARect.GetVerts(OutVerts);
 }
