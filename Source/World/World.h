@@ -26,8 +26,9 @@ concept IsSubsystem = std::is_base_of<WorldSubsystem, T>::value;
 
 
 
-using ActorsVariant = std::variant<std::vector<std::reference_wrapper<Actor>>,
-	std::reference_wrapper<std::vector<std::unique_ptr<Character>>>,
+using ActorsVariant = std::variant<
+	std::vector<std::reference_wrapper<Actor>>,
+	std::vector<std::reference_wrapper<Character>>,
 	std::vector<std::reference_wrapper<Enemy>>,
 	std::vector<std::reference_wrapper<PlayerCharacter>>,
 	std::vector<std::reference_wrapper<Weapon>>>;
@@ -104,16 +105,16 @@ inline T* World::SpawnActor(const Transform& SpawnTransform)
 template<IsActor T>
 inline std::vector<std::reference_wrapper<T>>& World::GetAllActorsOfClass()
 {
-	std::type_index typeIndex = std::type_index(typeid(T));
-	auto it = ActorTypeToActorsMap.find(typeIndex);
+	std::type_index TypeIndex = std::type_index(typeid(T));
+	auto it = ActorTypeToActorsMap.find(TypeIndex);
 
 	if (it != ActorTypeToActorsMap.end()) {
 		return std::get<std::vector<std::reference_wrapper<T>>>(it->second);
 	}
 
-	// If no entry found, return an empty static vector reference
-	static std::vector<std::reference_wrapper<T>> emptyVector;
-	return emptyVector;
+	
+	std::vector<std::reference_wrapper<T>> EmptyVector;
+	return EmptyVector;
 }
 
 template<IsActor T>
@@ -124,14 +125,14 @@ inline void World::AddActorToMap(T* ActorToAdd)
 	auto it = ActorTypeToActorsMap.find(TypeIndex);
 	if (it == ActorTypeToActorsMap.end()) 
 	{
-		std::vector<std::reference_wrapper<T>> newVector;
-		ActorTypeToActorsMap[TypeIndex] = newVector;
+		std::vector<std::reference_wrapper<T>> NewVector;
+		ActorTypeToActorsMap[TypeIndex] = NewVector;
 		it = ActorTypeToActorsMap.find(TypeIndex);
 	}
 
 	
-	auto& actorVector = std::get<std::vector<std::reference_wrapper<T>>>(it->second);
-	actorVector.push_back(std::ref(*ActorToAdd));
+	auto& ActorVector = std::get<std::vector<std::reference_wrapper<T>>>(it->second);
+	ActorVector.push_back(std::ref(*ActorToAdd));
 }
 
 
