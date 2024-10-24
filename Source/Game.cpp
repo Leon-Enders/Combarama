@@ -98,12 +98,10 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
+	CollisionSystem::Get().Update(DeltaTime);
 	GameWorld->Update(DeltaTime);
-
 	//Update Verts to Render
 	RenderSystem::Get().Update();
-
-	CollisionSystem::Get().Update();
 }
 
 void Game::Render()

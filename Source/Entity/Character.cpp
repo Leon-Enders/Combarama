@@ -21,7 +21,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	float ColliderWidth = Avatar::GetRadius() * 2.f;
 	float ColliderHeight = Avatar::GetRadius() * 2.f;
 
-	CharacterCollider = std::make_unique<Collider>(InTransform.Position, ColliderWidth, ColliderHeight);
+	CharacterCollider = std::make_unique<Collider>(*this, InTransform.Position, ColliderWidth, ColliderHeight);
 
 }
 
@@ -32,6 +32,12 @@ void Character::OnPossessed(Controller* OwningContoller)
 
 void Character::UpdatePosition(float DeltaTime)
 {
+	if (!CanMove)
+	{
+		CanMove = true;
+		return;
+	}
+
 	EntityTransform.Position += Velocity * DeltaTime * Speed;
 
 

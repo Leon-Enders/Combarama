@@ -6,7 +6,7 @@
 RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles,const Actor& InOwningActor)
 	:
 	Triangles(InTriangles),
-	OwningActor(InOwningActor)
+	OwningActor(std::ref(InOwningActor))
 {
 
 	RenderTriangles.resize(Triangles.size());

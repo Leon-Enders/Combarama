@@ -1,6 +1,5 @@
 #include "InputSystem.h"
 #include <algorithm>
-#include <chrono>
 #include "SDL3/SDL_events.h"
 #include "../Input/InputComponent.h"
 
@@ -14,8 +13,7 @@ void InputSystem::HandleInput()
 
 void InputSystem::CaptureInput()
 {
-	auto starti = std::chrono::high_resolution_clock::now();
-	
+
 	SDL_Event Event;
 	while (SDL_PollEvent(&Event))
 	{
@@ -36,10 +34,6 @@ void InputSystem::CaptureInput()
 			DispatchAttackEvent(Event);
 		}
 	}
-	auto endi = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<float, std::milli> frameTimei = endi - starti;
-
-	SDL_Log("CaputeInput: %f", frameTimei.count());
 
 	const bool* KeyState = SDL_GetKeyboardState(NULL);
 

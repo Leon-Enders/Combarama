@@ -5,6 +5,8 @@
 #include "../Render/RenderComponent.h"
 #include "../Collision/Collider.h"
 
+
+class Collider;
 //TODO: Create overload for OwningController for PlayerController
 class Character : public Actor
 {
@@ -15,6 +17,11 @@ public:
 	virtual void Update(float DeltaTime) override;
 	void OnPossessed(Controller* OwningContoller);
 
+	const Vector2& GetVecolity()const { return Velocity; }
+	void SetCanMove(bool NewCanMove) 
+	{
+		CanMove = NewCanMove; 
+	}
 protected:
 	virtual void UpdatePosition(float DeltaTime);
 	virtual void UpdateRotation();
@@ -27,4 +34,7 @@ protected:
 	std::unique_ptr<RenderComponent> CharacterRenderComponent = nullptr;
 
 	std::unique_ptr<Collider> CharacterCollider = nullptr;
+
+private:
+	bool CanMove = true;
 };

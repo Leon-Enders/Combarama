@@ -1,9 +1,13 @@
 #include "Collider.h"
+#include "../Entity/Actor.h"
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_log.h"
 #include "../System/CollisionSystem.h"
+#include "../Entity/Character.h"
 
-Collider::Collider(const Vector2& Origin, float InWidth, float InHeight)
+Collider::Collider(Character& InOwningCharacter, const Vector2& Origin, float InWidth, float InHeight)
+	:
+	OwningActor(std::ref(InOwningCharacter))
 {
 	ColliderBox.w = InWidth;
 	ColliderBox.h = InHeight;
@@ -39,4 +43,14 @@ void Collider::Draw(SDL_Renderer* Renderer)
 void Collider::OnCollisionEnter(const Collider& Other)
 {
 	SDL_Log("Collision!");
+}
+
+void Collider::OnCollisionExit(const Collider& Other)
+{
+	//OwningActor.get().SetCanMove(true);
+}
+
+void Collider::OnBlockNextMove()
+{
+	OwningActor.get().SetCanMove(false);
 }

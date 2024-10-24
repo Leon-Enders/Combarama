@@ -10,7 +10,8 @@ class CollisionSystem
 public:
 	static CollisionSystem& Get() { return Instance; };
 
-	void Update();
+	void CheckForPossibleCollisions(float DeltaTime);
+	void Update(float DeltaTime);
 	void Draw(SDL_Renderer* GameRenderer);
 
 	void AddCollider(Collider& ColliderToAdd);
