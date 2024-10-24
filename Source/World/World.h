@@ -2,7 +2,15 @@
 #include <vector>
 #include <memory>
 #include <ranges>
+#include <unordered_map>
+#include <typeindex>
+#include <variant>
+#include <functional>
 #include "../Entity/Actor.h"
+#include "../Entity/Character.h"
+#include "../Entity/Enemy.h"
+#include "../Entity/PlayerCharacter.h"
+#include "../Entity/Weapon.h"
 #include "../Controller/Controller.h"
 #include "../Math/Transform.h"
 #include "../System/WorldSubsystem/WorldSubsystem.h"
@@ -15,6 +23,15 @@ concept IsController = std::is_base_of<Controller, T>::value;
 
 template<typename T>
 concept IsSubsystem = std::is_base_of<WorldSubsystem, T>::value;
+
+
+
+using ActorsVariant = std::variant<std::vector<std::reference_wrapper<Actor>>,
+	std::reference_wrapper<std::vector<std::unique_ptr<Character>>>,
+	std::vector<std::reference_wrapper<Enemy>>,
+	std::vector<std::reference_wrapper<PlayerCharacter>>,
+	std::vector<std::reference_wrapper<Weapon>>>;
+
 
 class World
 {
@@ -29,22 +46,31 @@ public:
 	template<IsActor T>
 	T* SpawnActor(const Transform& SpawnTransform);
 
+	template<IsActor T>
+	std::vector<std::reference_wrapper<T>>& GetAllActorsOfClass();
+
 	template<IsController T>
 	T* CreateController();
-
 
 	template<IsSubsystem T>
 	T* GetSubsystem();
 
+
 	//TODO: Every Actor should have a destroy function calling this Function
 	void RemoveActor(Actor* ActorToRemove);
 
+
+private:
+	template<IsActor T>
+	void AddActorToMap(T* ActorToAdd);
 
 
 private:
 	void FillSubsystemCollection();
 
 
+
+	std::unordered_map<std::type_index, ActorsVariant> ActorTypeToActorsMap;
 
 	std::vector<std::unique_ptr<WorldSubsystem>> SubsystemCollection;
 	std::vector<std::unique_ptr<Actor>> InstancedActors;
@@ -56,29 +82,59 @@ private:
 template<IsActor T>
 inline T* World::SpawnActor()
 {
-    static_assert(std::is_base_of<Actor, T>::value,
-        "T must be a class derived from Actor");
-  
-    std::unique_ptr<T> NewActor = std::make_unique<T>(this);
-
-    T* NewActorRaw = NewActor.get();
-
+	std::unique_ptr<T> NewActor = std::make_unique<T>(this);
+	T* NewActorRaw = NewActor.get();
 	InstancedActors.push_back(std::move(NewActor));
+	AddActorToMap(NewActorRaw);
 
-    return NewActorRaw;
+	return NewActorRaw;
 }
 
 template<IsActor T>
 inline T* World::SpawnActor(const Transform& SpawnTransform)
 {
 	std::unique_ptr<T> NewActor = std::make_unique<T>(this, SpawnTransform);
-
 	T* NewActorRaw = NewActor.get();
-
 	InstancedActors.push_back(std::move(NewActor));
+	AddActorToMap(NewActorRaw);
 
 	return NewActorRaw;
 }
+
+template<IsActor T>
+inline std::vector<std::reference_wrapper<T>>& World::GetAllActorsOfClass()
+{
+	std::type_index typeIndex = std::type_index(typeid(T));
+	auto it = ActorTypeToActorsMap.find(typeIndex);
+
+	if (it != ActorTypeToActorsMap.end()) {
+		return std::get<std::vector<std::reference_wrapper<T>>>(it->second);
+	}
+
+	// If no entry found, return an empty static vector reference
+	static std::vector<std::reference_wrapper<T>> emptyVector;
+	return emptyVector;
+}
+
+template<IsActor T>
+inline void World::AddActorToMap(T* ActorToAdd)
+{
+	std::type_index TypeIndex = std::type_index(typeid(T));
+
+	auto it = ActorTypeToActorsMap.find(TypeIndex);
+	if (it == ActorTypeToActorsMap.end()) 
+	{
+		std::vector<std::reference_wrapper<T>> newVector;
+		ActorTypeToActorsMap[TypeIndex] = newVector;
+		it = ActorTypeToActorsMap.find(TypeIndex);
+	}
+
+	
+	auto& actorVector = std::get<std::vector<std::reference_wrapper<T>>>(it->second);
+	actorVector.push_back(std::ref(*ActorToAdd));
+}
+
+
 
 template<IsController T>
 inline T* World::CreateController()
@@ -95,10 +151,6 @@ inline T* World::CreateController()
 template<IsSubsystem T>
 inline T* World::GetSubsystem()
 {
-	static_assert(std::is_base_of<WorldSubsystem, T>::value,
-		"T must be a class derived from Controller");
-
-
 	auto Iterator = std::ranges::find_if(SubsystemCollection,
 		[](const std::unique_ptr<WorldSubsystem>& Subsystem)
 		{
@@ -112,3 +164,7 @@ inline T* World::GetSubsystem()
 
 	return nullptr;
 }
+
+
+
+
