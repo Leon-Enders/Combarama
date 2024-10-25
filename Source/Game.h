@@ -17,8 +17,11 @@ public:
 	void StartGame();
 
 	//GameLoop
-	void HandleGameLoop();
+	void StartGameLoop();
+
+	void GameLoop();
 	void ProcessInput();
+	void FixedUpdate();
 	void Update();
 	void Render();
 
@@ -40,11 +43,14 @@ private:
 
 	Uint64 FrameStart = 0;
 	Uint64 FrameTime = 0;
-	float DeltaTime = 0;
+	float DeltaTimeS = 0;
+	float DeltaTimeMS = 0;
 
 
 	static constexpr int FPS = 60;
 	static constexpr int FrameDelay = 1000 / FPS;
+	static constexpr int FixedDeltaTime = 20;
+	int FixedTimeCounter = 0;
 	static constexpr SDL_FRect BackGround = { 0.f,0.f,1280.f,720 };
 	std::string ImagePath;
 

@@ -47,12 +47,20 @@ void Game::StartGame()
 		AISubsystem->SpawnRandomEnemy();
 	}
 
+	StartGameLoop();
+}
+
+
+void Game::StartGameLoop()
+{
 	while (IsGameActive)
 	{
-		DeltaTime = static_cast<float>((SDL_GetTicks() - FrameStart))/1000;
+		DeltaTimeMS = static_cast<float>((SDL_GetTicks() - FrameStart));
+		DeltaTimeS = DeltaTimeMS / 1000;
 		FrameStart = SDL_GetTicks();
+		FixedTimeCounter += DeltaTimeMS;
 
-		HandleGameLoop();
+		GameLoop();
 
 		FrameTime = SDL_GetTicks() - FrameStart;
 
@@ -60,35 +68,15 @@ void Game::StartGame()
 		{
 			SDL_Delay(FrameDelay - static_cast<Uint32>(FrameTime));
 		}
-		//SDL_Log("Frametime: %i", FrameTime);
 	}
 }
 
-
-void Game::HandleGameLoop()
+void Game::GameLoop()
 {
-	auto starti = std::chrono::high_resolution_clock::now();
 	ProcessInput();
-	auto endi = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<float, std::milli> frameTimei = endi - starti;
-
-	//SDL_Log("ProcessInputTime: %f", frameTimei.count());
-	
-
-	auto start = std::chrono::high_resolution_clock::now();
+	FixedUpdate();
 	Update();
-	auto end = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<float, std::milli> frameTime = end - start;
-
-	//SDL_Log("UpdateTime: %f",frameTime.count());
-
-	auto startr = std::chrono::high_resolution_clock::now();
 	Render();
-	auto endr = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<float, std::milli> frameTimer = endr - startr;
-
-	//SDL_Log("RenderTime: %f", frameTimer.count());
-	
 }
 
 void Game::ProcessInput()
@@ -96,10 +84,19 @@ void Game::ProcessInput()
 	InputSystem::Get().HandleInput();
 }
 
+void Game::FixedUpdate()
+{
+	while (FixedTimeCounter >= FixedDeltaTime)
+	{
+		CollisionSystem::Get().Update(FixedDeltaTime);
+		FixedTimeCounter -= FixedDeltaTime;
+	}
+	
+}
+
 void Game::Update()
 {
-	CollisionSystem::Get().Update(DeltaTime);
-	GameWorld->Update(DeltaTime);
+	GameWorld->Update(DeltaTimeS);
 	//Update Verts to Render
 	RenderSystem::Get().Update();
 }
