@@ -11,6 +11,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld,InTransform)
 {
+	using namespace std::placeholders;
 	//Use helper function to generate Avatar Triangles
 	std::vector<SDL_Vertex> AvatarTriangles;
 	Avatar::GenerateVertices(AvatarTriangles, EntityTransform);
@@ -21,8 +22,9 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	float ColliderWidth = Avatar::GetRadius() * 2.f;
 	float ColliderHeight = Avatar::GetRadius() * 2.f;
 
-	CharacterCollider = std::make_unique<Collider>(*this, InTransform.Position, ColliderWidth, ColliderHeight);
-
+	CharacterCollider = std::make_unique<Collider>(InTransform.Position, ColliderWidth, ColliderHeight);
+	CharacterCollider->OnCollisionEnterDelegate = std::bind(&Character::OnCollisionEnter, this, _1);
+	CharacterCollider->OnCollisionExitDelegate = std::bind(&Character::OnCollisionEnter, this, _1);
 }
 
 void Character::OnPossessed(Controller* OwningContoller)
@@ -32,12 +34,6 @@ void Character::OnPossessed(Controller* OwningContoller)
 
 void Character::UpdatePosition(float DeltaTime)
 {
-	if (!CanMove)
-	{
-		CanMove = true;
-		return;
-	}
-
 	EntityTransform.Position += Velocity * DeltaTime * Speed;
 
 
@@ -46,6 +42,16 @@ void Character::UpdatePosition(float DeltaTime)
 
 void Character::UpdateRotation()
 {
+}
+
+void Character::OnCollisionEnter(const Collider& Other)
+{
+	SDL_Log("Collision Enter");
+}
+
+void Character::OnCollisionExit(const Collider& Other)
+{
+	SDL_Log("Collision Exit");
 }
 
 void Character::Initialize()
