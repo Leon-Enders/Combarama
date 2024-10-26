@@ -8,10 +8,7 @@ RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles,con
 	Triangles(InTriangles),
 	OwningActor(std::ref(InOwningActor))
 {
-
-	RenderTriangles.resize(Triangles.size());
-	RenderTransform = OwningActor.get().GetTransform();
-	
+	Initialize();
 
 	RenderSystem::Get().AddRenderComponent(*this);
 }
@@ -25,6 +22,22 @@ void RenderComponent::Draw(SDL_Renderer* GameRenderer)const
 {
 	if (!IsRenderActive) return;
 	SDL_RenderGeometry(GameRenderer, NULL, RenderTriangles.data(), static_cast<int>(Triangles.size()), NULL, 0);
+}
+
+void RenderComponent::Initialize()
+{
+	RenderTriangles.resize(Triangles.size());
+	RenderTransform = OwningActor.get().GetTransform();
+
+	Matrix3x3 TransformMatrix = Matrix3x3::Transform(RenderTransform);
+		
+
+	for (size_t i = 0; i < Triangles.size(); ++i)
+	{
+		RenderTriangles[i].position = TransformMatrix * Triangles[i].position;
+		RenderTriangles[i].color = Triangles[i].color;
+	}
+
 }
 
 void RenderComponent::Update()

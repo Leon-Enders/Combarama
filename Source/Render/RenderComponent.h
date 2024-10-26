@@ -12,6 +12,7 @@ public:
 	RenderComponent(const std::vector<SDL_Vertex>&& InTriangles, const Actor& InOwningActor);
 	~RenderComponent();
 
+	void Initialize();
 	void Update();
 	void Draw(SDL_Renderer* GameRenderer)const;
 	
