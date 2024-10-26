@@ -15,10 +15,7 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 		{
 			if (&ActiveCollider == &OtherCollider) break;
 
-			if (SDL_GetRectIntersectionFloat(&ActiveCollider.get().GetColliderBox(), &OtherCollider.get().GetColliderBox(), &Intersection))
-			{
-				ActiveCollider.get().OnCollisionEnter(OtherCollider, Intersection);
-			}
+			ActiveCollider.get().CheckCollision(OtherCollider.get());
 		}
 	}
 }

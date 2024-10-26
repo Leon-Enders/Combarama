@@ -1,14 +1,14 @@
 #pragma once
 #include "../Math/Vector2.h"
 
-enum E_AxisMapping
+enum class E_AxisMapping
 {
 	Down,
 	Up,
 	Left,
 	Right
 };
-enum ActionValueType
+enum class ActionValueType
 {
 	None,
 	Axis1D,

@@ -23,8 +23,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	float ColliderHeight = Avatar::GetRadius() * 2.f;
 
 	CharacterCollider = std::make_unique<Collider>(this, InTransform.Position, ColliderWidth, ColliderHeight);
-	CharacterCollider->OnCollisionEnterDelegate = std::bind(&Character::OnCollisionEnter, this, _1);
-	CharacterCollider->OnCollisionExitDelegate = std::bind(&Character::OnCollisionEnter, this, _1);
+	CharacterCollider->OnCollisionEnterDelegate = std::bind(&Character::OnCollisionEnter, this,_1, _2);
 }
 
 void Character::OnPossessed(Controller* OwningContoller)
@@ -44,9 +43,25 @@ void Character::UpdateRotation()
 {
 }
 
-void Character::OnCollisionEnter(const Collider& Other)
+void Character::OnCollisionEnter(const Collider& Other, const ECollisionFlags CollisionFlag)
 {
-	SDL_Log("Collision Enter");
+	switch (CollisionFlag)
+	{
+		case ECollisionFlags::Top:
+			Velocity.Y = 0;
+			break;
+		case ECollisionFlags::Bottom:
+			Velocity.Y = 0;
+			break;
+		case ECollisionFlags::Right:
+			Velocity.X = 0;
+			break;
+		case ECollisionFlags::Left:
+			Velocity.X = 0;
+			break;
+	default:
+		break;
+	}
 }
 
 void Character::OnCollisionExit(const Collider& Other)

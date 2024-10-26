@@ -69,6 +69,7 @@
     <ClInclude Include="Source\System\RenderSystem.h" />
     <ClInclude Include="Source\System\WorldSubsystem\AISystem.h" />
     <ClInclude Include="Source\System\WorldSubsystem\WorldSubsystem.h" />
+    <ClInclude Include="Source\Utility\CollisionHelper.h" />
     <ClInclude Include="Source\Utility\ColorHelper.h" />
     <ClInclude Include="Source\Utility\CombaramaStructs.h" />
     <ClInclude Include="Source\Utility\PrimitiveHelpers.h" />

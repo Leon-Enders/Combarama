@@ -28,7 +28,7 @@ protected:
 
 
 	//Collision
-	virtual void OnCollisionEnter(const Collider& Other);
+	virtual void OnCollisionEnter(const Collider& Other, const ECollisionFlags CollisionFlag);
 	virtual void OnCollisionExit(const Collider& Other);
 
 

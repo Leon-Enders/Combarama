@@ -1,10 +1,12 @@
 #pragma once
 #include <functional>
-#include "../Math/Vector2.h"
 #include "SDL3/SDL_rect.h"
+#include "../Math/Vector2.h"
+#include "../Utility/CollisionHelper.h"
 
 struct SDL_Renderer;
 class Actor;
+
 
 class Collider
 {
@@ -14,8 +16,9 @@ public:
 	void UpdatePosition(const Vector2& NewPosition);
 	void Draw(SDL_Renderer* Renderer);
 
-	void OnCollisionEnter(const Collider& Other, const SDL_FRect& Intersection);
-	void OnCollisionExit(const Collider& Other);
+
+	bool CheckCollision(const Collider& Other);
+	
 
 	Vector2 GetPosition()const { return { ColliderBox.x, ColliderBox.y }; }
 	Vector2 GetOffset() { return CenterOffset; }
@@ -27,16 +30,14 @@ public:
 
 
 public:
-	std::function<void(const Collider&)> OnCollisionEnterDelegate;
+	std::function<void(const Collider&, const ECollisionFlags)> OnCollisionEnterDelegate;
 	std::function<void(const Collider&)> OnCollisionExitDelegate;
 	std::function<void(const Vector2&)> OnBlockDelegate;
 
 private:
+	void OnCollisionExit(const Collider& Other);
 
-	// since FRects have their center on the upper left corner
-	// we have to make some calculations to convert rectangle position
-	// so that it centers with the origin
-
+	ECollisionFlags HandleCollision(const SDL_FRect& OtherBox, const SDL_FRect& Intersection);
 
 	Actor* OwningActor = nullptr;
 
