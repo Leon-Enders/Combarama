@@ -34,6 +34,8 @@ void Collider::FixedUpdate(float FixedDeltaTime)
 
 void Collider::Draw(SDL_Renderer* Renderer)
 {
+	ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
+	ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
 	if (DrawDebug)
 	{
 		SDL_RenderRect(Renderer, &ColliderBox);
@@ -61,12 +63,12 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& OtherBox, 
 
 		if (ColliderBox.x < OtherBox.x)
 		{
-			OffsetVector.X -= OverlapX * 0.5f + Charac->GetVecolity().X * 0.02f;
+			OffsetVector.X -= + Charac->GetVecolity().X * 0.02f;
 			CollisionResult = ECollisionFlags::Left;
 		}
 		else
 		{
-			OffsetVector.X += OverlapX * 0.5f - Charac->GetVecolity().X * 0.02f;
+			OffsetVector.X += - Charac->GetVecolity().X * 0.02f;
 			CollisionResult = ECollisionFlags::Right;
 		}
 	}
@@ -74,12 +76,12 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& OtherBox, 
 
 		if (ColliderBox.y < OtherBox.y)
 		{
-			OffsetVector.Y -= OverlapY * 0.5f + Charac->GetVecolity().Y * 0.02f;
+			OffsetVector.Y -= + Charac->GetVecolity().Y * 0.02f;
 			CollisionResult = ECollisionFlags::Top;
 		}
 		else
 		{
-			OffsetVector.Y += OverlapY * 0.5f - Charac->GetVecolity().Y * 0.02f;
+			OffsetVector.Y +=  - Charac->GetVecolity().Y * 0.02f;
 			CollisionResult = ECollisionFlags::Bottom;
 		}
 
