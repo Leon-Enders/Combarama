@@ -17,12 +17,11 @@ public:
 	void Draw(SDL_Renderer* Renderer);
 
 
-	bool CheckCollision(const Collider& Other);
+	void HandleCollision(const Collider& Other,const SDL_FRect& OtherBox, const SDL_FRect& Intersection);
 	
 
 	Vector2 GetPosition()const { return { ColliderBox.x, ColliderBox.y }; }
 	Vector2 GetOffset() { return CenterOffset; }
-	SDL_FRect GetColliderBoxCopy() { return ColliderBox; }
 
 	bool DrawDebug = true;
 
@@ -37,7 +36,7 @@ public:
 private:
 	void OnCollisionExit(const Collider& Other);
 
-	ECollisionFlags HandleCollision(const SDL_FRect& OtherBox, const SDL_FRect& Intersection);
+	
 
 	Actor* OwningActor = nullptr;
 

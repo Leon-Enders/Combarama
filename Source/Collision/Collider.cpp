@@ -39,30 +39,16 @@ void Collider::Draw(SDL_Renderer* Renderer)
 	}
 }
 
-bool Collider::CheckCollision(const Collider& Other)
-{
-	SDL_FRect Intersection;
-
-	if (SDL_GetRectIntersectionFloat(&ColliderBox, &Other.GetColliderBox(), &Intersection))
-	{
-		
-		ECollisionFlags CollisionResult = HandleCollision(Other.GetColliderBox(), Intersection);
-
-		OnCollisionEnterDelegate(Other, CollisionResult);
-		return true;
-	}
-	return false;
-}
-
-
-
 void Collider::OnCollisionExit(const Collider& Other)
 {
 	OnCollisionExitDelegate(Other);
 }
 
-ECollisionFlags Collider::HandleCollision(const SDL_FRect& OtherBox, const SDL_FRect& Intersection)
+void Collider::HandleCollision(const Collider& Other,const SDL_FRect& OtherBox, const SDL_FRect& Intersection)
 {
+	ECollisionFlags CollisionResult;
+
+
 	float OverlapX = Intersection.w;
 	float OverlapY = Intersection.h;
 
@@ -72,12 +58,12 @@ ECollisionFlags Collider::HandleCollision(const SDL_FRect& OtherBox, const SDL_F
 		if (ColliderBox.x < OtherBox.x)
 		{
 			OwningActor->SetPosition(OwningActor->GetPosition() - Vector2(OverlapX, 0.f) * 0.5f);
-			return ECollisionFlags::Left;
+			CollisionResult = ECollisionFlags::Left;
 		}
 		else
 		{
 			OwningActor->SetPosition(OwningActor->GetPosition() + Vector2(OverlapX, 0.f) * 0.5f);
-			return ECollisionFlags::Right;
+			CollisionResult = ECollisionFlags::Right;
 		}
 	}
 	else {
@@ -85,16 +71,16 @@ ECollisionFlags Collider::HandleCollision(const SDL_FRect& OtherBox, const SDL_F
 		if (ColliderBox.y < OtherBox.y)
 		{
 			OwningActor->SetPosition(OwningActor->GetPosition() - Vector2(0.f, OverlapY) * 0.5f);
-			return ECollisionFlags::Top;
+			CollisionResult = ECollisionFlags::Top;
 		}
 		else
 		{
 			OwningActor->SetPosition(OwningActor->GetPosition() + Vector2(0.f, OverlapY) * 0.5f);
-			return ECollisionFlags::Bottom;
+			CollisionResult = ECollisionFlags::Bottom;
 		}
 	}
 
 
-	return ECollisionFlags::None;
+	OnCollisionEnterDelegate(Other, CollisionResult);
 }
 
