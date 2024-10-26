@@ -3,7 +3,6 @@
 #include <random>
 #include <functional>
 #include "WorldSubsystem.h"
-#include "../../Entity/Enemy.h"
 #include "../../Controller/AIController.h"
 
 

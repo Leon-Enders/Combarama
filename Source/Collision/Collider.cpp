@@ -3,6 +3,7 @@
 #include "SDL3/SDL_log.h"
 #include "../System/CollisionSystem.h"
 #include "../Entity/Actor.h"
+#include "../Entity/Character.h"
 
 Collider::Collider(Actor* InOwningActor, const Vector2& Origin, float InWidth, float InHeight)
 	:
@@ -25,10 +26,10 @@ Collider::~Collider()
 	//Remove from CollisionSystem
 }
 
-void Collider::UpdatePosition(const Vector2& NewPosition)
+void Collider::FixedUpdate(float FixedDeltaTime)
 {
-	ColliderBox.x = NewPosition.X - CenterOffset.X;
-	ColliderBox.y = NewPosition.Y - CenterOffset.Y;	
+	ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
+	ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
 }
 
 void Collider::Draw(SDL_Renderer* Renderer)
@@ -52,17 +53,20 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& OtherBox, 
 	float OverlapX = Intersection.w;
 	float OverlapY = Intersection.h;
 
+
+	Character* Charac = dynamic_cast<Character*>(OwningActor);
+	Vector2 OffsetVector = OwningActor->GetPosition();
 	if (OverlapX < OverlapY)
 	{
 
 		if (ColliderBox.x < OtherBox.x)
 		{
-			OwningActor->SetPosition(OwningActor->GetPosition() - Vector2(OverlapX, 0.f) * 0.5f);
+			OffsetVector.X -= OverlapX * 0.5f + Charac->GetVecolity().X * 0.02f;
 			CollisionResult = ECollisionFlags::Left;
 		}
 		else
 		{
-			OwningActor->SetPosition(OwningActor->GetPosition() + Vector2(OverlapX, 0.f) * 0.5f);
+			OffsetVector.X += OverlapX * 0.5f - Charac->GetVecolity().X * 0.02f;
 			CollisionResult = ECollisionFlags::Right;
 		}
 	}
@@ -70,17 +74,18 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& OtherBox, 
 
 		if (ColliderBox.y < OtherBox.y)
 		{
-			OwningActor->SetPosition(OwningActor->GetPosition() - Vector2(0.f, OverlapY) * 0.5f);
+			OffsetVector.Y -= OverlapY * 0.5f + Charac->GetVecolity().Y * 0.02f;
 			CollisionResult = ECollisionFlags::Top;
 		}
 		else
 		{
-			OwningActor->SetPosition(OwningActor->GetPosition() + Vector2(0.f, OverlapY) * 0.5f);
+			OffsetVector.Y += OverlapY * 0.5f - Charac->GetVecolity().Y * 0.02f;
 			CollisionResult = ECollisionFlags::Bottom;
 		}
+
+	
 	}
 
-
-	OnCollisionEnterDelegate(Other, CollisionResult);
+	OwningActor->SetPosition(OffsetVector);
 }
 

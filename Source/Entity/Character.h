@@ -6,15 +6,19 @@
 #include "../Collision/Collider.h"
 
 
-class Collider;
+
 //TODO: Create overload for OwningController for PlayerController
 class Character : public Actor
 {
 public:
 	Character(World* GameWorld);
 	Character(World* GameWorld, const Transform& InTransform);
+
 	virtual void Initialize() override;
 	virtual void Update(float DeltaTime) override;
+	virtual void FixedUpdate(float FixedDeltaTime) override;
+
+
 	void OnPossessed(Controller* OwningContoller);
 
 	const Vector2& GetVecolity()const { return Velocity; }

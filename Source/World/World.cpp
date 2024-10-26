@@ -22,10 +22,17 @@ void World::Update(float DeltaTime)
 		Subsystem->Update(DeltaTime);
 	}
 
-
 	for (auto& InstancedActor : InstancedActors)
 	{
 		InstancedActor->Update(DeltaTime);
+	}
+}
+
+void World::FixedUpdate(float FixedDeltaTime)
+{
+	for (auto& InstancedActor : InstancedActors)
+	{
+		InstancedActor->FixedUpdate(FixedDeltaTime);
 	}
 }
 

@@ -40,7 +40,9 @@ public:
 	void Initialize();
 	
 	void Update(float DeltaTime);
-	
+	void FixedUpdate(float FixedDeltaTime);
+
+
 	template<IsActor T>
 	T* SpawnActor();
 

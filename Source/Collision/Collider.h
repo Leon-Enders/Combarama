@@ -13,7 +13,8 @@ class Collider
 public:
 	Collider(Actor* InOwningActor,const Vector2& Origin, float InWidth, float InHeight);
 	~Collider();
-	void UpdatePosition(const Vector2& NewPosition);
+
+	void FixedUpdate(float FixedDeltaTime);
 	void Draw(SDL_Renderer* Renderer);
 
 

@@ -25,7 +25,7 @@ PlayerCharacter::PlayerCharacter(World* GameWorld, const Transform& InTransform)
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
 {
-	Velocity = NewVelocity;
+	Velocity = NewVelocity * Speed;
 }
 
 void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
@@ -85,6 +85,11 @@ void PlayerCharacter::Update(float DeltaTime)
 		Sword->SetRotation(SwordRotation);
 		
 	}
+}
+
+void PlayerCharacter::FixedUpdate(float FixedDeltaTime)
+{
+	Character::FixedUpdate(FixedDeltaTime);
 }
 
 void PlayerCharacter::Attack()

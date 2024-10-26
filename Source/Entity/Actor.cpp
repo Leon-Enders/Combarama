@@ -30,3 +30,8 @@ void Actor::Update(float DeltaTime)
 {
 
 }
+
+void Actor::FixedUpdate(float FixedDeltaTime)
+{
+
+}

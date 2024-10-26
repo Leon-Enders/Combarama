@@ -1,5 +1,6 @@
 #include "AISystem.h"
 #include <ctime>
+#include "../../Entity/Enemy.h"
 #include "../../Math/Transform.h"
 #include "../../World/World.h"
 

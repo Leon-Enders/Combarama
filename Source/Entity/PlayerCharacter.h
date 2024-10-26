@@ -10,6 +10,7 @@ public:
 	PlayerCharacter(World* GameWorld, const Transform& InTransform);
 	virtual void Initialize() override;
 	virtual void Update(float DeltaTime) override;
+	virtual void FixedUpdate(float FixedDeltaTime) override;
 
 	void Attack();
 

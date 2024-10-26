@@ -74,8 +74,8 @@ void Game::StartGameLoop()
 void Game::GameLoop()
 {
 	ProcessInput();
-	FixedUpdate();
 	Update();
+	FixedUpdate();
 	Render();
 }
 
@@ -88,16 +88,16 @@ void Game::ProcessInput()
 void Game::Update()
 {
 	GameWorld->Update(DeltaTimeS);
-	//Update Verts to Render
-	RenderSystem::Get().Update();
+	
 }
 
 void Game::FixedUpdate()
 {
-	while (FixedTimeCounter >= FixedDeltaTime)
+	while (FixedTimeCounter >= FixedDeltaTimeMS)
 	{
-		CollisionSystem::Get().Update(FixedDeltaTime);
-		FixedTimeCounter -= FixedDeltaTime;
+		GameWorld->FixedUpdate(FixedDeltaTimeS);
+		CollisionSystem::Get().Update(FixedDeltaTimeS);
+		FixedTimeCounter -= FixedDeltaTimeMS;
 	}
 }
 
@@ -109,6 +109,9 @@ void Game::Render()
 
 void Game::ComposeFrame()
 {
+	//Update Verts to Render
+	RenderSystem::Get().Update();
+
 	// Clear BackBuffer
 	SDL_SetRenderDrawColor(GameRenderer, 0, 0, 0, 255);
 	SDL_RenderClear(GameRenderer);

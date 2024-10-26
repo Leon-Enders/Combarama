@@ -24,5 +24,5 @@ void Enemy::Initialize()
 
 void Enemy::UpdateVelocity(const Vector2& NewVelocity)
 {
-	Velocity = NewVelocity;
+	Velocity = NewVelocity * Speed;
 }

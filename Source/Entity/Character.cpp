@@ -33,10 +33,7 @@ void Character::OnPossessed(Controller* OwningContoller)
 
 void Character::UpdatePosition(float DeltaTime)
 {
-	EntityTransform.Position += Velocity * DeltaTime * Speed;
-
-
-	CharacterCollider->UpdatePosition(EntityTransform.Position);
+	EntityTransform.Position += Velocity * DeltaTime;
 }
 
 void Character::UpdateRotation()
@@ -45,23 +42,23 @@ void Character::UpdateRotation()
 
 void Character::OnCollisionEnter(const Collider& Other, const ECollisionFlags CollisionFlag)
 {
-	switch (CollisionFlag)
-	{
-		case ECollisionFlags::Top:
-			Velocity.Y = 0;
-			break;
-		case ECollisionFlags::Bottom:
-			Velocity.Y = 0;
-			break;
-		case ECollisionFlags::Right:
-			Velocity.X = 0;
-			break;
-		case ECollisionFlags::Left:
-			Velocity.X = 0;
-			break;
-	default:
-		break;
-	}
+	//switch (CollisionFlag)
+	//{
+	//	case ECollisionFlags::Top:
+	//		Velocity.Y = 0;
+	//		break;
+	//	case ECollisionFlags::Bottom:
+	//		Velocity.Y = 0;
+	//		break;
+	//	case ECollisionFlags::Right:
+	//		Velocity.X = 0;
+	//		break;
+	//	case ECollisionFlags::Left:
+	//		Velocity.X = 0;
+	//		break;
+	//default:
+	//	break;
+	//}
 }
 
 void Character::OnCollisionExit(const Collider& Other)
@@ -76,8 +73,13 @@ void Character::Initialize()
 
 void Character::Update(float DeltaTime)
 {
-	Actor::Update(DeltaTime);
 
-	UpdatePosition(DeltaTime);
+}
+
+void Character::FixedUpdate(float FixedDeltaTime)
+{
+	Actor::FixedUpdate(FixedDeltaTime);
+
+	UpdatePosition(FixedDeltaTime);
 	UpdateRotation();
 }

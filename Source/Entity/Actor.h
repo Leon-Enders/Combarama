@@ -12,7 +12,7 @@ public:
 	~Actor();
 	virtual void Initialize();
 	virtual void Update(float DeltaTime);
-
+	virtual void FixedUpdate(float FixedDeltaTime);
 
 	inline const Vector2& GetPosition()const { return EntityTransform.Position; }
 	inline const float& GetRotation()const { return EntityTransform.Rotation; }

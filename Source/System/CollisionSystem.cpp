@@ -14,6 +14,18 @@ struct CollisionEvent {
 
 CollisionSystem CollisionSystem::Instance;
 
+
+
+void CollisionSystem::Update(float FixedDeltaTime)
+{
+	for (const auto& ActiveCollider : ActiveColliders)
+	{
+		ActiveCollider.get().FixedUpdate(FixedDeltaTime);
+	}
+	CheckForPossibleCollisions(FixedDeltaTime);
+
+}
+
 void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 {
 	SDL_FRect Intersection;
@@ -21,7 +33,7 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 	//std::unordered_map<std::reference_wrapper<Collider>, CollisionEvent> ColliderToCollisionEvents;
 	std::vector<CollisionEvent> CollisionEvents;
 
-	for(const auto & ActiveCollider : ActiveColliders)
+	for (const auto& ActiveCollider : ActiveColliders)
 	{
 		for (const auto& OtherCollider : ActiveColliders)
 		{
@@ -30,7 +42,7 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 			if (SDL_GetRectIntersectionFloat(&ActiveCollider.get().GetColliderBox(), &OtherCollider.get().GetColliderBox(), &Intersection))
 			{
 				//ColliderToCollisionEvents.insert({ ActiveCollider, {OtherCollider.get(), Intersection}});
-				CollisionEvents.push_back({ActiveCollider.get() ,OtherCollider.get(),OtherCollider.get().GetColliderBox(), Intersection});
+				CollisionEvents.push_back({ ActiveCollider.get() ,OtherCollider.get(),OtherCollider.get().GetColliderBox(), Intersection });
 			}
 		}
 	}
@@ -38,19 +50,12 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 	for (auto& event : CollisionEvents)
 	{
 		//You can still push other ppl because you calculate with different positions, after the first
-		event.ActiveCollider.HandleCollision(event.OtherCollider,event.OtherColliderBox, event.Intersection);
+		event.ActiveCollider.HandleCollision(event.OtherCollider, event.OtherColliderBox, event.Intersection);
 	}
 	//for (auto& Pair : ColliderToCollisionEvents)
 	//{
 	//	Pair.first.get().HandleCollision(Pair.second.OtherCollider, Pair.second.Intersection);
 	//}
-}
-
-void CollisionSystem::Update(float FixedDeltaTime)
-{
-	
-	CheckForPossibleCollisions(FixedDeltaTime);
-
 }
 
 void CollisionSystem::Draw(SDL_Renderer* GameRenderer)
