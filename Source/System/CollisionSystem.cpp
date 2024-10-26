@@ -6,15 +6,18 @@ CollisionSystem CollisionSystem::Instance;
 
 void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 {
+	//Cache Intersection Rectangle
+	SDL_FRect Intersection;
+
 	for(const auto & ActiveCollider : ActiveColliders)
 	{
-		for (const auto& aCollider : ActiveColliders)
+		for (const auto& OtherCollider : ActiveColliders)
 		{
-			if (&ActiveCollider == &aCollider) break;
+			if (&ActiveCollider == &OtherCollider) break;
 
-			if (SDL_HasRectIntersectionFloat(ActiveCollider.get().GetColliderBox(), aCollider.get().GetColliderBox()))
+			if (SDL_GetRectIntersectionFloat(&ActiveCollider.get().GetColliderBox(), &OtherCollider.get().GetColliderBox(), &Intersection))
 			{
-				ActiveCollider.get().OnCollisionEnter(ActiveCollider);
+				ActiveCollider.get().OnCollisionEnter(OtherCollider, Intersection);
 			}
 		}
 	}
@@ -23,7 +26,6 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 void CollisionSystem::Update(float DeltaTime)
 {
 	
-
 	CheckForPossibleCollisions(DeltaTime);
 
 }
@@ -40,3 +42,4 @@ void CollisionSystem::AddCollider(Collider& ColliderToAdd)
 {
 	ActiveColliders.push_back(std::ref(ColliderToAdd));
 }
+

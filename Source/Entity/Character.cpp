@@ -22,7 +22,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	float ColliderWidth = Avatar::GetRadius() * 2.f;
 	float ColliderHeight = Avatar::GetRadius() * 2.f;
 
-	CharacterCollider = std::make_unique<Collider>(InTransform.Position, ColliderWidth, ColliderHeight);
+	CharacterCollider = std::make_unique<Collider>(this, InTransform.Position, ColliderWidth, ColliderHeight);
 	CharacterCollider->OnCollisionEnterDelegate = std::bind(&Character::OnCollisionEnter, this, _1);
 	CharacterCollider->OnCollisionExitDelegate = std::bind(&Character::OnCollisionEnter, this, _1);
 }

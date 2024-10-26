@@ -2,8 +2,11 @@
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_log.h"
 #include "../System/CollisionSystem.h"
+#include "../Entity/Actor.h"
 
-Collider::Collider(const Vector2& Origin, float InWidth, float InHeight)
+Collider::Collider(Actor* InOwningActor, const Vector2& Origin, float InWidth, float InHeight)
+	:
+	OwningActor(InOwningActor)
 {
 	ColliderBox.w = InWidth;
 	ColliderBox.h = InHeight;
@@ -36,8 +39,40 @@ void Collider::Draw(SDL_Renderer* Renderer)
 	}
 }
 
-void Collider::OnCollisionEnter(const Collider& Other)
+void Collider::OnCollisionEnter(const Collider& Other, const SDL_FRect& Intersection)
 {
+	SDL_FRect OtherColliderBox = Other.GetColliderBox();
+
+	float OverlapX = Intersection.w;
+	float OverlapY = Intersection.h;
+
+	if (OverlapX < OverlapY) 
+	{
+
+		if (ColliderBox.x < OtherColliderBox.x)
+		{
+			OwningActor->SetPosition(OwningActor->GetPosition() - Vector2(OverlapX, 0.f) * 0.5f);
+			Other.OwningActor->SetPosition(Other.OwningActor->GetPosition() + Vector2(OverlapX, 0.f) * 0.5f);
+		}
+		else
+		{
+			OwningActor->SetPosition(OwningActor->GetPosition() + Vector2(OverlapX, 0.f) * 0.5f);
+			Other.OwningActor->SetPosition(Other.OwningActor->GetPosition() - Vector2(OverlapX, 0.f) * 0.5f);
+		}
+	}
+	else {
+		
+		if (ColliderBox.y < OtherColliderBox.y)
+		{
+			OwningActor->SetPosition(OwningActor->GetPosition() - Vector2(0.f, OverlapY) * 0.5f);
+			Other.OwningActor->SetPosition(Other.OwningActor->GetPosition() + Vector2(0.f, OverlapY) * 0.5f);
+		}
+		else
+		{
+			OwningActor->SetPosition(OwningActor->GetPosition() + Vector2(0.f, OverlapY) * 0.5f);
+			Other.OwningActor->SetPosition(Other.OwningActor->GetPosition() - Vector2(0.f, OverlapY) * 0.5f);
+		}
+	}
 	OnCollisionEnterDelegate(Other);
 }
 
@@ -45,3 +80,5 @@ void Collider::OnCollisionExit(const Collider& Other)
 {
 	OnCollisionExitDelegate(Other);
 }
+
+

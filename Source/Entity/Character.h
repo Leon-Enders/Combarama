@@ -26,8 +26,11 @@ protected:
 	virtual void UpdatePosition(float DeltaTime);
 	virtual void UpdateRotation();
 
+
+	//Collision
 	virtual void OnCollisionEnter(const Collider& Other);
 	virtual void OnCollisionExit(const Collider& Other);
+
 
 	float Speed = 500.f;
 	Vector2 Velocity = { 0.f, 0.f };

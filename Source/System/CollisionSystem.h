@@ -4,6 +4,7 @@
 
 class Collider;
 struct SDL_Renderer;
+struct SDL_FRect;
 
 class CollisionSystem
 {

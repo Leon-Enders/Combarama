@@ -84,6 +84,14 @@ void Game::ProcessInput()
 	InputSystem::Get().HandleInput();
 }
 
+
+void Game::Update()
+{
+	GameWorld->Update(DeltaTimeS);
+	//Update Verts to Render
+	RenderSystem::Get().Update();
+}
+
 void Game::FixedUpdate()
 {
 	while (FixedTimeCounter >= FixedDeltaTime)
@@ -91,14 +99,6 @@ void Game::FixedUpdate()
 		CollisionSystem::Get().Update(FixedDeltaTime);
 		FixedTimeCounter -= FixedDeltaTime;
 	}
-	
-}
-
-void Game::Update()
-{
-	GameWorld->Update(DeltaTimeS);
-	//Update Verts to Render
-	RenderSystem::Get().Update();
 }
 
 void Game::Render()
