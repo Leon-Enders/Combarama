@@ -36,7 +36,7 @@ protected:
 	virtual void OnCollisionExit(const Collider& Other);
 
 
-	float Speed = 500.f;
+	float Speed = 250.f;
 	Vector2 Velocity = { 0.f, 0.f };
 	
 

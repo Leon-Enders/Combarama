@@ -18,7 +18,7 @@ Enemy::Enemy(World* GameWorld, const Transform& InTransform)
 
 void Enemy::Initialize()
 {
-	Speed = 250.f;
+	Speed = 125.f;
 	Avatar::SetColor(COLOR_YELLOW, COLOR_LIGHTYELLOW, CharacterRenderComponent.get());
 }
 

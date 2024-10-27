@@ -49,45 +49,51 @@ void Collider::OnCollisionExit(const Collider& Other)
 
 void Collider::HandleCollision(const Collider& Other,const SDL_FRect& OtherBox, const SDL_FRect& Intersection)
 {
-	ECollisionFlags CollisionResult;
-
-
+	//TODO Refactor for better performance
+	//TODO: Check cast and return of not character, can ignore B velocity if object is static
 	float OverlapX = Intersection.w;
 	float OverlapY = Intersection.h;
 
+	Character* CharacA = dynamic_cast<Character*>(OwningActor);
+	Character* CharacB = dynamic_cast<Character*>(Other.OwningActor); 
 
-	Character* Charac = dynamic_cast<Character*>(OwningActor);
-	Vector2 OffsetVector = OwningActor->GetPosition();
+	Vector2 PositionA = CharacA->GetPosition();
+	Vector2 VelocityA = CharacA->GetVecolity();
+	Vector2 VelocityB = CharacB->GetVecolity();
+
+	
+	float TotalVelocityX = std::abs(VelocityA.X) + std::abs(VelocityB.X);
+	float TotalVelocityY = std::abs(VelocityA.Y) + std::abs(VelocityB.Y);
+
+
+	float PushBackScaleA_X = (TotalVelocityX > 0) ? std::abs(VelocityA.X) / TotalVelocityX : 0.5f;
+	float PushBackScaleA_Y = (TotalVelocityY > 0) ? std::abs(VelocityA.Y) / TotalVelocityY : 0.5f;
+
+	float PushBackScaleB_X = (TotalVelocityX > 0) ? std::abs(VelocityB.X) / TotalVelocityX : 0.5f;
+	float PushBackScaleB_Y = (TotalVelocityY > 0) ? std::abs(VelocityB.Y) / TotalVelocityY : 0.5f;
+
+	
 	if (OverlapX < OverlapY)
 	{
-
 		if (ColliderBox.x < OtherBox.x)
 		{
-			OffsetVector.X -= + Charac->GetVecolity().X * 0.02f;
-			CollisionResult = ECollisionFlags::Left;
+			PositionA.X -= OverlapX * PushBackScaleA_X;
 		}
-		else
-		{
-			OffsetVector.X += - Charac->GetVecolity().X * 0.02f;
-			CollisionResult = ECollisionFlags::Right;
+		else {
+			PositionA.X += OverlapX * PushBackScaleA_X;
 		}
 	}
 	else {
-
-		if (ColliderBox.y < OtherBox.y)
+		if (ColliderBox.y < OtherBox.y) 
 		{
-			OffsetVector.Y -= + Charac->GetVecolity().Y * 0.02f;
-			CollisionResult = ECollisionFlags::Top;
+			PositionA.Y -= OverlapY * PushBackScaleA_Y;
 		}
-		else
+		else 
 		{
-			OffsetVector.Y +=  - Charac->GetVecolity().Y * 0.02f;
-			CollisionResult = ECollisionFlags::Bottom;
+			PositionA.Y += OverlapY * PushBackScaleA_Y;
 		}
-
-	
 	}
 
-	OwningActor->SetPosition(OffsetVector);
+	CharacA->SetPosition(PositionA);
 }
 
