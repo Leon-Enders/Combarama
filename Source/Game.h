@@ -47,9 +47,9 @@ private:
 	float DeltaTimeMS = 0;
 
 
-	static constexpr int FPS = 60;
+	static constexpr int FPS = 120;
 	static constexpr int FrameDelay = 1000 / FPS;
-	static constexpr int FixedDeltaTimeMS = 20;
+	static constexpr int FixedDeltaTimeMS = FrameDelay;
 	static constexpr float FixedDeltaTimeS= FixedDeltaTimeMS / 1000.f;
 	int FixedTimeCounter = 0;
 	static constexpr SDL_FRect BackGround = { 0.f,0.f,1280.f,720 };
