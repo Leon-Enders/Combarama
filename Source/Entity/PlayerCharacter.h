@@ -22,7 +22,7 @@ protected:
 	virtual void UpdatePosition(float DeltaTime)override;
 	virtual void UpdateRotation() override;
 
-	float RotationSpeed = 10.f;
+	float RotationSpeed = 20.f;
 	float DesiredRotation = 0.f;
 	
 

@@ -18,32 +18,24 @@ public:
 	virtual void Update(float DeltaTime) override;
 	virtual void FixedUpdate(float FixedDeltaTime) override;
 
-
 	void OnPossessed(Controller* OwningContoller);
 
-	const Vector2& GetVecolity()const { return Velocity; }
-	void SetCanMove(bool NewCanMove) 
-	{
-		CanMove = NewCanMove; 
-	}
+
+	const Vector2& GetVelocity()const { return Velocity; }
+
 protected:
 	virtual void UpdatePosition(float DeltaTime);
 	virtual void UpdateRotation();
 
-
 	//Collision
-	virtual void OnCollisionEnter(const Collider& Other, const ECollisionFlags CollisionFlag);
+	virtual void OnCollisionEnter(const Collider& Other);
 	virtual void OnCollisionExit(const Collider& Other);
 
-
+protected:
 	float Speed = 250.f;
 	Vector2 Velocity = { 0.f, 0.f };
 	
-
 	Controller* OwningController = nullptr;
 	std::unique_ptr<RenderComponent> CharacterRenderComponent = nullptr;
-
 	std::unique_ptr<Collider> CharacterCollider = nullptr;
-private:
-	bool CanMove = true;
 };

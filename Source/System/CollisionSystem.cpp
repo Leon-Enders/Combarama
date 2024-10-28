@@ -1,20 +1,20 @@
 #include "CollisionSystem.h"
-#include <unordered_map>
+#include <algorithm>
 #include "SDL3/SDL_render.h"
 #include "../Collision/Collider.h"
 
-struct CollisionEvent {
+
+
+struct CollisionEventInfo 
+{
 	Collider& ActiveCollider;
 	const Collider& OtherCollider;
-	const SDL_FRect OtherColliderBox;
 	const SDL_FRect Intersection;
 };
 
 
 
 CollisionSystem CollisionSystem::Instance;
-
-
 
 void CollisionSystem::Update(float FixedDeltaTime)
 {
@@ -29,9 +29,8 @@ void CollisionSystem::Update(float FixedDeltaTime)
 void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 {
 	SDL_FRect Intersection;
-	// Cache all Collider which overlap
-	//std::unordered_map<std::reference_wrapper<Collider>, CollisionEvent> ColliderToCollisionEvents;
-	std::vector<CollisionEvent> CollisionEvents;
+
+	std::vector<CollisionEventInfo> CollisionEvents;
 
 	for (const auto& ActiveCollider : ActiveColliders)
 	{
@@ -41,21 +40,15 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 
 			if (SDL_GetRectIntersectionFloat(&ActiveCollider.get().GetColliderBox(), &OtherCollider.get().GetColliderBox(), &Intersection))
 			{
-				//ColliderToCollisionEvents.insert({ ActiveCollider, {OtherCollider.get(), Intersection}});
-				CollisionEvents.push_back({ ActiveCollider.get() ,OtherCollider.get(),OtherCollider.get().GetColliderBox(), Intersection });
+				CollisionEvents.push_back({ ActiveCollider.get() ,OtherCollider.get(), Intersection });
 			}
 		}
 	}
 
-	for (auto& event : CollisionEvents)
+	for (auto& Event : CollisionEvents)
 	{
-		//You can still push other ppl because you calculate with different positions, after the first
-		event.ActiveCollider.HandleCollision(event.OtherCollider, event.OtherColliderBox, event.Intersection);
+		Event.ActiveCollider.HandleCollision(Event.OtherCollider, Event.Intersection);
 	}
-	//for (auto& Pair : ColliderToCollisionEvents)
-	//{
-	//	Pair.first.get().HandleCollision(Pair.second.OtherCollider, Pair.second.Intersection);
-	//}
 }
 
 void CollisionSystem::Draw(SDL_Renderer* GameRenderer)
@@ -69,5 +62,13 @@ void CollisionSystem::Draw(SDL_Renderer* GameRenderer)
 void CollisionSystem::AddCollider(Collider& ColliderToAdd)
 {
 	ActiveColliders.push_back(std::ref(ColliderToAdd));
+}
+
+void CollisionSystem::RemoveCollider(Collider& ColliderToRemove)
+{
+	std::erase_if(ActiveColliders, [&](std::reference_wrapper<Collider> ActiveCollider)
+		{
+			return &ActiveCollider.get() == &ColliderToRemove;
+		});
 }
 

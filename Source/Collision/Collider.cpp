@@ -23,7 +23,7 @@ Collider::Collider(Actor* InOwningActor, const Vector2& Origin, float InWidth, f
 
 Collider::~Collider()
 {
-	//Remove from CollisionSystem
+	CollisionSystem::Get().RemoveCollider(*this);
 }
 
 void Collider::FixedUpdate(float FixedDeltaTime)
@@ -47,17 +47,19 @@ void Collider::OnCollisionExit(const Collider& Other)
 	OnCollisionExitDelegate(Other);
 }
 
-void Collider::HandleCollision(const Collider& Other,const SDL_FRect& OtherBox, const SDL_FRect& Intersection)
+void Collider::HandleCollision(const Collider& Other,const SDL_FRect& Intersection)
 {
 	//TODO Refactor for better performance
 	//TODO: Check cast and return of not character, can ignore B velocity if object is static
 	float OverlapX = Intersection.w;
 	float OverlapY = Intersection.h;
 
+	SDL_FRect OtherBoxCollider = Other.GetColliderBox();
+
 	Character* CharacA = dynamic_cast<Character*>(OwningActor);
 	Character* CharacB = dynamic_cast<Character*>(Other.OwningActor); 
 
-	Vector2 PositionA = CharacA->GetPosition();
+	Vector2 CorrectedPosition = CharacA->GetPosition();
 	Vector2 VelocityA = CharacA->GetVecolity();
 	Vector2 VelocityB = CharacB->GetVecolity();
 
@@ -66,34 +68,30 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& OtherBox, 
 	float TotalVelocityY = std::abs(VelocityA.Y) + std::abs(VelocityB.Y);
 
 
-	float PushBackScaleA_X = (TotalVelocityX > 0) ? std::abs(VelocityA.X) / TotalVelocityX : 0.5f;
-	float PushBackScaleA_Y = (TotalVelocityY > 0) ? std::abs(VelocityA.Y) / TotalVelocityY : 0.5f;
-
-	float PushBackScaleB_X = (TotalVelocityX > 0) ? std::abs(VelocityB.X) / TotalVelocityX : 0.5f;
-	float PushBackScaleB_Y = (TotalVelocityY > 0) ? std::abs(VelocityB.Y) / TotalVelocityY : 0.5f;
-
+	float PushBackScale_X = (TotalVelocityX > 0) ? std::abs(VelocityA.X) / TotalVelocityX : 0.5f;
+	float PushBackScale_Y = (TotalVelocityY > 0) ? std::abs(VelocityA.Y) / TotalVelocityY : 0.5f;
 	
 	if (OverlapX < OverlapY)
 	{
-		if (ColliderBox.x < OtherBox.x)
+		if (ColliderBox.x < OtherBoxCollider.x)
 		{
-			PositionA.X -= OverlapX * PushBackScaleA_X;
+			CorrectedPosition.X -= OverlapX * PushBackScale_X;
 		}
 		else {
-			PositionA.X += OverlapX * PushBackScaleA_X;
+			CorrectedPosition.X += OverlapX * PushBackScale_X;
 		}
 	}
 	else {
-		if (ColliderBox.y < OtherBox.y) 
+		if (ColliderBox.y < OtherBoxCollider.y)
 		{
-			PositionA.Y -= OverlapY * PushBackScaleA_Y;
+			CorrectedPosition.Y -= OverlapY * PushBackScale_Y;
 		}
 		else 
 		{
-			PositionA.Y += OverlapY * PushBackScaleA_Y;
+			CorrectedPosition.Y += OverlapY * PushBackScale_Y;
 		}
 	}
 
-	CharacA->SetPosition(PositionA);
+	CharacA->SetPosition(CorrectedPosition);
 }
 

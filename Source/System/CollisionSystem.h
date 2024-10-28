@@ -4,7 +4,6 @@
 
 class Collider;
 struct SDL_Renderer;
-struct SDL_FRect;
 
 class CollisionSystem
 {
@@ -16,6 +15,7 @@ public:
 	void Draw(SDL_Renderer* GameRenderer);
 
 	void AddCollider(Collider& ColliderToAdd);
+	void RemoveCollider(Collider& ColliderToRemove);
 private:
 
 

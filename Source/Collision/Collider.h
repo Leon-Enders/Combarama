@@ -2,7 +2,6 @@
 #include <functional>
 #include "SDL3/SDL_rect.h"
 #include "../Math/Vector2.h"
-#include "../Utility/CollisionHelper.h"
 
 struct SDL_Renderer;
 class Actor;
@@ -18,7 +17,7 @@ public:
 	void Draw(SDL_Renderer* Renderer);
 
 
-	void HandleCollision(const Collider& Other,const SDL_FRect& OtherBox, const SDL_FRect& Intersection);
+	void HandleCollision(const Collider& Other, const SDL_FRect& Intersection);
 	
 
 	Vector2 GetPosition()const { return { ColliderBox.x, ColliderBox.y }; }
@@ -30,7 +29,7 @@ public:
 
 
 public:
-	std::function<void(const Collider&, const ECollisionFlags)> OnCollisionEnterDelegate;
+	std::function<void(const Collider&)> OnCollisionEnterDelegate;
 	std::function<void(const Collider&)> OnCollisionExitDelegate;
 	std::function<void(const Vector2&)> OnBlockDelegate;
 
