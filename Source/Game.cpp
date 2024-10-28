@@ -94,6 +94,7 @@ void Game::StartGameLoop()
 
 void Game::GameLoop()
 {
+	SDL_Log("New Frame!");
 	ProcessInput();
 	Update();
 	FixedUpdate();

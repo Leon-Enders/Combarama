@@ -6,6 +6,7 @@
 #include "Weapon.h"
 #include "../World/World.h"
 #include "../Utility/DrawDebugHelpers.h"
+#include "../System/CollisionSystem.h"
 
 PlayerCharacter::PlayerCharacter(World* GameWorld)
 	:
@@ -54,6 +55,7 @@ void PlayerCharacter::Update(float DeltaTime)
 
 	float ClampedLerpTime = ComboramaMath::Clamp(LerpTime, LerpTime, 1.f);
 
+	
 	if (!IsAttacking)
 	{
 
@@ -90,17 +92,24 @@ void PlayerCharacter::Update(float DeltaTime)
 void PlayerCharacter::FixedUpdate(float FixedDeltaTime)
 {
 	Character::FixedUpdate(FixedDeltaTime);
+	
 }
 
 void PlayerCharacter::DrawDebug()
 {
-	DrawDebugHelpers::Get().DrawDebugCone(EntityTransform.Position, { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) }, 250.f, 1.f);
+	DrawDebugHelpers::Get().DrawDebugCone(EntityTransform.Position, { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) }, 250.f, 0.5f);
 }
 
 void PlayerCharacter::Attack()
 {
 	if (IsAttacking) return;
-
+	if (Collider* col = CollisionSystem::Get().GetColliderInCone(this, GetForwardVector(), 250.f, 0.5f))
+	{
+		if (Character* OtherCharacter = dynamic_cast<Character*>(col->GetOwningActor()))
+		{
+			OtherCharacter->SetColor(COLOR_RED, COLOR_RED);
+		}
+	}
 	Sword->GetRenderComponent()->SetRenderActive(true);
 	IsAttacking = true;
 	SwordRotation = -1.25f + EntityTransform.Rotation;

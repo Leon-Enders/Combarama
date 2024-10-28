@@ -22,7 +22,7 @@ void DrawDebugHelpers::DrawDebugCone(const Vector2& Origin, const Vector2& Direc
     ConePoints.push_back(ConeOrigin);
 
    
-    for (int i = -Anglesteps / 2; i <= Anglesteps / 2; i++) {
+    for (int i = -Anglesteps; i <= Anglesteps; i++) {
         float currentAngle = Anglestep * i; 
 
        
@@ -38,5 +38,5 @@ void DrawDebugHelpers::DrawDebugCone(const Vector2& Origin, const Vector2& Direc
     }
 
     ConePoints.push_back(ConeOrigin);
-    SDL_RenderLines(Renderer, ConePoints.data(), ConePoints.size());
+    SDL_RenderLines(Renderer, ConePoints.data(), static_cast<int>(ConePoints.size()));
 }

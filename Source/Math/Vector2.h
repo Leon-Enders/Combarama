@@ -99,6 +99,11 @@ struct Vector2
 		return Vector2(0, 0);
 	}
 
+	float Dot(const Vector2& other) const
+	{
+		return X * other.X + Y * other.Y;
+	}
+
 	static Vector2 UP()
 	{
 		return Vector2(0.f, -1.f);

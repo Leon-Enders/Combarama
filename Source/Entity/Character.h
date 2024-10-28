@@ -23,6 +23,8 @@ public:
 
 	const Vector2& GetVelocity()const { return Velocity; }
 
+
+	void SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColor);
 protected:
 	virtual void UpdatePosition(float DeltaTime);
 	virtual void UpdateRotation();

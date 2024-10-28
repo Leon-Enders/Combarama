@@ -32,6 +32,11 @@ void Character::OnPossessed(Controller* OwningContoller)
 	OwningController = OwningContoller;
 }
 
+void Character::SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColor)
+{
+	Avatar::SetColor(HeadColor, BodyColor, CharacterRenderComponent.get());
+}
+
 void Character::UpdatePosition(float DeltaTime)
 {
 	EntityTransform.Position += Velocity * DeltaTime;

@@ -22,6 +22,9 @@ public:
 	inline const Vector2& GetScale()const { return EntityTransform.Scale; }
 	inline const Transform& GetTransform()const { return EntityTransform; }
 
+	inline const Vector2 GetForwardVector()const {	return { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) };}
+
+
 	void SetTransform(const Transform& NewTransform) { EntityTransform = NewTransform; }
 	void SetPosition(const Vector2& NewPosition) { EntityTransform.Position = NewPosition; }
 	void SetRotation(float NewRotation) { EntityTransform.Rotation = NewRotation; }

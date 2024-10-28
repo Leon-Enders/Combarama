@@ -27,7 +27,7 @@ public:
 
 	const SDL_FRect& GetColliderBox()const { return ColliderBox; }
 
-
+	Actor* GetOwningActor()const { return OwningActor; }
 public:
 	std::function<void(const Collider&)> OnCollisionEnterDelegate;
 	std::function<void(const Collider&)> OnCollisionExitDelegate;

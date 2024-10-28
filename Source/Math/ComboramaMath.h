@@ -7,10 +7,6 @@ class ComboramaMath
 {
 public:
 
-    static float RadiansToDegrees(float Radians) {
-        return Radians * (180.0 / std::numbers::pi_v<float>);
-    }
-
 	static float Lerp(float a, float b, float t)
 	{
 		return (1 - t) * a + t * b;

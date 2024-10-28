@@ -3,7 +3,9 @@
 #include <functional>
 
 class Collider;
+class Actor;
 struct SDL_Renderer;
+struct Vector2;
 
 class CollisionSystem
 {
@@ -16,6 +18,9 @@ public:
 
 	void AddCollider(Collider& ColliderToAdd);
 	void RemoveCollider(Collider& ColliderToRemove);
+
+
+	Collider* GetColliderInCone(Actor* Instigator, const Vector2& Direction, float Height, float Angle);
 private:
 
 

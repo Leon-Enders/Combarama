@@ -39,4 +39,7 @@ protected:
 	bool IsAttacking = false;
 
 	Weapon* Sword = nullptr;
+
+
+private:
 };
