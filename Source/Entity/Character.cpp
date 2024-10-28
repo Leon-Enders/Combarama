@@ -64,7 +64,7 @@ void Character::Update(float DeltaTime)
 void Character::FixedUpdate(float FixedDeltaTime)
 {
 	Actor::FixedUpdate(FixedDeltaTime);
-
+	OldPosition = EntityTransform.Position;
 	UpdatePosition(FixedDeltaTime);
 	UpdateRotation();
 }

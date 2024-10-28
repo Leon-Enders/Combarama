@@ -65,36 +65,12 @@ void Collider::HandleCollisionBounding(const Collider& Other)
 	if (BoundingBo.IsCollidingWith(Other.BoundingBo, overlapX, overlapY))
 	{
 		SDL_Log("Collide!");
-
-		Vector2 CorrectedPosition = OwningActor->GetPosition();
-		Vector2 VelocityA = dynamic_cast<Character*>(OwningActor)->GetVelocity();
-		Vector2 VelocityB = dynamic_cast<Character*>(Other.OwningActor)->GetVelocity();
-
-		if (std::abs(overlapX) < std::abs(overlapY))
+		if (Character* CharacterA = dynamic_cast<Character*>(OwningActor))
 		{
-			// Resolve along X-axis
-			if (ColliderBox.x < Other.ColliderBox.x)
-			{
-				CorrectedPosition.X -= overlapX; // Push to the left
-			}
-			else
-			{
-				CorrectedPosition.X += overlapX; // Push to the right
-			}
+		
+			Vector2 DirectionToOwner = (CharacterA->GetPosition() - Other.OwningActor->GetPosition()).Normalize();
+			CharacterA->SetPosition(CharacterA->GetOldPosition()+ DirectionToOwner);
 		}
-		else
-		{
-			// Resolve along Y-axis
-			if (ColliderBox.y < Other.ColliderBox.y)
-			{
-				CorrectedPosition.Y -= overlapY; // Push upwards
-			}
-			else
-			{
-				CorrectedPosition.Y += overlapY; // Push downwards
-			}
-		}
-		dynamic_cast<Character*>(OwningActor)->SetPosition(CorrectedPosition);
 	}
 }
 

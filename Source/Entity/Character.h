@@ -20,7 +20,7 @@ public:
 
 	void OnPossessed(Controller* OwningContoller);
 
-
+	const Vector2& GetOldPosition()const { return OldPosition; }
 	const Vector2& GetVelocity()const { return Velocity; }
 
 protected:
@@ -34,7 +34,8 @@ protected:
 protected:
 	float Speed = 250.f;
 	Vector2 Velocity = { 0.f, 0.f };
-	
+	Vector2 OldPosition;
+
 	Controller* OwningController = nullptr;
 	std::unique_ptr<RenderComponent> CharacterRenderComponent = nullptr;
 	std::unique_ptr<Collider> CharacterCollider = nullptr;
