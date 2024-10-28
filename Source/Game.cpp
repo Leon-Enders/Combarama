@@ -62,10 +62,10 @@ void Game::StartGame()
 	ObstacleTransform3.Position = { 640.f,0.f };
 	ObstacleTransform4.Position = { 640.f,720.f };
 
-	GameWorld->SpawnObstacle(ObstacleTransform1, { 50.f,720.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform2, { 50.f,720.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform3, { 1280.f,50.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform4, { 1280.f,50.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform1, { 25.f,720.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform2, { 25.f,720.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform3, { 1280.f,25.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform4, { 1280.f,25.f }, COLOR_PURPLE);
 
 
 	StartGameLoop();
@@ -94,7 +94,6 @@ void Game::StartGameLoop()
 
 void Game::GameLoop()
 {
-	SDL_Log("New Frame!");
 	ProcessInput();
 	Update();
 	FixedUpdate();
