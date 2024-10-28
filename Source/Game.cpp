@@ -49,12 +49,20 @@ void Game::StartGame()
 	}
 
 
-	Transform ObstacleTransform;
-	ObstacleTransform.Position = { 0.f,0.f };
-	ObstacleTransform.Scale = { -1.f,-1.f };
+	//TODO:: Create a level class which gets managed by world to put this code
+	Transform ObstacleTransform1;
+	Transform ObstacleTransform2;
+	Transform ObstacleTransform3;
+	Transform ObstacleTransform4;
+	ObstacleTransform1.Position = { 0.f,360.f };
+	ObstacleTransform2.Position = { 1280.f,360.f };
+	ObstacleTransform3.Position = { 640.f,0.f };
+	ObstacleTransform4.Position = { 640.f,720.f };
 
-	GameWorld->SpawnObstacle(ObstacleTransform, { 50.f,1200.f }, COLOR_PURPLE);
-
+	GameWorld->SpawnObstacle(ObstacleTransform1, { 50.f,720.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform2, { 50.f,720.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform3, { 1280.f,50.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform4, { 1280.f,50.f }, COLOR_PURPLE);
 
 
 	StartGameLoop();

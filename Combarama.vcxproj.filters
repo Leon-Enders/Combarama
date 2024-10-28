@@ -105,7 +105,9 @@
     <ClCompile Include="Source\System\CollisionSystem.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Entity\Obstacle.cpp" />
+    <ClCompile Include="Source\Entity\Obstacle.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">

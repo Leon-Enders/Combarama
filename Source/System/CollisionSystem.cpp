@@ -53,6 +53,7 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 
 void CollisionSystem::Draw(SDL_Renderer* GameRenderer)
 {
+	SDL_SetRenderDrawColor(GameRenderer, 255, 0, 0, 255);
 	for (const auto& ActiveCollider : ActiveColliders)
 	{
 		ActiveCollider.get().Draw(GameRenderer);
