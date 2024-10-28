@@ -41,17 +41,20 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 			if (!OtherCollider.get().GetIsActive()) continue;
 			if (&ActiveCollider == &OtherCollider) continue;
 
-			if (SDL_GetRectIntersectionFloat(&ActiveCollider.get().GetColliderBox(), &OtherCollider.get().GetColliderBox(), &Intersection))
-			{
-				CollisionEvents.push_back({ ActiveCollider.get() ,OtherCollider.get(), Intersection });
-			}
+
+			ActiveCollider.get().HandleCollisionBounding(OtherCollider.get());
+
+			//if (SDL_GetRectIntersectionFloat(&ActiveCollider.get().GetColliderBox(), &OtherCollider.get().GetColliderBox(), &Intersection))
+			//{
+			//	CollisionEvents.push_back({ ActiveCollider.get() ,OtherCollider.get(), Intersection });
+			//}
 		}
 	}
 
-	for (auto& Event : CollisionEvents)
-	{
-		Event.ActiveCollider.HandleCollision(Event.OtherCollider, Event.Intersection);
-	}
+	//for (auto& Event : CollisionEvents)
+	//{
+	//	Event.ActiveCollider.HandleCollision(Event.OtherCollider, Event.Intersection);
+	//}
 }
 
 void CollisionSystem::Draw(SDL_Renderer* GameRenderer)

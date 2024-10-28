@@ -17,6 +17,8 @@ public:
 	void FixedUpdate(float FixedDeltaTime);
 	void Draw(SDL_Renderer* Renderer);
 
+
+	void HandleCollisionBounding(const Collider& Other);
 	void HandleCollision(const Collider& Other, const SDL_FRect& Intersection);
 
 	void SetIsActive(bool InIsActive) { IsActive = InIsActive; }
@@ -25,6 +27,7 @@ public:
 	inline Vector2 GetOffset()const { return CenterOffset; }
 	inline const SDL_FRect& GetColliderBox()const { return ColliderBox; }
 	inline const bool GetIsActive() const { return IsActive; }
+
 
 public:
 	bool DrawDebug = true;

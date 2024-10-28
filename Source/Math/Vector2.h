@@ -1,6 +1,9 @@
 #pragma once
 #include <cmath>
 
+
+
+
 struct Vector2
 {
 	Vector2(){}
@@ -97,6 +100,16 @@ struct Vector2
 		}
 
 		return Vector2(0, 0);
+	}
+
+	float Dot(const Vector2& other) const 
+	{
+		return X * other.X + Y * other.Y;
+	}
+
+	Vector2 Perpendicular() const 
+	{
+		return Vector2(-Y, X);
 	}
 
 	static Vector2 UP()
