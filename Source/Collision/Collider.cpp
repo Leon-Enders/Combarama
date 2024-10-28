@@ -103,20 +103,20 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& Intersecti
 			{
 				if (ColliderBox.x < OtherBoxCollider.x)
 				{
-					CorrectedPosition.X -= OverlapX * TotalVelocityX;
+					CorrectedPosition.X -= OverlapX;
 				}
 				else {
-					CorrectedPosition.X += OverlapX * TotalVelocityX;
+					CorrectedPosition.X += OverlapX;
 				}
 			}
 			else {
 				if (ColliderBox.y < OtherBoxCollider.y)
 				{
-					CorrectedPosition.Y -= OverlapY * TotalVelocityY;
+					CorrectedPosition.Y -= OverlapY;
 				}
 				else
 				{
-					CorrectedPosition.Y += OverlapY * TotalVelocityY;
+					CorrectedPosition.Y += OverlapY;
 				}
 			}
 		}
