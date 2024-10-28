@@ -9,6 +9,9 @@ public:
 	Enemy(World* GameWorld);
 	Enemy(World* GameWorld, const Transform& InTransform);
 	virtual void Initialize() override;
+	virtual void Update(float DeltaTime) override;
+
+
 	void UpdateVelocity(const Vector2& NewVelocity);
 
 protected:

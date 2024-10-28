@@ -40,4 +40,8 @@ protected:
 	Controller* OwningController = nullptr;
 	std::unique_ptr<RenderComponent> CharacterRenderComponent = nullptr;
 	std::unique_ptr<Collider> CharacterCollider = nullptr;
+
+
+	int ColorResetCounter = 0;
+	int ColorMaxTime = 30;
 };

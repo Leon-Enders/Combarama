@@ -22,6 +22,17 @@ void Enemy::Initialize()
 	Avatar::SetColor(COLOR_YELLOW, COLOR_LIGHTYELLOW, CharacterRenderComponent.get());
 }
 
+void Enemy::Update(float DeltaTime)
+{
+	Character::Update(DeltaTime);
+
+	ColorResetCounter++;
+	if (ColorResetCounter >= ColorMaxTime)
+	{
+		SetColor(COLOR_YELLOW, COLOR_LIGHTYELLOW);
+	}
+}
+
 void Enemy::UpdateVelocity(const Vector2& NewVelocity)
 {
 	Velocity = NewVelocity * Speed;

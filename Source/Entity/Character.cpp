@@ -34,6 +34,7 @@ void Character::OnPossessed(Controller* OwningContoller)
 
 void Character::SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColor)
 {
+	ColorResetCounter = 0;
 	Avatar::SetColor(HeadColor, BodyColor, CharacterRenderComponent.get());
 }
 
@@ -63,7 +64,7 @@ void Character::Initialize()
 
 void Character::Update(float DeltaTime)
 {
-
+	
 }
 
 void Character::FixedUpdate(float FixedDeltaTime)
