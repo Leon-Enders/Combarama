@@ -34,6 +34,12 @@ struct Matrix3x3 {
         return SDL_FPoint{ x, y };
     }
 
+    Vector2 MultiplyVector2(const Vector2& Point) const
+    {
+        float x = m[0][0] * Point.X + m[0][1] * Point.Y + m[0][2];
+        float y = m[1][0] * Point.X + m[1][1] * Point.Y + m[1][2];
+        return Vector2{ x, y };
+    }
     
     static Matrix3x3 Translation(const Vector2& InTranslation) 
     {

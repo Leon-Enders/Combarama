@@ -7,7 +7,8 @@
 
 Collider::Collider(Actor* InOwningActor, float InWidth, float InHeight)
 	:
-	OwningActor(InOwningActor)
+	OwningActor(InOwningActor),
+	BoundingBo(OwningActor->GetPosition(),InWidth/2.f,InHeight/2.f)
 {
 	ColliderBox.w = InWidth;
 	ColliderBox.h = InHeight;
@@ -17,6 +18,9 @@ Collider::Collider(Actor* InOwningActor, float InWidth, float InHeight)
 
 	ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
 	ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
+
+
+
 
 	CollisionSystem::Get().AddCollider(*this);
 }
@@ -30,15 +34,22 @@ void Collider::FixedUpdate(float FixedDeltaTime)
 {
 	ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
 	ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
+
+	BoundingBo.Update(OwningActor->GetTransform());
 }
 
 void Collider::Draw(SDL_Renderer* Renderer)
 {
-	ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
-	ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
+	//ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
+	//ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
 	if (DrawDebug)
 	{
-		SDL_RenderRect(Renderer, &ColliderBox);
+		const auto& points = BoundingBo.GetBoundingBoxPoints();
+		// Draw lines between each consecutive point to form the box
+		SDL_RenderLine(Renderer, points[0].X, points[0].Y, points[1].X, points[1].Y); // Top edge
+		SDL_RenderLine(Renderer, points[1].X, points[1].Y, points[2].X, points[2].Y); // Right edge
+		SDL_RenderLine(Renderer, points[2].X, points[2].Y, points[3].X, points[3].Y); // Bottom edge
+		SDL_RenderLine(Renderer, points[3].X, points[3].Y, points[0].X, points[0].Y); // Left edge
 	}
 }
 
@@ -122,6 +133,8 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& Intersecti
 		}
 		
 		CharacterA->SetPosition(CorrectedPosition);
+
+		OnCollisionEnterDelegate(Other);
 	}
 }
 

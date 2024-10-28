@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Collision\BoundingBox.cpp" />
     <ClCompile Include="Source\Collision\Collider.cpp" />
     <ClCompile Include="Source\Comborama.cpp" />
     <ClCompile Include="Source\Controller\AIController.cpp" />
@@ -43,6 +44,7 @@
     <ClCompile Include="Source\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Collision\BoundingBox.h" />
     <ClInclude Include="Source\Collision\Collider.h" />
     <ClInclude Include="Source\Controller\AIController.h" />
     <ClInclude Include="Source\Controller\Controller.h" />

@@ -34,8 +34,11 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 
 	for (const auto& ActiveCollider : ActiveColliders)
 	{
+		if (!ActiveCollider.get().GetIsActive()) continue;
+
 		for (const auto& OtherCollider : ActiveColliders)
 		{
+			if (!OtherCollider.get().GetIsActive()) continue;
 			if (&ActiveCollider == &OtherCollider) continue;
 
 			if (SDL_GetRectIntersectionFloat(&ActiveCollider.get().GetColliderBox(), &OtherCollider.get().GetColliderBox(), &Intersection))

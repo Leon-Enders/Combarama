@@ -36,4 +36,6 @@ protected:
 	bool IsAttacking = false;
 
 	Weapon* Sword = nullptr;
+
+	std::unique_ptr<Collider> AttackCollider = nullptr;
 };
