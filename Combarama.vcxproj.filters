@@ -108,6 +108,7 @@
     <ClCompile Include="Source\Entity\Obstacle.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Utility\DrawDebugHelpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -126,9 +127,6 @@
       <Filter>Source\Input</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utility\CombaramaStructs.h">
-      <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utility\PrimitiveHelpers.h">
       <Filter>Source\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utility\ColorHelper.h">
@@ -208,6 +206,12 @@
     </ClInclude>
     <ClInclude Include="Source\Entity\Obstacle.h">
       <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility\PrimitiveHelpers.h">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility\DrawDebugHelpers.h">
+      <Filter>Source\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
