@@ -9,7 +9,7 @@ class Actor;
 class RenderComponent
 {
 public:
-	RenderComponent(const std::vector<SDL_Vertex>&& InTriangles, const Actor& InOwningActor);
+	RenderComponent(const Actor& InOwningActor, const std::vector<SDL_Vertex>&& InTriangles);
 	~RenderComponent();
 
 	void Initialize();

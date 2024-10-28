@@ -9,3 +9,5 @@
 #define COLOR_LIGHTGREEN SDL_FColor {0.341f,0.941f,0.525f,1.f}
 #define COLOR_YELLOW SDL_FColor {1.f,1.f,0.f,1.f}
 #define COLOR_LIGHTYELLOW SDL_FColor {1.f,1.f,0.569f,1.f}
+#define COLOR_BROWN SDL_FColor {0.6f, 0.341f, 0.133f,1.f}
+#define COLOR_PURPLE SDL_FColor {0.6f, 0.341f, 0.722f,1.f}

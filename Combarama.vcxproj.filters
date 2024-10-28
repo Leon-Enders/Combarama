@@ -105,6 +105,7 @@
     <ClCompile Include="Source\System\CollisionSystem.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Entity\Obstacle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -202,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="Source\Utility\CollisionHelper.h">
       <Filter>Source\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Obstacle.h">
+      <Filter>Source\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 #include "Game.h"
-#include <iostream>
+#include <chrono>
 #include <SDL3/SDL_timer.h>
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_surface.h>
@@ -10,7 +10,8 @@
 #include "System/CollisionSystem.h"
 #include "Entity/PlayerCharacter.h"
 #include "Controller/PlayerController.h"
-#include <chrono>
+#include "Utility/ColorHelper.h"
+
 
 
 Game::Game(App& GameApp)
@@ -46,6 +47,15 @@ void Game::StartGame()
 		AISubsystem->SpawnRandomEnemy();
 		AISubsystem->SpawnRandomEnemy();
 	}
+
+
+	Transform ObstacleTransform;
+	ObstacleTransform.Position = { 0.f,0.f };
+	ObstacleTransform.Scale = { -1.f,-1.f };
+
+	GameWorld->SpawnObstacle(ObstacleTransform, { 50.f,1200.f }, COLOR_PURPLE);
+
+
 
 	StartGameLoop();
 }

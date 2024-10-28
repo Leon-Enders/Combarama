@@ -3,7 +3,7 @@
 #include "../Entity/Actor.h"
 #include "../Math/Matrix.h"
 
-RenderComponent::RenderComponent(const std::vector<SDL_Vertex>&& InTriangles,const Actor& InOwningActor)
+RenderComponent::RenderComponent(const Actor& InOwningActor, const std::vector<SDL_Vertex>&& InTriangles)
 	:
 	Triangles(InTriangles),
 	OwningActor(std::ref(InOwningActor))

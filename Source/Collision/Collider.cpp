@@ -5,7 +5,7 @@
 #include "../Entity/Actor.h"
 #include "../Entity/Character.h"
 
-Collider::Collider(Actor* InOwningActor, const Vector2& Origin, float InWidth, float InHeight)
+Collider::Collider(Actor* InOwningActor, float InWidth, float InHeight)
 	:
 	OwningActor(InOwningActor)
 {
@@ -15,8 +15,8 @@ Collider::Collider(Actor* InOwningActor, const Vector2& Origin, float InWidth, f
 	CenterOffset.X = InWidth / 2;
 	CenterOffset.Y = InHeight / 2;
 
-	ColliderBox.x = Origin.X - CenterOffset.X;
-	ColliderBox.y = Origin.Y - CenterOffset.Y;
+	ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
+	ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
 
 	CollisionSystem::Get().AddCollider(*this);
 }
@@ -56,42 +56,72 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& Intersecti
 
 	SDL_FRect OtherBoxCollider = Other.GetColliderBox();
 
-	Character* CharacA = dynamic_cast<Character*>(OwningActor);
-	Character* CharacB = dynamic_cast<Character*>(Other.OwningActor); 
-
-	Vector2 CorrectedPosition = CharacA->GetPosition();
-	Vector2 VelocityA = CharacA->GetVecolity();
-	Vector2 VelocityB = CharacB->GetVecolity();
-
-	
-	float TotalVelocityX = std::abs(VelocityA.X) + std::abs(VelocityB.X);
-	float TotalVelocityY = std::abs(VelocityA.Y) + std::abs(VelocityB.Y);
-
-
-	float PushBackScale_X = (TotalVelocityX > 0) ? std::abs(VelocityA.X) / TotalVelocityX : 0.5f;
-	float PushBackScale_Y = (TotalVelocityY > 0) ? std::abs(VelocityA.Y) / TotalVelocityY : 0.5f;
-	
-	if (OverlapX < OverlapY)
+	if (Character* CharacterA = dynamic_cast<Character*>(OwningActor))
 	{
-		if (ColliderBox.x < OtherBoxCollider.x)
-		{
-			CorrectedPosition.X -= OverlapX * PushBackScale_X;
-		}
-		else {
-			CorrectedPosition.X += OverlapX * PushBackScale_X;
-		}
-	}
-	else {
-		if (ColliderBox.y < OtherBoxCollider.y)
-		{
-			CorrectedPosition.Y -= OverlapY * PushBackScale_Y;
-		}
-		else 
-		{
-			CorrectedPosition.Y += OverlapY * PushBackScale_Y;
-		}
-	}
+		Vector2 CorrectedPosition = CharacterA->GetPosition();
+		Vector2 VelocityA = CharacterA->GetVelocity();
 
-	CharacA->SetPosition(CorrectedPosition);
+		if (Character* CharacterB = dynamic_cast<Character*>(Other.OwningActor))
+		{
+			Vector2 VelocityB = CharacterB->GetVelocity();
+
+
+			float TotalVelocityX = std::abs(VelocityA.X) + std::abs(VelocityB.X);
+			float TotalVelocityY = std::abs(VelocityA.Y) + std::abs(VelocityB.Y);
+
+
+			float PushBackScale_X = (TotalVelocityX > 0) ? std::abs(VelocityA.X) / TotalVelocityX : 0.5f;
+			float PushBackScale_Y = (TotalVelocityY > 0) ? std::abs(VelocityA.Y) / TotalVelocityY : 0.5f;
+
+			if (OverlapX < OverlapY)
+			{
+				if (ColliderBox.x < OtherBoxCollider.x)
+				{
+					CorrectedPosition.X -= OverlapX * PushBackScale_X;
+				}
+				else {
+					CorrectedPosition.X += OverlapX * PushBackScale_X;
+				}
+			}
+			else {
+				if (ColliderBox.y < OtherBoxCollider.y)
+				{
+					CorrectedPosition.Y -= OverlapY * PushBackScale_Y;
+				}
+				else
+				{
+					CorrectedPosition.Y += OverlapY * PushBackScale_Y;
+				}
+			}
+		}
+		else
+		{
+			float TotalVelocityX = std::abs(VelocityA.X);
+			float TotalVelocityY = std::abs(VelocityA.Y);
+
+			if (OverlapX < OverlapY)
+			{
+				if (ColliderBox.x < OtherBoxCollider.x)
+				{
+					CorrectedPosition.X -= OverlapX * TotalVelocityX;
+				}
+				else {
+					CorrectedPosition.X += OverlapX * TotalVelocityX;
+				}
+			}
+			else {
+				if (ColliderBox.y < OtherBoxCollider.y)
+				{
+					CorrectedPosition.Y -= OverlapY * TotalVelocityY;
+				}
+				else
+				{
+					CorrectedPosition.Y += OverlapY * TotalVelocityY;
+				}
+			}
+		}
+		
+		CharacterA->SetPosition(CorrectedPosition);
+	}
 }
 

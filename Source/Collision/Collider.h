@@ -10,7 +10,7 @@ class Actor;
 class Collider
 {
 public:
-	Collider(Actor* InOwningActor,const Vector2& Origin, float InWidth, float InHeight);
+	Collider(Actor* InOwningActor,float InWidth, float InHeight);
 	~Collider();
 
 	void FixedUpdate(float FixedDeltaTime);
@@ -35,8 +35,6 @@ public:
 
 private:
 	void OnCollisionExit(const Collider& Other);
-
-	
 
 	Actor* OwningActor = nullptr;
 
