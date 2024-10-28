@@ -1,5 +1,6 @@
 #include "World.h"
 #include "../System/WorldSubsystem/AISystem.h"
+#include "../Entity/Obstacle.h"
 
 
 void World::Initialize()
@@ -49,4 +50,16 @@ void World::RemoveActor(Actor* ActorToRemove)
 void World::FillSubsystemCollection()
 {
 	SubsystemCollection.emplace_back(std::make_unique<AISystem>(this));
+}
+
+
+Obstacle* World::SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor)
+{
+
+	std::unique_ptr<Obstacle> NewActor = std::make_unique<Obstacle>(this, SpawnTransform, RectDimensions, InColor);
+	Obstacle* NewActorRaw = NewActor.get();
+	InstancedActors.push_back(std::move(NewActor));
+	AddActorToMap(NewActorRaw);
+
+	return NewActorRaw;
 }

@@ -15,6 +15,10 @@
 #include "../Math/Transform.h"
 #include "../System/WorldSubsystem/WorldSubsystem.h"
 
+
+
+class Obstacle;
+
 template<typename T>
 concept IsActor = std::is_base_of<Actor, T>::value;
 
@@ -31,7 +35,8 @@ using ActorsVariant = std::variant<
 	std::vector<std::reference_wrapper<Character>>,
 	std::vector<std::reference_wrapper<Enemy>>,
 	std::vector<std::reference_wrapper<PlayerCharacter>>,
-	std::vector<std::reference_wrapper<Weapon>>>;
+	std::vector<std::reference_wrapper<Weapon>>,
+	std::vector<std::reference_wrapper<Obstacle>>>;
 
 
 class World
@@ -48,6 +53,8 @@ public:
 
 	template<IsActor T>
 	T* SpawnActor(const Transform& SpawnTransform);
+
+	Obstacle* SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor);
 
 	template<IsActor T>
 	std::vector<std::reference_wrapper<T>>& GetAllActorsOfClass();
