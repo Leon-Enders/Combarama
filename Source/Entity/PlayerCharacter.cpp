@@ -97,13 +97,13 @@ void PlayerCharacter::FixedUpdate(float FixedDeltaTime)
 
 void PlayerCharacter::DrawDebug()
 {
-	DrawDebugHelpers::Get().DrawDebugCone(EntityTransform.Position, { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) }, 250.f, 0.5f);
+	//DrawDebugHelpers::Get().DrawDebugCone(EntityTransform.Position, { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) }, 135.f, 1.f);
 }
 
 void PlayerCharacter::Attack()
 {
 	if (IsAttacking) return;
-	if (Collider* col = CollisionSystem::Get().GetColliderInCone(this, GetForwardVector(), 250.f, 0.5f))
+	if (Collider* col = CollisionSystem::Get().GetColliderInCone(this, GetForwardVector(), 135.f, 1.f))
 	{
 		if (Character* OtherCharacter = dynamic_cast<Character*>(col->GetOwningActor()))
 		{
