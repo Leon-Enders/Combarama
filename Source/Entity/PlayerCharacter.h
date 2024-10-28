@@ -8,9 +8,12 @@ class PlayerCharacter : public Character
 public:
 	PlayerCharacter(World* GameWorld);
 	PlayerCharacter(World* GameWorld, const Transform& InTransform);
+
 	virtual void Initialize() override;
 	virtual void Update(float DeltaTime) override;
 	virtual void FixedUpdate(float FixedDeltaTime) override;
+
+	virtual void DrawDebug() override;
 
 	void Attack();
 

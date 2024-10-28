@@ -35,3 +35,7 @@ void Actor::FixedUpdate(float FixedDeltaTime)
 {
 
 }
+
+void Actor::DrawDebug()
+{
+}

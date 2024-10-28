@@ -46,7 +46,7 @@ public:
 	
 	void Update(float DeltaTime);
 	void FixedUpdate(float FixedDeltaTime);
-
+	void DrawDebug();
 
 	template<IsActor T>
 	T* SpawnActor();

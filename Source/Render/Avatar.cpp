@@ -18,9 +18,9 @@ void Avatar::GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform
 
 	// LocalTransform for the head
 	Transform LocalTransform;
-	LocalTransform.Position = { 0.f,25.f };
+	LocalTransform.Position = { 25.f,0.f };
 
-	Rectangle ARect = Rectangle(HeadWidth, HeadHeight, LocalTransform);
+	Rectangle ARect = Rectangle(HeadHeight, HeadWidth, LocalTransform);
 
 	ARect.GetVerts(OutVerts);
 }

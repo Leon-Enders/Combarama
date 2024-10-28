@@ -37,6 +37,14 @@ void World::FixedUpdate(float FixedDeltaTime)
 	}
 }
 
+void World::DrawDebug()
+{
+	for (auto& InstancedActor : InstancedActors)
+	{
+		InstancedActor->DrawDebug();
+	}
+}
+
 void World::RemoveActor(Actor* ActorToRemove)
 {
 	//auto Iterator = std::find(InstancedActors.begin(), InstancedActors.end(), ActorToRemove);

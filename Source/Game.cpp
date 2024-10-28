@@ -141,6 +141,7 @@ void Game::ComposeFrame()
 	SDL_RenderTexture(GameRenderer, GameBackground, &BackGround, NULL);
 
 	//Draw Verts to Render
+	GameWorld->DrawDebug();
 	RenderSystem::Get().Draw(GameRenderer);
 	CollisionSystem::Get().Draw(GameRenderer);
 	DrawDebugHelpers::Get().DrawDebugCone({ 500.f,500.f }, { 1.f,1.f }, 50.f, 1.f);

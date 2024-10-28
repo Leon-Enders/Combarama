@@ -5,6 +5,7 @@
 #include "../Render/Avatar.h"
 #include "Weapon.h"
 #include "../World/World.h"
+#include "../Utility/DrawDebugHelpers.h"
 
 PlayerCharacter::PlayerCharacter(World* GameWorld)
 	:
@@ -30,9 +31,9 @@ void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
 
 void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
 {
-	Vector2 DeltaPosition = EntityTransform.Position - TargetPosition;
-	float AngleInRad = std::atan2f(DeltaPosition.X, -DeltaPosition.Y);
-
+	Vector2 DeltaPosition =  TargetPosition - EntityTransform.Position;
+	float AngleInRad = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
+	
 	
 
 	DesiredRotation = AngleInRad;
@@ -52,7 +53,6 @@ void PlayerCharacter::Update(float DeltaTime)
 	float LerpTime = DeltaTime * RotationSpeed;
 
 	float ClampedLerpTime = ComboramaMath::Clamp(LerpTime, LerpTime, 1.f);
-
 
 	if (!IsAttacking)
 	{
@@ -90,6 +90,11 @@ void PlayerCharacter::Update(float DeltaTime)
 void PlayerCharacter::FixedUpdate(float FixedDeltaTime)
 {
 	Character::FixedUpdate(FixedDeltaTime);
+}
+
+void PlayerCharacter::DrawDebug()
+{
+	DrawDebugHelpers::Get().DrawDebugCone(EntityTransform.Position, { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) }, 250.f, 1.f);
 }
 
 void PlayerCharacter::Attack()
