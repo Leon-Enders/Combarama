@@ -3,7 +3,14 @@
 #include "SDL3/SDL_render.h"
 #include "../Math/ComboramaMath.h"
 
-void DrawDebugHelpers::DrawDebugCone(SDL_Renderer* Renderer, const Vector2& Origin, const Vector2& Direction, float Height, float Angle)
+DrawDebugHelpers DrawDebugHelpers::Instance;
+
+void DrawDebugHelpers::Initialize(SDL_Renderer* InRenderer)
+{
+    Renderer = InRenderer;
+}
+
+void DrawDebugHelpers::DrawDebugCone(const Vector2& Origin, const Vector2& Direction, float Height, float Angle)
 {
     int Anglesteps = 8;
     SDL_FPoint ConeOrigin = { Origin.X, Origin.Y };

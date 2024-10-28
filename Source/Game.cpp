@@ -31,6 +31,8 @@ Game::Game(App& GameApp)
 
 void Game::StartGame()
 {
+	DrawDebugHelpers::Get().Initialize(GameRenderer);
+
 	IsGameActive = true;
 	LoadBackground();
 
@@ -141,7 +143,7 @@ void Game::ComposeFrame()
 	//Draw Verts to Render
 	RenderSystem::Get().Draw(GameRenderer);
 	CollisionSystem::Get().Draw(GameRenderer);
-	DrawDebugHelpers::DrawDebugCone(GameRenderer, { 500.f,500.f }, { 1.f,1.f }, 50.f, 1.f);
+	DrawDebugHelpers::Get().DrawDebugCone({ 500.f,500.f }, { 1.f,1.f }, 50.f, 1.f);
 }
 
 void Game::RenderFrame()
