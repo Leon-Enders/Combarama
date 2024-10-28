@@ -108,7 +108,9 @@
     <ClCompile Include="Source\Entity\Obstacle.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Utility\DrawDebugHelpers.cpp" />
+    <ClCompile Include="Source\Utility\DrawDebugHelpers.cpp">
+      <Filter>Source\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">

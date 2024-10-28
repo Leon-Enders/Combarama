@@ -11,6 +11,7 @@
 #include "Entity/PlayerCharacter.h"
 #include "Controller/PlayerController.h"
 #include "Utility/ColorHelper.h"
+#include "Utility/DrawDebugHelpers.h"
 
 
 
@@ -140,6 +141,7 @@ void Game::ComposeFrame()
 	//Draw Verts to Render
 	RenderSystem::Get().Draw(GameRenderer);
 	CollisionSystem::Get().Draw(GameRenderer);
+	DrawDebugHelpers::DrawDebugCone(GameRenderer, { 500.f,500.f }, { 1.f,1.f }, 50.f, 1.f);
 }
 
 void Game::RenderFrame()

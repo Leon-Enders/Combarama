@@ -5,27 +5,31 @@
 
 void DrawDebugHelpers::DrawDebugCone(SDL_Renderer* Renderer, const Vector2& Origin, const Vector2& Direction, float Height, float Angle)
 {
-    int Anglesteps = 8;  // Number of steps to create points along the cone angle
+    int Anglesteps = 8;
     SDL_FPoint ConeOrigin = { Origin.X, Origin.Y };
     std::vector<SDL_FPoint> ConePoints;
 
-  
-    float Anglestep = Angle / Anglesteps;
+    float Anglestep = Angle / Anglesteps; 
 
-    // Add the origin as the first point
+   
     ConePoints.push_back(ConeOrigin);
 
-    // Generate points along the cone angle
-    for (float i = -Angle / 2; i <= Angle / 2; i += Anglestep) {
-        // Convert the angle to radians for trigonometric calculations
+   
+    for (int i = -Anglesteps / 2; i <= Anglesteps / 2; i++) {
+        float currentAngle = Anglestep * i; 
 
-        // Calculate the direction vector rotated by the angle step
-        float pointX = Origin.X + (Direction.X * cos(angleRad) - Direction.Y * sin(angleRad)) * Height;
-        float pointY = Origin.Y + (Direction.X * sin(angleRad) + Direction.Y * cos(angleRad)) * Height;
+       
+        float rotatedX = Direction.X * cos(currentAngle) - Direction.Y * sin(currentAngle);
+        float rotatedY = Direction.X * sin(currentAngle) + Direction.Y * cos(currentAngle);
 
-        // Add the calculated point to the vector
+       
+        float pointX = ConeOrigin.x + rotatedX * Height;
+        float pointY = ConeOrigin.y + rotatedY * Height;
+
+      
         ConePoints.push_back({ pointX, pointY });
     }
 
-    // Render the lines between the points
-    SDL_RenderDrawLinesF(Renderer, ConePoints.data(), ConePoints.size());
+    ConePoints.push_back(ConeOrigin);
+    SDL_RenderLines(Renderer, ConePoints.data(), ConePoints.size());
+}
