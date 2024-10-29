@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "../Render/Avatar.h"
+#include "SDL3/SDL_log.h"
 
 Character::Character(World* GameWorld)
 	:

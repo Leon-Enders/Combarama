@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include "../Math/Transform.h"
 
 class World;
@@ -33,6 +34,11 @@ public:
 	void SetPosition(const Vector2& NewPosition) { EntityTransform.Position = NewPosition; }
 	void SetRotation(float NewRotation) { EntityTransform.Rotation = NewRotation; }
 	void SetScale(const Vector2& NewScale) { EntityTransform.Scale = NewScale; }
+
+
+public:
+	std::function<void(void)> OnDestroyDelegate;
+
 
 protected:
 	inline World* GetWorld()const { return OwningWorld; }
