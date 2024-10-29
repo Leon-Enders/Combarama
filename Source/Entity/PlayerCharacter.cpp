@@ -107,7 +107,8 @@ void PlayerCharacter::Attack()
 	{
 		if (Character* OtherCharacter = dynamic_cast<Character*>(col->GetOwningActor()))
 		{
-			OtherCharacter->SetColor(COLOR_RED, COLOR_RED);
+			//OtherCharacter->SetColor(COLOR_RED, COLOR_RED);
+			OtherCharacter->Destroy();
 		}
 	}
 	Sword->GetRenderComponent()->SetRenderActive(true);

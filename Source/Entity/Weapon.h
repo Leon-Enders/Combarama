@@ -8,6 +8,7 @@ class Weapon : public Actor
 public:
 	Weapon(World* GameWorld);
 	Weapon(World* GameWorld, const Transform& InTransform);
+	virtual ~Weapon() = default;
 
 	RenderComponent* GetRenderComponent() { return SwordRenderComponent.get(); }
 private:

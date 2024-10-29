@@ -1,4 +1,5 @@
 #include "Actor.h"
+#include "../World/World.h"
 
 
 Actor::Actor(World* GameWorld)
@@ -15,11 +16,6 @@ Actor::Actor(World* GameWorld, const Transform& InTransform)
 	Initialize();
 }
 
-Actor::~Actor()
-{
-	
-}
-
 void Actor::Initialize()
 {
 
@@ -34,6 +30,11 @@ void Actor::Update(float DeltaTime)
 void Actor::FixedUpdate(float FixedDeltaTime)
 {
 
+}
+
+void Actor::Destroy()
+{
+	GetWorld()->RemoveActor(this);
 }
 
 void Actor::DrawDebug()

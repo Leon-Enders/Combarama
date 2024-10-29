@@ -9,11 +9,15 @@ class Actor
 public:
 	Actor(World* GameWorld);
 	Actor(World* GameWorld,const Transform& InTransform);
-	~Actor();
+	virtual ~Actor() = default;
 
 	virtual void Initialize();
 	virtual void Update(float DeltaTime);
 	virtual void FixedUpdate(float FixedDeltaTime);
+	virtual void Destroy();
+
+
+
 	virtual void DrawDebug();
 
 

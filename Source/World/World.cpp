@@ -47,12 +47,10 @@ void World::DrawDebug()
 
 void World::RemoveActor(Actor* ActorToRemove)
 {
-	//auto Iterator = std::find(InstancedActors.begin(), InstancedActors.end(), ActorToRemove);
-	//
-	//if (Iterator != InstancedActors.end())
-	//{
-	//	InstancedActors.erase(Iterator);
-	//}
+	std::erase_if(InstancedActors, [&](std::unique_ptr<Actor>& InstancedActorPtr)
+		{
+			return InstancedActorPtr.get() == ActorToRemove;
+		});
 }
 
 void World::FillSubsystemCollection()

@@ -13,6 +13,7 @@ class Character : public Actor
 public:
 	Character(World* GameWorld);
 	Character(World* GameWorld, const Transform& InTransform);
+	virtual ~Character() = default;
 
 	virtual void Initialize() override;
 	virtual void Update(float DeltaTime) override;
