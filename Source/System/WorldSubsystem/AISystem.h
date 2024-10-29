@@ -17,6 +17,8 @@ public:
 	virtual void Update(float DeltaTime);
 	void SpawnRandomEnemy();
 
+	void RemoveAIController(AIController& ControllerToRemove);
+
 private:
 
 	std::mt19937 RandomGenerator;

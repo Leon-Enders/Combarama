@@ -1,14 +1,20 @@
 #pragma once
 #include "Controller.h"
+#include <memory>
+#include "../Input/InputComponent.h"
+#include "../Input/InputAction.h"
 
 class PlayerCharacter;
 
 class PlayerController : public Controller
 {
 public:
-	PlayerController();
+	PlayerController(World* InOwningWorld);
 
 	virtual void PossessCharacter(Character* CharacterToPossess) override;
+	virtual void UnPossessCharacter() override;
+
+
 protected:
 
 	virtual void Initialize() override;

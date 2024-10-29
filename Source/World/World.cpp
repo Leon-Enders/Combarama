@@ -53,6 +53,14 @@ void World::RemoveActor(Actor* ActorToRemove)
 		});
 }
 
+void World::RemoveController(Controller* ControllerToRemove)
+{
+	std::erase_if(InstancedControllers, [&](std::unique_ptr<Controller>& InstancedControllerPtr)
+		{
+			return InstancedControllerPtr.get() == ControllerToRemove;
+		});
+}
+
 void World::FillSubsystemCollection()
 {
 	SubsystemCollection.emplace_back(std::make_unique<AISystem>(this));

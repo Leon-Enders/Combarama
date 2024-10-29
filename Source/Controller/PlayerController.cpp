@@ -2,7 +2,9 @@
 #include "../Game.h"
 #include "../Entity/PlayerCharacter.h"
 
-PlayerController::PlayerController()//Game* InOwningGame)
+PlayerController::PlayerController(World* InOwningWorld)
+	:
+	Controller(InOwningWorld)
 {
 	using namespace std::placeholders;
 	ActionContext = std::make_unique<InputActionContext>();
@@ -45,6 +47,11 @@ void PlayerController::PossessCharacter(Character* CharacterToPossess)
 {
 	ControlledPlayerCharacter = static_cast<PlayerCharacter*>(CharacterToPossess);
 	ControlledPlayerCharacter->OnPossessed(this);
+}
+
+void PlayerController::UnPossessCharacter()
+{
+	ControlledPlayerCharacter = nullptr;
 }
 
 void PlayerController::Move(const InputActionValue& Value)

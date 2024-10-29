@@ -1,5 +1,6 @@
 #include "AISystem.h"
 #include <ctime>
+#include <ranges>
 #include "../../Entity/Enemy.h"
 #include "../../Math/Transform.h"
 #include "../../World/World.h"
@@ -41,4 +42,12 @@ void AISystem::SpawnRandomEnemy()
 	NewAIController->PossessCharacter(NewEnemy);
 
 	ActiveAIControllers.push_back(std::ref(*NewAIController));
+}
+
+void AISystem::RemoveAIController(AIController& ControllerToRemove)
+{
+	std::erase_if(ActiveAIControllers, [&](std::reference_wrapper<AIController> ActiveAIController)
+		{
+			return &ActiveAIController.get() == &ControllerToRemove;
+		});
 }

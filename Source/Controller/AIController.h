@@ -7,9 +7,12 @@
 class AIController : public Controller
 {
 public:
-	AIController();
+	AIController(World* InOwningWorld);
 	void SetTarget(Character* TargetCharacter);
 	virtual void PossessCharacter(Character* CharacterToPossess) override;
+
+	virtual void UnPossessCharacter() override;
+
 	void MoveEnemy();
 protected:
 

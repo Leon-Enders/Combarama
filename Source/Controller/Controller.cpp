@@ -3,7 +3,9 @@
 #include "../Entity/Character.h"
 
 
-Controller::Controller()//Game* InOwningGame)
+Controller::Controller(World* InOwningWorld)
+	:
+	OwningWorld(InOwningWorld)
 {
 	Initialize();
 }
@@ -12,6 +14,12 @@ void Controller::PossessCharacter(Character* CharacterToPossess)
 {
 	ControlledCharacter = CharacterToPossess;
 	ControlledCharacter->OnPossessed(this);
+	ControlledCharacter->OnDestroyDelegate = std::bind(&Controller::UnPossessCharacter,this);
+}
+
+void Controller::UnPossessCharacter()
+{
+	ControlledCharacter = nullptr;
 }
 
 

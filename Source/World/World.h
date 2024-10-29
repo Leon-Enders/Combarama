@@ -66,22 +66,19 @@ public:
 	T* GetSubsystem();
 
 
-	//TODO: Every Actor should have a destroy function calling this Function
 	void RemoveActor(Actor* ActorToRemove);
-
+	void RemoveController(Controller* ControllerToRemove);
 
 private:
 	template<IsActor T>
 	void AddActorToMap(T* ActorToAdd);
 
-
-private:
 	void FillSubsystemCollection();
 
 
+private:
 
 	std::unordered_map<std::type_index, ActorsVariant> ActorTypeToActorsMap;
-
 	std::vector<std::unique_ptr<WorldSubsystem>> SubsystemCollection;
 	std::vector<std::unique_ptr<Actor>> InstancedActors;
 	std::vector<std::unique_ptr<Controller>> InstancedControllers;
@@ -149,7 +146,7 @@ inline void World::AddActorToMap(T* ActorToAdd)
 template<IsController T>
 inline T* World::CreateController()
 {
-	std::unique_ptr<T> NewController = std::make_unique<T>();
+	std::unique_ptr<T> NewController = std::make_unique<T>(this);
 
 	T* NewControllerRaw = NewController.get();
 

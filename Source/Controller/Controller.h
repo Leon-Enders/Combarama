@@ -1,26 +1,29 @@
 #pragma once
-#include <memory>
-#include "../Input/InputComponent.h"
-#include "../Input/InputAction.h"
+
 
 
 struct Vector2;
-class Game;
 class Character;
+class World;
+
 
 class Controller
 {
 public:
 	
-	Controller();//Game* InOwningGame);
+	Controller(World* InOwningWorld);
 
 	virtual void PossessCharacter(Character* CharacterToPossess);
-
+	virtual void UnPossessCharacter();
 	
 
 protected:
 	virtual void Initialize();
+	World* GetWorld()const{ return OwningWorld; }
 
 	Character* ControlledCharacter = nullptr;
-	Game* OwningGame = nullptr;
+
+private:
+	World* OwningWorld;
+	
 };
