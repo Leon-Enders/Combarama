@@ -97,7 +97,7 @@ void PlayerCharacter::FixedUpdate(float FixedDeltaTime)
 
 void PlayerCharacter::DrawDebug()
 {
-	//DrawDebugHelpers::Get().DrawDebugCone(EntityTransform.Position, { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) }, 135.f, 1.f);
+	DrawDebugHelpers::Get().DrawDebugCone(EntityTransform.Position, { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) }, 135.f, 1.f);
 }
 
 void PlayerCharacter::Attack()

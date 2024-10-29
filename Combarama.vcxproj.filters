@@ -215,6 +215,9 @@
     <ClInclude Include="Source\Utility\DrawDebugHelpers.h">
       <Filter>Source\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Utility\ComboramaTime.h">
+      <Filter>Source\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">

@@ -19,11 +19,14 @@ protected:
 	virtual void Initialize() override;
 
 private:
+
+
 	Vector2 StartPosition = {};
 
 	Character* Target = nullptr;
 	Enemy* ControlledEnemy = nullptr;
 
-	float MaxXDistance = 200.f;
 
+	int VelocityUpdateCounter = 0;
+	int VelocityMaxUpdateCounter = 120;
 };

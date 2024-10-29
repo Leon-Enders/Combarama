@@ -49,6 +49,8 @@ void Game::StartGame()
 	{
 		AISubsystem->SpawnRandomEnemy();
 		AISubsystem->SpawnRandomEnemy();
+		AISubsystem->SpawnRandomEnemy();
+		AISubsystem->SpawnRandomEnemy();
 	}
 
 
@@ -57,14 +59,16 @@ void Game::StartGame()
 	Transform ObstacleTransform2;
 	Transform ObstacleTransform3;
 	Transform ObstacleTransform4;
+	Transform ObstacleTransform5;
 	ObstacleTransform1.Position = { 0.f,360.f };
 	ObstacleTransform2.Position = { 1280.f,360.f };
 	ObstacleTransform3.Position = { 640.f,0.f };
 	ObstacleTransform4.Position = { 640.f,720.f };
-
+	ObstacleTransform5.Position = { 640.f,360.f };
 	GameWorld->SpawnObstacle(ObstacleTransform1, { 25.f,720.f }, COLOR_PURPLE);
 	GameWorld->SpawnObstacle(ObstacleTransform2, { 25.f,720.f }, COLOR_PURPLE);
 	GameWorld->SpawnObstacle(ObstacleTransform3, { 1280.f,25.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform5, { 700.f,50.f }, COLOR_PURPLE);
 	GameWorld->SpawnObstacle(ObstacleTransform4, { 1280.f,25.f }, COLOR_PURPLE);
 
 

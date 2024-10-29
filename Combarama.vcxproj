@@ -75,6 +75,7 @@
     <ClInclude Include="Source\Utility\CollisionHelper.h" />
     <ClInclude Include="Source\Utility\ColorHelper.h" />
     <ClInclude Include="Source\Utility\CombaramaStructs.h" />
+    <ClInclude Include="Source\Utility\ComboramaTime.h" />
     <ClInclude Include="Source\Utility\DrawDebugHelpers.h" />
     <ClInclude Include="Source\Utility\PrimitiveHelpers.h" />
     <ClInclude Include="Source\World\World.h" />
