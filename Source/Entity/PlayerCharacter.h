@@ -16,8 +16,11 @@ public:
 
 	virtual void DrawDebug() override;
 
-	void Attack();
 
+
+	//CombatInterface or CombatComponent
+	void Attack();
+	void DealDamageInCone();
 
 	void UpdateVelocity(const Vector2& NewVelocity);
 	void ReceiveMouseInput(const Vector2& TargetPosition);

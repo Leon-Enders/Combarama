@@ -20,12 +20,14 @@ public:
 	virtual void FixedUpdate(float FixedDeltaTime) override;
 
 	void OnPossessed(Controller* OwningContoller);
-
-
 	const Vector2& GetVelocity()const { return Velocity; }
 
-
 	void SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColor);
+
+
+	//TODO: CombatInterface or Component
+	void TakeDamage(int Damage);
+
 protected:
 	virtual void UpdatePosition(float DeltaTime);
 	virtual void UpdateRotation();
@@ -44,5 +46,7 @@ protected:
 
 
 	int ColorResetCounter = 0;
-	int ColorMaxTime = 30;
+	int ColorMaxTime = 15;
+
+	int Health = 20;
 };

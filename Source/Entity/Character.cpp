@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "../Render/Avatar.h"
 #include "SDL3/SDL_log.h"
+#include "../Utility/ColorHelper.h"
 
 Character::Character(World* GameWorld)
 	:
@@ -37,6 +38,17 @@ void Character::SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColo
 {
 	ColorResetCounter = 0;
 	Avatar::SetColor(HeadColor, BodyColor, CharacterRenderComponent.get());
+}
+
+void Character::TakeDamage(int Damage)
+{
+	SetColor(COLOR_RED, COLOR_RED);
+
+	Health -= Damage;
+	if (Health <= 0)
+	{
+		Destroy();
+	}
 }
 
 void Character::UpdatePosition(float DeltaTime)

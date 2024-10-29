@@ -103,19 +103,24 @@ void PlayerCharacter::DrawDebug()
 void PlayerCharacter::Attack()
 {
 	if (IsAttacking) return;
-	if (Collider* col = CollisionSystem::Get().GetColliderInCone(this, GetForwardVector(), 135.f, 1.f))
-	{
-		if (Character* OtherCharacter = dynamic_cast<Character*>(col->GetOwningActor()))
-		{
-			//OtherCharacter->SetColor(COLOR_RED, COLOR_RED);
-			OtherCharacter->Destroy();
-		}
-	}
+	
+	DealDamageInCone();
+
 	Sword->GetRenderComponent()->SetRenderActive(true);
 	IsAttacking = true;
 	SwordRotation = -1.25f + EntityTransform.Rotation;
-
 	DesiredSwordRotation = 1.25f + EntityTransform.Rotation;
+}
+
+void PlayerCharacter::DealDamageInCone()
+{
+	if (Collider* OtherCollider = CollisionSystem::Get().GetColliderInCone(this, GetForwardVector(), 135.f, 1.f))
+	{
+		if (Character* OtherCharacter = dynamic_cast<Character*>(OtherCollider->GetOwningActor()))
+		{
+			OtherCharacter->TakeDamage(5);
+		}
+	}
 }
 
 void PlayerCharacter::UpdatePosition(float DeltaTime)
