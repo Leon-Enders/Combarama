@@ -2,7 +2,7 @@
 #include <random>
 
 
-static struct RandomGenerator
+struct RandomGenerator
 {
     static std::mt19937& GetRandomEngine()
     {

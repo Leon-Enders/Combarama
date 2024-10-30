@@ -14,13 +14,32 @@ AIController::AIController(World* InOwningWorld)
 
 }
 
+void AIController::Update(float DeltaTime)
+{
+    CheckForTarget();
+    MoveEnemy();
+}
+
 void AIController::Initialize()
 {   
 }
 
-void AIController::SetTarget(Character* TargetCharacter)
+void AIController::CheckForTarget()
 {
-    Target = TargetCharacter;
+    if (!ControlledEnemy || IsPulled) return;
+
+    auto PlayerCharacters = GetWorld()->GetAllActorsOfClass<PlayerCharacter>();
+
+    for (const auto& PlayerChar : PlayerCharacters)
+    {
+        Vector2 DeltaPosition = PlayerChar.get().GetPosition() - ControlledEnemy->GetPosition();
+        float Size = std::abs(DeltaPosition.Size());
+        if (Size < PullRange)
+        {
+            IsPulled = true;
+            Target = &PlayerChar.get();
+        }
+    }
 }
 
 void AIController::PossessCharacter(Character* CharacterToPossess)
@@ -55,23 +74,32 @@ void AIController::MoveEnemy()
 {
     if (!ControlledEnemy) return;
 
-    VelocityUpdateCounter++;
 
-    if (VelocityUpdateCounter > VelocityMaxUpdateCounter)
+    if (Target)
     {
-        VelocityUpdateCounter = 0;
+        Vector2 DeltaPosition = Target->GetPosition() - ControlledEnemy->GetPosition();
+        Vector2 TargetDirection = DeltaPosition.Normalize();
 
-        std::uniform_real_distribution<float> DistFloatWidth(-4.f, 4.f);
-        std::uniform_real_distribution<float> DistFloatHeight(-4.f, 4.f);
-
-       
-       Vector2 NewVelocity = { DistFloatWidth(RandomGenerator::GetRandomEngine()) , DistFloatHeight(RandomGenerator::GetRandomEngine()) };
-
-        ControlledEnemy->UpdateVelocity(NewVelocity);
+        ControlledEnemy->UpdateVelocity(TargetDirection);
     }
-  
-   
-    
+    else
+    {
+
+        VelocityUpdateCounter++;
+
+        if (VelocityUpdateCounter > VelocityMaxUpdateCounter)
+        {
+            VelocityUpdateCounter = 0;
+
+            std::uniform_real_distribution<float> DistFloatWidth(-1.f, 1.f);
+            std::uniform_real_distribution<float> DistFloatHeight(-1.f, 1.f);
+
+
+            Vector2 NewVelocity = { DistFloatWidth(RandomGenerator::GetRandomEngine()) , DistFloatHeight(RandomGenerator::GetRandomEngine()) };
+
+            ControlledEnemy->UpdateVelocity(NewVelocity);
+        }
+    }
 }
 
 

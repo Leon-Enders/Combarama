@@ -8,7 +8,9 @@ class AIController : public Controller
 {
 public:
 	AIController(World* InOwningWorld);
-	void SetTarget(Character* TargetCharacter);
+
+	void Update(float DeltaTime);
+
 	virtual void PossessCharacter(Character* CharacterToPossess) override;
 
 	virtual void UnPossessCharacter() override;
@@ -17,6 +19,12 @@ public:
 protected:
 
 	virtual void Initialize() override;
+
+
+private:
+
+	void CheckForTarget();
+
 
 private:
 
@@ -29,4 +37,7 @@ private:
 
 	int VelocityUpdateCounter = 0;
 	int VelocityMaxUpdateCounter = 120;
+
+	float PullRange = 200.f;
+	bool IsPulled = false;
 };

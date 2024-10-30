@@ -78,45 +78,59 @@ Collider* CollisionSystem::GetColliderInCone(Actor* Instigator, const Vector2& D
 {
 	for (const auto& ActiveCollider : ActiveColliders)
 	{
-		if (ActiveCollider.get().GetOwningActor() == Instigator) continue;  // Skip self-collisions
+		if (ActiveCollider.get().GetOwningActor() == Instigator) continue;
 
 		SDL_FRect BoxCollider = ActiveCollider.get().GetColliderBox();
 
-		// Get the four corners of the collider's box
-		Vector2 corners[4] = 
+		
+		Vector2 Corners[4] = 
 		{
-			Vector2(BoxCollider.x, BoxCollider.y),                                                   // Top-left corner
-			Vector2(BoxCollider.x +BoxCollider.w, BoxCollider.y),  // Top-right corner
-			Vector2(BoxCollider.x, BoxCollider.y + BoxCollider.h), // Bottom-left corner
-			Vector2(BoxCollider.x + BoxCollider.w, BoxCollider.y + BoxCollider.h) // Bottom-right corner
+			Vector2(BoxCollider.x, BoxCollider.y),
+			Vector2(BoxCollider.x +BoxCollider.w, BoxCollider.y),
+			Vector2(BoxCollider.x, BoxCollider.y + BoxCollider.h),
+			Vector2(BoxCollider.x + BoxCollider.w, BoxCollider.y + BoxCollider.h) 
 		};
 
-		for (const auto& corner : corners)
+		for (const auto& Corner : Corners)
 		{
-			// Vector from Instigator to corner
-			Vector2 toCorner = corner - Instigator->GetPosition();
+			
+			Vector2 ToCorner = Corner - Instigator->GetPosition();
 
-			// Calculate the distance to check if within cone's height
-			float distance = toCorner.Size();
-			if (distance > Height) continue; // Corner is too far
+			
+			float distance = ToCorner.Size();
+			if (distance > Height) continue; 
 
-			// Normalize direction vectors to calculate the angle
-			Vector2 normalizedDirection = Direction.Normalize();
-			Vector2 normalizedToCorner = toCorner.Normalize();
+			
+			Vector2 NormalizedDirection = Direction.Normalize();
+			Vector2 NormalizedToCorner = ToCorner.Normalize();
 
-			// Calculate the angle between the direction and the vector to the corner
-			float dotProduct = normalizedDirection.Dot(normalizedToCorner);
-			float angleToCorner = std::acos(dotProduct); // Angle in radians
+			
+			float DotProduct = NormalizedDirection.Dot(NormalizedToCorner);
+			float AngleToCorner = std::acos(DotProduct); 
 
-			// Check if this angle is within the half-angle of the cone
-			if (angleToCorner <= Angle)
+			
+			if (AngleToCorner <= Angle)
 			{
-				return &ActiveCollider.get(); // Found a collider within the cone
+				return &ActiveCollider.get(); 
 			}
 		}
 	}
 
-	// Return a default or null collider if no intersection found (depending on your design)
+
 	return nullptr;
+}
+
+std::vector<Collider> CollisionSystem::GetOverlapsInSphere(Actor* Instigator, float Radius)
+{
+
+
+	for (const auto& ActiveCollider : ActiveColliders)
+	{
+		if (ActiveCollider.get().GetOwningActor() == Instigator) continue; 
+
+		SDL_FRect BoxCollider = ActiveCollider.get().GetColliderBox();
+	}
+
+	return std::vector<Collider>();
 }
 

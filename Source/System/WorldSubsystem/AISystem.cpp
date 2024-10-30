@@ -22,7 +22,7 @@ void AISystem::Update(float DeltaTime)
 {
 	for (auto& ActiveAIController : ActiveAIControllers)
 	{
-		ActiveAIController.get().MoveEnemy();
+		ActiveAIController.get().Update(DeltaTime);
 	}
 }
 
