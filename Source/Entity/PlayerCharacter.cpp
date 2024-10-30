@@ -114,13 +114,18 @@ void PlayerCharacter::Attack()
 
 void PlayerCharacter::DealDamageInCone()
 {
-	if (Collider* OtherCollider = CollisionSystem::Get().GetColliderInCone(this, GetForwardVector(), 135.f, 1.f))
+	std::vector<Collider> OverlappedColliders = CollisionSystem::Get().GetColliderInCone(this, GetForwardVector(), 135.f, 1.f);
+	
+	for (auto& OverlappedCollider : OverlappedColliders)
 	{
-		if (Character* OtherCharacter = dynamic_cast<Character*>(OtherCollider->GetOwningActor()))
+		if (Character* OtherCharacter = dynamic_cast<Character*>(OverlappedCollider.GetOwningActor()))
 		{
 			OtherCharacter->TakeDamage(5);
 		}
 	}
+
+	
+	
 }
 
 void PlayerCharacter::UpdatePosition(float DeltaTime)

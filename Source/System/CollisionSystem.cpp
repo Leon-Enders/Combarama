@@ -74,8 +74,11 @@ void CollisionSystem::RemoveCollider(Collider& ColliderToRemove)
 		});
 }
 
-Collider* CollisionSystem::GetColliderInCone(Actor* Instigator, const Vector2& Direction, float Height, float Angle)
+std::vector<Collider> CollisionSystem::GetColliderInCone(Actor* Instigator, const Vector2& Direction, float Height, float Angle)
 {
+
+	std::vector<Collider> OverlappedColliders;
+
 	for (const auto& ActiveCollider : ActiveColliders)
 	{
 		if (ActiveCollider.get().GetOwningActor() == Instigator) continue;
@@ -91,6 +94,7 @@ Collider* CollisionSystem::GetColliderInCone(Actor* Instigator, const Vector2& D
 			Vector2(BoxCollider.x + BoxCollider.w, BoxCollider.y + BoxCollider.h) 
 		};
 
+		bool HasOverlap = false;
 		for (const auto& Corner : Corners)
 		{
 			
@@ -111,13 +115,17 @@ Collider* CollisionSystem::GetColliderInCone(Actor* Instigator, const Vector2& D
 			
 			if (AngleToCorner <= Angle)
 			{
-				return &ActiveCollider.get(); 
+				HasOverlap = true;
 			}
+		}
+		if (HasOverlap)
+		{
+			OverlappedColliders.push_back(ActiveCollider);
 		}
 	}
 
 
-	return nullptr;
+	return OverlappedColliders;
 }
 
 std::vector<Collider> CollisionSystem::GetOverlapsInSphere(Actor* Instigator, float Radius)
