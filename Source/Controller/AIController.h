@@ -16,6 +16,7 @@ public:
 	virtual void UnPossessCharacter() override;
 
 	void MoveEnemy();
+	void RotateEnemy();
 protected:
 
 	virtual void Initialize() override;
@@ -24,7 +25,7 @@ protected:
 private:
 
 	void CheckForTarget();
-
+	void HandleAttackFrequency();
 
 private:
 
@@ -40,4 +41,7 @@ private:
 
 	float PullRange = 200.f;
 	bool IsPulled = false;
+
+	int AttackTimer = 0;
+	int AttackResetTimer = 120;
 };

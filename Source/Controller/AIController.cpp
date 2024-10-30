@@ -18,6 +18,9 @@ void AIController::Update(float DeltaTime)
 {
     CheckForTarget();
     MoveEnemy();
+    RotateEnemy();
+    HandleAttackFrequency();
+   
 }
 
 void AIController::Initialize()
@@ -38,6 +41,22 @@ void AIController::CheckForTarget()
         {
             IsPulled = true;
             Target = &PlayerChar.get();
+        }
+    }
+}
+
+void AIController::HandleAttackFrequency()
+{
+    if (Target && ControlledEnemy)
+    {
+        if (AttackTimer > 0)
+        {
+            AttackTimer--;
+        }
+        else
+        {
+            ControlledEnemy->Attack();
+            AttackTimer = AttackResetTimer;
         }
     }
 }
@@ -80,6 +99,9 @@ void AIController::MoveEnemy()
         Vector2 DeltaPosition = Target->GetPosition() - ControlledEnemy->GetPosition();
         Vector2 TargetDirection = DeltaPosition.Normalize();
 
+        float LookAtRotation = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
+
+        ControlledEnemy->DesiredRotation = LookAtRotation;
         ControlledEnemy->UpdateVelocity(TargetDirection);
     }
     else
@@ -100,6 +122,11 @@ void AIController::MoveEnemy()
             ControlledEnemy->UpdateVelocity(NewVelocity);
         }
     }
+}
+
+void AIController::RotateEnemy()
+{
+
 }
 
 

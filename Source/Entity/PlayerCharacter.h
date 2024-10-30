@@ -44,6 +44,5 @@ protected:
 
 	Weapon* Sword = nullptr;
 
-
 private:
 };

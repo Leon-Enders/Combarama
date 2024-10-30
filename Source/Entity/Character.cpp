@@ -70,6 +70,16 @@ void Character::OnCollisionExit(const Collider& Other)
 	SDL_Log("Collision Exit");
 }
 
+void Character::HandleHitEffect()
+{
+	// Hit Effect
+	ColorResetCounter++;
+	if (ColorResetCounter >= ColorMaxTime)
+	{
+		SetColor(BodyColor, HeadColor);
+	}
+}
+
 void Character::Initialize()
 {
 
@@ -77,7 +87,7 @@ void Character::Initialize()
 
 void Character::Update(float DeltaTime)
 {
-	
+	HandleHitEffect();
 }
 
 void Character::FixedUpdate(float FixedDeltaTime)

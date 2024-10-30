@@ -49,4 +49,11 @@ protected:
 	int ColorMaxTime = 15;
 
 	int Health = 20;
+
+
+	SDL_FColor HeadColor;
+	SDL_FColor BodyColor;
+private:
+
+	void HandleHitEffect();
 };

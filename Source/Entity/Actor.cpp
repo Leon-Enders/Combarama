@@ -34,7 +34,10 @@ void Actor::FixedUpdate(float FixedDeltaTime)
 
 void Actor::Destroy()
 {
-	OnDestroyDelegate();
+	if (OnDestroyDelegate)
+	{
+		OnDestroyDelegate();
+	}
 
 	GetWorld()->RemoveActor(this);
 }

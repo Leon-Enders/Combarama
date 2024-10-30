@@ -43,7 +43,10 @@ void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
 
 void PlayerCharacter::Initialize()
 {
-	Avatar::SetColor(COLOR_BLUE, COLOR_LIGHTBLUE, CharacterRenderComponent.get());
+	HeadColor = COLOR_LIGHTBLUE;
+	BodyColor = COLOR_BLUE;
+
+	Avatar::SetColor(BodyColor, HeadColor, CharacterRenderComponent.get());
 }
 
 void PlayerCharacter::Update(float DeltaTime)
@@ -139,5 +142,5 @@ void PlayerCharacter::UpdatePosition(float DeltaTime)
 
 void PlayerCharacter::UpdateRotation()
 {
-
+	 
 }
