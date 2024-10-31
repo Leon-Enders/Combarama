@@ -2,6 +2,7 @@
 #include <memory>
 #include "Actor.h"
 #include "../Render/RenderComponent.h"
+#include "../Collision/Collider.h"
 
 
 
@@ -30,5 +31,6 @@ private:
 	float ProjectileSpeed = 1000.f;
 	Vector2 Velocity = {};
 
-	std::unique_ptr<RenderComponent> ProjectileRenderComponent;
+	std::unique_ptr<RenderComponent> ProjectileRenderComponent = nullptr;
+	std::unique_ptr<Collider> ProjectileCollider = nullptr;
 };

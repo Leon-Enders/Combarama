@@ -14,6 +14,7 @@ Projectile::Projectile(World* GameWorld)
 
 
 	ProjectileRenderComponent = std::make_unique<RenderComponent>(*this, std::move(CircleTriangles));
+	ProjectileCollider = std::make_unique<Collider>(this, ProjectileSize * 2.f, ProjectileSize * 2.f);
 	Initialize();
 }
 
@@ -27,6 +28,7 @@ Projectile::Projectile(World* GameWorld, const Transform& InTransform)
 
 
 	ProjectileRenderComponent = std::make_unique<RenderComponent>(*this, std::move(CircleTriangles));
+	ProjectileCollider = std::make_unique<Collider>(this, ProjectileSize*2.f, ProjectileSize * 2.f);
 	Initialize();
 }
 
