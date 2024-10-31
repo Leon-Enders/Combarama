@@ -34,18 +34,20 @@ public:
 	void SetPosition(const Vector2& NewPosition) { EntityTransform.Position = NewPosition; }
 	void SetRotation(float NewRotation) { EntityTransform.Rotation = NewRotation; }
 	void SetScale(const Vector2& NewScale) { EntityTransform.Scale = NewScale; }
-
+	void SetInstigator(Actor* InInstigator) { Instigator = InInstigator; }
 
 public:
 	std::function<void(void)> OnDestroyDelegate;
 
 
 protected:
-	inline World* GetWorld()const { return OwningWorld; }
 
+
+	inline World* GetWorld()const { return OwningWorld; }
+	inline Actor* GetInstigator()const { return Instigator; }
 	Transform EntityTransform;
 
 private:
-
+	Actor* Instigator = nullptr;
 	World* OwningWorld = nullptr;
 };

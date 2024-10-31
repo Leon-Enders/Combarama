@@ -26,7 +26,6 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	float ColliderHeight = Avatar::GetRadius() * 2.f;
 
 	CharacterCollider = std::make_unique<Collider>(this,ColliderWidth, ColliderHeight);
-	CharacterCollider->OnCollisionEnterDelegate = std::bind(&Character::OnCollisionEnter, this,_1);
 }
 
 void Character::OnPossessed(Controller* OwningContoller)
@@ -58,11 +57,11 @@ void Character::UpdatePosition(float DeltaTime)
 
 void Character::UpdateRotation()
 {
+
 }
 
 void Character::OnCollisionEnter(const Collider& Other)
 {
-	
 }
 
 void Character::OnCollisionExit(const Collider& Other)

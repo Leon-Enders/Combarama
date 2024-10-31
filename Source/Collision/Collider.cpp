@@ -4,6 +4,7 @@
 #include "../System/CollisionSystem.h"
 #include "../Entity/Actor.h"
 #include "../Entity/Character.h"
+#include "../Entity/Projectile.h"
 
 Collider::Collider(Actor* InOwningActor, float InWidth, float InHeight)
 	:
@@ -58,6 +59,12 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& Intersecti
 
 	if (Character* CharacterA = dynamic_cast<Character*>(OwningActor))
 	{
+		//Check if the other collider is attached to a projectile if so just return;
+		if (Projectile* ProjectileB = dynamic_cast<Projectile*>(Other.GetOwningActor()))
+		{
+			return;
+		}
+
 		Vector2 CorrectedPosition = CharacterA->GetPosition();
 		Vector2 VelocityA = CharacterA->GetVelocity();
 
@@ -123,5 +130,11 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& Intersecti
 		
 		CharacterA->SetPosition(CorrectedPosition);
 	}
+
+	if (OnCollisionEnterDelegate)
+	{
+		OnCollisionEnterDelegate(Other);
+	}
+	
 }
 

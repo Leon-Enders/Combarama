@@ -142,7 +142,13 @@ void PlayerCharacter::Dash()
 
 void PlayerCharacter::Shoot()
 {
-	GetWorld()->SpawnActor<Projectile>(EntityTransform);
+	Actor* SpawnedProjectile = GetWorld()->SpawnActor<Projectile>(EntityTransform);
+
+	// tell the projectile who spawned it
+	if (SpawnedProjectile)
+	{
+		SpawnedProjectile->SetInstigator(this);
+	}
 }
 
 void PlayerCharacter::DealDamageInCone()

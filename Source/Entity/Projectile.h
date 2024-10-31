@@ -23,12 +23,15 @@ protected:
 
 	void UpdatePosition(float DeltaTime);
 
+private:
+	void OnCollisionEnter(const Collider& Other);
 
 private:
 
 	float LifeTime = 1.f;
 	float ProjectileSize = 30.f;
 	float ProjectileSpeed = 1000.f;
+	int ProjectileDamage = 4;
 	Vector2 Velocity = {};
 
 	std::unique_ptr<RenderComponent> ProjectileRenderComponent = nullptr;
