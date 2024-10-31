@@ -54,6 +54,6 @@ protected:
 	int CurrentDashFrame = 0;
 	int DashResetcounter = 15;
 
-
+	Vector2 LastMoveInput = {};
 private:
 };
