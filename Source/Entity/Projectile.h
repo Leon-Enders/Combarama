@@ -31,7 +31,7 @@ private:
 	float LifeTime = 1.f;
 	float ProjectileSize = 15.f;
 	float ProjectileSpeed = 1000.f;
-	int ProjectileDamage = 4;
+	int ProjectileDamage = 2;
 	Vector2 Velocity = {};
 
 	std::unique_ptr<RenderComponent> ProjectileRenderComponent = nullptr;
