@@ -1,5 +1,6 @@
 #include "Weapon.h"
 #include "../Render/Sword.h"
+#include "../Utility/ColorHelper.h"
 
 Weapon::Weapon(World* GameWorld)
 	:
@@ -10,6 +11,7 @@ Weapon::Weapon(World* GameWorld)
 	Sword::GenerateVertices(SwordTriangles, LocalTransform);
 
 	SwordRenderComponent = std::make_unique<RenderComponent>(*this, std::move(SwordTriangles));
+	SwordRenderComponent->SetColor(COLOR_GREY);
 	SwordRenderComponent->SetRenderActive(false);
 }
 
@@ -22,5 +24,6 @@ Weapon::Weapon(World* GameWorld, const Transform& InTransform)
 	Sword::GenerateVertices(SwordTriangles, LocalTransform);
 
 	SwordRenderComponent = std::make_unique<RenderComponent>(*this, std::move(SwordTriangles));
+	SwordRenderComponent->SetColor(COLOR_GREY);
 	SwordRenderComponent->SetRenderActive(false);
 }
