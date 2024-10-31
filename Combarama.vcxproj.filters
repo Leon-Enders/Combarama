@@ -111,6 +111,7 @@
     <ClCompile Include="Source\Utility\DrawDebugHelpers.cpp">
       <Filter>Source\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Entity\Projectile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -218,6 +219,7 @@
     <ClInclude Include="Source\Utility\ComboramaTime.h">
       <Filter>Source\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Entity\Projectile.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">

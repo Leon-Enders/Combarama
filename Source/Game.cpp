@@ -31,6 +31,10 @@ Game::Game(App& GameApp)
 
 void Game::StartGame()
 {
+
+	InputSystem::Get().QuitDelegate = std::bind(&Game::QuitGame, this);
+
+
 	DrawDebugHelpers::Get().Initialize(GameRenderer);
 
 	IsGameActive = true;

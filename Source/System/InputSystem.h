@@ -17,6 +17,9 @@ public:
 	void AddInputComponent(InputComponent& InputComponentToAdd);
 	void RemoveInputComponent(InputComponent& InputComponentToRemove);
 
+public:
+
+	std::function<void(void)> QuitDelegate;
 private:
 	InputSystem() = default;
 

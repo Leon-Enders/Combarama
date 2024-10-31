@@ -75,9 +75,9 @@ void InputSystem::DispatchAttackEvent(const SDL_Event& Event)
 
 void InputSystem::DispatchQuitEvent(const SDL_Event& QuitEvent)
 {
-	for (auto& PlayerInputComponent : InputComponents)
+	if (QuitDelegate)
 	{
-		PlayerInputComponent.get().ReceiveQuitEvent(QuitEvent);
+		QuitDelegate();
 	}
 }
 
