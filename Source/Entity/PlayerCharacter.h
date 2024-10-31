@@ -34,7 +34,12 @@ protected:
 	float RotationSpeed = 20.f;
 	float DesiredRotation = 0.f;
 	
+	Vector2 LastMoveInput = {};
 
+
+
+
+	//Attack
 	float AttackSpeed = 1.f;
 	float SwordRotation = 0.f;
 	float DesiredSwordRotation = 0.f;
@@ -47,13 +52,14 @@ protected:
 	Weapon* Sword = nullptr;
 
 
+
+
+	//Dash
 	bool IsDashing = false;
-
-
 	float DashSpeed = 1800.f;
 	int CurrentDashFrame = 0;
 	int DashResetcounter = 15;
 
-	Vector2 LastMoveInput = {};
+
 private:
 };

@@ -27,6 +27,11 @@ void World::Update(float DeltaTime)
 	{
 		InstancedActor->Update(DeltaTime);
 	}
+
+	for (auto& InstancedController : InstancedControllers)
+	{
+		InstancedController->Update(DeltaTime);
+	}
 }
 
 void World::FixedUpdate(float FixedDeltaTime)

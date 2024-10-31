@@ -31,6 +31,11 @@ PlayerController::PlayerController(World* InOwningWorld)
 	Initialize();
 }
 
+void PlayerController::Update(float DeltaTime)
+{	
+	HandleCooldowns();
+}
+
 void PlayerController::Initialize()
 {
 	KeycodePackage MoveKeyPackage;
@@ -89,10 +94,41 @@ void PlayerController::Attack(const InputActionValue& Value)
 
 void PlayerController::Dash(const InputActionValue& Value)
 {
-	ControlledPlayerCharacter->Dash();
+	if (!DashCooldownActive)
+	{
+		DashCooldownActive = true;
+		ControlledPlayerCharacter->Dash();
+	}
+	
 }
 
 void PlayerController::Shoot(const InputActionValue& Value)
 {
-	ControlledPlayerCharacter->Shoot();
+	if (!ShootCooldownActive)
+	{
+		ShootCooldownActive = true;
+		ControlledPlayerCharacter->Shoot();
+	}
+}
+
+void PlayerController::HandleCooldowns()
+{
+	if (DashCooldownActive)
+	{
+		DashCooldownCounter++;
+		if (DashCooldownCounter > DashCooldownReset)
+		{
+			DashCooldownCounter = 0;
+			DashCooldownActive = false;
+		}
+	}
+	if (ShootCooldownActive)
+	{
+		ShootCooldownCounter++;
+		if (ShootCooldownCounter > ShootCooldownReset)
+		{
+			ShootCooldownCounter = 0;
+			ShootCooldownActive = false;
+		}
+	}
 }

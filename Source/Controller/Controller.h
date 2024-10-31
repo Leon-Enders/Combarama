@@ -13,6 +13,9 @@ public:
 	
 	Controller(World* InOwningWorld);
 
+	virtual void Update(float DeltaTime);
+
+
 	virtual void PossessCharacter(Character* CharacterToPossess);
 	virtual void UnPossessCharacter();
 	

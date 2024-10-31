@@ -10,6 +10,11 @@ Controller::Controller(World* InOwningWorld)
 	Initialize();
 }
 
+void Controller::Update(float DeltaTime)
+{
+
+}
+
 void Controller::PossessCharacter(Character* CharacterToPossess)
 {
 	ControlledCharacter = CharacterToPossess;
