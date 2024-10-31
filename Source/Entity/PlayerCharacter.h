@@ -20,6 +20,8 @@ public:
 
 	//CombatInterface or CombatComponent
 	void Attack();
+	void Dash();
+	void Shoot();
 	void DealDamageInCone();
 
 	void UpdateVelocity(const Vector2& NewVelocity);
@@ -43,6 +45,15 @@ protected:
 	bool IsAttacking = false;
 
 	Weapon* Sword = nullptr;
+
+
+	bool IsDashing = false;
+
+
+	float DashSpeed = 1800.f;
+	int CurrentDashFrame = 0;
+	int DashResetcounter = 15;
+
 
 private:
 };

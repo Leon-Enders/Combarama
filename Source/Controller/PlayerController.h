@@ -23,6 +23,8 @@ private:
 	void Move(const InputActionValue& Value);
 	void Look(const InputActionValue& Value);
 	void Attack(const InputActionValue& Value);
+	void Dash(const InputActionValue& Value);
+	void Shoot(const InputActionValue& Value);
 
 	std::unique_ptr<InputComponent> ControllerInputComponent = nullptr;
 	std::unique_ptr<InputActionContext> ActionContext = nullptr;
@@ -31,6 +33,8 @@ private:
 	std::shared_ptr<InputAction> MoveAction = nullptr;
 	std::shared_ptr<InputAction> LookAction = nullptr;
 	std::shared_ptr<InputAction> AttackAction = nullptr;
+	std::shared_ptr<InputAction> DashAction = nullptr;
+	std::shared_ptr<InputAction> ShootAction = nullptr;
 
 	PlayerCharacter* ControlledPlayerCharacter = nullptr;
 };

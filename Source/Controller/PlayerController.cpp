@@ -22,6 +22,11 @@ PlayerController::PlayerController(World* InOwningWorld)
 	AttackAction = std::make_shared<InputAction>();
 	AttackAction->BindFunction(std::bind(&PlayerController::Attack, this, _1));
 
+	DashAction = std::make_shared<InputAction>();
+	DashAction->BindFunction(std::bind(&PlayerController::Dash, this, _1));
+
+	ShootAction = std::make_shared<InputAction>();
+	ShootAction->BindFunction(std::bind(&PlayerController::Shoot, this, _1));
 
 	Initialize();
 }
@@ -34,6 +39,18 @@ void PlayerController::Initialize()
 	MoveKeyPackage.AddKeycode(SDLK_A, E_AxisMapping::Left);
 	MoveKeyPackage.AddKeycode(SDLK_D, E_AxisMapping::Right);
 	//ActionContext->AddInputAction(SDLK_ESCAPE, QuitAction);
+
+
+	// Can Bind Multiple keys for the same action here
+	KeycodePackage DashKeyPackage;
+	DashKeyPackage.AddKeycode(SDLK_BACKSPACE, E_AxisMapping::Up);
+	DashKeyPackage.AddKeycode(SDLK_SPACE, E_AxisMapping::Down);
+	
+	KeycodePackage ShootKeyPackage;
+	ShootKeyPackage.AddKeycode(SDLK_Q, E_AxisMapping::Up);
+
+	ActionContext->AddInputActionBinding(DashKeyPackage, DashAction);
+	ActionContext->AddInputActionBinding(ShootKeyPackage, ShootAction);
 
 	ActionContext->AddInputActionBinding(MoveKeyPackage, MoveAction);
 	ActionContext->AddLookInputAction(LookAction);
@@ -68,4 +85,15 @@ void PlayerController::Look(const InputActionValue& Value)
 void PlayerController::Attack(const InputActionValue& Value)
 {
 	ControlledPlayerCharacter->Attack();
+}
+
+void PlayerController::Dash(const InputActionValue& Value)
+{
+	ControlledPlayerCharacter->Dash();
+}
+
+void PlayerController::Shoot(const InputActionValue& Value)
+{
+	SDL_Log("Shoot!");
+	//ControlledPlayerCharacter->Shoot();
 }

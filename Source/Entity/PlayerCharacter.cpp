@@ -27,7 +27,10 @@ PlayerCharacter::PlayerCharacter(World* GameWorld, const Transform& InTransform)
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
 {
-	Velocity = NewVelocity * Speed;
+	if (!IsDashing)
+	{
+		Velocity = NewVelocity * Speed;
+	}
 }
 
 void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
@@ -52,7 +55,17 @@ void PlayerCharacter::Initialize()
 void PlayerCharacter::Update(float DeltaTime)
 {
 	Character::Update(DeltaTime);
-		
+	
+	if (IsDashing)
+	{
+		CurrentDashFrame++;
+		if (CurrentDashFrame > DashResetcounter)
+		{
+			CurrentDashFrame = 0;
+			IsDashing = false;
+			Velocity = Vector2::Zero();
+		}
+	}
 
 	float LerpTime = DeltaTime * RotationSpeed;
 
@@ -113,6 +126,20 @@ void PlayerCharacter::Attack()
 	IsAttacking = true;
 	SwordRotation = -1.25f + EntityTransform.Rotation;
 	DesiredSwordRotation = 1.25f + EntityTransform.Rotation;
+}
+
+void PlayerCharacter::Dash()
+{
+	if (!IsDashing)
+	{
+		IsDashing = true;
+		Velocity = GetForwardVector() * DashSpeed;
+	}
+}
+
+void PlayerCharacter::Shoot()
+{
+
 }
 
 void PlayerCharacter::DealDamageInCone()

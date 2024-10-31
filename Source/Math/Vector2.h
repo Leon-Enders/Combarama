@@ -108,6 +108,11 @@ struct Vector2
 	{
 		return Vector2(0.f, -1.f);
 	}
+
+	static Vector2 Zero()
+	{
+		return Vector2(0.f, 0.f);
+	}
 	float X =0;
 	float Y =0;
 };
