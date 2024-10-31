@@ -52,6 +52,9 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& Intersecti
 {
 	//TODO Refactor for better performance
 	//TODO: Check cast and return of not character, can ignore B velocity if object is static
+	
+	if (!OwningActor)return;
+
 	float OverlapX = Intersection.w;
 	float OverlapY = Intersection.h;
 

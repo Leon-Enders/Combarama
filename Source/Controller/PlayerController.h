@@ -52,9 +52,9 @@ private:
 	//Cooldowns
 	bool DashCooldownActive = false;
 	int DashCooldownCounter = 0;
-	int DashCooldownReset = 120;
+	int DashCooldownReset = 100;
 
 	bool ShootCooldownActive = false;
 	int ShootCooldownCounter = 0;
-	int ShootCooldownReset = 30;
+	int ShootCooldownReset = 10;
 };

@@ -41,6 +41,7 @@ void AIController::CheckForTarget()
         {
             IsPulled = true;
             Target = &PlayerChar.get();
+            ControlledEnemy->SetSpeed(275.f);
         }
     }
 }
