@@ -33,7 +33,10 @@ void World::FixedUpdate(float FixedDeltaTime)
 {
 	for (auto& InstancedActor : InstancedActors)
 	{
-		InstancedActor->FixedUpdate(FixedDeltaTime);
+		if (InstancedActor)
+		{
+			InstancedActor->FixedUpdate(FixedDeltaTime);
+		}
 	}
 }
 

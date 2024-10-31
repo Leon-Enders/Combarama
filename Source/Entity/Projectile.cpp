@@ -44,6 +44,12 @@ void Projectile::Update(float DeltaTime)
 void Projectile::FixedUpdate(float FixedDeltaTime)
 {
 	UpdatePosition(FixedDeltaTime);
+
+	LifeTime -= FixedDeltaTime;
+	if (LifeTime < 0.f)
+	{
+		Destroy();
+	}
 }
 
 void Projectile::UpdateVelocity(const Vector2& NewVelocity)

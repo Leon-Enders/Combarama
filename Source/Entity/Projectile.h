@@ -25,6 +25,7 @@ protected:
 
 private:
 
+	float LifeTime = 1.f;
 	float ProjectileSize = 30.f;
 	float ProjectileSpeed = 1000.f;
 	Vector2 Velocity = {};
