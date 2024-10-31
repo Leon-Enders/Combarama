@@ -29,7 +29,7 @@ private:
 private:
 
 	float LifeTime = 1.f;
-	float ProjectileSize = 30.f;
+	float ProjectileSize = 15.f;
 	float ProjectileSpeed = 1000.f;
 	int ProjectileDamage = 4;
 	Vector2 Velocity = {};

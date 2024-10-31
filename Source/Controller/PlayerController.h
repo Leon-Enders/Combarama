@@ -56,5 +56,5 @@ private:
 
 	bool ShootCooldownActive = false;
 	int ShootCooldownCounter = 0;
-	int ShootCooldownReset = 60;
+	int ShootCooldownReset = 30;
 };
