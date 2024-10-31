@@ -72,10 +72,14 @@ void Projectile::UpdatePosition(float DeltaTime)
 
 void Projectile::OnCollisionEnter(const Collider& Other)
 {
+
 	if (Other.GetOwningActor() == GetInstigator()) return;
 
 	if (Character* OtherCharacter = dynamic_cast<Character*>(Other.GetOwningActor()))
 	{
 		OtherCharacter->TakeDamage(ProjectileDamage);
+
 	}
+
+	Destroy();
 }
