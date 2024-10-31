@@ -11,6 +11,7 @@
 #include "../Entity/Enemy.h"
 #include "../Entity/PlayerCharacter.h"
 #include "../Entity/Weapon.h"
+#include "../Entity/Projectile.h"
 #include "../Controller/Controller.h"
 #include "../Math/Transform.h"
 #include "../System/WorldSubsystem/WorldSubsystem.h"
@@ -36,7 +37,8 @@ using ActorsVariant = std::variant<
 	std::vector<std::reference_wrapper<Enemy>>,
 	std::vector<std::reference_wrapper<PlayerCharacter>>,
 	std::vector<std::reference_wrapper<Weapon>>,
-	std::vector<std::reference_wrapper<Obstacle>>>;
+	std::vector<std::reference_wrapper<Obstacle>>,
+	std::vector<std::reference_wrapper<Projectile>>>;
 
 
 class World

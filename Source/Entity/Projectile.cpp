@@ -1,0 +1,57 @@
+#include "Projectile.h"
+#include "../Utility/PrimitiveHelpers.h"
+#include "../Utility/ColorHelper.h"
+
+Projectile::Projectile(World* GameWorld)
+	:
+	Actor(GameWorld)
+{
+	std::vector<SDL_Vertex> CircleTriangles;
+
+	Circle NewCircle = Circle(ProjectileSize);
+
+	NewCircle.GetVerts(CircleTriangles);
+
+
+	ProjectileRenderComponent = std::make_unique<RenderComponent>(*this, std::move(CircleTriangles));
+	Initialize();
+}
+
+Projectile::Projectile(World* GameWorld, const Transform& InTransform)
+	:
+	Actor(GameWorld, InTransform)
+{
+	std::vector<SDL_Vertex> CircleTriangles;
+	Circle NewCircle = Circle(ProjectileSize);
+	NewCircle.GetVerts(CircleTriangles);
+
+
+	ProjectileRenderComponent = std::make_unique<RenderComponent>(*this, std::move(CircleTriangles));
+	Initialize();
+}
+
+void Projectile::Initialize()
+{
+	ProjectileRenderComponent->SetColor(COLOR_GREEN);
+	Velocity = GetForwardVector() * ProjectileSpeed;
+}
+
+void Projectile::Update(float DeltaTime)
+{
+
+}
+
+void Projectile::FixedUpdate(float FixedDeltaTime)
+{
+	UpdatePosition(FixedDeltaTime);
+}
+
+void Projectile::UpdateVelocity(const Vector2& NewVelocity)
+{
+	Velocity = NewVelocity;
+}
+
+void Projectile::UpdatePosition(float DeltaTime)
+{
+	EntityTransform.Position += Velocity * DeltaTime;
+}

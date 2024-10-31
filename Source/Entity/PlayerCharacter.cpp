@@ -3,6 +3,7 @@
 #include "../Utility/ColorHelper.h"
 #include "../Math/ComboramaMath.h"
 #include "../Render/Avatar.h"
+#include "Projectile.h"
 #include "Weapon.h"
 #include "../World/World.h"
 #include "../Utility/DrawDebugHelpers.h"
@@ -141,7 +142,7 @@ void PlayerCharacter::Dash()
 
 void PlayerCharacter::Shoot()
 {
-
+	GetWorld()->SpawnActor<Projectile>(EntityTransform);
 }
 
 void PlayerCharacter::DealDamageInCone()

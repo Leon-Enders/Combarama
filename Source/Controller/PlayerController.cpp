@@ -94,6 +94,5 @@ void PlayerController::Dash(const InputActionValue& Value)
 
 void PlayerController::Shoot(const InputActionValue& Value)
 {
-	SDL_Log("Shoot!");
-	//ControlledPlayerCharacter->Shoot();
+	ControlledPlayerCharacter->Shoot();
 }
