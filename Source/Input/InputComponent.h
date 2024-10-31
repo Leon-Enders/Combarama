@@ -55,9 +55,17 @@ public:
 		ActionContext->HandleQuitEvent(QuitEvent);
 	}
 
-	void ReceiveAttackEvent(const SDL_Event& AttackEvent)
+	void ReceiveMouseButtonEvent(const SDL_Event& MouseButtonEvent)
 	{
-		ActionContext->HandleAttackEvent();
+		if (MouseButtonEvent.button.button == SDL_BUTTON_LEFT)
+		{
+			ActionContext->HandleAttackEvent();
+		}
+		else if (MouseButtonEvent.button.button == SDL_BUTTON_RIGHT)
+		{
+			ActionContext->HandleShootEvent();
+		}
+		
 	}
 
 	void ReceiveKeyState(const bool* KeyState)

@@ -79,6 +79,11 @@ public:
 		AttackInputAction = InputActionToAdd;
 	}
 
+	void AddShootInputAction(const std::shared_ptr<InputAction>& InputActionToAdd)
+	{
+		ShootInputAction = InputActionToAdd;
+	}
+
 	void HandleQuitEvent(const SDL_Event& QuitEvent)
 	{
 		if (QuitInputAction)
@@ -92,6 +97,14 @@ public:
 		if (AttackInputAction)
 		{
 			AttackInputAction->Execute();
+		}
+	}
+
+	void HandleShootEvent()
+	{
+		if (ShootInputAction)
+		{
+			ShootInputAction->Execute();
 		}
 	}
 
@@ -146,5 +159,6 @@ private:
 	std::shared_ptr<InputAction> MouseInputAction;
 	std::shared_ptr<InputAction> QuitInputAction;
 	std::shared_ptr<InputAction> AttackInputAction;
+	std::shared_ptr<InputAction> ShootInputAction;
 	Vector2 MouseInput;
 };

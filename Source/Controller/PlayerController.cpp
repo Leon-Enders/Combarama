@@ -46,16 +46,16 @@ void PlayerController::Initialize()
 	DashKeyPackage.AddKeycode(SDLK_BACKSPACE, E_AxisMapping::Up);
 	DashKeyPackage.AddKeycode(SDLK_SPACE, E_AxisMapping::Down);
 	
-	KeycodePackage ShootKeyPackage;
-	ShootKeyPackage.AddKeycode(SDLK_Q, E_AxisMapping::Up);
 
 	ActionContext->AddInputActionBinding(DashKeyPackage, DashAction);
-	ActionContext->AddInputActionBinding(ShootKeyPackage, ShootAction);
+	
 
 	ActionContext->AddInputActionBinding(MoveKeyPackage, MoveAction);
 	ActionContext->AddLookInputAction(LookAction);
 	ActionContext->AddQuitInputAction(QuitAction);
 	ActionContext->AddAttackInputAction(AttackAction);
+	ActionContext->AddShootInputAction(ShootAction);
+
 
 	ControllerInputComponent->SetInputActionContext(ActionContext.get());
 }

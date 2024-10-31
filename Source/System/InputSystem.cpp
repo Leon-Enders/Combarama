@@ -69,7 +69,7 @@ void InputSystem::DispatchAttackEvent(const SDL_Event& Event)
 {
 	for (auto& PlayerInputComponent : InputComponents)
 	{
-		PlayerInputComponent.get().ReceiveAttackEvent(Event);
+		PlayerInputComponent.get().ReceiveMouseButtonEvent(Event);
 	}
 }
 
