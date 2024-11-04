@@ -41,7 +41,7 @@ void Game::StartGame()
 	LoadBackground();
 
 	Transform PlayerSpawnTransform;
-	PlayerSpawnTransform.Position = { 255.f,255.f };
+	PlayerSpawnTransform.Position = { 840.f,1000.f };
 
 	PlayerCharacter* SpawnedPlayer = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
 	PlayerController* IPlayerController = GameWorld->CreateController<PlayerController>();
@@ -64,17 +64,24 @@ void Game::StartGame()
 	Transform ObstacleTransform3;
 	Transform ObstacleTransform4;
 	Transform ObstacleTransform5;
-	ObstacleTransform1.Position = { 0.f,360.f };
-	ObstacleTransform2.Position = { 1280.f,360.f };
-	ObstacleTransform3.Position = { 640.f,0.f };
-	ObstacleTransform4.Position = { 640.f,720.f };
-	ObstacleTransform5.Position = { 640.f,360.f };
-	GameWorld->SpawnObstacle(ObstacleTransform1, { 25.f,720.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform2, { 25.f,720.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform3, { 1280.f,25.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform5, { 700.f,50.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform4, { 1280.f,25.f }, COLOR_PURPLE);
+	Transform ObstacleTransform6;
+	Transform ObstacleTransform7;
 
+	ObstacleTransform1.Position = { 0.f,525.f };
+	ObstacleTransform2.Position = { 1680.f,525.f };
+	ObstacleTransform3.Position = { 840.f,0.f };
+	ObstacleTransform4.Position = { 360.f,1000.f };
+	ObstacleTransform5.Position = { 840.f,475.f };
+	ObstacleTransform6.Position = { 1320.f,1000.f };
+	ObstacleTransform7.Position = { 840.f, 1050.f };
+
+	GameWorld->SpawnObstacle(ObstacleTransform1, { 25.f,1050.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform2, { 25.f,1050.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform3, { 1680.f,50.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform4, { 800.f,100.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform5, { 700.f,50.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform6, { 800.f,100.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform7, { 1680.f,25.f }, COLOR_PURPLE);
 
 	StartGameLoop();
 }

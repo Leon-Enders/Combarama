@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
     }
 
 
-    SDL_Window* Window = SDL_CreateWindow("Comborama",1280,720,0);
+    SDL_Window* Window = SDL_CreateWindow("Comborama",1680,1050,0);
 
     if (!Window) {
         SDL_Log("SDL_CreateWindow Error: %s", SDL_GetError());
