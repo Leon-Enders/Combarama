@@ -40,6 +40,9 @@
     <Filter Include="Source\Collision">
       <UniqueIdentifier>{58ff6b6c-5d10-4ffb-a570-e8333b489f83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Event">
+      <UniqueIdentifier>{b2846484-4436-4ea9-8636-9283817a89e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
@@ -223,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="Source\Entity\Projectile.h">
       <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Event\Delegate.h">
+      <Filter>Source\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -56,6 +56,7 @@
     <ClInclude Include="Source\Entity\PlayerCharacter.h" />
     <ClInclude Include="Source\Entity\Projectile.h" />
     <ClInclude Include="Source\Entity\Weapon.h" />
+    <ClInclude Include="Source\Event\Delegate.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\Input\InputAction.h" />
     <ClInclude Include="Source\Input\InputActionContext.h" />
