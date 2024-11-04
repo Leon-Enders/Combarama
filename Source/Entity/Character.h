@@ -4,6 +4,7 @@
 #include "../Controller/Controller.h"
 #include "../Render/RenderComponent.h"
 #include "../Collision/Collider.h"
+#include "../Event/Delegate.h"
 
 
 
@@ -27,6 +28,9 @@ public:
 
 	//TODO: CombatInterface or Component
 	void TakeDamage(int Damage);
+
+
+	MulticastDelegate<void, void> OnDeathSignature;
 
 protected:
 	virtual void UpdatePosition(float DeltaTime);

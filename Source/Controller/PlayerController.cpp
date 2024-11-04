@@ -69,6 +69,8 @@ void PlayerController::PossessCharacter(Character* CharacterToPossess)
 {
 	ControlledPlayerCharacter = static_cast<PlayerCharacter*>(CharacterToPossess);
 	ControlledPlayerCharacter->OnPossessed(this);
+	ControlledPlayerCharacter->OnDeathSignature.AddMemberFunction<PlayerController>(this, &PlayerController::OnCharacterDeath);
+	ControlledPlayerCharacter->OnDeathSignature.AddMemberFunction<PlayerController>(this, &PlayerController::OhNoCharacterdied);
 }
 
 void PlayerController::UnPossessCharacter()
@@ -109,6 +111,17 @@ void PlayerController::Shoot(const InputActionValue& Value)
 		ShootCooldownActive = true;
 		ControlledPlayerCharacter->Shoot();
 	}
+}
+
+void PlayerController::OnCharacterDeath()
+{
+	SDL_Log("Character Died!");
+	GetWorld()->RemoveController(this);
+}
+
+void PlayerController::OhNoCharacterdied()
+{
+	SDL_Log("Oh No Character died sadge");
 }
 
 void PlayerController::HandleCooldowns()

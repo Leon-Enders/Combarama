@@ -13,7 +13,6 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld,InTransform)
 {
-	using namespace std::placeholders;
 
 	//Use helper function to generate Avatar Triangles
 	std::vector<SDL_Vertex> AvatarTriangles;
@@ -26,6 +25,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	float ColliderHeight = Avatar::GetRadius() * 2.f;
 
 	CharacterCollider = std::make_unique<Collider>(this,ColliderWidth, ColliderHeight);
+	CharacterCollider->OnCollisionEntererDelegate.BindMemberFunction<Character>(this, &Character::OnCollisionEnter);
 }
 
 void Character::OnPossessed(Controller* OwningContoller)
@@ -46,6 +46,8 @@ void Character::TakeDamage(int Damage)
 	Health -= Damage;
 	if (Health <= 0)
 	{
+		OnDeathSignature.Broadcast();
+		OnDeathSignature.Broadcast();
 		Destroy();
 	}
 }
@@ -62,6 +64,8 @@ void Character::UpdateRotation()
 
 void Character::OnCollisionEnter(const Collider& Other)
 {
+	SDL_Log("COLLISION ENTER!");
+	CharacterCollider->OnCollisionEntererDelegate.Remove();
 }
 
 void Character::OnCollisionExit(const Collider& Other)

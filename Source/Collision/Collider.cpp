@@ -134,10 +134,8 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& Intersecti
 		CharacterA->SetPosition(CorrectedPosition);
 	}
 
-	if (OnCollisionEnterDelegate)
-	{
-		OnCollisionEnterDelegate(Other);
-	}
+	OnCollisionEntererDelegate.Invoke(Other);
+	
 	
 }
 

@@ -137,10 +137,6 @@ inline void World::AddActorToMap(T* ActorToAdd)
 		ActorTypeToActorsMap[TypeIndex] = NewVector;
 		it = ActorTypeToActorsMap.find(TypeIndex);
 	}
-
-	
-	auto& ActorVector = std::get<std::vector<std::reference_wrapper<T>>>(it->second);
-	ActorVector.push_back(std::ref(*ActorToAdd));
 }
 
 

@@ -2,6 +2,7 @@
 #include <functional>
 #include "SDL3/SDL_rect.h"
 #include "../Math/Vector2.h"
+#include "../Event/Delegate.h"
 
 struct SDL_Renderer;
 class Actor;
@@ -29,6 +30,7 @@ public:
 
 	Actor* GetOwningActor()const { return OwningActor; }
 public:
+	Delegate<void,const Collider&> OnCollisionEntererDelegate;
 	std::function<void(const Collider&)> OnCollisionEnterDelegate;
 	std::function<void(const Collider&)> OnCollisionExitDelegate;
 	std::function<void(const Vector2&)> OnBlockDelegate;

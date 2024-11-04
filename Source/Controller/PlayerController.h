@@ -32,6 +32,12 @@ private:
 	void Dash(const InputActionValue& Value);
 	void Shoot(const InputActionValue& Value);
 
+
+
+	void OnCharacterDeath();
+
+	void OhNoCharacterdied();
+
 	// Cooldowns
 	void HandleCooldowns();
 
