@@ -32,13 +32,13 @@ concept IsSubsystem = std::is_base_of<WorldSubsystem, T>::value;
 
 
 using ActorsVariant = std::variant<
-	std::vector<std::reference_wrapper<Actor>>,
-	std::vector<std::reference_wrapper<Character>>,
-	std::vector<std::reference_wrapper<Enemy>>,
-	std::vector<std::reference_wrapper<PlayerCharacter>>,
-	std::vector<std::reference_wrapper<Weapon>>,
-	std::vector<std::reference_wrapper<Obstacle>>,
-	std::vector<std::reference_wrapper<Projectile>>>;
+	std::vector<std::shared_ptr<Actor>>,
+	std::vector<std::shared_ptr<Character>>,
+	std::vector<std::shared_ptr<Enemy>>,
+	std::vector<std::shared_ptr<PlayerCharacter>>,
+	std::vector<std::shared_ptr<Weapon>>,
+	std::vector<std::shared_ptr<Obstacle>>,
+	std::vector<std::shared_ptr<Projectile>>>;
 
 
 class World
@@ -59,7 +59,7 @@ public:
 	Obstacle* SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor);
 
 	template<IsActor T>
-	std::vector<std::reference_wrapper<T>>& GetAllActorsOfClass();
+	std::vector<std::shared_ptr<T>>& GetAllActorsOfClass();
 
 	template<IsController T>
 	T* CreateController();
@@ -82,8 +82,8 @@ private:
 
 	std::unordered_map<std::type_index, ActorsVariant> ActorTypeToActorsMap;
 	std::vector<std::unique_ptr<WorldSubsystem>> SubsystemCollection;
-	std::vector<std::unique_ptr<Actor>> InstancedActors;
-	std::vector<std::unique_ptr<Controller>> InstancedControllers;
+	std::vector<std::shared_ptr<Actor>> InstancedActors;
+	std::vector<std::shared_ptr<Controller>> InstancedControllers;
 };
 
 
@@ -91,7 +91,7 @@ private:
 template<IsActor T>
 inline T* World::SpawnActor()
 {
-	std::unique_ptr<T> NewActor = std::make_unique<T>(this);
+	std::shared_ptr<T> NewActor = std::make_shared<T>(this);
 	T* NewActorRaw = NewActor.get();
 	InstancedActors.push_back(std::move(NewActor));
 	AddActorToMap(NewActorRaw);
@@ -102,7 +102,7 @@ inline T* World::SpawnActor()
 template<IsActor T>
 inline T* World::SpawnActor(const Transform& SpawnTransform)
 {
-	std::unique_ptr<T> NewActor = std::make_unique<T>(this, SpawnTransform);
+	std::shared_ptr<T> NewActor = std::make_shared<T>(this, SpawnTransform);
 	T* NewActorRaw = NewActor.get();
 	InstancedActors.push_back(std::move(NewActor));
 	AddActorToMap(NewActorRaw);
@@ -111,17 +111,17 @@ inline T* World::SpawnActor(const Transform& SpawnTransform)
 }
 
 template<IsActor T>
-inline std::vector<std::reference_wrapper<T>>& World::GetAllActorsOfClass()
+inline std::vector<std::shared_ptr<T>>& World::GetAllActorsOfClass()
 {
 	std::type_index TypeIndex = std::type_index(typeid(T));
 	auto it = ActorTypeToActorsMap.find(TypeIndex);
 
 	if (it != ActorTypeToActorsMap.end()) {
-		return std::get<std::vector<std::reference_wrapper<T>>>(it->second);
+		return std::get<std::vector<std::shared_ptr<T>>>(it->second);
 	}
 
 	
-	std::vector<std::reference_wrapper<T>> EmptyVector;
+	std::vector<std::shared_ptr<T>> EmptyVector;
 	return EmptyVector;
 }
 
@@ -133,10 +133,13 @@ inline void World::AddActorToMap(T* ActorToAdd)
 	auto it = ActorTypeToActorsMap.find(TypeIndex);
 	if (it == ActorTypeToActorsMap.end()) 
 	{
-		std::vector<std::reference_wrapper<T>> NewVector;
+		std::vector<std::shared_ptr<T>> NewVector;
 		ActorTypeToActorsMap[TypeIndex] = NewVector;
 		it = ActorTypeToActorsMap.find(TypeIndex);
 	}
+
+	auto& ActorVector = std::get<std::vector<std::shared_ptr<T>>>(it->second);
+	ActorVector.emplace_back(ActorToAdd);
 }
 
 
@@ -144,7 +147,7 @@ inline void World::AddActorToMap(T* ActorToAdd)
 template<IsController T>
 inline T* World::CreateController()
 {
-	std::unique_ptr<T> NewController = std::make_unique<T>(this);
+	std::shared_ptr<T> NewController = std::make_shared<T>(this);
 
 	T* NewControllerRaw = NewController.get();
 

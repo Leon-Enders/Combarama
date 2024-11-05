@@ -35,12 +35,12 @@ void AIController::CheckForTarget()
 
     for (const auto& PlayerChar : PlayerCharacters)
     {
-        Vector2 DeltaPosition = PlayerChar.get().GetPosition() - ControlledEnemy->GetPosition();
+        Vector2 DeltaPosition = PlayerChar->GetPosition() - ControlledEnemy->GetPosition();
         float Size = std::abs(DeltaPosition.Size());
         if (Size < PullRange)
         {
             IsPulled = true;
-            Target = &PlayerChar.get();
+            Target = PlayerChar.get();
             ControlledEnemy->SetSpeed(275.f);
         }
     }

@@ -55,7 +55,7 @@ void World::DrawDebug()
 
 void World::RemoveActor(Actor* ActorToRemove)
 {
-	std::erase_if(InstancedActors, [&](std::unique_ptr<Actor>& InstancedActorPtr)
+	std::erase_if(InstancedActors, [&](std::shared_ptr<Actor>& InstancedActorPtr)
 		{
 			return InstancedActorPtr.get() == ActorToRemove;
 		});
@@ -63,7 +63,7 @@ void World::RemoveActor(Actor* ActorToRemove)
 
 void World::RemoveController(Controller* ControllerToRemove)
 {
-	std::erase_if(InstancedControllers, [&](std::unique_ptr<Controller>& InstancedControllerPtr)
+	std::erase_if(InstancedControllers, [&](std::shared_ptr<Controller>& InstancedControllerPtr)
 		{
 			return InstancedControllerPtr.get() == ControllerToRemove;
 		});
