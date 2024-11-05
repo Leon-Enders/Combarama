@@ -47,39 +47,48 @@ void Enemy::Update(float DeltaTime)
 	{
 
 		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, DesiredRotation, ClampedLerpTime);
-		Sword.lock()->SetRotation(EntityTransform.Rotation);
+		
+		if (auto SwordSharedPtr = Sword.lock())
+		{
+			SwordSharedPtr->SetRotation(EntityTransform.Rotation);
+		}
 	}
 	else
 	{
 		// Increment AttackFrameCounter
 		CurrentAttackFrame++;
-
-		// Handle AttackWindow
-		if (ComboramaMath::FIsSame(SwordRotation, DesiredSwordRotation, 0.01f))
+		if (auto SwordSharedPtr = Sword.lock())
 		{
-			CurrentAttackFrame = 0;
-			IsAttacking = false;
+			// Handle AttackWindow
+			if (ComboramaMath::FIsSame(SwordRotation, DesiredSwordRotation, 0.01f))
+			{
+				CurrentAttackFrame = 0;
+				IsAttacking = false;
 
-			// Reset Sword Rotation
-			Sword.lock()->SetRotation(EntityTransform.Rotation);
-			Sword.lock()->GetRenderComponent()->SetRenderActive(false);
-			return;
+				// Reset Sword Rotation
+				SwordSharedPtr->SetRotation(EntityTransform.Rotation);
+				SwordSharedPtr->GetRenderComponent()->SetRenderActive(false);
+				return;
+			}
+
+			float SwordLerpTime = DeltaTime * CurrentAttackFrame * AttackSpeed;
+			float ClampedSwordLerpTime = ComboramaMath::Clamp(SwordLerpTime, SwordLerpTime, 1.f);
+
+			//// Handle Sword Rotation
+			SwordRotation = ComboramaMath::Lerp(SwordRotation, DesiredSwordRotation, ClampedSwordLerpTime);
+			SwordSharedPtr->SetRotation(SwordRotation);
 		}
-
-		float SwordLerpTime = DeltaTime * CurrentAttackFrame * AttackSpeed;
-		float ClampedSwordLerpTime = ComboramaMath::Clamp(SwordLerpTime, SwordLerpTime, 1.f);
-
-		//// Handle Sword Rotation
-		SwordRotation = ComboramaMath::Lerp(SwordRotation, DesiredSwordRotation, ClampedSwordLerpTime);
-		Sword.lock()->SetRotation(SwordRotation);
-
 	}
 }
 
 void Enemy::FixedUpdate(float FixedDeltaTime)
 {
 	Character::FixedUpdate(FixedDeltaTime);
-	Sword.lock()->SetPosition(EntityTransform.Position);
+
+	if (auto SwordSharedPtr = Sword.lock())
+	{
+		SwordSharedPtr->SetPosition(EntityTransform.Position);
+	}
 }
 
 void Enemy::UpdateVelocity(const Vector2& NewVelocity)
@@ -91,12 +100,15 @@ void Enemy::Attack()
 {
 	if (IsAttacking) return;
 
-	DealDamageInCone();
+	if (auto SwordSharedPtr = Sword.lock())
+	{
+		DealDamageInCone();
 
-	Sword.lock()->GetRenderComponent()->SetRenderActive(true);
-	IsAttacking = true;
-	SwordRotation = -1.25f + EntityTransform.Rotation;
-	DesiredSwordRotation = 1.25f + EntityTransform.Rotation;
+		SwordSharedPtr->GetRenderComponent()->SetRenderActive(true);
+		IsAttacking = true;
+		SwordRotation = -1.25f + EntityTransform.Rotation;
+		DesiredSwordRotation = 1.25f + EntityTransform.Rotation;
+	}
 }
 
 void Enemy::DealDamageInCone()
