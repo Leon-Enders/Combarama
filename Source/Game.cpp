@@ -43,9 +43,9 @@ void Game::StartGame()
 	Transform PlayerSpawnTransform;
 	PlayerSpawnTransform.Position = { 840.f,1000.f };
 
-	PlayerCharacter* SpawnedPlayer = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
-	PlayerController* IPlayerController = GameWorld->CreateController<PlayerController>();
-	IPlayerController->PossessCharacter(SpawnedPlayer);
+	auto SpawnedPlayerPtr = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
+	auto PlayerControllerPtr = GameWorld->CreateController<PlayerController>();
+	PlayerControllerPtr->PossessCharacter(std::shared_ptr<PlayerCharacter>(SpawnedPlayerPtr));
 
 
 	AISystem* AISubsystem = GameWorld->GetSubsystem<AISystem>();

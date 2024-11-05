@@ -47,7 +47,7 @@ void Enemy::Update(float DeltaTime)
 	{
 
 		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, DesiredRotation, ClampedLerpTime);
-		Sword->SetRotation(EntityTransform.Rotation);
+		Sword.lock()->SetRotation(EntityTransform.Rotation);
 	}
 	else
 	{
@@ -61,8 +61,8 @@ void Enemy::Update(float DeltaTime)
 			IsAttacking = false;
 
 			// Reset Sword Rotation
-			Sword->SetRotation(EntityTransform.Rotation);
-			Sword->GetRenderComponent()->SetRenderActive(false);
+			Sword.lock()->SetRotation(EntityTransform.Rotation);
+			Sword.lock()->GetRenderComponent()->SetRenderActive(false);
 			return;
 		}
 
@@ -71,7 +71,7 @@ void Enemy::Update(float DeltaTime)
 
 		//// Handle Sword Rotation
 		SwordRotation = ComboramaMath::Lerp(SwordRotation, DesiredSwordRotation, ClampedSwordLerpTime);
-		Sword->SetRotation(SwordRotation);
+		Sword.lock()->SetRotation(SwordRotation);
 
 	}
 }
@@ -79,7 +79,7 @@ void Enemy::Update(float DeltaTime)
 void Enemy::FixedUpdate(float FixedDeltaTime)
 {
 	Character::FixedUpdate(FixedDeltaTime);
-	Sword->SetPosition(EntityTransform.Position);
+	Sword.lock()->SetPosition(EntityTransform.Position);
 }
 
 void Enemy::UpdateVelocity(const Vector2& NewVelocity)
@@ -93,7 +93,7 @@ void Enemy::Attack()
 
 	DealDamageInCone();
 
-	Sword->GetRenderComponent()->SetRenderActive(true);
+	Sword.lock()->GetRenderComponent()->SetRenderActive(true);
 	IsAttacking = true;
 	SwordRotation = -1.25f + EntityTransform.Rotation;
 	DesiredSwordRotation = 1.25f + EntityTransform.Rotation;

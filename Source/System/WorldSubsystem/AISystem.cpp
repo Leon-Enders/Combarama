@@ -36,10 +36,10 @@ void AISystem::SpawnRandomEnemy()
 	Transform RandomSpawnTransform;
 	RandomSpawnTransform.Position = { DistFloatWidth(RandomGenerator) , DistFloatHeight(RandomGenerator) };
 	
-	Enemy* NewEnemy = GetWorld()->SpawnActor<Enemy>(RandomSpawnTransform);
+	auto NewEnemyPtr = GetWorld()->SpawnActor<Enemy>(RandomSpawnTransform);
 	AIController* NewAIController = GetWorld()->CreateController<AIController>();
 
-	NewAIController->PossessCharacter(NewEnemy);
+	NewAIController->PossessCharacter(std::shared_ptr<Enemy>(NewEnemyPtr));
 
 	ActiveAIControllers.push_back(std::ref(*NewAIController));
 }

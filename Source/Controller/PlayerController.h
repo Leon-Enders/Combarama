@@ -13,7 +13,7 @@ public:
 
 	virtual void Update(float DeltaTime) override;
 
-	virtual void PossessCharacter(Character* CharacterToPossess) override;
+	virtual void PossessCharacter(std::shared_ptr<Character> CharacterToPossess) override;
 	virtual void UnPossessCharacter() override;
 
 	//TODO: When implementing cooldowns for "abilities" we need the all controllers to have an update method and be updated by the world or rather by a subsystem?
@@ -51,7 +51,7 @@ private:
 	std::shared_ptr<InputAction> DashAction = nullptr;
 	std::shared_ptr<InputAction> ShootAction = nullptr;
 
-	PlayerCharacter* ControlledPlayerCharacter = nullptr;
+	std::weak_ptr<PlayerCharacter> ControlledPlayerCharacter;
 
 
 

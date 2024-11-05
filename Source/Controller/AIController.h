@@ -11,7 +11,7 @@ public:
 
 	void Update(float DeltaTime);
 
-	virtual void PossessCharacter(Character* CharacterToPossess) override;
+	virtual void PossessCharacter(std::shared_ptr<Character> CharacterToPossess) override;
 
 	virtual void UnPossessCharacter() override;
 
@@ -32,8 +32,8 @@ private:
 
 	Vector2 StartPosition = {};
 
-	Character* Target = nullptr;
-	Enemy* ControlledEnemy = nullptr;
+	std::weak_ptr<Character> Target;
+	std::weak_ptr<Enemy> ControlledEnemy;
 
 
 	int VelocityUpdateCounter = 0;

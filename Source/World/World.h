@@ -50,10 +50,10 @@ public:
 	void DrawDebug();
 
 	template<IsActor T>
-	T* SpawnActor();
+	std::weak_ptr<T> SpawnActor();
 
 	template<IsActor T>
-	T* SpawnActor(const Transform& SpawnTransform);
+	std::weak_ptr<T> SpawnActor(const Transform& SpawnTransform);
 
 	Obstacle* SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor);
 
@@ -88,26 +88,27 @@ private:
 
 
 template<IsActor T>
-inline T* World::SpawnActor()
+inline std::weak_ptr<T> World::SpawnActor()
 {
 	std::shared_ptr<T> NewActor = std::make_shared<T>(this);
-	T* ActorRaw = NewActor.get();
+	std::weak_ptr<T> NewActorWeak = NewActor;
+	
 	AddActorToMap(NewActor);
 	InstancedActors.push_back(std::move(NewActor));
 
-	return ActorRaw;
+	return NewActorWeak;
 }
 
 template<IsActor T>
-inline T* World::SpawnActor(const Transform& SpawnTransform)
+inline std::weak_ptr<T> World::SpawnActor(const Transform& SpawnTransform)
 {
 	std::shared_ptr<T> NewActor = std::make_shared<T>(this, SpawnTransform);
-	T* ActorRaw = NewActor.get();
+	std::weak_ptr<T> NewActorWeak = NewActor;
+	
 	AddActorToMap(NewActor);
 	InstancedActors.push_back(std::move(NewActor));
 	
-
-	return ActorRaw;
+	return NewActorWeak;
 }
 
 template <IsActor T>

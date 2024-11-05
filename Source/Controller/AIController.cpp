@@ -23,32 +23,57 @@ void AIController::Update(float DeltaTime)
    
 }
 
+void AIController::PossessCharacter(std::shared_ptr<Character> CharacterToPossess)
+{
+    ControlledEnemy = std::dynamic_pointer_cast<Enemy>(CharacterToPossess);
+
+
+    if (auto SharedEnemyPtr = ControlledEnemy.lock())
+    {
+        SharedEnemyPtr->OnPossessed(this);
+
+        StartPosition = SharedEnemyPtr->GetPosition();
+        SharedEnemyPtr->UpdateVelocity({ 1.f,0.f });
+
+        //Bind Unregistering + (temp) destruction of the controller to the destruction of the possessed character
+        SharedEnemyPtr->OnDestroyDelegate = std::bind(&AIController::UnPossessCharacter, this);
+    }
+}
+
 void AIController::Initialize()
 {   
 }
 
 void AIController::CheckForTarget()
 {
-    if (!ControlledEnemy || IsPulled) return;
+    if (IsPulled) return;
 
-    auto PlayerCharacters = GetWorld()->GetAllActorsOfClass<PlayerCharacter>();
-
-    for (const auto& PlayerChar : PlayerCharacters)
+    if (auto SharedEnemyPtr = ControlledEnemy.lock())
     {
-        Vector2 DeltaPosition = PlayerChar->GetPosition() - ControlledEnemy->GetPosition();
-        float Size = std::abs(DeltaPosition.Size());
-        if (Size < PullRange)
+        auto PlayerCharacters = GetWorld()->GetAllActorsOfClass<PlayerCharacter>();
+
+        for (const auto& PlayerChar : PlayerCharacters)
         {
-            IsPulled = true;
-            Target = PlayerChar.get();
-            ControlledEnemy->SetSpeed(275.f);
+            Vector2 DeltaPosition = PlayerChar->GetPosition() - SharedEnemyPtr->GetPosition();
+            float Size = std::abs(DeltaPosition.Size());
+            if (Size < PullRange)
+            {
+                IsPulled = true;
+                Target = PlayerChar;
+                SharedEnemyPtr->SetSpeed(275.f);
+            }
         }
     }
+
+   
 }
 
 void AIController::HandleAttackFrequency()
 {
-    if (Target && ControlledEnemy)
+    if (Target.expired()) return;
+
+
+    if (auto SharedEnemyPtr = ControlledEnemy.lock())
     {
         if (AttackTimer > 0)
         {
@@ -56,35 +81,17 @@ void AIController::HandleAttackFrequency()
         }
         else
         {
-            ControlledEnemy->Attack();
+            SharedEnemyPtr->Attack();
             AttackTimer = AttackResetTimer;
         }
     }
-}
-
-void AIController::PossessCharacter(Character* CharacterToPossess)
-{
-    Enemy* EnemyToPossess = static_cast<Enemy*>(CharacterToPossess);
-
-    if (EnemyToPossess)
-    {
-        ControlledEnemy = EnemyToPossess;
-        ControlledEnemy->OnPossessed(this);
-    }
-
-    StartPosition = ControlledEnemy->GetPosition();
-    ControlledEnemy->UpdateVelocity({ 1.f,0.f });
-
-
-    //Bind Unregistering + (temp) destruction of the controller to the destruction of the possessed character
-    ControlledEnemy->OnDestroyDelegate = std::bind(&AIController::UnPossessCharacter, this);
 }
 
 void AIController::UnPossessCharacter()
 {
     //Unregister from the subsystem
     GetWorld()->GetSubsystem<AISystem>()->RemoveAIController(*this);
-    ControlledEnemy = nullptr;
+    ControlledEnemy.reset();
 
     //Temp solution: Remove from The world
     GetWorld()->RemoveController(this);
@@ -92,35 +99,35 @@ void AIController::UnPossessCharacter()
 
 void AIController::MoveEnemy()
 {
-    if (!ControlledEnemy) return;
-
-
-    if (Target)
+    if (auto SharedEnemyPtr = ControlledEnemy.lock())
     {
-        Vector2 DeltaPosition = Target->GetPosition() - ControlledEnemy->GetPosition();
-        Vector2 TargetDirection = DeltaPosition.Normalize();
-
-        float LookAtRotation = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
-
-        ControlledEnemy->DesiredRotation = LookAtRotation;
-        ControlledEnemy->UpdateVelocity(TargetDirection);
-    }
-    else
-    {
-
-        VelocityUpdateCounter++;
-
-        if (VelocityUpdateCounter > VelocityMaxUpdateCounter)
+        if (auto SharedTargetPtr = Target.lock())
         {
-            VelocityUpdateCounter = 0;
+            Vector2 DeltaPosition = SharedTargetPtr->GetPosition() - SharedEnemyPtr->GetPosition();
+            Vector2 TargetDirection = DeltaPosition.Normalize();
 
-            std::uniform_real_distribution<float> DistFloatWidth(-1.f, 1.f);
-            std::uniform_real_distribution<float> DistFloatHeight(-1.f, 1.f);
+            float LookAtRotation = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
+
+            SharedEnemyPtr->DesiredRotation = LookAtRotation;
+            SharedEnemyPtr->UpdateVelocity(TargetDirection);
+        }
+        else
+        {
+
+            VelocityUpdateCounter++;
+
+            if (VelocityUpdateCounter > VelocityMaxUpdateCounter)
+            {
+                VelocityUpdateCounter = 0;
+
+                std::uniform_real_distribution<float> DistFloatWidth(-1.f, 1.f);
+                std::uniform_real_distribution<float> DistFloatHeight(-1.f, 1.f);
 
 
-            Vector2 NewVelocity = { DistFloatWidth(RandomGenerator::GetRandomEngine()) , DistFloatHeight(RandomGenerator::GetRandomEngine()) };
+                Vector2 NewVelocity = { DistFloatWidth(RandomGenerator::GetRandomEngine()) , DistFloatHeight(RandomGenerator::GetRandomEngine()) };
 
-            ControlledEnemy->UpdateVelocity(NewVelocity);
+                SharedEnemyPtr->UpdateVelocity(NewVelocity);
+            }
         }
     }
 }

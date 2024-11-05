@@ -49,7 +49,7 @@ protected:
 
 	bool IsAttacking = false;
 
-	Weapon* Sword = nullptr;
+	std::weak_ptr<Weapon> Sword;
 
 
 

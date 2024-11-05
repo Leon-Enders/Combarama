@@ -41,5 +41,5 @@ private:
 	int AttackResetCounter = 60;
 
 	bool IsAttacking = false;
-	Weapon* Sword = nullptr;
+	std::weak_ptr<Weapon> Sword;
 };

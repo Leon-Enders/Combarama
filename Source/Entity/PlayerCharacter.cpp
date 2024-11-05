@@ -78,7 +78,7 @@ void PlayerCharacter::Update(float DeltaTime)
 	{
 
 		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, DesiredRotation, ClampedLerpTime);
-		Sword->SetRotation(EntityTransform.Rotation);
+		Sword.lock()->SetRotation(EntityTransform.Rotation);
 	}
 	else
 	{
@@ -92,8 +92,8 @@ void PlayerCharacter::Update(float DeltaTime)
 			IsAttacking = false;
 
 			// Reset Sword Rotation
-			Sword->SetRotation(EntityTransform.Rotation);
-			Sword->GetRenderComponent()->SetRenderActive(false);
+			Sword.lock()->SetRotation(EntityTransform.Rotation);
+			Sword.lock()->GetRenderComponent()->SetRenderActive(false);
 			return;
 		}
 		
@@ -102,7 +102,7 @@ void PlayerCharacter::Update(float DeltaTime)
 
 		//// Handle Sword Rotation
 		SwordRotation = ComboramaMath::Lerp(SwordRotation, DesiredSwordRotation, ClampedSwordLerpTime);
-		Sword->SetRotation(SwordRotation);
+		Sword.lock()->SetRotation(SwordRotation);
 		
 	}
 }
@@ -124,7 +124,7 @@ void PlayerCharacter::Attack()
 	
 	DealDamageInCone();
 
-	Sword->GetRenderComponent()->SetRenderActive(true);
+	Sword.lock()->GetRenderComponent()->SetRenderActive(true);
 	IsAttacking = true;
 	SwordRotation = -1.25f + EntityTransform.Rotation;
 	DesiredSwordRotation = 1.25f + EntityTransform.Rotation;
@@ -142,12 +142,12 @@ void PlayerCharacter::Dash()
 
 void PlayerCharacter::Shoot()
 {
-	Actor* SpawnedProjectile = GetWorld()->SpawnActor<Projectile>(EntityTransform);
+	auto SpawnedProjectilePtr = GetWorld()->SpawnActor<Projectile>(EntityTransform);
 
 	// tell the projectile who spawned it
-	if (SpawnedProjectile)
+	if (auto SharedProjectilePtr = SpawnedProjectilePtr.lock())
 	{
-		SpawnedProjectile->SetInstigator(this);
+		SharedProjectilePtr->SetInstigator(this);
 	}
 }
 
@@ -173,7 +173,7 @@ void PlayerCharacter::UpdatePosition(float DeltaTime)
 
 	//Update the Sword Position with the owning Players Position
 	//TODO: Create a system in which you can attach actors to actors, so you dont have to manual update the transform
-	Sword->SetPosition(EntityTransform.Position);
+	Sword.lock()->SetPosition(EntityTransform.Position);
 }
 
 void PlayerCharacter::UpdateRotation()

@@ -65,33 +65,49 @@ void PlayerController::Initialize()
 	ControllerInputComponent->SetInputActionContext(ActionContext.get());
 }
 
-void PlayerController::PossessCharacter(Character* CharacterToPossess)
+void PlayerController::PossessCharacter(std::shared_ptr<Character> CharacterToPossess)
 {
-	ControlledPlayerCharacter = static_cast<PlayerCharacter*>(CharacterToPossess);
-	ControlledPlayerCharacter->OnPossessed(this);
-	ControlledPlayerCharacter->OnDeathSignature.AddMemberFunction<PlayerController>(this, &PlayerController::OnCharacterDeath);
-	ControlledPlayerCharacter->OnDeathSignature.AddMemberFunction<PlayerController>(this, &PlayerController::OhNoCharacterdied);
+
+	ControlledPlayerCharacter = std::dynamic_pointer_cast<PlayerCharacter>(CharacterToPossess);
+	if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+	{
+		SharedPlayerPtr->OnPossessed(this);
+		SharedPlayerPtr->OnDeathSignature.AddMemberFunction<PlayerController>(this, &PlayerController::OnCharacterDeath);
+		SharedPlayerPtr->OnDeathSignature.AddMemberFunction<PlayerController>(this, &PlayerController::OhNoCharacterdied);
+
+	}
 }
 
 void PlayerController::UnPossessCharacter()
 {
-	ControlledPlayerCharacter = nullptr;
+	ControlledPlayerCharacter.reset();
 }
 
 void PlayerController::Move(const InputActionValue& Value)
 {
-	ControlledPlayerCharacter->UpdateVelocity(Value.Get<Vector2>());
+	if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+	{
+		SharedPlayerPtr->UpdateVelocity(Value.Get<Vector2>());
+	}
+	
 }
 
 void PlayerController::Look(const InputActionValue& Value)
 {
 	Vector2 TargetMousePosition = Value.Get<Vector2>();
-	ControlledPlayerCharacter->ReceiveMouseInput(TargetMousePosition);
+	if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+	{
+		SharedPlayerPtr->ReceiveMouseInput(TargetMousePosition);
+	}
 }
 
 void PlayerController::Attack(const InputActionValue& Value)
 {
-	ControlledPlayerCharacter->Attack();
+	if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+	{
+		SharedPlayerPtr->Attack();
+	}
+	
 }
 
 void PlayerController::Dash(const InputActionValue& Value)
@@ -99,9 +115,11 @@ void PlayerController::Dash(const InputActionValue& Value)
 	if (!DashCooldownActive)
 	{
 		DashCooldownActive = true;
-		ControlledPlayerCharacter->Dash();
+		if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+		{
+			SharedPlayerPtr->Dash();
+		}
 	}
-	
 }
 
 void PlayerController::Shoot(const InputActionValue& Value)
@@ -109,7 +127,11 @@ void PlayerController::Shoot(const InputActionValue& Value)
 	if (!ShootCooldownActive)
 	{
 		ShootCooldownActive = true;
-		ControlledPlayerCharacter->Shoot();
+
+		if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+		{
+			SharedPlayerPtr->Shoot();
+		}
 	}
 }
 

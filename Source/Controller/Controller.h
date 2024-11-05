@@ -1,5 +1,5 @@
 #pragma once
-
+#include <memory>
 
 
 struct Vector2;
@@ -16,7 +16,7 @@ public:
 	virtual void Update(float DeltaTime);
 
 
-	virtual void PossessCharacter(Character* CharacterToPossess);
+	virtual void PossessCharacter(std::shared_ptr<Character> CharacterToPossess);
 	virtual void UnPossessCharacter();
 	
 
@@ -24,7 +24,7 @@ protected:
 	virtual void Initialize();
 	World* GetWorld()const{ return OwningWorld; }
 
-	Character* ControlledCharacter = nullptr;
+	std::weak_ptr<Character> ControlledCharacter;
 
 private:
 	World* OwningWorld;
