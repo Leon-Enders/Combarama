@@ -116,7 +116,7 @@ void PlayerController::Shoot(const InputActionValue& Value)
 void PlayerController::OnCharacterDeath()
 {
 	SDL_Log("Character Died!");
-	GetWorld()->RemoveController(this);
+	//GetWorld()->RemoveController(this);
 }
 
 void PlayerController::OhNoCharacterdied()

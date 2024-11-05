@@ -32,14 +32,13 @@ concept IsSubsystem = std::is_base_of<WorldSubsystem, T>::value;
 
 
 using ActorsVariant = std::variant<
-	std::vector<std::shared_ptr<Actor>>,
-	std::vector<std::shared_ptr<Character>>,
-	std::vector<std::shared_ptr<Enemy>>,
-	std::vector<std::shared_ptr<PlayerCharacter>>,
-	std::vector<std::shared_ptr<Weapon>>,
-	std::vector<std::shared_ptr<Obstacle>>,
-	std::vector<std::shared_ptr<Projectile>>>;
-
+	std::vector<std::weak_ptr<Actor>>,
+	std::vector<std::weak_ptr<Character>>,
+	std::vector<std::weak_ptr<Enemy>>,
+	std::vector<std::weak_ptr<PlayerCharacter>>,
+	std::vector<std::weak_ptr<Weapon>>,
+	std::vector<std::weak_ptr<Obstacle>>,
+	std::vector<std::weak_ptr<Projectile>>>;
 
 class World
 {
@@ -59,7 +58,7 @@ public:
 	Obstacle* SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor);
 
 	template<IsActor T>
-	std::vector<std::shared_ptr<T>>& GetAllActorsOfClass();
+	std::vector<std::shared_ptr<T>> GetAllActorsOfClass();
 
 	template<IsController T>
 	T* CreateController();
@@ -73,7 +72,7 @@ public:
 
 private:
 	template<IsActor T>
-	void AddActorToMap(T* ActorToAdd);
+	void AddActorToMap(std::shared_ptr<T> ActorToAdd);
 
 	void FillSubsystemCollection();
 
@@ -92,54 +91,67 @@ template<IsActor T>
 inline T* World::SpawnActor()
 {
 	std::shared_ptr<T> NewActor = std::make_shared<T>(this);
-	T* NewActorRaw = NewActor.get();
+	T* ActorRaw = NewActor.get();
+	AddActorToMap(NewActor);
 	InstancedActors.push_back(std::move(NewActor));
-	AddActorToMap(NewActorRaw);
 
-	return NewActorRaw;
+	return ActorRaw;
 }
 
 template<IsActor T>
 inline T* World::SpawnActor(const Transform& SpawnTransform)
 {
 	std::shared_ptr<T> NewActor = std::make_shared<T>(this, SpawnTransform);
-	T* NewActorRaw = NewActor.get();
+	T* ActorRaw = NewActor.get();
+	AddActorToMap(NewActor);
 	InstancedActors.push_back(std::move(NewActor));
-	AddActorToMap(NewActorRaw);
+	
 
-	return NewActorRaw;
+	return ActorRaw;
 }
 
-template<IsActor T>
-inline std::vector<std::shared_ptr<T>>& World::GetAllActorsOfClass()
+template <IsActor T>
+std::vector<std::shared_ptr<T>> World::GetAllActorsOfClass()
 {
 	std::type_index TypeIndex = std::type_index(typeid(T));
 	auto it = ActorTypeToActorsMap.find(TypeIndex);
 
 	if (it != ActorTypeToActorsMap.end()) {
-		return std::get<std::vector<std::shared_ptr<T>>>(it->second);
+		auto& WeakActorVector = std::get<std::vector<std::weak_ptr<T>>>(it->second);
+
+		std::vector<std::shared_ptr<T>> ValidActors;
+		WeakActorVector.erase(std::remove_if(WeakActorVector.begin(), WeakActorVector.end(),
+			[&ValidActors](const std::weak_ptr<T>& WeakPtr)
+			{
+				if (auto SharedPtr = WeakPtr.lock())
+				{
+					ValidActors.push_back(SharedPtr);
+					return false;
+				}
+				return true; 
+			}), WeakActorVector.end());
+
+		return ValidActors;
 	}
 
-	
-	std::vector<std::shared_ptr<T>> EmptyVector;
-	return EmptyVector;
+	return {};
 }
 
 template<IsActor T>
-inline void World::AddActorToMap(T* ActorToAdd)
+inline void World::AddActorToMap(std::shared_ptr<T> ActorToAdd)
 {
 	std::type_index TypeIndex = std::type_index(typeid(T));
 
 	auto it = ActorTypeToActorsMap.find(TypeIndex);
 	if (it == ActorTypeToActorsMap.end()) 
 	{
-		std::vector<std::shared_ptr<T>> NewVector;
+		std::vector<std::weak_ptr<T>> NewVector;
 		ActorTypeToActorsMap[TypeIndex] = NewVector;
 		it = ActorTypeToActorsMap.find(TypeIndex);
 	}
 
-	auto& ActorVector = std::get<std::vector<std::shared_ptr<T>>>(it->second);
-	ActorVector.emplace_back(ActorToAdd);
+	auto& ActorVector = std::get<std::vector<std::weak_ptr<T>>>(it->second);
+	ActorVector.push_back(ActorToAdd);
 }
 
 
