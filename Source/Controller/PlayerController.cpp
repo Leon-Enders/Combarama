@@ -72,8 +72,8 @@ void PlayerController::PossessCharacter(std::shared_ptr<Character> CharacterToPo
 	if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
 	{
 		SharedPlayerPtr->OnPossessed(this);
-		SharedPlayerPtr->OnDeathSignature.AddMemberFunction<PlayerController>(this, &PlayerController::OnCharacterDeath);
-		SharedPlayerPtr->OnDeathSignature.AddMemberFunction<PlayerController>(this, &PlayerController::OhNoCharacterdied);
+		SharedPlayerPtr->OnDeathSignature.AddMemberFunction<PlayerController>(shared_from_this(), &PlayerController::OnCharacterDeath);
+		SharedPlayerPtr->OnDeathSignature.AddMemberFunction<PlayerController>(shared_from_this(), &PlayerController::OhNoCharacterdied);
 
 	}
 }
@@ -138,7 +138,7 @@ void PlayerController::Shoot(const InputActionValue& Value)
 void PlayerController::OnCharacterDeath()
 {
 	SDL_Log("Character Died!");
-	//GetWorld()->RemoveController(this);
+	GetWorld()->RemoveController(this);
 }
 
 void PlayerController::OhNoCharacterdied()

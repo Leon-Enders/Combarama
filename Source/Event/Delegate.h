@@ -1,5 +1,6 @@
 #pragma once
 #include <functional>
+#include <memory>
 #include <vector>
 #include <algorithm>
 #include <type_traits>
@@ -125,13 +126,17 @@ public:
 
    
     template <typename ObjType>
-    void AddMemberFunction(ObjType* Instance, R(ObjType::* MemberFunction)(T))
+    void AddMemberFunction(std::shared_ptr<ObjType> Instance, R(ObjType::* MemberFunction)(T))
     {
-        BoundFunctions.push_back([=](T arg) { return (Instance->*MemberFunction)(arg); });
+        BoundFunctions.emplace_back([wInstance = std::weak_ptr<ObjType>(Instance), MemberFunction](T arg) -> R {
+            if (auto sInstance = wInstance.lock()) {
+                return (sInstance.get()->*MemberFunction)(arg);
+            }
+            return R(); // Return default if instance is destroyed
+            });
     }
 
-    // Remove function based on function equality
-    void UnSubscribe(const std::function<R(T)>& FunctionToRemove) 
+    void UnSubscribe(const std::function<R(T)>& FunctionToRemove)
     {
         BoundFunctions.erase(std::remove_if(BoundFunctions.begin(), BoundFunctions.end(),
             [&](const std::function<R(T)>& BoundFunction)
@@ -145,10 +150,18 @@ public:
     typename std::enable_if<!std::is_void<Ret>::value, std::vector<Ret>>::type
         Broadcast(T arg) {
         std::vector<Ret> Results;
-        for (const auto& Binding : BoundFunctions)
-        {
-            if (Binding) {
-                Results.push_back(Binding(arg));
+        for (auto it = BoundFunctions.begin(); it != BoundFunctions.end(); ) {
+            try {
+                if (*it) {
+                    Results.push_back((*it)(arg));
+                    ++it;
+                }
+                else {
+                    it = BoundFunctions.erase(it);
+                }
+            }
+            catch (...) {
+                it = BoundFunctions.erase(it);
             }
         }
         return Results;
@@ -157,13 +170,19 @@ public:
     
     template<typename Ret = R>
     typename std::enable_if<std::is_void<Ret>::value, void>::type
-        Broadcast(T arg)
-    {
-        for (const auto& Binding : BoundFunctions)
-        {
-            if (Binding)
-            {
-                Binding(arg);
+        Broadcast(T arg) {
+        for (auto it = BoundFunctions.begin(); it != BoundFunctions.end(); ) {
+            try {
+                if (*it) {
+                    (*it)(arg);
+                    ++it;
+                }
+                else {
+                    it = BoundFunctions.erase(it); // Remove expired functions
+                }
+            }
+            catch (...) {
+                it = BoundFunctions.erase(it); // Handle any failures gracefully
             }
         }
     }
@@ -186,13 +205,20 @@ public:
     }
 
 
+    // Add a member function with a weak reference to the instance
     template <typename ObjType>
-    void AddMemberFunction(ObjType*Instance, R(ObjType::* MemberFunction)()) 
+    void AddMemberFunction(std::shared_ptr<ObjType> Instance, R(ObjType::* MemberFunction)())
     {
-        BoundFunctions.push_back([=]() { return (Instance->*MemberFunction)(); });
+        BoundFunctions.emplace_back([wInstance = std::weak_ptr<ObjType>(Instance), MemberFunction]() -> R {
+            if (auto sInstance = wInstance.lock()) {
+                return (sInstance.get()->*MemberFunction)();
+            }
+            return R(); // Return default if instance is destroyed (for non-void R)
+            });
     }
 
   
+    // Unsubscribe a specific function (using equality)
     void UnSubscribe(const std::function<R()>& FunctionToRemove)
     {
         BoundFunctions.erase(std::remove_if(BoundFunctions.begin(), BoundFunctions.end(),
@@ -203,27 +229,45 @@ public:
     }
 
     
+    // Broadcast for non-void return type, removing expired functions as it goes
     template<typename Ret = R>
     typename std::enable_if<!std::is_void<Ret>::value, std::vector<Ret>>::type
         Broadcast() {
         std::vector<Ret> Results;
-        for (const auto& Binding : BoundFunctions)
-        {
-            if (Binding) {
-                Results.push_back(Binding());
+        for (auto it = BoundFunctions.begin(); it != BoundFunctions.end(); ) {
+            try {
+                if (*it) {
+                    Results.push_back((*it)());
+                    ++it;
+                }
+                else {
+                    it = BoundFunctions.erase(it); // Remove expired functions
+                }
+            }
+            catch (...) {
+                it = BoundFunctions.erase(it); // Handle any failures gracefully
             }
         }
         return Results;
     }
 
    
+    // Broadcast for void return type, removing expired functions as it goes
     template<typename Ret = R>
     typename std::enable_if<std::is_void<Ret>::value, void>::type
         Broadcast() {
-        for (const auto& Binding : BoundFunctions)
-        {
-            if (Binding) {
-                Binding();
+        for (auto it = BoundFunctions.begin(); it != BoundFunctions.end(); ) {
+            try {
+                if (*it) {
+                    (*it)();
+                    ++it;
+                }
+                else {
+                    it = BoundFunctions.erase(it); // Remove expired functions
+                }
+            }
+            catch (...) {
+                it = BoundFunctions.erase(it); // Handle any failures gracefully
             }
         }
     }

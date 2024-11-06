@@ -6,7 +6,7 @@
 
 class PlayerCharacter;
 
-class PlayerController : public Controller
+class PlayerController : public Controller, public std::enable_shared_from_this<PlayerController>
 {
 public:
 	PlayerController(World* InOwningWorld);

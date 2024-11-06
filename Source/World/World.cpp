@@ -25,12 +25,18 @@ void World::Update(float DeltaTime)
 
 	for (auto& InstancedActor : InstancedActors)
 	{
-		InstancedActor->Update(DeltaTime);
+		if (InstancedActor)
+		{
+			InstancedActor->Update(DeltaTime);
+		}
 	}
 
 	for (auto& InstancedController : InstancedControllers)
 	{
-		InstancedController->Update(DeltaTime);
+		if (InstancedController)
+		{
+			InstancedController->Update(DeltaTime);
+		}
 	}
 }
 
@@ -49,7 +55,10 @@ void World::DrawDebug()
 {
 	for (auto& InstancedActor : InstancedActors)
 	{
-		InstancedActor->DrawDebug();
+		if (InstancedActor)
+		{
+			InstancedActor->DrawDebug();
+		}
 	}
 }
 

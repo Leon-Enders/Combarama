@@ -7,7 +7,7 @@ class Character;
 class World;
 
 
-class Controller
+class Controller 
 {
 public:
 	
