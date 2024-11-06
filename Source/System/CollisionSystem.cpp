@@ -46,6 +46,9 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 		}
 	}
 
+	//TODO: Here memory errors can happen, when the handle collision event triggers something and some actor is destroyed,
+	// the collider attached to it may also be destroyed
+	// this can break this range base for loop
 	for (auto& Event : CollisionEvents)
 	{
 		Event.ActiveCollider.HandleCollision(Event.OtherCollider, Event.Intersection);
@@ -77,6 +80,7 @@ void CollisionSystem::RemoveCollider(Collider& ColliderToRemove)
 std::vector<Collider> CollisionSystem::GetColliderInCone(Actor* Instigator, const Vector2& Direction, float Height, float Angle)
 {
 
+	//TODO: Filter for character here with GetAllCharacters from World since Obstacles,Projectiles etc. dont need to be iterated
 	std::vector<Collider> OverlappedColliders;
 
 	for (const auto& ActiveCollider : ActiveColliders)
