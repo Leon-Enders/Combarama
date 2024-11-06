@@ -7,7 +7,8 @@
 #include <type_traits>
 
 
-
+// Each Delegate class has an option to bind an anonymous function,
+// when doing so the function has to be manually undbound
 template<typename R, typename T>
 class Delegate
 {
@@ -15,7 +16,7 @@ public:
     ~Delegate() {}
 
     
-    void Bind(const std::function<R(T)>& FunctionToBind)
+    void BindFunction(const std::function<R(T)>& FunctionToBind)
     {
         BoundFunction = FunctionToBind;
     }
@@ -36,7 +37,7 @@ public:
     }
 
     
-    void Remove()
+    void Clear()
     {
         BoundFunction = std::function<R(T)>();
     }
@@ -100,7 +101,7 @@ public:
     ~Delegate() {}
 
     
-    void Bind(const std::function<R()>& FunctionToBind)
+    void BindFunction(const std::function<R()>& FunctionToBind)
     {
         BoundFunction = FunctionToBind;
     }
@@ -121,7 +122,7 @@ public:
     }
 
    
-    void Remove()
+    void Clear()
     {
         BoundFunction = std::function<R()>(); 
     }
@@ -300,11 +301,11 @@ public:
    
     void UnSubscribe(const std::function<R()>& FunctionToRemove)
     {
-        BoundFunctions.erase(std::remove_if(BoundFunctions.begin(), BoundFunctions.end(),
+        std::erase_if(BoundFunctions,
             [&](const std::function<R()>& BoundFunction)
             {
                 return BoundFunction.target_type() == FunctionToRemove.target_type();
-            }), BoundFunctions.end());
+            });
     }
 
     
