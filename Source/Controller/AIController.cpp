@@ -89,8 +89,6 @@ void AIController::HandleAttackFrequency()
 
 void AIController::UnPossessCharacter()
 {
-    //Unregister from the subsystem
-    GetWorld()->GetSubsystem<AISystem>()->RemoveAIController(*this);
     ControlledEnemy.reset();
 
     //Temp solution: Remove from The world

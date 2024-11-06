@@ -20,9 +20,17 @@ void AISystem::Initialize()
 
 void AISystem::Update(float DeltaTime)
 {
-	for (auto& ActiveAIController : ActiveAIControllers)
+	for (auto it = ActiveAIControllers.begin(); it != ActiveAIControllers.end(); )
 	{
-		ActiveAIController.get().Update(DeltaTime);
+		if (auto AIControllerSharedPtr = it->lock())
+		{
+			AIControllerSharedPtr->Update(DeltaTime);
+			++it;
+		}
+		else
+		{
+			it = ActiveAIControllers.erase(it);
+		}
 	}
 }
 
@@ -37,17 +45,9 @@ void AISystem::SpawnRandomEnemy()
 	RandomSpawnTransform.Position = { DistFloatWidth(RandomGenerator) , DistFloatHeight(RandomGenerator) };
 	
 	auto NewEnemyPtr = GetWorld()->SpawnActor<Enemy>(RandomSpawnTransform);
-	AIController* NewAIController = GetWorld()->CreateController<AIController>();
+	std::weak_ptr<AIController> NewAIController = GetWorld()->CreateController<AIController>();
 
-	NewAIController->PossessCharacter(std::shared_ptr<Enemy>(NewEnemyPtr));
+	NewAIController.lock()->PossessCharacter(std::shared_ptr<Enemy>(NewEnemyPtr));
 
-	ActiveAIControllers.push_back(std::ref(*NewAIController));
-}
-
-void AISystem::RemoveAIController(AIController& ControllerToRemove)
-{
-	std::erase_if(ActiveAIControllers, [&](std::reference_wrapper<AIController> ActiveAIController)
-		{
-			return &ActiveAIController.get() == &ControllerToRemove;
-		});
+	ActiveAIControllers.push_back(NewAIController);
 }

@@ -61,7 +61,7 @@ public:
 	std::vector<std::shared_ptr<T>> GetAllActorsOfClass();
 
 	template<IsController T>
-	T* CreateController();
+	std::weak_ptr<T> CreateController();
 
 	template<IsSubsystem T>
 	T* GetSubsystem();
@@ -158,15 +158,15 @@ inline void World::AddActorToMap(std::shared_ptr<T> ActorToAdd)
 
 
 template<IsController T>
-inline T* World::CreateController()
+inline std::weak_ptr<T> World::CreateController()
 {
 	std::shared_ptr<T> NewController = std::make_shared<T>(this);
 
-	T* NewControllerRaw = NewController.get();
+	std::weak_ptr<T> NewControllerWeakPtr = NewController;
 
 	InstancedControllers.push_back(std::move(NewController));
 
-	return NewControllerRaw;
+	return NewControllerWeakPtr;
 }
 
 template<IsSubsystem T>

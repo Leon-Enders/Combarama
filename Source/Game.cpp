@@ -45,7 +45,7 @@ void Game::StartGame()
 
 	auto SpawnedPlayerPtr = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
 	auto PlayerControllerPtr = GameWorld->CreateController<PlayerController>();
-	PlayerControllerPtr->PossessCharacter(std::shared_ptr<PlayerCharacter>(SpawnedPlayerPtr));
+	PlayerControllerPtr.lock()->PossessCharacter(std::shared_ptr<PlayerCharacter>(SpawnedPlayerPtr));
 
 
 	AISystem* AISubsystem = GameWorld->GetSubsystem<AISystem>();
