@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <functional>
+#include <memory>
 
 class Collider;
 class Actor;
@@ -16,7 +16,7 @@ public:
 	void Update(float FixedDeltaTime);
 	void Draw(SDL_Renderer* GameRenderer);
 
-	void AddCollider(Collider& ColliderToAdd);
+	void AddCollider(std::shared_ptr<Collider> ColliderToAdd);
 	void RemoveCollider(Collider& ColliderToRemove);
 
 
@@ -26,6 +26,6 @@ public:
 private:
 
 
-	std::vector<std::reference_wrapper<Collider>> ActiveColliders;
+	std::vector<std::weak_ptr<Collider>> ActiveColliders;
 	static CollisionSystem Instance;
 };

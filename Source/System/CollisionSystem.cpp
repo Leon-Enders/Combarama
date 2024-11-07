@@ -8,8 +8,8 @@
 
 struct CollisionEventInfo 
 {
-	Collider& ActiveCollider;
-	const Collider& OtherCollider;
+	std::weak_ptr<Collider> wActiveCollider;
+	std::weak_ptr<Collider> wOtherCollider;
 	const SDL_FRect Intersection;
 };
 
@@ -19,9 +19,16 @@ CollisionSystem CollisionSystem::Instance;
 
 void CollisionSystem::Update(float FixedDeltaTime)
 {
-	for (const auto& ActiveCollider : ActiveColliders)
+	for (auto it = ActiveColliders.begin();it != ActiveColliders.end();)
 	{
-		ActiveCollider.get().FixedUpdate(FixedDeltaTime);
+		if (auto sActiveCollider = it->lock())
+		{
+			sActiveCollider->FixedUpdate(FixedDeltaTime);
+		}
+		else
+		{
+			it = ActiveColliders.erase(it);
+		}
 	}
 	CheckForPossibleCollisions(FixedDeltaTime);
 
@@ -35,15 +42,22 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 
 	for (const auto& ActiveCollider : ActiveColliders)
 	{
-		for (const auto& OtherCollider : ActiveColliders)
+		if (auto sActiveCollider = ActiveCollider.lock())
 		{
-			if (&ActiveCollider == &OtherCollider) continue;
-
-			if (SDL_GetRectIntersectionFloat(&ActiveCollider.get().GetColliderBox(), &OtherCollider.get().GetColliderBox(), &Intersection))
+			for (const auto& OtherCollider : ActiveColliders)
 			{
-				CollisionEvents.push_back({ ActiveCollider.get() ,OtherCollider.get(), Intersection });
+				if (auto sOtherCollider = OtherCollider.lock())
+				{
+					if (sActiveCollider == sOtherCollider) continue;
+
+					if (SDL_GetRectIntersectionFloat(&sActiveCollider->GetColliderBox(), &sOtherCollider->GetColliderBox(), &Intersection))
+					{
+						CollisionEvents.push_back({ ActiveCollider ,OtherCollider, Intersection });
+					}
+				}
 			}
 		}
+		
 	}
 
 	//TODO: Here memory errors can happen, when the handle collision event triggers something and some actor is destroyed,
@@ -51,22 +65,38 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 	// this can break this range base for loop
 	for (auto& Event : CollisionEvents)
 	{
-		Event.ActiveCollider.HandleCollision(Event.OtherCollider, Event.Intersection);
+		if (auto sActiveCollider = Event.wActiveCollider.lock())
+		{
+			if (auto sOtherCollider = Event.wOtherCollider.lock())
+			{
+				sActiveCollider->HandleCollision(sOtherCollider, Event.Intersection);
+			}
+		}
 	}
 }
 
 void CollisionSystem::Draw(SDL_Renderer* GameRenderer)
 {
 	SDL_SetRenderDrawColor(GameRenderer, 255, 0, 0, 255);
-	for (const auto& ActiveCollider : ActiveColliders)
+
+
+	for (auto it = ActiveColliders.begin();it != ActiveColliders.end();)
 	{
-		ActiveCollider.get().Draw(GameRenderer);
+		if (auto sActiveCollider = it->lock())
+		{
+			sActiveCollider->Draw(GameRenderer);
+		}
+		else
+		{
+			it = ActiveColliders.erase(it);
+		}
 	}
 }
 
-void CollisionSystem::AddCollider(Collider& ColliderToAdd)
+
+void CollisionSystem::AddCollider(std::shared_ptr<Collider> ColliderToAdd)
 {
-	ActiveColliders.push_back(std::ref(ColliderToAdd));
+	ActiveColliders.push_back(ColliderToAdd);
 }
 
 void CollisionSystem::RemoveCollider(Collider& ColliderToRemove)

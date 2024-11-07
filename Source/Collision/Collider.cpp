@@ -19,7 +19,7 @@ Collider::Collider(Actor* InOwningActor, float InWidth, float InHeight)
 	ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
 	ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
 
-	CollisionSystem::Get().AddCollider(*this);
+	CollisionSystem::Get().AddCollider(shared_from_this());
 }
 
 Collider::~Collider()
@@ -48,7 +48,7 @@ void Collider::OnCollisionExit(const Collider& Other)
 	OnCollisionExitDelegate(Other);
 }
 
-void Collider::HandleCollision(const Collider& Other,const SDL_FRect& Intersection)
+void Collider::HandleCollision(std::shared_ptr<Collider> Other,const SDL_FRect& Intersection)
 {
 	//TODO Refactor for better performance
 	//TODO: Check cast and return of not character, can ignore B velocity if object is static
@@ -58,12 +58,12 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& Intersecti
 	float OverlapX = Intersection.w;
 	float OverlapY = Intersection.h;
 
-	SDL_FRect OtherBoxCollider = Other.GetColliderBox();
+	SDL_FRect OtherBoxCollider = Other->GetColliderBox();
 
 	if (Character* CharacterA = dynamic_cast<Character*>(OwningActor))
 	{
 		//Check if the other collider is attached to a projectile if so just return;
-		if (Projectile* ProjectileB = dynamic_cast<Projectile*>(Other.GetOwningActor()))
+		if (Projectile* ProjectileB = dynamic_cast<Projectile*>(Other->GetOwningActor()))
 		{
 			return;
 		}
@@ -71,7 +71,7 @@ void Collider::HandleCollision(const Collider& Other,const SDL_FRect& Intersecti
 		Vector2 CorrectedPosition = CharacterA->GetPosition();
 		Vector2 VelocityA = CharacterA->GetVelocity();
 
-		if (Character* CharacterB = dynamic_cast<Character*>(Other.OwningActor))
+		if (Character* CharacterB = dynamic_cast<Character*>(Other->OwningActor))
 		{
 			Vector2 VelocityB = CharacterB->GetVelocity();
 

@@ -8,7 +8,7 @@ struct SDL_Renderer;
 class Actor;
 
 
-class Collider
+class Collider : public std::enable_shared_from_this<Collider>
 {
 public:
 	Collider(Actor* InOwningActor,float InWidth, float InHeight);
@@ -18,7 +18,7 @@ public:
 	void Draw(SDL_Renderer* Renderer);
 
 
-	void HandleCollision(const Collider& Other, const SDL_FRect& Intersection);
+	void HandleCollision(std::shared_ptr<Collider> Other, const SDL_FRect& Intersection);
 	
 
 	Vector2 GetPosition()const { return { ColliderBox.x, ColliderBox.y }; }
@@ -30,7 +30,7 @@ public:
 
 	Actor* GetOwningActor()const { return OwningActor; }
 public:
-	Delegate<void,const Collider&> OnCollisionEntererDelegate;
+	Delegate<void,std::weak_ptr<Collider>> OnCollisionEntererDelegate;
 	std::function<void(const Collider&)> OnCollisionEnterDelegate;
 	std::function<void(const Collider&)> OnCollisionExitDelegate;
 	std::function<void(const Vector2&)> OnBlockDelegate;

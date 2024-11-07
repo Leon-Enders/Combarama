@@ -9,7 +9,7 @@
 
 
 //TODO: Create overload for OwningController for PlayerController
-class Character : public Actor
+class Character : public Actor , public std::enable_shared_from_this<Character>
 {
 public:
 	Character(World* GameWorld);
@@ -37,7 +37,7 @@ protected:
 	virtual void UpdateRotation();
 
 	//Collision
-	virtual void OnCollisionEnter(const Collider& Other);
+	virtual void OnCollisionEnter(std::weak_ptr<Collider> Other);
 	virtual void OnCollisionExit(const Collider& Other);
 
 protected:
