@@ -9,21 +9,24 @@
 #include "../Utility/DrawDebugHelpers.h"
 #include "../System/CollisionSystem.h"
 
-PlayerCharacter::PlayerCharacter(World* GameWorld)
-	:
-	Character(GameWorld)
-{
-	Initialize();
-}
 
 //TODO: Refactor Attack functionality and Sword Transform handling
 PlayerCharacter::PlayerCharacter(World* GameWorld, const Transform& InTransform)
 	:
 	Character(GameWorld, InTransform)
 {
-	Sword = GetWorld()->SpawnActor<Weapon>();
+	Sword = GetWorld()->SpawnActor<Weapon>(InTransform);
+}
 
-	Initialize();
+
+void PlayerCharacter::Initialize()
+{
+	Character::Initialize();
+
+	HeadColor = COLOR_LIGHTBLUE;
+	BodyColor = COLOR_BLUE;
+
+	Avatar::SetColor(BodyColor, HeadColor, CharacterRenderComponent.get());
 }
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
@@ -41,18 +44,9 @@ void PlayerCharacter::ReceiveMouseInput(const Vector2& TargetPosition)
 	float AngleInRad = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
 	
 	
-
 	DesiredRotation = AngleInRad;
-	
 }
 
-void PlayerCharacter::Initialize()
-{
-	HeadColor = COLOR_LIGHTBLUE;
-	BodyColor = COLOR_BLUE;
-
-	Avatar::SetColor(BodyColor, HeadColor, CharacterRenderComponent.get());
-}
 
 void PlayerCharacter::Update(float DeltaTime)
 {

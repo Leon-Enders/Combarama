@@ -3,12 +3,6 @@
 #include "SDL3/SDL_log.h"
 #include "../Utility/ColorHelper.h"
 
-Character::Character(World* GameWorld)
-	:
-	Actor(GameWorld)
-{
-}
-
 Character::Character(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld,InTransform)

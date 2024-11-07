@@ -85,25 +85,16 @@ private:
 	std::vector<std::shared_ptr<Controller>> InstancedControllers;
 };
 
-
-
-template<IsActor T>
-inline std::weak_ptr<T> World::SpawnActor()
-{
-	std::shared_ptr<T> NewActor = std::make_shared<T>(this);
-	std::weak_ptr<T> NewActorWeak = NewActor;
-	
-	AddActorToMap(NewActor);
-	InstancedActors.push_back(std::move(NewActor));
-
-	return NewActorWeak;
-}
-
 template<IsActor T>
 inline std::weak_ptr<T> World::SpawnActor(const Transform& SpawnTransform)
 {
 	std::shared_ptr<T> NewActor = std::make_shared<T>(this, SpawnTransform);
 	std::weak_ptr<T> NewActorWeak = NewActor;
+
+	//Small hack to initialize Actor
+	Actor* InitializationPtr = static_cast<Actor*>(NewActor.get());
+	InitializationPtr->Initialize();
+	
 	
 	AddActorToMap(NewActor);
 	InstancedActors.push_back(std::move(NewActor));

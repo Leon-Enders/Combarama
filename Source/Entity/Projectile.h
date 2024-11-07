@@ -9,7 +9,6 @@
 class Projectile : public Actor
 {
 public:
-	Projectile(World* GameWorld);
 	Projectile(World* GameWorld, const Transform& InTransform);
 	virtual ~Projectile()= default;
 

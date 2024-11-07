@@ -3,24 +3,6 @@
 #include "../Utility/PrimitiveHelpers.h"
 #include "../Utility/ColorHelper.h"
 
-Projectile::Projectile(World* GameWorld)
-	:
-	Actor(GameWorld)
-{
-
-	using namespace std::placeholders;
-	std::vector<SDL_Vertex> CircleTriangles;
-
-	Circle NewCircle = Circle(ProjectileSize);
-
-	NewCircle.GetVerts(CircleTriangles);
-
-
-	ProjectileRenderComponent = std::make_unique<RenderComponent>(*this, std::move(CircleTriangles));
-	ProjectileCollider = std::make_unique<Collider>(this, ProjectileSize * 2.f, ProjectileSize * 2.f);
-	ProjectileCollider->OnCollisionEnterDelegate = std::bind(&Projectile::OnCollisionEnter, this, _1);
-	Initialize();
-}
 
 Projectile::Projectile(World* GameWorld, const Transform& InTransform)
 	:

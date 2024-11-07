@@ -8,24 +8,17 @@
 #include "../System/CollisionSystem.h"
 
 
-Enemy::Enemy(World* GameWorld)
-	:
-	Character(GameWorld)
-{
-	Sword = GetWorld()->SpawnActor<Weapon>();
-	Initialize();
-}
-
 Enemy::Enemy(World* GameWorld, const Transform& InTransform)
 	:
 	Character(GameWorld, InTransform)
 {
-	Sword = GetWorld()->SpawnActor<Weapon>();
-	Initialize();
+	Sword = GetWorld()->SpawnActor<Weapon>(InTransform);
 }
 
 void Enemy::Initialize()
 {
+	Character::Initialize();
+
 	Speed = 125.f;
 
 	HeadColor = COLOR_LIGHTYELLOW;

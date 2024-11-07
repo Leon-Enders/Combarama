@@ -8,7 +8,6 @@ class Actor
 {
 
 public:
-	Actor(World* GameWorld);
 	Actor(World* GameWorld,const Transform& InTransform);
 	virtual ~Actor() = default;
 

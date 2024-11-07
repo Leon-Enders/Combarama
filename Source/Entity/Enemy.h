@@ -7,7 +7,6 @@ class Weapon;
 class Enemy : public Character
 {
 public:
-	Enemy(World* GameWorld);
 	Enemy(World* GameWorld, const Transform& InTransform);
 	virtual ~Enemy() = default;
 
