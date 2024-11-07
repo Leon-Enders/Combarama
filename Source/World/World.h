@@ -50,12 +50,9 @@ public:
 	void DrawDebug();
 
 	template<IsActor T>
-	std::weak_ptr<T> SpawnActor();
-
-	template<IsActor T>
 	std::weak_ptr<T> SpawnActor(const Transform& SpawnTransform);
 
-	Obstacle* SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor);
+	std::weak_ptr<Obstacle> SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor);
 
 	template<IsActor T>
 	std::vector<std::shared_ptr<T>> GetAllActorsOfClass();

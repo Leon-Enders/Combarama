@@ -13,9 +13,11 @@ class Obstacle : public Actor
 public:
 	Obstacle(World* GameWorld, const Transform& InTransform, const Vector2& InRectDimensions, const SDL_FColor& InColor);
 
+	virtual void Initialize() override;
+
 private:
 	
 
-	std::unique_ptr<Collider> BoxCollider;
+	std::shared_ptr<Collider> BoxCollider;
 	std::unique_ptr<RenderComponent> ObstacleRenderComponent;
 };

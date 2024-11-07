@@ -8,8 +8,7 @@ Obstacle::Obstacle(World* GameWorld, const Transform& InTransform, const Vector2
 	:
 	Actor(GameWorld, InTransform)
 {
-	BoxCollider = std::make_unique<Collider>(this, InRectDimensions.X, InRectDimensions.Y);
-	
+	BoxCollider = std::make_shared<Collider>(this, InRectDimensions.X, InRectDimensions.Y);
 
 
 	std::vector<SDL_Vertex> ObstacleTriangles;
@@ -19,4 +18,9 @@ Obstacle::Obstacle(World* GameWorld, const Transform& InTransform, const Vector2
 
 	ObstacleRenderComponent = std::make_unique<RenderComponent>(*this, std::move(ObstacleTriangles));
 	ObstacleRenderComponent->SetColor(InColor);
+}
+
+void Obstacle::Initialize()
+{
+	BoxCollider->Initialize();
 }

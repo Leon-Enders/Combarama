@@ -84,14 +84,18 @@ void World::FillSubsystemCollection()
 }
 
 
-Obstacle* World::SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor)
+std::weak_ptr<Obstacle> World::SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor)
 {
 
 	std::shared_ptr<Obstacle> NewActor = std::make_shared<Obstacle>(this, SpawnTransform, RectDimensions, InColor);
-	Obstacle* ActorRaw = NewActor.get();
+	std::weak_ptr<Obstacle> wNewActor = NewActor;
+
+	NewActor->Initialize();
+
+
 	AddActorToMap(NewActor);
 	InstancedActors.push_back(std::move(NewActor));
 
 
-	return ActorRaw;
+	return wNewActor;
 }

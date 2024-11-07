@@ -21,6 +21,8 @@ Collider::Collider(Actor* InOwningActor, float InWidth, float InHeight)
 
 }
 
+//REMINDER: If no collider behaviour is working for a newly created collider the initialization was probably forgotten
+//TODO: Create a system which automatically calls Initialization for Components
 void Collider::Initialize()
 {
 	CollisionSystem::Get().AddCollider(shared_from_this());
