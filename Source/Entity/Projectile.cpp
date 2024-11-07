@@ -21,6 +21,7 @@ Projectile::Projectile(World* GameWorld, const Transform& InTransform)
 void Projectile::Initialize()
 {
 	ProjectileCollider = std::make_shared<Collider>(shared_from_this(), ProjectileSize * 2.f, ProjectileSize * 2.f);
+	ProjectileCollider->Initialize();
 	ProjectileCollider->OnOverlapBeginDelegate.BindMemberFunction(shared_from_this(), &Projectile::OnOverlapBegin);
 
 	ProjectileRenderComponent->SetColor(COLOR_GREEN);

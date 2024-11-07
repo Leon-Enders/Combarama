@@ -70,10 +70,10 @@ void Collider::HandleCollision(std::shared_ptr<Collider> Other,const SDL_FRect& 
 		{
 			//Check if the other collider is attached to a projectile if so just return;
 			//TODO: What blocks and what not blocks should be defined with CollisionChannels then this code can get removed
-			//if (auto sProjectileB = std::dynamic_pointer_cast<Projectile>(Other->GetOwningActor().lock()))
-			//{
-			//	return;
-			//}
+			if (auto sProjectileB = std::dynamic_pointer_cast<Projectile>(Other->GetOwningActor().lock()))
+			{
+				return;
+			}
 
 			// Cache the Position
 			Vector2 CorrectedPosition = sCharacterA->GetPosition();
