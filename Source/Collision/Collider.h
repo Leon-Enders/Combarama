@@ -1,5 +1,4 @@
 #pragma once
-#include <functional>
 #include "SDL3/SDL_rect.h"
 #include "../Math/Vector2.h"
 #include "../Event/Delegate.h"
@@ -12,8 +11,8 @@ class Collider : public std::enable_shared_from_this<Collider>
 {
 public:
 	Collider(Actor* InOwningActor,float InWidth, float InHeight);
-	~Collider();
 
+	void Initialize();
 	void FixedUpdate(float FixedDeltaTime);
 	void Draw(SDL_Renderer* Renderer);
 

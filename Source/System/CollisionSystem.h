@@ -17,12 +17,10 @@ public:
 	void Draw(SDL_Renderer* GameRenderer);
 
 	void AddCollider(std::shared_ptr<Collider> ColliderToAdd);
-	void RemoveCollider(Collider& ColliderToRemove);
 
 
 	std::vector<Collider> GetColliderInCone(Actor* Instigator, const Vector2& Direction, float Height, float Angle);
 
-	std::vector<Collider> GetOverlapsInSphere(Actor* Instigator, float Radius);
 private:
 
 

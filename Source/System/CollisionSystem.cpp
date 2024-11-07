@@ -24,6 +24,7 @@ void CollisionSystem::Update(float FixedDeltaTime)
 		if (auto sActiveCollider = it->lock())
 		{
 			sActiveCollider->FixedUpdate(FixedDeltaTime);
+			it++;
 		}
 		else
 		{
@@ -85,6 +86,7 @@ void CollisionSystem::Draw(SDL_Renderer* GameRenderer)
 		if (auto sActiveCollider = it->lock())
 		{
 			sActiveCollider->Draw(GameRenderer);
+			it++;
 		}
 		else
 		{
@@ -99,14 +101,6 @@ void CollisionSystem::AddCollider(std::shared_ptr<Collider> ColliderToAdd)
 	ActiveColliders.push_back(ColliderToAdd);
 }
 
-void CollisionSystem::RemoveCollider(Collider& ColliderToRemove)
-{
-	std::erase_if(ActiveColliders, [&](std::reference_wrapper<Collider> ActiveCollider)
-		{
-			return &ActiveCollider.get() == &ColliderToRemove;
-		});
-}
-
 std::vector<Collider> CollisionSystem::GetColliderInCone(Actor* Instigator, const Vector2& Direction, float Height, float Angle)
 {
 
@@ -115,64 +109,54 @@ std::vector<Collider> CollisionSystem::GetColliderInCone(Actor* Instigator, cons
 
 	for (const auto& ActiveCollider : ActiveColliders)
 	{
-		if (ActiveCollider.get().GetOwningActor() == Instigator) continue;
-
-		SDL_FRect BoxCollider = ActiveCollider.get().GetColliderBox();
-
-		
-		Vector2 Corners[4] = 
+		if (auto sActiveCollider = ActiveCollider.lock())
 		{
-			Vector2(BoxCollider.x, BoxCollider.y),
-			Vector2(BoxCollider.x +BoxCollider.w, BoxCollider.y),
-			Vector2(BoxCollider.x, BoxCollider.y + BoxCollider.h),
-			Vector2(BoxCollider.x + BoxCollider.w, BoxCollider.y + BoxCollider.h) 
-		};
+			if (sActiveCollider->GetOwningActor() == Instigator) continue;
 
-		bool HasOverlap = false;
-		for (const auto& Corner : Corners)
-		{
-			
-			Vector2 ToCorner = Corner - Instigator->GetPosition();
+			SDL_FRect BoxCollider = sActiveCollider->GetColliderBox();
 
-			
-			float distance = ToCorner.Size();
-			if (distance > Height) continue; 
 
-			
-			Vector2 NormalizedDirection = Direction.Normalize();
-			Vector2 NormalizedToCorner = ToCorner.Normalize();
-
-			
-			float DotProduct = NormalizedDirection.Dot(NormalizedToCorner);
-			float AngleToCorner = std::acos(DotProduct); 
-
-			
-			if (AngleToCorner <= Angle)
+			Vector2 Corners[4] =
 			{
-				HasOverlap = true;
+				Vector2(BoxCollider.x, BoxCollider.y),
+				Vector2(BoxCollider.x + BoxCollider.w, BoxCollider.y),
+				Vector2(BoxCollider.x, BoxCollider.y + BoxCollider.h),
+				Vector2(BoxCollider.x + BoxCollider.w, BoxCollider.y + BoxCollider.h)
+			};
+
+			bool HasOverlap = false;
+			for (const auto& Corner : Corners)
+			{
+
+				Vector2 ToCorner = Corner - Instigator->GetPosition();
+
+
+				float distance = ToCorner.Size();
+				if (distance > Height) continue;
+
+
+				Vector2 NormalizedDirection = Direction.Normalize();
+				Vector2 NormalizedToCorner = ToCorner.Normalize();
+
+
+				float DotProduct = NormalizedDirection.Dot(NormalizedToCorner);
+				float AngleToCorner = std::acos(DotProduct);
+
+
+				if (AngleToCorner <= Angle)
+				{
+					HasOverlap = true;
+				}
+			}
+			if (HasOverlap)
+			{
+				OverlappedColliders.push_back(*sActiveCollider.get());
 			}
 		}
-		if (HasOverlap)
-		{
-			OverlappedColliders.push_back(ActiveCollider);
-		}
+		
 	}
 
 
 	return OverlappedColliders;
-}
-
-std::vector<Collider> CollisionSystem::GetOverlapsInSphere(Actor* Instigator, float Radius)
-{
-
-
-	for (const auto& ActiveCollider : ActiveColliders)
-	{
-		if (ActiveCollider.get().GetOwningActor() == Instigator) continue; 
-
-		SDL_FRect BoxCollider = ActiveCollider.get().GetColliderBox();
-	}
-
-	return std::vector<Collider>();
 }
 

@@ -19,12 +19,11 @@ Collider::Collider(Actor* InOwningActor, float InWidth, float InHeight)
 	ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
 	ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
 
-	CollisionSystem::Get().AddCollider(shared_from_this());
 }
 
-Collider::~Collider()
+void Collider::Initialize()
 {
-	CollisionSystem::Get().RemoveCollider(*this);
+	CollisionSystem::Get().AddCollider(shared_from_this());
 }
 
 void Collider::FixedUpdate(float FixedDeltaTime)

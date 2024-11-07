@@ -24,7 +24,13 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	float ColliderWidth = Avatar::GetRadius() * 2.f;
 	float ColliderHeight = Avatar::GetRadius() * 2.f;
 
-	CharacterCollider = std::make_unique<Collider>(this,ColliderWidth, ColliderHeight);
+	CharacterCollider = std::make_shared<Collider>(this,ColliderWidth, ColliderHeight);
+	CharacterCollider->Initialize();
+	
+}
+
+void Character::Initialize()
+{
 	CharacterCollider->OnCollisionEntererDelegate.BindMemberFunction<Character>(shared_from_this(), &Character::OnCollisionEnter);
 }
 
@@ -81,11 +87,6 @@ void Character::HandleHitEffect()
 	{
 		SetColor(BodyColor, HeadColor);
 	}
-}
-
-void Character::Initialize()
-{
-
 }
 
 void Character::Update(float DeltaTime)
