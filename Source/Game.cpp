@@ -45,7 +45,12 @@ void Game::StartGame()
 
 	auto SpawnedPlayerPtr = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
 	auto PlayerControllerPtr = GameWorld->CreateController<PlayerController>();
-	PlayerControllerPtr.lock()->PossessCharacter(std::shared_ptr<PlayerCharacter>(SpawnedPlayerPtr));
+
+	if (auto sPlayerController = PlayerControllerPtr.lock())
+	{
+		sPlayerController->PossessCharacter(std::shared_ptr<PlayerCharacter>(SpawnedPlayerPtr));
+	}
+
 
 
 	AISystem* AISubsystem = GameWorld->GetSubsystem<AISystem>();
@@ -94,7 +99,7 @@ void Game::StartGameLoop()
 		DeltaTimeMS = static_cast<float>((SDL_GetTicks() - FrameStart));
 		DeltaTimeS = DeltaTimeMS / 1000;
 		FrameStart = SDL_GetTicks();
-		FixedTimeCounter += DeltaTimeMS;
+		FixedTimeCounter += static_cast<int>(DeltaTimeMS);
 
 		GameLoop();
 
