@@ -19,7 +19,7 @@ public:
 	void AddCollider(std::shared_ptr<Collider> ColliderToAdd);
 
 
-	std::vector<Collider> GetColliderInCone(Actor* Instigator, const Vector2& Direction, float Height, float Angle);
+	std::vector<Collider> GetColliderInCone(std::weak_ptr<Actor> Instigator, const Vector2& Direction, float Height, float Angle);
 
 private:
 

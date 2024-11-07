@@ -6,7 +6,7 @@
 
 
 
-class Projectile : public Actor
+class Projectile : public Actor, public std::enable_shared_from_this<Projectile>
 {
 public:
 	Projectile(World* GameWorld, const Transform& InTransform);
@@ -18,13 +18,13 @@ public:
 
 	void UpdateVelocity(const Vector2& NewVelocity);
 	void SetSpeed(float NewSpeed) { ProjectileSpeed = NewSpeed; }
+
 protected:
+	virtual void OnOverlapBegin(std::weak_ptr<Collider> OtherCollider) override;
+
 
 	void UpdatePosition(float DeltaTime);
-
-private:
-	void OnCollisionEnter(const Collider& Other);
-
+	
 private:
 
 	float LifeTime = 1.f;
@@ -34,5 +34,5 @@ private:
 	Vector2 Velocity = {};
 
 	std::unique_ptr<RenderComponent> ProjectileRenderComponent = nullptr;
-	std::unique_ptr<Collider> ProjectileCollider = nullptr;
+	std::shared_ptr<Collider> ProjectileCollider = nullptr;
 };

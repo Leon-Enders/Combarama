@@ -149,24 +149,21 @@ void PlayerCharacter::Shoot()
 	// tell the projectile who spawned it
 	if (auto SharedProjectilePtr = SpawnedProjectilePtr.lock())
 	{
-		SharedProjectilePtr->SetInstigator(this);
+		SharedProjectilePtr->SetInstigator(shared_from_this());
 	}
 }
 
 void PlayerCharacter::DealDamageInCone()
 {
-	std::vector<Collider> OverlappedColliders = CollisionSystem::Get().GetColliderInCone(this, GetForwardVector(), 135.f, 1.f);
+	std::vector<Collider> OverlappedColliders = CollisionSystem::Get().GetColliderInCone(shared_from_this(), GetForwardVector(), 135.f, 1.f);
 	
 	for (auto& OverlappedCollider : OverlappedColliders)
 	{
-		if (Character* OtherCharacter = dynamic_cast<Character*>(OverlappedCollider.GetOwningActor()))
+		if (auto sOtherCharacter = std::dynamic_pointer_cast<Character>(OverlappedCollider.GetOwningActor().lock()))
 		{
-			OtherCharacter->TakeDamage(5);
+			sOtherCharacter->TakeDamage(5);
 		}
 	}
-
-	
-	
 }
 
 void PlayerCharacter::UpdatePosition(float DeltaTime)

@@ -12,7 +12,6 @@
 class Character : public Actor , public std::enable_shared_from_this<Character>
 {
 public:
-	Character(World* GameWorld);
 	Character(World* GameWorld, const Transform& InTransform);
 	virtual ~Character() = default;
 
@@ -36,14 +35,14 @@ protected:
 	virtual void UpdatePosition(float DeltaTime);
 	virtual void UpdateRotation();
 
-	//Collision
-	virtual void OnCollisionEnter(std::weak_ptr<Collider> Other);
-	virtual void OnCollisionExit(const Collider& Other);
+	
+	virtual void OnOverlapBegin(std::weak_ptr<Collider> OtherCollider) override;
 
 protected:
 	float Speed = 250.f;
 	Vector2 Velocity = { 0.f, 0.f };
 	
+	//TODO: Change to Weak Ptr
 	Controller* OwningController = nullptr;
 	std::unique_ptr<RenderComponent> CharacterRenderComponent = nullptr;
 	std::shared_ptr<Collider> CharacterCollider = nullptr;

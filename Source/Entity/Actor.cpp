@@ -27,6 +27,7 @@ void Actor::FixedUpdate(float FixedDeltaTime)
 
 void Actor::Destroy()
 {
+	//TODO: Update with new delegate class
 	if (OnDestroyDelegate)
 	{
 		OnDestroyDelegate();
@@ -37,4 +38,11 @@ void Actor::Destroy()
 
 void Actor::DrawDebug()
 {
+
 }
+
+void Actor::OnOverlapBegin(std::weak_ptr<Collider> Other)
+{
+
+}
+

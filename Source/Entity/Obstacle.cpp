@@ -6,9 +6,10 @@
 
 Obstacle::Obstacle(World* GameWorld, const Transform& InTransform, const Vector2& InRectDimensions,const SDL_FColor& InColor)
 	:
-	Actor(GameWorld, InTransform)
+	Actor(GameWorld, InTransform),
+	RectDimensions(InRectDimensions)
 {
-	BoxCollider = std::make_shared<Collider>(this, InRectDimensions.X, InRectDimensions.Y);
+	
 
 
 	std::vector<SDL_Vertex> ObstacleTriangles;
@@ -22,5 +23,6 @@ Obstacle::Obstacle(World* GameWorld, const Transform& InTransform, const Vector2
 
 void Obstacle::Initialize()
 {
+	BoxCollider = std::make_shared<Collider>(shared_from_this(), RectDimensions.X, RectDimensions.Y);
 	BoxCollider->Initialize();
 }

@@ -8,20 +8,21 @@ Projectile::Projectile(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld, InTransform)
 {
-	using namespace std::placeholders;
 	std::vector<SDL_Vertex> CircleTriangles;
 	Circle NewCircle = Circle(ProjectileSize);
 	NewCircle.GetVerts(CircleTriangles);
 
 
 	ProjectileRenderComponent = std::make_unique<RenderComponent>(*this, std::move(CircleTriangles));
-	ProjectileCollider = std::make_unique<Collider>(this, ProjectileSize*2.f, ProjectileSize * 2.f);
-	ProjectileCollider->OnCollisionEnterDelegate = std::bind(&Projectile::OnCollisionEnter, this, _1);
-	Initialize();
+	
+	
 }
 
 void Projectile::Initialize()
 {
+	ProjectileCollider = std::make_shared<Collider>(shared_from_this(), ProjectileSize * 2.f, ProjectileSize * 2.f);
+	ProjectileCollider->OnOverlapBeginDelegate.BindMemberFunction(shared_from_this(), &Projectile::OnOverlapBegin);
+
 	ProjectileRenderComponent->SetColor(COLOR_GREEN);
 	Velocity = GetForwardVector() * ProjectileSpeed;
 }
@@ -47,21 +48,22 @@ void Projectile::UpdateVelocity(const Vector2& NewVelocity)
 	Velocity = NewVelocity;
 }
 
+void Projectile::OnOverlapBegin(std::weak_ptr<Collider> OtherCollider)
+{
+	if (auto sOtherCollider = OtherCollider.lock())
+	{
+		if (sOtherCollider->GetOwningActor().lock() == GetInstigator().lock()) return;
+
+		if (auto sOtherCharacter = std::dynamic_pointer_cast<Character>(sOtherCollider->GetOwningActor().lock()))
+		{
+			sOtherCharacter->TakeDamage(ProjectileDamage);
+		}
+
+		Destroy();
+	}
+}
+
 void Projectile::UpdatePosition(float DeltaTime)
 {
 	EntityTransform.Position += Velocity * DeltaTime;
-}
-
-void Projectile::OnCollisionEnter(const Collider& Other)
-{
-
-	if (Other.GetOwningActor() == GetInstigator()) return;
-
-	if (Character* OtherCharacter = dynamic_cast<Character*>(Other.GetOwningActor()))
-	{
-		OtherCharacter->TakeDamage(ProjectileDamage);
-
-	}
-
-	Destroy();
 }

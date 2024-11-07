@@ -1,7 +1,10 @@
 #pragma once
 #include <functional>
+#include <memory>
 #include "../Math/Transform.h"
 
+
+class Collider;
 class World;
 
 class Actor
@@ -25,7 +28,6 @@ public:
 	inline const float& GetRotation()const { return EntityTransform.Rotation; }
 	inline const Vector2& GetScale()const { return EntityTransform.Scale; }
 	inline const Transform& GetTransform()const { return EntityTransform; }
-
 	inline const Vector2 GetForwardVector()const {	return { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) };}
 
 
@@ -33,20 +35,26 @@ public:
 	void SetPosition(const Vector2& NewPosition) { EntityTransform.Position = NewPosition; }
 	void SetRotation(float NewRotation) { EntityTransform.Rotation = NewRotation; }
 	void SetScale(const Vector2& NewScale) { EntityTransform.Scale = NewScale; }
-	void SetInstigator(Actor* InInstigator) { Instigator = InInstigator; }
+	void SetInstigator(std::shared_ptr<Actor> InInstigator) { Instigator = InInstigator; }
 
 public:
+	//TODO: Use Delegate Class here
 	std::function<void(void)> OnDestroyDelegate;
 
 
 protected:
+	virtual void OnOverlapBegin(std::weak_ptr<Collider> OtherCollider);
+
 
 
 	inline World* GetWorld()const { return OwningWorld; }
-	inline Actor* GetInstigator()const { return Instigator; }
-	Transform EntityTransform;
+	inline std::weak_ptr<Actor> GetInstigator()const { return Instigator; }
 
+	//TODO: Move EntityTransform to private and fix compiler errors
+	Transform EntityTransform;
 private:
-	Actor* Instigator = nullptr;
+	//TODO: Use WeakPTR for Actor
+	std::weak_ptr<Actor> Instigator;
 	World* OwningWorld = nullptr;
+	
 };

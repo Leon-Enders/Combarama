@@ -6,7 +6,7 @@
 #include "../Entity/Character.h"
 #include "../Entity/Projectile.h"
 
-Collider::Collider(Actor* InOwningActor, float InWidth, float InHeight)
+Collider::Collider(std::shared_ptr<Actor> InOwningActor, float InWidth, float InHeight)
 	:
 	OwningActor(InOwningActor)
 {
@@ -16,8 +16,8 @@ Collider::Collider(Actor* InOwningActor, float InWidth, float InHeight)
 	CenterOffset.X = InWidth / 2;
 	CenterOffset.Y = InHeight / 2;
 
-	ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
-	ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
+	ColliderBox.x = InOwningActor->GetPosition().X - CenterOffset.X;
+	ColliderBox.y = InOwningActor->GetPosition().Y - CenterOffset.Y;
 
 }
 
@@ -30,113 +30,119 @@ void Collider::Initialize()
 
 void Collider::FixedUpdate(float FixedDeltaTime)
 {
-	ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
-	ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
+	if (auto sOwningActor = OwningActor.lock())
+	{
+		ColliderBox.x = sOwningActor->GetPosition().X - CenterOffset.X;
+		ColliderBox.y = sOwningActor->GetPosition().Y - CenterOffset.Y;
+	}
+	
 }
 
 void Collider::Draw(SDL_Renderer* Renderer)
 {
-	ColliderBox.x = OwningActor->GetPosition().X - CenterOffset.X;
-	ColliderBox.y = OwningActor->GetPosition().Y - CenterOffset.Y;
+	if (auto sOwningActor = OwningActor.lock())
+	{
+		ColliderBox.x = sOwningActor->GetPosition().X - CenterOffset.X;
+		ColliderBox.y = sOwningActor->GetPosition().Y - CenterOffset.Y;
+	}
 	if (DrawDebug)
 	{
 		SDL_RenderRect(Renderer, &ColliderBox);
 	}
 }
 
-void Collider::OnCollisionExit(const Collider& Other)
-{
-	OnCollisionExitDelegate(Other);
-}
-
 void Collider::HandleCollision(std::shared_ptr<Collider> Other,const SDL_FRect& Intersection)
 {
 	//TODO Refactor for better performance
 	//TODO: Check cast and return of not character, can ignore B velocity if object is static
+
 	
-	if (!OwningActor)return;
-
-	float OverlapX = Intersection.w;
-	float OverlapY = Intersection.h;
-
-	SDL_FRect OtherBoxCollider = Other->GetColliderBox();
-
-	if (Character* CharacterA = dynamic_cast<Character*>(OwningActor))
+	if (auto sOwningActor = OwningActor.lock())
 	{
-		//Check if the other collider is attached to a projectile if so just return;
-		if (Projectile* ProjectileB = dynamic_cast<Projectile*>(Other->GetOwningActor()))
+
+		float OverlapX = Intersection.w;
+		float OverlapY = Intersection.h;
+
+		SDL_FRect OtherBoxCollider = Other->GetColliderBox();
+
+		//Check if this Collider is attached to a character
+		if (auto sCharacterA = std::dynamic_pointer_cast<Character>(sOwningActor))
 		{
-			return;
-		}
+			//Check if the other collider is attached to a projectile if so just return;
+			//TODO: What blocks and what not blocks should be defined with CollisionChannels then this code can get removed
+			//if (auto sProjectileB = std::dynamic_pointer_cast<Projectile>(Other->GetOwningActor().lock()))
+			//{
+			//	return;
+			//}
 
-		Vector2 CorrectedPosition = CharacterA->GetPosition();
-		Vector2 VelocityA = CharacterA->GetVelocity();
+			// Cache the Position
+			Vector2 CorrectedPosition = sCharacterA->GetPosition();
 
-		if (Character* CharacterB = dynamic_cast<Character*>(Other->OwningActor))
-		{
-			Vector2 VelocityB = CharacterB->GetVelocity();
-
-
-			float TotalVelocityX = std::abs(VelocityA.X) + std::abs(VelocityB.X);
-			float TotalVelocityY = std::abs(VelocityA.Y) + std::abs(VelocityB.Y);
-
-
-			float PushBackScale_X = (TotalVelocityX > 0) ? std::abs(VelocityA.X) / TotalVelocityX : 0.5f;
-			float PushBackScale_Y = (TotalVelocityY > 0) ? std::abs(VelocityA.Y) / TotalVelocityY : 0.5f;
-
-			if (OverlapX < OverlapY)
+			if (auto sCharacterB = std::dynamic_pointer_cast<Character>(Other->GetOwningActor().lock()))
 			{
-				if (ColliderBox.x < OtherBoxCollider.x)
+
+				
+				Vector2 VelocityA = sCharacterA->GetVelocity();
+				Vector2 VelocityB = sCharacterB->GetVelocity();
+
+
+				float TotalVelocityX = std::abs(VelocityA.X) + std::abs(VelocityB.X);
+				float TotalVelocityY = std::abs(VelocityA.Y) + std::abs(VelocityB.Y);
+
+
+				float PushBackScale_X = (TotalVelocityX > 0) ? std::abs(VelocityA.X) / TotalVelocityX : 0.5f;
+				float PushBackScale_Y = (TotalVelocityY > 0) ? std::abs(VelocityA.Y) / TotalVelocityY : 0.5f;
+
+				if (OverlapX < OverlapY)
 				{
-					CorrectedPosition.X -= OverlapX * PushBackScale_X;
+					if (ColliderBox.x < OtherBoxCollider.x)
+					{
+						CorrectedPosition.X -= OverlapX * PushBackScale_X;
+					}
+					else {
+						CorrectedPosition.X += OverlapX * PushBackScale_X;
+					}
 				}
 				else {
-					CorrectedPosition.X += OverlapX * PushBackScale_X;
+					if (ColliderBox.y < OtherBoxCollider.y)
+					{
+						CorrectedPosition.Y -= OverlapY * PushBackScale_Y;
+					}
+					else
+					{
+						CorrectedPosition.Y += OverlapY * PushBackScale_Y;
+					}
 				}
 			}
-			else {
-				if (ColliderBox.y < OtherBoxCollider.y)
-				{
-					CorrectedPosition.Y -= OverlapY * PushBackScale_Y;
-				}
-				else
-				{
-					CorrectedPosition.Y += OverlapY * PushBackScale_Y;
-				}
-			}
-		}
-		else
-		{
-			float TotalVelocityX = std::abs(VelocityA.X);
-			float TotalVelocityY = std::abs(VelocityA.Y);
-
-			if (OverlapX < OverlapY)
+			else
 			{
-				if (ColliderBox.x < OtherBoxCollider.x)
+				if (OverlapX < OverlapY)
 				{
-					CorrectedPosition.X -= OverlapX;
+					if (ColliderBox.x < OtherBoxCollider.x)
+					{
+						CorrectedPosition.X -= OverlapX;
+					}
+					else {
+						CorrectedPosition.X += OverlapX;
+					}
 				}
 				else {
-					CorrectedPosition.X += OverlapX;
+					if (ColliderBox.y < OtherBoxCollider.y)
+					{
+						CorrectedPosition.Y -= OverlapY;
+					}
+					else
+					{
+						CorrectedPosition.Y += OverlapY;
+					}
 				}
 			}
-			else {
-				if (ColliderBox.y < OtherBoxCollider.y)
-				{
-					CorrectedPosition.Y -= OverlapY;
-				}
-				else
-				{
-					CorrectedPosition.Y += OverlapY;
-				}
-			}
+
+			sCharacterA->SetPosition(CorrectedPosition);
 		}
-		
-		CharacterA->SetPosition(CorrectedPosition);
+
+		OnOverlapBeginDelegate.Invoke(Other);
+
 	}
-
-	OnCollisionEntererDelegate.Invoke(Other);
-	
-	
 }
 

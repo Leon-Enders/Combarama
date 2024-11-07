@@ -10,7 +10,7 @@ class Actor;
 class Collider : public std::enable_shared_from_this<Collider>
 {
 public:
-	Collider(Actor* InOwningActor,float InWidth, float InHeight);
+	Collider(std::shared_ptr<Actor> InOwningActor,float InWidth, float InHeight);
 
 	void Initialize();
 	void FixedUpdate(float FixedDeltaTime);
@@ -27,17 +27,12 @@ public:
 
 	const SDL_FRect& GetColliderBox()const { return ColliderBox; }
 
-	Actor* GetOwningActor()const { return OwningActor; }
+	std::weak_ptr<Actor> GetOwningActor()const { return OwningActor; }
 public:
-	Delegate<void,std::weak_ptr<Collider>> OnCollisionEntererDelegate;
-	std::function<void(const Collider&)> OnCollisionEnterDelegate;
-	std::function<void(const Collider&)> OnCollisionExitDelegate;
-	std::function<void(const Vector2&)> OnBlockDelegate;
+	Delegate<void,std::weak_ptr<Collider>> OnOverlapBeginDelegate;
 
 private:
-	void OnCollisionExit(const Collider& Other);
-
-	Actor* OwningActor = nullptr;
+	std::weak_ptr<Actor> OwningActor;
 
 	Vector2 CenterOffset = {};
 	Vector2 BoxDimensions = {};

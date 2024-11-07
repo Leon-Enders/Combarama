@@ -15,17 +15,18 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	//Move Avatar Triangles into Render Component
 	CharacterRenderComponent = std::make_unique<RenderComponent>(*this, std::move(AvatarTriangles));
 
-	float ColliderWidth = Avatar::GetRadius() * 2.f;
-	float ColliderHeight = Avatar::GetRadius() * 2.f;
-
-	CharacterCollider = std::make_shared<Collider>(this,ColliderWidth, ColliderHeight);
-	CharacterCollider->Initialize();
 	
+
 }
 
 void Character::Initialize()
 {
-	CharacterCollider->OnCollisionEntererDelegate.BindMemberFunction<Character>(shared_from_this(), &Character::OnCollisionEnter);
+	float ColliderWidth = Avatar::GetRadius() * 2.f;
+	float ColliderHeight = Avatar::GetRadius() * 2.f;
+
+	CharacterCollider = std::make_shared<Collider>(shared_from_this(), ColliderWidth, ColliderHeight);
+	CharacterCollider->Initialize();
+	CharacterCollider->OnOverlapBeginDelegate.BindMemberFunction<Character>(shared_from_this(), &Character::OnOverlapBegin);
 }
 
 void Character::OnPossessed(Controller* OwningContoller)
@@ -62,15 +63,10 @@ void Character::UpdateRotation()
 
 }
 
-void Character::OnCollisionEnter(std::weak_ptr<Collider> Other)
+void Character::OnOverlapBegin(std::weak_ptr<Collider> Other)
 {
 	SDL_Log("COLLISION ENTER!");
-	CharacterCollider->OnCollisionEntererDelegate.Clear();
-}
-
-void Character::OnCollisionExit(const Collider& Other)
-{
-	SDL_Log("Collision Exit");
+	CharacterCollider->OnOverlapBeginDelegate.Clear();
 }
 
 void Character::HandleHitEffect()
