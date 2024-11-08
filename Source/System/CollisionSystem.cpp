@@ -61,9 +61,6 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 		
 	}
 
-	//TODO: Here memory errors can happen, when the handle collision event triggers something and some actor is destroyed,
-	// the collider attached to it may also be destroyed
-	// this can break this range base for loop
 	for (auto& Event : CollisionEvents)
 	{
 		if (auto sActiveCollider = Event.wActiveCollider.lock())
