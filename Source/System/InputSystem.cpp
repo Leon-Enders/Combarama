@@ -75,10 +75,7 @@ void InputSystem::DispatchAttackEvent(const SDL_Event& Event)
 
 void InputSystem::DispatchQuitEvent(const SDL_Event& QuitEvent)
 {
-	if (QuitDelegate)
-	{
-		QuitDelegate();
-	}
+	QuitDelegate.Invoke();
 }
 
 

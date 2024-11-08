@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <functional>
+#include "../Event/Delegate.h"
 
 
 union SDL_Event;
@@ -19,7 +20,7 @@ public:
 
 public:
 
-	std::function<void(void)> QuitDelegate;
+	Delegate<void,void> QuitDelegate;
 private:
 	InputSystem() = default;
 
