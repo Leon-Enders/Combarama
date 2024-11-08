@@ -69,12 +69,10 @@ void PlayerController::PossessCharacter(std::shared_ptr<Character> CharacterToPo
 {
 
 	ControlledPlayerCharacter = std::dynamic_pointer_cast<PlayerCharacter>(CharacterToPossess);
-	if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 	{
-		SharedPlayerPtr->OnPossessed(this);
-		SharedPlayerPtr->OnDeathSignature.AddMemberFunction<PlayerController>(shared_from_this(), &PlayerController::OnCharacterDeath);
-		SharedPlayerPtr->OnDeathSignature.AddMemberFunction<PlayerController>(shared_from_this(), &PlayerController::OhNoCharacterdied);
-
+		sPlayerPtr->OnPossessed(this);
+		sPlayerPtr->OnDestroyDelegate.AddMemberFunction<PlayerController>(shared_from_this(), &PlayerController::OnCharacterDestroyed);
 	}
 }
 
@@ -85,9 +83,9 @@ void PlayerController::UnPossessCharacter()
 
 void PlayerController::Move(const InputActionValue& Value)
 {
-	if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 	{
-		SharedPlayerPtr->UpdateVelocity(Value.Get<Vector2>());
+		sPlayerPtr->UpdateVelocity(Value.Get<Vector2>());
 	}
 	
 }
@@ -95,17 +93,17 @@ void PlayerController::Move(const InputActionValue& Value)
 void PlayerController::Look(const InputActionValue& Value)
 {
 	Vector2 TargetMousePosition = Value.Get<Vector2>();
-	if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 	{
-		SharedPlayerPtr->ReceiveMouseInput(TargetMousePosition);
+		sPlayerPtr->ReceiveMouseInput(TargetMousePosition);
 	}
 }
 
 void PlayerController::Attack(const InputActionValue& Value)
 {
-	if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 	{
-		SharedPlayerPtr->Attack();
+		sPlayerPtr->Attack();
 	}
 	
 }
@@ -115,9 +113,9 @@ void PlayerController::Dash(const InputActionValue& Value)
 	if (!DashCooldownActive)
 	{
 		DashCooldownActive = true;
-		if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+		if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 		{
-			SharedPlayerPtr->Dash();
+			sPlayerPtr->Dash();
 		}
 	}
 }
@@ -128,23 +126,19 @@ void PlayerController::Shoot(const InputActionValue& Value)
 	{
 		ShootCooldownActive = true;
 
-		if (auto SharedPlayerPtr = ControlledPlayerCharacter.lock())
+		if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 		{
-			SharedPlayerPtr->Shoot();
+			sPlayerPtr->Shoot();
 		}
 	}
 }
 
-void PlayerController::OnCharacterDeath()
+void PlayerController::OnCharacterDestroyed()
 {
-	SDL_Log("Character Died!");
-	GetWorld()->RemoveController(this);
+	SDL_Log("Character died");
+	UnPossessCharacter();
 }
 
-void PlayerController::OhNoCharacterdied()
-{
-	SDL_Log("Oh No Character died sadge");
-}
 
 void PlayerController::HandleCooldowns()
 {

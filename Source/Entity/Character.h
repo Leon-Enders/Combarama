@@ -29,14 +29,12 @@ public:
 	void TakeDamage(int Damage);
 
 
-	MulticastDelegate<void, void> OnDeathSignature;
-
 protected:
 	virtual void UpdatePosition(float DeltaTime);
 	virtual void UpdateRotation();
 
-	
 	virtual void OnOverlapBegin(std::weak_ptr<Collider> OtherCollider) override;
+	virtual void OnCharacterDeath();
 
 protected:
 	float Speed = 250.f;

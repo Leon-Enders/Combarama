@@ -47,8 +47,7 @@ void Character::TakeDamage(int Damage)
 	Health -= Damage;
 	if (Health <= 0)
 	{
-		OnDeathSignature.Broadcast();
-		OnDeathSignature.Broadcast();
+		OnCharacterDeath();
 		Destroy();
 	}
 }
@@ -67,6 +66,11 @@ void Character::OnOverlapBegin(std::weak_ptr<Collider> Other)
 {
 	SDL_Log("COLLISION ENTER!");
 	CharacterCollider->OnOverlapBeginDelegate.Clear();
+}
+
+void Character::OnCharacterDeath()
+{
+
 }
 
 void Character::HandleHitEffect()

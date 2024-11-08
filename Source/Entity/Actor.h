@@ -2,6 +2,7 @@
 #include <functional>
 #include <memory>
 #include "../Math/Transform.h"
+#include "../Event/Delegate.h"
 
 
 class Collider;
@@ -38,8 +39,8 @@ public:
 	void SetInstigator(std::shared_ptr<Actor> InInstigator) { Instigator = InInstigator; }
 
 public:
-	//TODO: Use Delegate Class here
-	std::function<void(void)> OnDestroyDelegate;
+	
+	MulticastDelegate<void,void> OnDestroyDelegate;
 
 
 protected:

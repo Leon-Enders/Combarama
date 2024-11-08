@@ -28,15 +28,15 @@ void AIController::PossessCharacter(std::shared_ptr<Character> CharacterToPosses
     ControlledEnemy = std::dynamic_pointer_cast<Enemy>(CharacterToPossess);
 
 
-    if (auto SharedEnemyPtr = ControlledEnemy.lock())
+    if (auto sEnemyPtr = ControlledEnemy.lock())
     {
-        SharedEnemyPtr->OnPossessed(this);
+        sEnemyPtr->OnPossessed(this);
 
-        StartPosition = SharedEnemyPtr->GetPosition();
-        SharedEnemyPtr->UpdateVelocity({ 1.f,0.f });
+        StartPosition = sEnemyPtr->GetPosition();
+        sEnemyPtr->UpdateVelocity({ 1.f,0.f });
 
         //Bind Unregistering + (temp) destruction of the controller to the destruction of the possessed character
-        SharedEnemyPtr->OnDestroyDelegate = std::bind(&AIController::UnPossessCharacter, this);
+        sEnemyPtr->OnDestroyDelegate.AddMemberFunction(shared_from_this(), &AIController::UnPossessCharacter);
     }
 }
 
@@ -48,19 +48,19 @@ void AIController::CheckForTarget()
 {
     if (IsPulled) return;
 
-    if (auto SharedEnemyPtr = ControlledEnemy.lock())
+    if (auto sEnemyPtr = ControlledEnemy.lock())
     {
         auto PlayerCharacters = GetWorld()->GetAllActorsOfClass<PlayerCharacter>();
 
         for (const auto& PlayerChar : PlayerCharacters)
         {
-            Vector2 DeltaPosition = PlayerChar->GetPosition() - SharedEnemyPtr->GetPosition();
+            Vector2 DeltaPosition = PlayerChar->GetPosition() - sEnemyPtr->GetPosition();
             float Size = std::abs(DeltaPosition.Size());
             if (Size < PullRange)
             {
                 IsPulled = true;
                 Target = PlayerChar;
-                SharedEnemyPtr->SetSpeed(275.f);
+                sEnemyPtr->SetSpeed(275.f);
             }
         }
     }
@@ -73,7 +73,7 @@ void AIController::HandleAttackFrequency()
     if (Target.expired()) return;
 
 
-    if (auto SharedEnemyPtr = ControlledEnemy.lock())
+    if (auto sEnemyPtr = ControlledEnemy.lock())
     {
         if (AttackTimer > 0)
         {
@@ -81,7 +81,7 @@ void AIController::HandleAttackFrequency()
         }
         else
         {
-            SharedEnemyPtr->Attack();
+            sEnemyPtr->Attack();
             AttackTimer = AttackResetTimer;
         }
     }
@@ -97,17 +97,17 @@ void AIController::UnPossessCharacter()
 
 void AIController::MoveEnemy()
 {
-    if (auto SharedEnemyPtr = ControlledEnemy.lock())
+    if (auto sEnemyPtr = ControlledEnemy.lock())
     {
-        if (auto SharedTargetPtr = Target.lock())
+        if (auto sTargetPtr = Target.lock())
         {
-            Vector2 DeltaPosition = SharedTargetPtr->GetPosition() - SharedEnemyPtr->GetPosition();
+            Vector2 DeltaPosition = sTargetPtr->GetPosition() - sEnemyPtr->GetPosition();
             Vector2 TargetDirection = DeltaPosition.Normalize();
 
             float LookAtRotation = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
 
-            SharedEnemyPtr->DesiredRotation = LookAtRotation;
-            SharedEnemyPtr->UpdateVelocity(TargetDirection);
+            sEnemyPtr->DesiredRotation = LookAtRotation;
+            sEnemyPtr->UpdateVelocity(TargetDirection);
         }
         else
         {
@@ -124,7 +124,7 @@ void AIController::MoveEnemy()
 
                 Vector2 NewVelocity = { DistFloatWidth(RandomGenerator::GetRandomEngine()) , DistFloatHeight(RandomGenerator::GetRandomEngine()) };
 
-                SharedEnemyPtr->UpdateVelocity(NewVelocity);
+                sEnemyPtr->UpdateVelocity(NewVelocity);
             }
         }
     }

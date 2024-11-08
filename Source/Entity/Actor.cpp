@@ -27,12 +27,7 @@ void Actor::FixedUpdate(float FixedDeltaTime)
 
 void Actor::Destroy()
 {
-	//TODO: Update with new delegate class
-	if (OnDestroyDelegate)
-	{
-		OnDestroyDelegate();
-	}
-
+	OnDestroyDelegate.Broadcast();
 	GetWorld()->RemoveActor(this);
 }
 

@@ -4,7 +4,7 @@
 #include "../Entity/Enemy.h"
 
 
-class AIController : public Controller
+class AIController : public Controller, public std::enable_shared_from_this<AIController>
 {
 public:
 	AIController(World* InOwningWorld);
@@ -20,7 +20,6 @@ public:
 protected:
 
 	virtual void Initialize() override;
-
 
 private:
 

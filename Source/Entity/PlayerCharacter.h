@@ -30,6 +30,11 @@ protected:
 	virtual void UpdatePosition(float DeltaTime)override;
 	virtual void UpdateRotation() override;
 
+	virtual void OnCharacterDeath()override;
+
+
+
+private:
 	float RotationSpeed = 20.f;
 	float DesiredRotation = 0.f;
 	

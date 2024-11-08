@@ -116,3 +116,11 @@ void Enemy::DealDamageInCone()
 		}
 	}
 }
+
+void Enemy::OnCharacterDeath()
+{
+	if (auto sSword = Sword.lock())
+	{
+		sSword->Destroy();
+	}
+}

@@ -33,10 +33,8 @@ private:
 	void Shoot(const InputActionValue& Value);
 
 
+	void OnCharacterDestroyed();
 
-	void OnCharacterDeath();
-
-	void OhNoCharacterdied();
 
 	// Cooldowns
 	void HandleCooldowns();

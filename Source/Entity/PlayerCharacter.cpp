@@ -73,16 +73,16 @@ void PlayerCharacter::Update(float DeltaTime)
 
 		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, DesiredRotation, ClampedLerpTime);
 		
-		if (auto SwordSharedPtr = Sword.lock())
+		if (auto sSwordPtr = Sword.lock())
 		{
-			Sword.lock()->SetRotation(EntityTransform.Rotation);
+			sSwordPtr->SetRotation(EntityTransform.Rotation);
 		}
 	}
 	else
 	{
 		// Increment AttackFrameCounter
 		CurrentAttackFrame++;
-		if (auto SwordSharedPtr = Sword.lock())
+		if (auto sSwordPtr = Sword.lock())
 		{
 			// Handle AttackWindow
 			if (ComboramaMath::FIsSame(SwordRotation, DesiredSwordRotation, 0.01f))
@@ -91,8 +91,8 @@ void PlayerCharacter::Update(float DeltaTime)
 				IsAttacking = false;
 
 				// Reset Sword Rotation
-				SwordSharedPtr->SetRotation(EntityTransform.Rotation);
-				SwordSharedPtr->GetRenderComponent()->SetRenderActive(false);
+				sSwordPtr->SetRotation(EntityTransform.Rotation);
+				sSwordPtr->GetRenderComponent()->SetRenderActive(false);
 				return;
 			}
 
@@ -101,7 +101,7 @@ void PlayerCharacter::Update(float DeltaTime)
 
 			//// Handle Sword Rotation
 			SwordRotation = ComboramaMath::Lerp(SwordRotation, DesiredSwordRotation, ClampedSwordLerpTime);
-			SwordSharedPtr->SetRotation(SwordRotation);
+			sSwordPtr->SetRotation(SwordRotation);
 		}
 	}
 }
@@ -121,11 +121,11 @@ void PlayerCharacter::Attack()
 {
 	if (IsAttacking) return;
 	
-	if (auto SwordSharedPtr = Sword.lock())
+	if (auto sSwordPtr = Sword.lock())
 	{
 		DealDamageInCone();
 
-		SwordSharedPtr->GetRenderComponent()->SetRenderActive(true);
+		sSwordPtr->GetRenderComponent()->SetRenderActive(true);
 		IsAttacking = true;
 		SwordRotation = -1.25f + EntityTransform.Rotation;
 		DesiredSwordRotation = 1.25f + EntityTransform.Rotation;
@@ -147,9 +147,9 @@ void PlayerCharacter::Shoot()
 	auto SpawnedProjectilePtr = GetWorld()->SpawnActor<Projectile>(EntityTransform);
 
 	// tell the projectile who spawned it
-	if (auto SharedProjectilePtr = SpawnedProjectilePtr.lock())
+	if (auto sProjectilePtr = SpawnedProjectilePtr.lock())
 	{
-		SharedProjectilePtr->SetInstigator(shared_from_this());
+		sProjectilePtr->SetInstigator(shared_from_this());
 	}
 }
 
@@ -172,9 +172,9 @@ void PlayerCharacter::UpdatePosition(float DeltaTime)
 
 	//Update the Sword Position with the owning Players Position
 	//TODO: Create a system in which you can attach actors to actors, so you dont have to manual update the transform
-	if (auto SwordSharedPtr = Sword.lock())
+	if (auto sSwordPtr = Sword.lock())
 	{
-		SwordSharedPtr->SetPosition(EntityTransform.Position);
+		sSwordPtr->SetPosition(EntityTransform.Position);
 	}
 	
 }
@@ -182,4 +182,12 @@ void PlayerCharacter::UpdatePosition(float DeltaTime)
 void PlayerCharacter::UpdateRotation()
 {
 	 
+}
+
+void PlayerCharacter::OnCharacterDeath()
+{
+	if (auto sSword = Sword.lock())
+	{
+		sSword->Destroy();
+	}
 }
