@@ -2,11 +2,14 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <SDL3/SDL_log.h>
 #include <SDL3/SDL_video.h>
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_events.h>
 #include "Utility/CombaramaStructs.h"
 #include "World/World.h"
+#include "Coroutine/Task.h"
+#include "Coroutine/Awaitable/WaitForDelay.h"
 
 
 class Game
@@ -58,4 +61,15 @@ private:
 
 	//World
 	std::unique_ptr<World> GameWorld;
+
+
+	//Coroutine test
+	std::vector<std::coroutine_handle<Task::promise_type>> ActiveCoroutines;
+
+	Task DelayTask()
+	{
+		SDL_Log("Coroutine started waiting for 2 seconds.");
+		co_await WaitForDelay(std::chrono::milliseconds(10000));
+		SDL_Log("Coroutine finished.");
+	}
 };

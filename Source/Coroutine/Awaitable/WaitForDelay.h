@@ -2,10 +2,10 @@
 #include <coroutine>
 #include <chrono>
 
-class Delay
+class WaitForDelay
 {
 public:
-    explicit Delay(std::chrono::milliseconds InDuration)
+    explicit WaitForDelay(std::chrono::milliseconds InDuration)
         : Duration(InDuration), StartTime(std::chrono::steady_clock::now()) {}
 
     

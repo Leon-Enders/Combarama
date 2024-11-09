@@ -94,6 +94,10 @@ void Game::StartGame()
 
 void Game::StartGameLoop()
 {
+	Task TestDelay = DelayTask();
+	ActiveCoroutines.push_back(TestDelay.Handle);
+
+
 	while (IsGameActive)
 	{
 		DeltaTimeMS = static_cast<float>((SDL_GetTicks() - FrameStart));
@@ -128,8 +132,24 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
+	for (auto it = ActiveCoroutines.begin(); it != ActiveCoroutines.end();) 
+	{
+		auto Handle = *it;
+		if (Handle)
+		{
+			Handle.resume();
+			if(Handle.done())
+			{
+				it = ActiveCoroutines.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+		
+	}
 	GameWorld->Update(DeltaTimeS);
-	
 }
 
 void Game::FixedUpdate()

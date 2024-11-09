@@ -46,6 +46,9 @@
     <Filter Include="Source\Coroutine">
       <UniqueIdentifier>{8cdfbaf9-8054-4574-a775-f74b95bc32ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Coroutine\Awaitable">
+      <UniqueIdentifier>{daa5cb48-76cf-4d23-89f2-4c0e15f4e945}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
@@ -233,7 +236,10 @@
     <ClInclude Include="Source\Event\Delegate.h">
       <Filter>Source\Event</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Coroutine\Delay.h">
+    <ClInclude Include="Source\Coroutine\Awaitable\WaitForDelay.h">
+      <Filter>Source\Coroutine\Awaitable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Coroutine\Task.h">
       <Filter>Source\Coroutine</Filter>
     </ClInclude>
   </ItemGroup>

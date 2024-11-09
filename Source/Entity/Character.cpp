@@ -64,7 +64,6 @@ void Character::UpdateRotation()
 
 void Character::OnOverlapBegin(std::weak_ptr<Collider> Other)
 {
-	SDL_Log("COLLISION ENTER!");
 	CharacterCollider->OnOverlapBeginDelegate.Clear();
 }
 
