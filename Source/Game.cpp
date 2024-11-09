@@ -137,7 +137,6 @@ void Game::Update()
 		auto Handle = *it;
 		if (Handle)
 		{
-			Handle.resume();
 			if(Handle.done())
 			{
 				it = ActiveCoroutines.erase(it);

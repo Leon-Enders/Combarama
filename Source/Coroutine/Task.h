@@ -10,7 +10,7 @@ struct Task
         std::suspend_always initial_suspend() { return {}; }
         std::suspend_always final_suspend() noexcept { return {}; }
         void return_void() {}
-        void unhandled_exception() { std::terminate(); }
+        void unhandled_exception() {}
     };
 
     explicit Task(std::coroutine_handle<promise_type> InHandle) : Handle(InHandle) {}

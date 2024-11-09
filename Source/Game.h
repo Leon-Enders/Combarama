@@ -69,7 +69,8 @@ private:
 	Task DelayTask()
 	{
 		SDL_Log("Coroutine started waiting for 2 seconds.");
-		co_await WaitForDelay(std::chrono::milliseconds(10000));
+		co_await WaitSeconds(10000);
 		SDL_Log("Coroutine finished.");
+		co_return;
 	}
 };
