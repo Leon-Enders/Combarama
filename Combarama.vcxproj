@@ -49,6 +49,7 @@
     <ClInclude Include="Source\Controller\AIController.h" />
     <ClInclude Include="Source\Controller\Controller.h" />
     <ClInclude Include="Source\Controller\PlayerController.h" />
+    <ClInclude Include="Source\Coroutine\Delay.h" />
     <ClInclude Include="Source\Entity\Actor.h" />
     <ClInclude Include="Source\Entity\Character.h" />
     <ClInclude Include="Source\Entity\Enemy.h" />

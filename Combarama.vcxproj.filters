@@ -43,6 +43,9 @@
     <Filter Include="Source\Event">
       <UniqueIdentifier>{b2846484-4436-4ea9-8636-9283817a89e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Coroutine">
+      <UniqueIdentifier>{8cdfbaf9-8054-4574-a775-f74b95bc32ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
@@ -229,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="Source\Event\Delegate.h">
       <Filter>Source\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Coroutine\Delay.h">
+      <Filter>Source\Coroutine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
