@@ -129,6 +129,7 @@
     <ClCompile Include="Source\Timer\GlobalTimer.cpp">
       <Filter>Source\Timer</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Coroutine\CoroutineManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -250,6 +251,9 @@
     </ClInclude>
     <ClInclude Include="Source\Timer\GlobalTimer.h">
       <Filter>Source\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Coroutine\CoroutineManager.h">
+      <Filter>Source\Coroutine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

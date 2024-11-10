@@ -3,6 +3,8 @@
 #include <memory>
 #include "../Input/InputComponent.h"
 #include "../Input/InputAction.h"
+#include "../Coroutine/Task.h"
+#include "../Coroutine/Awaitable/WaitSeconds.h"
 
 class PlayerCharacter;
 
@@ -54,11 +56,23 @@ private:
 
 
 	//Cooldowns
-	bool DashCooldownActive = false;
-	int DashCooldownCounter = 0;
-	int DashCooldownReset = 100;
+	bool DashReady = true;
+	float DashCooldownTime = 1.f;
 
 	bool ShootCooldownActive = false;
 	int ShootCooldownCounter = 0;
 	int ShootCooldownReset = 10;
+
+
+	
+private:
+	//Coroutines
+
+	Task ActivateDashCooldown()
+	{
+		DashReady = false;
+		co_await WaitSeconds(DashCooldownTime);
+		DashReady = true;
+	}
+
 };

@@ -95,8 +95,8 @@ void Game::StartGame()
 
 void Game::StartGameLoop()
 {
-	Task TestDelay = DelayTask();
-	TestDelay.Handle.resume();
+	//Task TestDelay = DelayTask();
+	//TestDelay.Handle.resume();
 
 	while (IsGameActive)
 	{

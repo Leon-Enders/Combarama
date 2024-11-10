@@ -6,6 +6,7 @@ GlobalTimer GlobalTimer::Instance;
 
 void GlobalTimer::Tick(float DeltaTime)
 {
+	
 	TimedCallbacks.Broadcast(DeltaTime);
 }
 

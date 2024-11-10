@@ -1,6 +1,8 @@
 #include "PlayerController.h"
 #include "../Game.h"
 #include "../Entity/PlayerCharacter.h"
+#include "../Coroutine/CoroutineManager.h"
+
 
 PlayerController::PlayerController(World* InOwningWorld)
 	:
@@ -33,7 +35,7 @@ PlayerController::PlayerController(World* InOwningWorld)
 
 void PlayerController::Update(float DeltaTime)
 {	
-	HandleCooldowns();
+
 }
 
 void PlayerController::Initialize()
@@ -110,9 +112,10 @@ void PlayerController::Attack(const InputActionValue& Value)
 
 void PlayerController::Dash(const InputActionValue& Value)
 {
-	if (!DashCooldownActive)
+	if (DashReady)
 	{
-		DashCooldownActive = true;
+		CoroutineManager::Get().StartCoroutine(ActivateDashCooldown());
+
 		if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 		{
 			sPlayerPtr->Dash();
@@ -142,22 +145,5 @@ void PlayerController::OnCharacterDestroyed()
 
 void PlayerController::HandleCooldowns()
 {
-	if (DashCooldownActive)
-	{
-		DashCooldownCounter++;
-		if (DashCooldownCounter > DashCooldownReset)
-		{
-			DashCooldownCounter = 0;
-			DashCooldownActive = false;
-		}
-	}
-	if (ShootCooldownActive)
-	{
-		ShootCooldownCounter++;
-		if (ShootCooldownCounter > ShootCooldownReset)
-		{
-			ShootCooldownCounter = 0;
-			ShootCooldownActive = false;
-		}
-	}
+	
 }
