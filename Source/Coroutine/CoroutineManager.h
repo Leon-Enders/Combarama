@@ -4,6 +4,7 @@
 #include <optional>
 #include "Task.h"
 
+//Singleton Object which should own, start and manage the lifetime of all Coroutines 
 class CoroutineManager
 {
 public:

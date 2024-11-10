@@ -125,9 +125,9 @@ void PlayerController::Dash(const InputActionValue& Value)
 
 void PlayerController::Shoot(const InputActionValue& Value)
 {
-	if (!ShootCooldownActive)
+	if (ShootReady)
 	{
-		ShootCooldownActive = true;
+		CoroutineManager::Get().StartCoroutine(ActivateShootCooldown());
 
 		if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 		{
@@ -140,10 +140,4 @@ void PlayerController::OnCharacterDestroyed()
 {
 	SDL_Log("Character died");
 	UnPossessCharacter();
-}
-
-
-void PlayerController::HandleCooldowns()
-{
-	
 }

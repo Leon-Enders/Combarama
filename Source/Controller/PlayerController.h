@@ -38,9 +38,6 @@ private:
 	void OnCharacterDestroyed();
 
 
-	// Cooldowns
-	void HandleCooldowns();
-
 	std::unique_ptr<InputComponent> ControllerInputComponent = nullptr;
 	std::unique_ptr<InputActionContext> ActionContext = nullptr;
 
@@ -59,9 +56,8 @@ private:
 	bool DashReady = true;
 	float DashCooldownTime = 1.f;
 
-	bool ShootCooldownActive = false;
-	int ShootCooldownCounter = 0;
-	int ShootCooldownReset = 10;
+	bool ShootReady = true;
+	float ShootCooldownTime = 0.3f;
 
 
 	
@@ -73,6 +69,14 @@ private:
 		DashReady = false;
 		co_await WaitSeconds(DashCooldownTime);
 		DashReady = true;
+	}
+
+
+	Task ActivateShootCooldown()
+	{
+		ShootReady = false;
+		co_await WaitSeconds(ShootCooldownTime);
+		ShootReady = true;
 	}
 
 };

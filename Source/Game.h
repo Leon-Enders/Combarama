@@ -8,8 +8,6 @@
 #include <SDL3/SDL_events.h>
 #include "Utility/CombaramaStructs.h"
 #include "World/World.h"
-#include "Coroutine/Task.h"
-#include "Coroutine/Awaitable/WaitSeconds.h"
 
 
 class Game
@@ -61,14 +59,4 @@ private:
 
 	//World
 	std::unique_ptr<World> GameWorld;
-
-
-
-	Task DelayTask()
-	{
-		SDL_Log("Coroutine started waiting for 2 seconds.");
-		co_await WaitSeconds(2);
-		SDL_Log("Coroutine finished.");
-		co_return;
-	}
 };

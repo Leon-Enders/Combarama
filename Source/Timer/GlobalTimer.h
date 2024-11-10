@@ -2,7 +2,8 @@
 
 #include "../Event/Delegate.h"
 
-
+//Singleton Object for triggering callbacks on tick
+//TODO: Update Class to be able to Trigger callbacks with a desired Interval
 
 class GlobalTimer
 {

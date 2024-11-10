@@ -96,9 +96,6 @@ void Game::StartGame()
 
 void Game::StartGameLoop()
 {
-	//Task TestDelay = DelayTask();
-	//TestDelay.Handle.resume();
-
 	while (IsGameActive)
 	{
 		DeltaTimeMS = static_cast<float>((SDL_GetTicks() - FrameStart));
