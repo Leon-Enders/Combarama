@@ -50,7 +50,7 @@
     <ClInclude Include="Source\Controller\AIController.h" />
     <ClInclude Include="Source\Controller\Controller.h" />
     <ClInclude Include="Source\Controller\PlayerController.h" />
-    <ClInclude Include="Source\Coroutine\Awaitable\WaitForDelay.h" />
+    <ClInclude Include="Source\Coroutine\Awaitable\WaitSeconds.h" />
     <ClInclude Include="Source\Coroutine\CoroutineSystem.h" />
     <ClInclude Include="Source\Coroutine\Task.h" />
     <ClInclude Include="Source\Entity\Actor.h" />

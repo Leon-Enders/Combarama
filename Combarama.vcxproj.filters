@@ -239,7 +239,7 @@
     <ClInclude Include="Source\Event\Delegate.h">
       <Filter>Source\Event</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Coroutine\Awaitable\WaitForDelay.h">
+    <ClInclude Include="Source\Coroutine\Awaitable\WaitSeconds.h">
       <Filter>Source\Coroutine\Awaitable</Filter>
     </ClInclude>
     <ClInclude Include="Source\Coroutine\Task.h">
