@@ -123,6 +123,9 @@
     <ClCompile Include="Source\Entity\Projectile.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Coroutine\CoroutineSystem.cpp">
+      <Filter>Source\Coroutine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -240,6 +243,9 @@
       <Filter>Source\Coroutine\Awaitable</Filter>
     </ClInclude>
     <ClInclude Include="Source\Coroutine\Task.h">
+      <Filter>Source\Coroutine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Coroutine\CoroutineSystem.h">
       <Filter>Source\Coroutine</Filter>
     </ClInclude>
   </ItemGroup>

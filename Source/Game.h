@@ -63,13 +63,11 @@ private:
 	std::unique_ptr<World> GameWorld;
 
 
-	//Coroutine test
-	std::vector<std::coroutine_handle<Task::promise_type>> ActiveCoroutines;
 
 	Task DelayTask()
 	{
 		SDL_Log("Coroutine started waiting for 2 seconds.");
-		co_await WaitSeconds(10000);
+		co_await WaitSeconds(2);
 		SDL_Log("Coroutine finished.");
 		co_return;
 	}

@@ -12,6 +12,7 @@
 #include "Controller/PlayerController.h"
 #include "Utility/ColorHelper.h"
 #include "Utility/DrawDebugHelpers.h"
+#include "Coroutine/CoroutineSystem.h"
 
 
 
@@ -95,8 +96,7 @@ void Game::StartGame()
 void Game::StartGameLoop()
 {
 	Task TestDelay = DelayTask();
-	ActiveCoroutines.push_back(TestDelay.Handle);
-
+	TestDelay.Handle.resume();
 
 	while (IsGameActive)
 	{
@@ -132,22 +132,7 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
-	for (auto it = ActiveCoroutines.begin(); it != ActiveCoroutines.end();) 
-	{
-		auto Handle = *it;
-		if (Handle)
-		{
-			if(Handle.done())
-			{
-				it = ActiveCoroutines.erase(it);
-			}
-			else
-			{
-				++it;
-			}
-		}
-		
-	}
+	CoroutineSystem::Get().Tick(DeltaTimeS);
 	GameWorld->Update(DeltaTimeS);
 }
 
