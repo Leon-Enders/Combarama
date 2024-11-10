@@ -13,6 +13,7 @@
 #include "Utility/ColorHelper.h"
 #include "Utility/DrawDebugHelpers.h"
 #include "Timer/GlobalTimer.h"
+#include "Coroutine/CoroutineManager.h"
 
 
 
@@ -132,6 +133,7 @@ void Game::ProcessInput()
 
 void Game::Update()
 {
+	CoroutineManager::Get().CleanupCompletedCoroutines();
 	GlobalTimer::Get().Tick(DeltaTimeS);
 	GameWorld->Update(DeltaTimeS);
 }

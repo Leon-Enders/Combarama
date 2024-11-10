@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <coroutine>
+#include <optional>
 #include "Task.h"
 
 class CoroutineManager
@@ -11,9 +12,10 @@ public:
 
 	void StartCoroutine(Task&& Coroutine);
 
+	void CleanupCompletedCoroutines();
 
 private:
 	static CoroutineManager Instance;
 
-	std::vector<Task> ActiveCoroutines;
+	std::vector<std::optional<Task>> ActiveCoroutines;
 };

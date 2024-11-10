@@ -21,7 +21,12 @@ struct Task
 
     Task(const Task&) = delete;
     Task& operator=(const Task&) = delete;
-    Task(Task&& t) noexcept : Handle(t.Handle) { t.Handle = {}; }
+    Task(Task&& Other) noexcept
+        : 
+        Handle(Other.Handle)
+    { 
+        Other.Handle = {};
+    }
     Task& operator=(Task&& t) noexcept 
     {
         if (this == &t) return *this;
@@ -31,8 +36,6 @@ struct Task
         return *this;
     }
    
-
-    void Destroy() { Handle.destroy(); }
     void Resume() { Handle.resume(); }
     bool IsDone() { return Handle.done(); }
 
