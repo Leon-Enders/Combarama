@@ -9,7 +9,7 @@
 #include "Utility/CombaramaStructs.h"
 #include "World/World.h"
 #include "Coroutine/Task.h"
-#include "Coroutine/Awaitable/WaitForDelay.h"
+#include "Coroutine/Awaitable/WaitSeconds.h"
 
 
 class Game

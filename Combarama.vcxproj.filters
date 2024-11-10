@@ -49,6 +49,9 @@
     <Filter Include="Source\Coroutine\Awaitable">
       <UniqueIdentifier>{daa5cb48-76cf-4d23-89f2-4c0e15f4e945}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Timer">
+      <UniqueIdentifier>{ad329942-92d0-43b9-af9d-fbeb5f960e8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
@@ -125,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="Source\Coroutine\CoroutineSystem.cpp">
       <Filter>Source\Coroutine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Timer\GlobalTimer.cpp">
+      <Filter>Source\Timer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="Source\Coroutine\CoroutineSystem.h">
       <Filter>Source\Coroutine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Timer\GlobalTimer.h">
+      <Filter>Source\Timer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

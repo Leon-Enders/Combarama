@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 
 #include <utility>
 #include <vector>
@@ -28,5 +27,7 @@ public:
 private:
     
     static CoroutineSystem Instance;
+
+
     std::vector<std::pair<std::coroutine_handle<Task::promise_type>, float>> Coroutines;
 };

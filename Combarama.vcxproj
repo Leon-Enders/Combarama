@@ -42,6 +42,7 @@
     <ClCompile Include="Source\System\RenderSystem.cpp" />
     <ClCompile Include="Source\System\WorldSubsystem\AISystem.cpp" />
     <ClCompile Include="Source\System\WorldSubsystem\WorldSubsystem.cpp" />
+    <ClCompile Include="Source\Timer\GlobalTimer.cpp" />
     <ClCompile Include="Source\Utility\DrawDebugHelpers.cpp" />
     <ClCompile Include="Source\World\World.cpp" />
   </ItemGroup>
@@ -79,6 +80,7 @@
     <ClInclude Include="Source\System\RenderSystem.h" />
     <ClInclude Include="Source\System\WorldSubsystem\AISystem.h" />
     <ClInclude Include="Source\System\WorldSubsystem\WorldSubsystem.h" />
+    <ClInclude Include="Source\Timer\GlobalTimer.h" />
     <ClInclude Include="Source\Utility\CollisionHelper.h" />
     <ClInclude Include="Source\Utility\ColorHelper.h" />
     <ClInclude Include="Source\Utility\CombaramaStructs.h" />

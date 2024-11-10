@@ -226,6 +226,10 @@ public:
                 if (*it) 
                 {
                     Results.push_back((*it)(arg));
+                    if (BoundFunctions.size() == 0)
+                    {
+                        return;
+                    }
                     ++it;
                 }
                 else 
@@ -253,6 +257,10 @@ public:
                 if (*it) 
                 {
                     (*it)(arg);
+                    if (BoundFunctions.size() == 0)
+                    {
+                        return;
+                    }
                     ++it;
                 }
                 else 
@@ -322,6 +330,10 @@ public:
                 if (*it) 
                 {
                     Results.push_back((*it)());
+                    if (BoundFunctions.size() == 0)
+                    {
+                        return;
+                    }
                     ++it;
                 }
                 else 
@@ -350,6 +362,10 @@ public:
                 if (*it) 
                 {
                     (*it)();
+                    if (BoundFunctions.size() == 0)
+                    {
+                        return;
+                    }
                     ++it;
                 }
                 else 
