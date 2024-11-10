@@ -14,22 +14,27 @@ struct Task
     };
 
     explicit Task(std::coroutine_handle<promise_type> InHandle) : Handle(InHandle) {}
-    
+    ~Task()
+    {
+        if (Handle) Handle.destroy();
+    }
 
-   // Task(const Task&) = delete;
-   // Task& operator=(const Task&) = delete;
-   // Task(Task&& t) noexcept : Handle(t.Handle) { t.Handle = {}; }
-   // Task& operator=(Task&& t) noexcept 
-   // {
-   //     if (this == &t) return *this;
-   //     if (Handle) Handle.destroy();
-   //     Handle = t.Handle;
-   //     t.Handle = {};
-   //     return *this;
-   // }
+    Task(const Task&) = delete;
+    Task& operator=(const Task&) = delete;
+    Task(Task&& t) noexcept : Handle(t.Handle) { t.Handle = {}; }
+    Task& operator=(Task&& t) noexcept 
+    {
+        if (this == &t) return *this;
+        if (Handle) Handle.destroy();
+        Handle = t.Handle;
+        t.Handle = {};
+        return *this;
+    }
+   
 
     void Destroy() { Handle.destroy(); }
     void Resume() { Handle.resume(); }
+    bool IsDone() { return Handle.done(); }
 
     std::coroutine_handle<promise_type> Handle;
 };
