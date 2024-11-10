@@ -7,20 +7,29 @@
 
 class WaitSeconds
 {
-private:
-    float TimeRemaining;
-    std::coroutine_handle<Task::promise_type> Handle;
-
 public:
-    WaitSeconds(float Time) : TimeRemaining(Time) {}
+    WaitSeconds(float InDelay) : Delay(InDelay) {}
 
-    void await_resume() {}
-    bool await_ready() { return TimeRemaining <= 0.f; }
+  
+    constexpr bool await_ready() const noexcept { return false; }
     void await_suspend(std::coroutine_handle<Task::promise_type> InHandle)
     {
+        TargetTime = static_cast<float>(SDL_GetTicksNS()) + Delay;
         Handle = InHandle;
-        //TODO Here a callback should be added which gets called by another object which gets updated in the game loop.
-        // each update checks if the TimeRemaining is less then 0
-        // if it is the Handle resumes
     }
+    void await_resume() {}
+
+
+    void check_and_resume() 
+    {
+        if (Handle && static_cast<float>(SDL_GetTicksNS()) >= TargetTime)
+        {
+            Handle.resume();
+        }
+    }
+
+private:
+    float Delay = 0.f;
+    float TargetTime = 0.f;
+    std::coroutine_handle<Task::promise_type> Handle;
 };
