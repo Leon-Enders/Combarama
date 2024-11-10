@@ -2,7 +2,6 @@
 #include <chrono>
 #include <functional>
 #include <SDL3/SDL_timer.h>
-#include "../CoroutineSystem.h"
 #include "../../Timer/GlobalTimer.h"
 
 
@@ -18,10 +17,6 @@ public:
     {
         
         Handle = InHandle;
-
-        //CoroutineSystem::Get().RegisterCoroutine(InHandle, Delay);
-
-
         TickerHandle = GlobalTimer::Get().AddTicker([this](float DeltaTime)
             {
                 TimeRemaining -= DeltaTime;
@@ -36,8 +31,7 @@ public:
     void await_resume() {}
 
 private:
-    //float Delay = 0.f;
-    //float TargetTime = 0.f;
+  
     float TimeRemaining = 0.f;
     std::coroutine_handle<Task::promise_type> Handle;
     std::function<void(float)> TickerHandle;
