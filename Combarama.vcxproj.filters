@@ -257,6 +257,9 @@
     <ClInclude Include="Source\Coroutine\CoroutineManager.h">
       <Filter>Source\Coroutine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Coroutine\Awaitable\WaitForBool.h">
+      <Filter>Source\Coroutine\Awaitable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">

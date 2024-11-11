@@ -8,6 +8,8 @@
 #include "../World/World.h"
 #include "../Utility/DrawDebugHelpers.h"
 #include "../System/CollisionSystem.h"
+#include "../Coroutine/Awaitable/WaitForBool.h"
+#include "../Coroutine/CoroutineManager.h"
 
 
 //TODO: Refactor Attack functionality and Sword Transform handling
@@ -68,7 +70,7 @@ void PlayerCharacter::Update(float DeltaTime)
 	float ClampedLerpTime = ComboramaMath::Clamp(LerpTime, LerpTime, 1.f);
 
 	
-	if (!IsAttacking)
+	if (CanAttack)
 	{
 
 		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, DesiredRotation, ClampedLerpTime);
@@ -88,7 +90,7 @@ void PlayerCharacter::Update(float DeltaTime)
 			if (ComboramaMath::FIsSame(SwordRotation, DesiredSwordRotation, 0.01f))
 			{
 				CurrentAttackFrame = 0;
-				IsAttacking = false;
+				CanAttack = true;
 
 				// Reset Sword Rotation
 				sSwordPtr->SetRotation(EntityTransform.Rotation);
@@ -119,17 +121,9 @@ void PlayerCharacter::DrawDebug()
 
 void PlayerCharacter::Attack()
 {
-	if (IsAttacking) return;
+	if (!CanAttack) return;
 	
-	if (auto sSwordPtr = Sword.lock())
-	{
-		DealDamageInCone();
-
-		sSwordPtr->GetRenderComponent()->SetRenderActive(true);
-		IsAttacking = true;
-		SwordRotation = -1.25f + EntityTransform.Rotation;
-		DesiredSwordRotation = 1.25f + EntityTransform.Rotation;
-	}
+	CoroutineManager::Get().StartCoroutine(AttackTask());
 }
 
 void PlayerCharacter::Dash()
@@ -189,5 +183,28 @@ void PlayerCharacter::OnCharacterDeath()
 	if (auto sSword = Sword.lock())
 	{
 		sSword->Destroy();
+	}
+}
+
+Task PlayerCharacter::AttackTask()
+{
+	if (auto sSwordPtr = Sword.lock())
+	{
+		DealDamageInCone();
+
+		auto Result = [this]()-> bool
+			{
+				return ComboramaMath::FIsSame(SwordRotation, DesiredSwordRotation, 0.01f);
+			};
+
+		std::function<bool(void)> Resolution = std::move(Result);
+
+		sSwordPtr->GetRenderComponent()->SetRenderActive(true);
+		CanAttack = false;
+		SwordRotation = -1.25f + EntityTransform.Rotation;
+		DesiredSwordRotation = 1.25f + EntityTransform.Rotation;
+
+		co_await WaitBool(Resolution);
+
 	}
 }

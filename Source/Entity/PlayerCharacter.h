@@ -1,5 +1,7 @@
 #pragma once
 #include "Character.h"
+#include "../Coroutine/Task.h"
+#include "../Coroutine/Awaitable/WaitSeconds.h"
 
 class Weapon;
 
@@ -51,7 +53,7 @@ private:
 	int CurrentAttackFrame = 0;
 	int AttackResetCounter = 60;
 
-	bool IsAttacking = false;
+	bool CanAttack = true;
 
 	std::weak_ptr<Weapon> Sword;
 
@@ -66,4 +68,8 @@ private:
 
 
 private:
+
+	Task AttackTask();
+	
+
 };
