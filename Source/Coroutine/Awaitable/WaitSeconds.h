@@ -28,8 +28,8 @@ public:
                 }
             };
 
-        std::function<void(float)> WrappedCallback = Callback;
-        CallbackPtr = std::make_shared<std::function<void(float)>>(WrappedCallback);
+        std::function<void(float)> WrappedCallback = std::move(Callback);
+        CallbackPtr = std::make_shared<std::function<void(float)>>(std::move(WrappedCallback));
 
 
         GlobalTimer::Get().AddTicker(CallbackPtr);
