@@ -1,6 +1,8 @@
 #pragma once
 
-#include "../Event/Delegate.h"
+#include <vector>
+#include <functional>
+#include <memory>
 
 //Singleton Object for triggering callbacks on tick
 //TODO: Update Class to be able to Trigger callbacks with a desired Interval
@@ -12,12 +14,11 @@ public:
 
 	void Tick(float DeltaTime);
 
-
-	const std::function<void(float)>& AddTicker(const std::function<void(float)>& FunctionToBind);
-	void RemoveTicker(const std::function<void(float)>& FunctionToRemove);
+	void AddTicker(std::shared_ptr<std::function<void(float)>> CallbackToAdd);
+	void RemoveTicker(std::shared_ptr<std::function<void(float)>> CallbackToRemove);
 
 private:
 	static GlobalTimer Instance;
 
-	MulticastDelegate<void, float> TimedCallbacks;
+	std::vector<std::shared_ptr<std::function<void(float)>>> Callbacks;
 };

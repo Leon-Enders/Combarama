@@ -10,23 +10,29 @@ class WaitSeconds
 {
 public:
     WaitSeconds(float Delay) : TimeRemaining(Delay) {}
-
+   
   
     constexpr bool await_ready() const noexcept { return false; }
     void await_suspend(std::coroutine_handle<Task::promise_type> InHandle)
     {
-        
         Handle = InHandle;
-        TickerHandle = GlobalTimer::Get().AddTicker([this](float DeltaTime)
+
+
+        auto Callback = [this](float DeltaTime) -> void
             {
                 TimeRemaining -= DeltaTime;
                 if (TimeRemaining <= 0.f)
                 {
-                    GlobalTimer::Get().RemoveTicker(TickerHandle);
+                    GlobalTimer::Get().RemoveTicker(CallbackPtr);
                     Handle.resume();
                 }
-            });
+            };
 
+        std::function<void(float)> WrappedCallback = Callback;
+        CallbackPtr = std::make_shared<std::function<void(float)>>(WrappedCallback);
+
+
+        GlobalTimer::Get().AddTicker(CallbackPtr);
     }
     void await_resume() {}
 
@@ -34,5 +40,5 @@ private:
   
     float TimeRemaining = 0.f;
     std::coroutine_handle<Task::promise_type> Handle;
-    std::function<void(float)> TickerHandle;
+    std::shared_ptr<std::function<void(float)>> CallbackPtr;
 };

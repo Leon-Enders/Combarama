@@ -1,4 +1,5 @@
 #include "GlobalTimer.h"
+#include <ranges>
 
 
 GlobalTimer GlobalTimer::Instance;
@@ -6,17 +7,24 @@ GlobalTimer GlobalTimer::Instance;
 
 void GlobalTimer::Tick(float DeltaTime)
 {
-	
-	TimedCallbacks.Broadcast(DeltaTime);
+	for (auto& Callback : Callbacks)
+	{
+		if (Callback)
+		{
+			(*Callback)(DeltaTime);
+		};
+	}
 }
 
-const std::function<void(float)>& GlobalTimer::AddTicker(const std::function<void(float)>& FunctionToBind)
+void GlobalTimer::AddTicker(std::shared_ptr<std::function<void(float)>> CallbackToAdd)
 {
-	TimedCallbacks.AddFunction(FunctionToBind);
-	return FunctionToBind;
+	Callbacks.push_back(CallbackToAdd);
 }
 
-void GlobalTimer::RemoveTicker(const std::function<void(float)>& FunctionToRemove)
+void GlobalTimer::RemoveTicker(std::shared_ptr<std::function<void(float)>> CallbackToRemove)
 {
-	TimedCallbacks.UnSubscribe(FunctionToRemove);
+	std::erase_if(Callbacks, [&](std::shared_ptr<std::function<void(float)>>& Callback)
+		{
+			return Callback.get() == CallbackToRemove.get();
+		});
 }
