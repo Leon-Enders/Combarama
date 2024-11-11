@@ -2,6 +2,8 @@
 #include <memory>
 #include "Controller.h"
 #include "../Entity/Enemy.h"
+#include "../Coroutine/Task.h"
+#include "../Coroutine/Awaitable/WaitSeconds.h"
 
 
 class AIController : public Controller, public std::enable_shared_from_this<AIController>
@@ -41,6 +43,15 @@ private:
 	float PullRange = 200.f;
 	bool IsPulled = false;
 
-	int AttackTimer = 0;
-	int AttackResetTimer = 120;
+	bool CanAttack = true;
+	float AttackCooldown = 1.f;
+
+
+	Task ActivateAttackCooldown()
+	{
+		CanAttack = false;
+		co_await WaitSeconds(AttackCooldown);
+		CanAttack = true;
+	}
+
 };

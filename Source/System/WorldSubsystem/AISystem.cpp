@@ -20,18 +20,7 @@ void AISystem::Initialize()
 
 void AISystem::Update(float DeltaTime)
 {
-	for (auto it = ActiveAIControllers.begin(); it != ActiveAIControllers.end(); )
-	{
-		if (auto AIControllerSharedPtr = it->lock())
-		{
-			AIControllerSharedPtr->Update(DeltaTime);
-			++it;
-		}
-		else
-		{
-			it = ActiveAIControllers.erase(it);
-		}
-	}
+
 }
 
 void AISystem::SpawnRandomEnemy()
