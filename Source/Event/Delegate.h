@@ -7,8 +7,8 @@
 #include <type_traits>
 
 
-// Each Delegate class has an option to bind an anonymous function,
-// when doing so the function has to be manually undbound
+// Only Single Delegate can bind to anonymous function yet
+
 template<typename R, typename T>
 class Delegate
 {
@@ -183,12 +183,6 @@ public:
     ~MulticastDelegate() {}
 
    
-    void AddFunction(const std::function<R(T)>& FunctionToBind)
-    {
-        BoundFunctions.push_back(FunctionToBind);
-    }
-
-   
     template <typename ObjType>
     void AddMemberFunction(std::shared_ptr<ObjType> Instance, R(ObjType::* MemberFunction)(T))
     {
@@ -287,13 +281,6 @@ public:
     ~MulticastDelegate() {}
 
 
-    void AddFunction(const std::function<R()>& FunctionToBind)
-    {
-        BoundFunctions.push_back(FunctionToBind);
-    }
-
-
-   
     template <typename ObjType>
     void AddMemberFunction(std::shared_ptr<ObjType> Instance, R(ObjType::* MemberFunction)())
     {
