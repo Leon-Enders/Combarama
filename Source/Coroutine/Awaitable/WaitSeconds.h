@@ -1,7 +1,6 @@
 #pragma once
 #include <chrono>
 #include <functional>
-#include <experimental/generator>
 #include "../Coroutine.h"
 #include "SDL3/SDL_log.h"
 
@@ -28,9 +27,8 @@ private:
     Actor* OwningActor = nullptr;
   
     std::coroutine_handle<Coroutine::promise_type> Handle;
+    std::coroutine_handle<CoroutineSuspended::promise_type> SleeperHandle;
 
-    std::experimental::generator<bool>::iterator SleepIterator;
-    std::experimental::generator<bool> SleepGenerator;
-    std::experimental::generator<bool> SleepFor(std::chrono::nanoseconds Duration);
-  
+
+    CoroutineSuspended Sleep(std::chrono::nanoseconds Duration);
 };

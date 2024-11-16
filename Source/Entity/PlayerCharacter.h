@@ -72,7 +72,8 @@ private:
 	{
 		IsDashing = true;
 		co_await WaitSeconds(0.1f, this);
-		IsDashing = false;
 		Velocity = Vector2::Zero();
+		co_await WaitSeconds(1.f, this);
+		IsDashing = false;
 	}
 };

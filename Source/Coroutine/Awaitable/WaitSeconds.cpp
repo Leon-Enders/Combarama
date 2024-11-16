@@ -12,19 +12,18 @@ void WaitSeconds::await_suspend(std::coroutine_handle<Coroutine::promise_type> I
     Handle = InHandle;
     auto DurationNS = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::duration<double>(Duration));
 
-    SleepGenerator = SleepFor(DurationNS);
-    SleepIterator = SleepGenerator.begin();
+    auto SleepCoroutine = Sleep(DurationNS);
+    SleeperHandle = SleepCoroutine.Handle;
 
     // Add to Awaitable list of the owning actor
     OwningActor->AddAwaitable(*this);
-
 }
 
 void WaitSeconds::Update()
 {
-    if (SleepIterator != SleepGenerator.end())
+    if (!SleeperHandle.done())
     {
-        SleepIterator++;
+        SleeperHandle.resume();
     }
     else
     {
@@ -32,17 +31,16 @@ void WaitSeconds::Update()
     }
 }
 
-std::experimental::generator<bool> WaitSeconds::SleepFor(std::chrono::nanoseconds Duration)
+CoroutineSuspended WaitSeconds::Sleep(std::chrono::nanoseconds Duration)
 {
     using namespace std::chrono;
-
+    
     auto currentTime = steady_clock::now();
     const auto startTime = currentTime;
     const auto endTime = startTime + Duration;
-    while (currentTime < endTime) 
+    while (currentTime < endTime)
     {
-        co_yield false;
+        co_await std::suspend_always();
         currentTime = steady_clock::now();
     }
-    co_yield true;
 }
