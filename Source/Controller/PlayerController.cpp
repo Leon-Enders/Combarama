@@ -1,7 +1,6 @@
 #include "PlayerController.h"
 #include "../Game.h"
 #include "../Entity/PlayerCharacter.h"
-#include "../Coroutine/CoroutineManager.h"
 
 
 PlayerController::PlayerController(World* InOwningWorld)
@@ -114,7 +113,6 @@ void PlayerController::Dash(const InputActionValue& Value)
 {
 	if (DashReady)
 	{
-		CoroutineManager::Get().StartCoroutine(ActivateDashCooldown());
 
 		if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 		{
@@ -127,7 +125,6 @@ void PlayerController::Shoot(const InputActionValue& Value)
 {
 	if (ShootReady)
 	{
-		CoroutineManager::Get().StartCoroutine(ActivateShootCooldown());
 
 		if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 		{

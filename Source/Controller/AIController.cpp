@@ -6,7 +6,6 @@
 #include "../World/World.h"
 #include "../System/WorldSubsystem/AISystem.h"
 #include "../Utility/ComboramaTime.h"
-#include "../Coroutine/CoroutineManager.h"
 
 AIController::AIController(World* InOwningWorld)
     :
@@ -78,7 +77,6 @@ void AIController::HandleAttackFrequency()
     {
         if (CanAttack)
         {
-            CoroutineManager::Get().StartCoroutine(ActivateAttackCooldown());
             sEnemyPtr->Attack();
         }
     }

@@ -1,8 +1,6 @@
 #pragma once
 #include <chrono>
 #include <functional>
-#include <SDL3/SDL_timer.h>
-#include "../../Timer/GlobalTimer.h"
 
 
 //Awaitable which suspends for the set Delay(in Seconds) on the main thread
@@ -17,15 +15,6 @@ public:
     {
         
         Handle = InHandle;
-        TickerHandle = GlobalTimer::Get().AddTicker([this](float DeltaTime)
-            {
-                TimeRemaining -= DeltaTime;
-                if (TimeRemaining <= 0.f)
-                {
-                    GlobalTimer::Get().RemoveTicker(TickerHandle);
-                    Handle.resume();
-                }
-            });
 
     }
     void await_resume() {}
