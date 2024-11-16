@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 #include <functional>
+#include "../Coroutine.h"
 
 
 //Awaitable which suspends for the set Delay(in Seconds) on the main thread
@@ -11,7 +12,7 @@ public:
 
   
     constexpr bool await_ready() const noexcept { return false; }
-    void await_suspend(std::coroutine_handle<Task::promise_type> InHandle)
+    void await_suspend(std::coroutine_handle<Coroutine::promise_type> InHandle)
     {
         
         Handle = InHandle;
@@ -22,6 +23,5 @@ public:
 private:
   
     float TimeRemaining = 0.f;
-    std::coroutine_handle<Task::promise_type> Handle;
-    std::function<void(float)> TickerHandle;
+    std::coroutine_handle<Coroutine::promise_type> Handle;
 };

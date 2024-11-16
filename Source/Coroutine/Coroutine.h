@@ -2,32 +2,32 @@
 #include <iostream>
 #include <coroutine>
 
-struct Task
+struct Coroutine
 {
     struct promise_type
     {
-        Task get_return_object() { return Task{ std::coroutine_handle<promise_type>::from_promise(*this) }; }
+        Coroutine get_return_object() { return Coroutine{ std::coroutine_handle<promise_type>::from_promise(*this) }; }
         std::suspend_always initial_suspend() { return {}; }
         std::suspend_always final_suspend() noexcept { return {}; }
         void return_void() {}
         void unhandled_exception() {}
     };
 
-    explicit Task(std::coroutine_handle<promise_type> InHandle) : Handle(InHandle) {}
-    ~Task()
+    explicit Coroutine(std::coroutine_handle<promise_type> InHandle) : Handle(InHandle) {}
+    ~Coroutine()
     {
         if (Handle) Handle.destroy();
     }
 
-    Task(const Task&) = delete;
-    Task& operator=(const Task&) = delete;
-    Task(Task&& Other) noexcept
+    Coroutine(const Coroutine&) = delete;
+    Coroutine& operator=(const Coroutine&) = delete;
+    Coroutine(Coroutine&& Other) noexcept
         : 
         Handle(Other.Handle)
     { 
         Other.Handle = {};
     }
-    Task& operator=(Task&& t) noexcept 
+    Coroutine& operator=(Coroutine&& t) noexcept
     {
         if (this == &t) return *this;
         if (Handle) Handle.destroy();

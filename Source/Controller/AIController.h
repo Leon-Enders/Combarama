@@ -2,7 +2,6 @@
 #include <memory>
 #include "Controller.h"
 #include "../Entity/Enemy.h"
-#include "../Coroutine/Task.h"
 #include "../Coroutine/Awaitable/WaitSeconds.h"
 
 
@@ -47,11 +46,6 @@ private:
 	float AttackCooldown = 1.f;
 
 
-	Task ActivateAttackCooldown()
-	{
-		CanAttack = false;
-		co_await WaitSeconds(AttackCooldown);
-		CanAttack = true;
-	}
+
 
 };
