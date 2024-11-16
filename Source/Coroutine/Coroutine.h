@@ -7,7 +7,7 @@ struct Coroutine
     struct promise_type
     {
         Coroutine get_return_object() { return Coroutine{ std::coroutine_handle<promise_type>::from_promise(*this) }; }
-        std::suspend_always initial_suspend() { return {}; }
+        std::suspend_never initial_suspend() { return {}; }
         std::suspend_never final_suspend() noexcept { return {}; }
         void return_void() {}
         void unhandled_exception() {}

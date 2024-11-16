@@ -126,11 +126,8 @@
     <ClCompile Include="Source\Entity\Projectile.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Timer\GlobalTimer.cpp">
-      <Filter>Source\Timer</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Coroutine\CoroutineManager.cpp">
-      <Filter>Source\Coroutine</Filter>
+    <ClCompile Include="Source\Coroutine\Awaitable\WaitSeconds.cpp">
+      <Filter>Source\Coroutine\Awaitable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,13 +245,7 @@
     <ClInclude Include="Source\Coroutine\Awaitable\WaitSeconds.h">
       <Filter>Source\Coroutine\Awaitable</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Coroutine\Task.h">
-      <Filter>Source\Coroutine</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Timer\GlobalTimer.h">
-      <Filter>Source\Timer</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Coroutine\CoroutineManager.h">
+    <ClInclude Include="Source\Coroutine\Coroutine.h">
       <Filter>Source\Coroutine</Filter>
     </ClInclude>
   </ItemGroup>

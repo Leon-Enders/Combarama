@@ -84,6 +84,8 @@ void Character::HandleHitEffect()
 
 void Character::Update(float DeltaTime)
 {
+	Actor::Update(DeltaTime);
+
 	HandleHitEffect();
 }
 

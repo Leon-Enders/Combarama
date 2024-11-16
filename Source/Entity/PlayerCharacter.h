@@ -1,5 +1,6 @@
 #pragma once
 #include "Character.h"
+#include "../Coroutine/Awaitable/WaitSeconds.h"
 
 class Weapon;
 
@@ -66,4 +67,12 @@ private:
 
 
 private:
+
+	Coroutine ActivateDashCooldown()
+	{
+		IsDashing = true;
+		co_await WaitSeconds(0.1f, this);
+		IsDashing = false;
+		Velocity = Vector2::Zero();
+	}
 };

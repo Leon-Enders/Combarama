@@ -7,6 +7,8 @@
 
 class Collider;
 class World;
+class WaitSeconds;
+
 
 class Actor
 {
@@ -38,6 +40,9 @@ public:
 	void SetScale(const Vector2& NewScale) { EntityTransform.Scale = NewScale; }
 	void SetInstigator(std::shared_ptr<Actor> InInstigator) { Instigator = InInstigator; }
 
+
+	void AddAwaitable(WaitSeconds& AwaitableToAdd);
+	void RemoveAwaitable(WaitSeconds& AwaitableToRemove);
 public:
 	
 	MulticastDelegate<void,void> OnDestroyDelegate;
@@ -53,6 +58,10 @@ protected:
 
 	//TODO: Move EntityTransform to private and fix compiler errors
 	Transform EntityTransform;
+
+	std::vector <std::reference_wrapper<WaitSeconds>> AwaitableContainer;
+
+
 private:
 	//TODO: Use WeakPTR for Actor
 	std::weak_ptr<Actor> Instigator;

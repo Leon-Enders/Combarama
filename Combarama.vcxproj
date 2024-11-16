@@ -24,6 +24,7 @@
     <ClCompile Include="Source\Controller\AIController.cpp" />
     <ClCompile Include="Source\Controller\Controller.cpp" />
     <ClCompile Include="Source\Controller\PlayerController.cpp" />
+    <ClCompile Include="Source\Coroutine\Awaitable\WaitSeconds.cpp" />
     <ClCompile Include="Source\Entity\Actor.cpp" />
     <ClCompile Include="Source\Entity\Character.cpp" />
     <ClCompile Include="Source\Entity\Enemy.cpp" />

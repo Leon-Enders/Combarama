@@ -52,16 +52,6 @@ void PlayerCharacter::Update(float DeltaTime)
 {
 	Character::Update(DeltaTime);
 	
-	if (IsDashing)
-	{
-		CurrentDashFrame++;
-		if (CurrentDashFrame > DashResetcounter)
-		{
-			CurrentDashFrame = 0;
-			IsDashing = false;
-			Velocity = Vector2::Zero();
-		}
-	}
 
 	float LerpTime = DeltaTime * RotationSpeed;
 
@@ -136,7 +126,7 @@ void PlayerCharacter::Dash()
 {
 	if (!IsDashing)
 	{
-		IsDashing = true;
+		ActivateDashCooldown();
 		//Velocity = GetForwardVector() * DashSpeed;
 		Velocity = LastMoveInput * DashSpeed;
 	}
