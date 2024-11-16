@@ -77,6 +77,7 @@ void AIController::HandleAttackFrequency()
     {
         if (CanAttack)
         {
+            //TODO: Add Attack Cooldown
             sEnemyPtr->Attack();
         }
     }
