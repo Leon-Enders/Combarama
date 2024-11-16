@@ -1,6 +1,7 @@
 #pragma once
 #include "Character.h"
 #include "../Coroutine/Awaitable/WaitSeconds.h"
+#include "../Utility/ColorHelper.h"
 
 class Weapon;
 
@@ -71,9 +72,29 @@ private:
 	Coroutine ActivateDashCooldown()
 	{
 		IsDashing = true;
-		co_await WaitSeconds(0.1f, this);
-		Velocity = Vector2::Zero();
-		co_await WaitSeconds(1.f, this);
+
+
+		for (int i = 0; i < 2; i++)
+		{
+			Velocity = GetForwardVector() * DashSpeed;
+			co_await WaitSeconds(0.1f, this);
+			Velocity = Vector2::Zero();
+			co_await WaitSeconds(0.1f, this);
+		}
 		IsDashing = false;
 	}
+
+	Coroutine Healbuff()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			Health += 3;
+			SetColor(COLOR_GREEN, COLOR_GREEN);
+			co_await WaitSeconds(0.1f, this);
+			SetColor(COLOR_LIGHTBLUE, COLOR_BLUE);
+			co_await WaitSeconds(0.4f, this);
+		}
+	}
+
+	Coroutine Spray();
 };

@@ -115,6 +115,7 @@ void Game::StartGameLoop()
 void Game::GameLoop()
 {
 	ProcessInput();
+	LateUpdate();
 	Update();
 	FixedUpdate();
 	Render();
@@ -123,6 +124,11 @@ void Game::GameLoop()
 void Game::ProcessInput()
 {
 	InputSystem::Get().HandleInput();
+}
+
+void Game::LateUpdate()
+{
+	GameWorld->LateUpdate(DeltaTimeS);
 }
 
 

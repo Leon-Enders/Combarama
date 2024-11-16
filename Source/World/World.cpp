@@ -16,6 +16,24 @@ void World::Initialize()
 
 }
 
+
+
+void World::LateUpdate(float DeltaTime)
+{
+
+
+
+	for (auto& InstancedActor : InstancedActors)
+	{
+		if (InstancedActor)
+		{
+			InstancedActor->LateUpdate(DeltaTime);
+		}
+	}
+	UpdateInstancedActors();
+	CleanUpInstanceActors();
+}
+
 void World::Update(float DeltaTime)
 {
 	for (auto& Subsystem : SubsystemCollection)
@@ -38,17 +56,19 @@ void World::Update(float DeltaTime)
 			InstancedController->Update(DeltaTime);
 		}
 	}
+
 }
 
 void World::FixedUpdate(float FixedDeltaTime)
 {
 	for (auto& InstancedActor : InstancedActors)
 	{
-		if (InstancedActor)
+		if (InstancedActor.get())
 		{
 			InstancedActor->FixedUpdate(FixedDeltaTime);
 		}
 	}
+
 }
 
 void World::DrawDebug()
@@ -62,12 +82,37 @@ void World::DrawDebug()
 	}
 }
 
+void World::UpdateInstancedActors()
+{
+	if (ActorsToAdd.size() <= 0)return;
+
+	for (const auto& ActorToAdd : ActorsToAdd)
+	{
+		InstancedActors.push_back(ActorToAdd);
+	}
+
+	ActorsToAdd.clear();
+}
+
+void World::CleanUpInstanceActors()
+{
+	if (ActorsToRemove.size() <= 0) return;
+
+	for (const auto ActorToRemove : ActorsToRemove)
+	{
+		std::erase_if(InstancedActors, [&](std::shared_ptr<Actor> InstancedActorPtr)
+			{
+				return InstancedActorPtr.get() == ActorToRemove;
+			});
+	}
+
+
+	ActorsToRemove.clear();
+}
+
 void World::RemoveActor(Actor* ActorToRemove)
 {
-	std::erase_if(InstancedActors, [&](std::shared_ptr<Actor>& InstancedActorPtr)
-		{
-			return InstancedActorPtr.get() == ActorToRemove;
-		});
+	ActorsToRemove.push_back(ActorToRemove);
 }
 
 void World::RemoveController(Controller* ControllerToRemove)

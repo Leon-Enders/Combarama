@@ -22,8 +22,9 @@ public:
 
 	void GameLoop();
 	void ProcessInput();
-	void FixedUpdate();
+	void LateUpdate();
 	void Update();
+	void FixedUpdate();
 	void Render();
 
 

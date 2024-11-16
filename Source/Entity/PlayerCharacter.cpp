@@ -127,20 +127,15 @@ void PlayerCharacter::Dash()
 	if (!IsDashing)
 	{
 		ActivateDashCooldown();
-		//Velocity = GetForwardVector() * DashSpeed;
-		Velocity = LastMoveInput * DashSpeed;
+		
 	}
 }
 
 void PlayerCharacter::Shoot()
 {
-	auto SpawnedProjectilePtr = GetWorld()->SpawnActor<Projectile>(EntityTransform);
 
-	// tell the projectile who spawned it
-	if (auto sProjectilePtr = SpawnedProjectilePtr.lock())
-	{
-		sProjectilePtr->SetInstigator(shared_from_this());
-	}
+
+	Spray();
 }
 
 void PlayerCharacter::DealDamageInCone()
@@ -179,5 +174,22 @@ void PlayerCharacter::OnCharacterDeath()
 	if (auto sSword = Sword.lock())
 	{
 		sSword->Destroy();
+	}
+}
+
+Coroutine PlayerCharacter::Spray()
+{
+
+	for (int i = 0; i < 10; i++)
+	{
+		auto SpawnedProjectilePtr = GetWorld()->SpawnActor<Projectile>(EntityTransform);
+
+		// tell the projectile who spawned it
+		if (auto sProjectilePtr = SpawnedProjectilePtr.lock())
+		{
+			sProjectilePtr->SetInstigator(shared_from_this());
+		}
+
+		co_await WaitSeconds(0.1f, this);
 	}
 }

@@ -18,6 +18,7 @@ public:
 	virtual ~Actor() = default;
 
 	virtual void Initialize();
+	virtual void LateUpdate(float DeltaTime);
 	virtual void Update(float DeltaTime);
 	virtual void FixedUpdate(float FixedDeltaTime);
 	virtual void Destroy();

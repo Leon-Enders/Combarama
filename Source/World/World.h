@@ -45,6 +45,7 @@ class World
 public:
 	void Initialize();
 	
+	void LateUpdate(float DeltaTime);
 	void Update(float DeltaTime);
 	void FixedUpdate(float FixedDeltaTime);
 	void DrawDebug();
@@ -64,6 +65,8 @@ public:
 	T* GetSubsystem();
 
 
+	void UpdateInstancedActors();
+	void CleanUpInstanceActors();
 	void RemoveActor(Actor* ActorToRemove);
 	void RemoveController(Controller* ControllerToRemove);
 
@@ -80,6 +83,9 @@ private:
 	std::vector<std::unique_ptr<WorldSubsystem>> SubsystemCollection;
 	std::vector<std::shared_ptr<Actor>> InstancedActors;
 	std::vector<std::shared_ptr<Controller>> InstancedControllers;
+
+	std::vector<Actor*> ActorsToRemove;
+	std::vector<std::shared_ptr<Actor>> ActorsToAdd;
 };
 
 template<IsActor T>
@@ -94,7 +100,7 @@ inline std::weak_ptr<T> World::SpawnActor(const Transform& SpawnTransform)
 	
 	
 	AddActorToMap(NewActor);
-	InstancedActors.push_back(std::move(NewActor));
+	ActorsToAdd.push_back(std::move(NewActor));
 	
 	return NewActorWeak;
 }

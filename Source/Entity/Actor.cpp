@@ -15,18 +15,26 @@ void Actor::Initialize()
 }
 
 
+
+
 void Actor::Update(float DeltaTime)
+{
+	
+}
+
+void Actor::FixedUpdate(float FixedDeltaTime)
+{
+
+}
+
+
+void Actor::LateUpdate(float DeltaTime)
 {
 	// Update all WaitSeconds Awaitables
 	for (auto Awaitable : AwaitableContainer)
 	{
 		Awaitable.get().Update();
 	}
-}
-
-void Actor::FixedUpdate(float FixedDeltaTime)
-{
-
 }
 
 void Actor::Destroy()
