@@ -72,7 +72,7 @@ void PlayerController::PossessCharacter(std::shared_ptr<Character> CharacterToPo
 	ControlledPlayerCharacter = std::dynamic_pointer_cast<PlayerCharacter>(CharacterToPossess);
 	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 	{
-		sPlayerPtr->OnPossessed(this);
+		sPlayerPtr->SetController(shared_from_this());
 		sPlayerPtr->OnDestroyDelegate.AddMemberFunction<PlayerController>(shared_from_this(), &PlayerController::OnCharacterDestroyed);
 	}
 }
@@ -96,7 +96,8 @@ void PlayerController::Look(const InputActionValue& Value)
 	Vector2 TargetMousePosition = Value.Get<Vector2>();
 	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 	{
-		sPlayerPtr->ReceiveMouseInput(TargetMousePosition);
+		Vector2 DeltaPosition = TargetMousePosition - sPlayerPtr->GetPosition();
+		ControlRotation = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
 	}
 }
 

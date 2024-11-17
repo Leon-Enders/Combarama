@@ -39,7 +39,7 @@ void Enemy::Update(float DeltaTime)
 	if (!IsAttacking)
 	{
 
-		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, DesiredRotation, ClampedLerpTime);
+		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, GetController()->GetControlRotation(), ClampedLerpTime);
 		
 		if (auto SwordSharedPtr = Sword.lock())
 		{

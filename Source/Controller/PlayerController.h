@@ -62,21 +62,6 @@ private:
 
 	
 private:
-	//Coroutines
 
-	//Coroutine ActivateDashCooldown()
-	//{
-	//	DashReady = false;
-	//	co_await WaitSeconds(DashCooldownTime);
-	//	DashReady = true;
-	//}
-	//
-	//
-	//Coroutine ActivateShootCooldown()
-	//{
-	//	ShootReady = false;
-	//	co_await WaitSeconds(ShootCooldownTime);
-	//	ShootReady = true;
-	//}
 
 };

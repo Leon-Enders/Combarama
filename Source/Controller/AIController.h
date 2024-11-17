@@ -1,9 +1,12 @@
 #pragma once
 #include <memory>
 #include "Controller.h"
-#include "../Entity/Enemy.h"
-#include "../Coroutine/Awaitable/WaitSeconds.h"
+#include "../Math/Vector2.h"
+#include "../Coroutine/Coroutine.h"
+	
 
+
+class Enemy;
 
 class AIController : public Controller, public std::enable_shared_from_this<AIController>
 {
@@ -17,7 +20,6 @@ public:
 	virtual void UnPossessCharacter() override;
 
 	void MoveEnemy();
-	void RotateEnemy();
 protected:
 
 	virtual void Initialize() override;
@@ -25,11 +27,9 @@ protected:
 private:
 
 	void CheckForTarget();
-	void HandleAttackFrequency();
+	void HandleAttack();
 
 private:
-
-
 	Vector2 StartPosition = {};
 
 	std::weak_ptr<Character> Target;
@@ -45,7 +45,5 @@ private:
 	bool CanAttack = true;
 	float AttackCooldown = 1.f;
 
-
-
-
+	Coroutine Attack();
 };

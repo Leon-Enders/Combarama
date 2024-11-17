@@ -8,16 +8,12 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld,InTransform)
 {
-
 	//Use helper function to generate Avatar Triangles
 	std::vector<SDL_Vertex> AvatarTriangles;
 	Avatar::GenerateVertices(AvatarTriangles, EntityTransform);
 
 	//Move Avatar Triangles into Render Component
 	CharacterRenderComponent = std::make_unique<RenderComponent>(*this, std::move(AvatarTriangles));
-
-	
-
 }
 
 void Character::Initialize()
@@ -30,9 +26,10 @@ void Character::Initialize()
 	CharacterCollider->OnOverlapBeginDelegate.BindMemberFunction<Character>(shared_from_this(), &Character::OnOverlapBegin);
 }
 
-void Character::OnPossessed(Controller* OwningContoller)
+
+void Character::SetController(std::shared_ptr<Controller> InOwningContoller)
 {
-	OwningController = OwningContoller;
+	OwningController = InOwningContoller;
 }
 
 void Character::SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColor)
@@ -72,15 +69,17 @@ void Character::OnCharacterDeath()
 
 }
 
-Coroutine Character::ApplyHitEffect(float Duration)
+Controller* Character::GetController()
 {
-	if (IsHit) co_return;
-	IsHit = true;
-	SetColor(COLOR_RED, COLOR_RED);
-	co_await WaitSeconds(Duration, this);
-	SetColor(BodyColor, HeadColor);
-	IsHit = false;
+	if (auto sControllerptr = OwningController.lock())
+	{
+		return sControllerptr.get();
+	}
+
+	return nullptr;
 }
+
+
 
 void Character::Update(float DeltaTime)
 {
@@ -93,4 +92,14 @@ void Character::FixedUpdate(float FixedDeltaTime)
 
 	UpdatePosition(FixedDeltaTime);
 	UpdateRotation();
+}
+
+Coroutine Character::ApplyHitEffect(float Duration)
+{
+	if (IsHit) co_return;
+	IsHit = true;
+	SetColor(COLOR_RED, COLOR_RED);
+	co_await WaitSeconds(Duration, this);
+	SetColor(BodyColor, HeadColor);
+	IsHit = false;
 }

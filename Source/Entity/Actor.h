@@ -18,9 +18,9 @@ public:
 	virtual ~Actor() = default;
 
 	virtual void Initialize();
-	virtual void LateUpdate(float DeltaTime);
 	virtual void Update(float DeltaTime);
 	virtual void FixedUpdate(float FixedDeltaTime);
+	virtual void LateUpdate(float DeltaTime);
 	virtual void Destroy();
 
 
@@ -64,7 +64,8 @@ protected:
 
 
 private:
-	//TODO: Use WeakPTR for Actor
+	
+
 	std::weak_ptr<Actor> Instigator;
 	World* OwningWorld = nullptr;
 	

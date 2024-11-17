@@ -2,6 +2,8 @@
 #include "Character.h"
 #include "../Coroutine/Awaitable/WaitSeconds.h"
 #include "../Utility/ColorHelper.h"
+#include "../Controller/PlayerController.h"
+
 
 class Weapon;
 
@@ -26,7 +28,6 @@ public:
 	void DealDamageInCone();
 
 	void UpdateVelocity(const Vector2& NewVelocity);
-	void ReceiveMouseInput(const Vector2& TargetPosition);
 
 protected:
 	virtual void UpdatePosition(float DeltaTime)override;
@@ -34,8 +35,7 @@ protected:
 
 	virtual void OnCharacterDeath()override;
 
-
-
+	
 private:
 	float RotationSpeed = 20.f;
 	float DesiredRotation = 0.f;

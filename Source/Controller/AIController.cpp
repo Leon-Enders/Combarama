@@ -18,8 +18,7 @@ void AIController::Update(float DeltaTime)
 {
     CheckForTarget();
     MoveEnemy();
-    RotateEnemy();
-    HandleAttackFrequency();
+    HandleAttack();
    
 }
 
@@ -30,7 +29,7 @@ void AIController::PossessCharacter(std::shared_ptr<Character> CharacterToPosses
 
     if (auto sEnemyPtr = ControlledEnemy.lock())
     {
-        sEnemyPtr->OnPossessed(this);
+        sEnemyPtr->SetController(shared_from_this());
 
         StartPosition = sEnemyPtr->GetPosition();
         sEnemyPtr->UpdateVelocity({ 1.f,0.f });
@@ -68,20 +67,14 @@ void AIController::CheckForTarget()
    
 }
 
-void AIController::HandleAttackFrequency()
+void AIController::HandleAttack()
 {
-    if (Target.expired()) return;
+    if (Target.expired() || ControlledEnemy.expired()) return;
 
-
-    if (auto sEnemyPtr = ControlledEnemy.lock())
-    {
-        if (CanAttack)
-        {
-            //TODO: Add Attack Cooldown
-            sEnemyPtr->Attack();
-        }
-    }
+   // if (CanAttack) Attack();
 }
+
+
 
 void AIController::UnPossessCharacter()
 {
@@ -100,9 +93,8 @@ void AIController::MoveEnemy()
             Vector2 DeltaPosition = sTargetPtr->GetPosition() - sEnemyPtr->GetPosition();
             Vector2 TargetDirection = DeltaPosition.Normalize();
 
-            float LookAtRotation = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
+            ControlRotation = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
 
-            sEnemyPtr->DesiredRotation = LookAtRotation;
             sEnemyPtr->UpdateVelocity(TargetDirection);
         }
         else
@@ -121,13 +113,20 @@ void AIController::MoveEnemy()
                 Vector2 NewVelocity = { DistFloatWidth(RandomGenerator::GetRandomEngine()) , DistFloatHeight(RandomGenerator::GetRandomEngine()) };
 
                 sEnemyPtr->UpdateVelocity(NewVelocity);
+                Vector2 DeltaPosition = NewVelocity.Normalize() - sEnemyPtr->GetForwardVector();
+                ControlRotation = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
             }
         }
     }
 }
 
-void AIController::RotateEnemy()
+Coroutine AIController::Attack()
 {
+   CanAttack = false;
+   auto sEnemyPtr = ControlledEnemy.lock();
+   sEnemyPtr->Attack();
+   co_await WaitSeconds(AttackCooldown, sEnemyPtr.get());
+   CanAttack = true;
 
 }
 

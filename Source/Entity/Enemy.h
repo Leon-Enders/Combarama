@@ -21,19 +21,12 @@ public:
 	void Attack();
 	void DealDamageInCone();
 
-	float DesiredRotation = 0.f;
-
 protected:
 
 	virtual void OnCharacterDeath() override;
 
 private:
-
-
-
 	float RotationSpeed = 20.f;
-	
-
 
 	float AttackSpeed = 1.f;
 	float SwordRotation = 0.f;
