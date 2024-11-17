@@ -2,6 +2,7 @@
 #include "../Render/Avatar.h"
 #include "SDL3/SDL_log.h"
 #include "../Utility/ColorHelper.h"
+#include "../Coroutine/Awaitable/WaitSeconds.h"
 
 Character::Character(World* GameWorld, const Transform& InTransform)
 	:
@@ -36,14 +37,13 @@ void Character::OnPossessed(Controller* OwningContoller)
 
 void Character::SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColor)
 {
-	ColorResetCounter = 0;
 	Avatar::SetColor(HeadColor, BodyColor, CharacterRenderComponent.get());
 }
 
 void Character::TakeDamage(int Damage)
 {
-	SetColor(COLOR_RED, COLOR_RED);
-
+	
+	ApplyHitEffect(0.15f);
 	Health -= Damage;
 	if (Health <= 0)
 	{
@@ -72,21 +72,19 @@ void Character::OnCharacterDeath()
 
 }
 
-void Character::HandleHitEffect()
+Coroutine Character::ApplyHitEffect(float Duration)
 {
-	// Hit Effect
-	ColorResetCounter++;
-	if (ColorResetCounter >= ColorMaxTime)
-	{
-		SetColor(BodyColor, HeadColor);
-	}
+	if (IsHit) co_return;
+	IsHit = true;
+	SetColor(COLOR_RED, COLOR_RED);
+	co_await WaitSeconds(Duration, this);
+	SetColor(BodyColor, HeadColor);
+	IsHit = false;
 }
 
 void Character::Update(float DeltaTime)
 {
 	Actor::Update(DeltaTime);
-
-	HandleHitEffect();
 }
 
 void Character::FixedUpdate(float FixedDeltaTime)

@@ -5,6 +5,7 @@
 #include "../Render/RenderComponent.h"
 #include "../Collision/Collider.h"
 #include "../Event/Delegate.h"
+#include "../Coroutine/Coroutine.h"
 
 
 
@@ -45,10 +46,6 @@ protected:
 	std::unique_ptr<RenderComponent> CharacterRenderComponent = nullptr;
 	std::shared_ptr<Collider> CharacterCollider = nullptr;
 
-
-	int ColorResetCounter = 0;
-	int ColorMaxTime = 15;
-
 	int Health = 20;
 
 
@@ -56,5 +53,7 @@ protected:
 	SDL_FColor BodyColor;
 private:
 
-	void HandleHitEffect();
+	bool IsHit = false;
+	Coroutine ApplyHitEffect(float Duration);
+
 };
