@@ -71,7 +71,7 @@ void AIController::HandleAttack()
 {
     if (Target.expired() || ControlledEnemy.expired()) return;
 
-   // if (CanAttack) Attack();
+    if (CanAttack) Attack();
 }
 
 
@@ -123,9 +123,9 @@ void AIController::MoveEnemy()
 Coroutine AIController::Attack()
 {
    CanAttack = false;
-   auto sEnemyPtr = ControlledEnemy.lock();
-   sEnemyPtr->Attack();
-   co_await WaitSeconds(AttackCooldown, sEnemyPtr.get());
+   Enemy* EnemyPtr = ControlledEnemy.lock().get();
+   EnemyPtr->Attack();
+   co_await WaitSeconds(AttackCooldown, this);
    CanAttack = true;
 
 }
