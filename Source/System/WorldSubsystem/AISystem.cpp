@@ -34,7 +34,7 @@ void AISystem::SpawnRandomEnemy()
 	RandomSpawnTransform.Position = { DistFloatWidth(RandomGenerator) , DistFloatHeight(RandomGenerator) };
 	
 	auto NewEnemyPtr = GetWorld()->SpawnActor<Enemy>(RandomSpawnTransform);
-	std::weak_ptr<AIController> NewAIController = GetWorld()->CreateController<AIController>();
+	std::weak_ptr<AIController> NewAIController = GetWorld()->SpawnGameObject<AIController>();
 
 	NewAIController.lock()->PossessCharacter(std::shared_ptr<Enemy>(NewEnemyPtr));
 

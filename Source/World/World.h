@@ -6,6 +6,7 @@
 #include <typeindex>
 #include <variant>
 #include <functional>
+#include "../Entity/GameObject.h"
 #include "../Entity/Actor.h"
 #include "../Entity/Character.h"
 #include "../Entity/Enemy.h"
@@ -17,8 +18,11 @@
 #include "../System/WorldSubsystem/WorldSubsystem.h"
 
 
-
+class AIController;
 class Obstacle;
+
+template<typename T>
+concept IsGameObject = std::is_base_of<GameObject, T>::value;
 
 template<typename T>
 concept IsActor = std::is_base_of<Actor, T>::value;
@@ -30,8 +34,11 @@ template<typename T>
 concept IsSubsystem = std::is_base_of<WorldSubsystem, T>::value;
 
 
-
-using ActorsVariant = std::variant<
+using GameObjectVariant = std::variant<
+	std::vector<std::weak_ptr<GameObject>>,
+	std::vector<std::weak_ptr<Controller>>,
+	std::vector<std::weak_ptr<AIController>>,
+	std::vector<std::weak_ptr<PlayerController>>,
 	std::vector<std::weak_ptr<Actor>>,
 	std::vector<std::weak_ptr<Character>>,
 	std::vector<std::weak_ptr<Enemy>>,
@@ -39,6 +46,8 @@ using ActorsVariant = std::variant<
 	std::vector<std::weak_ptr<Weapon>>,
 	std::vector<std::weak_ptr<Obstacle>>,
 	std::vector<std::weak_ptr<Projectile>>>;
+
+
 
 class World
 {
@@ -50,118 +59,121 @@ public:
 	void FixedUpdate(float FixedDeltaTime);
 	void DrawDebug();
 
+
+	template<IsGameObject T>
+	std::weak_ptr<T> SpawnGameObject();
+
 	template<IsActor T>
 	std::weak_ptr<T> SpawnActor(const Transform& SpawnTransform);
 
 	std::weak_ptr<Obstacle> SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor);
 
-	template<IsActor T>
-	std::vector<std::shared_ptr<T>> GetAllActorsOfClass();
-
-	template<IsController T>
-	std::weak_ptr<T> CreateController();
+	template<IsGameObject T>
+	std::vector<std::shared_ptr<T>> GetAllGameObjectsOfClass();
 
 	template<IsSubsystem T>
 	T* GetSubsystem();
 
 
-	void UpdateInstancedActors();
-	void CleanUpInstanceActors();
-	void RemoveActor(Actor* ActorToRemove);
-	void RemoveController(Controller* ControllerToRemove);
+	void UpdateInstancedGameObjects();
+	void CleanUpInstanceGameObjects();
+	void RemoveGameObject(GameObject* GameObjectToRemove);
 
 private:
-	template<IsActor T>
-	void AddActorToMap(std::shared_ptr<T> ActorToAdd);
+	template<IsGameObject T>
+	void AddGameObjectToMap(std::shared_ptr<T> GameObjectToAdd);
 
 	void FillSubsystemCollection();
 
 
 private:
 
-	std::unordered_map<std::type_index, ActorsVariant> ActorTypeToActorsMap;
+	std::unordered_map<std::type_index, GameObjectVariant> GameObjectTypeToGameObjectsMap;
 	std::vector<std::unique_ptr<WorldSubsystem>> SubsystemCollection;
-	std::vector<std::shared_ptr<Actor>> InstancedActors;
-	std::vector<std::shared_ptr<Controller>> InstancedControllers;
+	std::vector<std::shared_ptr<GameObject>> InstancedGameObjects;
 
-	std::vector<Actor*> ActorsToRemove;
-	std::vector<std::shared_ptr<Actor>> ActorsToAdd;
+	std::vector<GameObject*> GameObjectsToRemove;
+	std::vector<std::shared_ptr<GameObject>> GameObjectsToAdd;
 };
+
+template<IsGameObject T>
+inline std::weak_ptr<T> World::SpawnGameObject()
+{
+	std::shared_ptr<T> NewGameObject = std::make_shared<T>(this);
+	std::weak_ptr<T> NewGameObjectWeak = NewGameObject;
+
+	//Small hack to initialize GameObject
+	GameObject* InitializationPtr = static_cast<GameObject*>(NewGameObject.get());
+	InitializationPtr->Initialize();
+
+
+	AddGameObjectToMap(NewGameObject);
+	GameObjectsToAdd.push_back(std::move(NewGameObject));
+
+	return NewGameObjectWeak;
+}
 
 template<IsActor T>
 inline std::weak_ptr<T> World::SpawnActor(const Transform& SpawnTransform)
 {
-	std::shared_ptr<T> NewActor = std::make_shared<T>(this, SpawnTransform);
-	std::weak_ptr<T> NewActorWeak = NewActor;
+	std::shared_ptr<T> NewGameObject = std::make_shared<T>(this, SpawnTransform);
+	std::weak_ptr<T> NewGameObjectWeak = NewGameObject;
 
-	//Small hack to initialize Actor
-	Actor* InitializationPtr = static_cast<Actor*>(NewActor.get());
+	//Small hack to initialize GameObject
+	GameObject* InitializationPtr = static_cast<GameObject*>(NewGameObject.get());
 	InitializationPtr->Initialize();
 	
 	
-	AddActorToMap(NewActor);
-	ActorsToAdd.push_back(std::move(NewActor));
+	AddGameObjectToMap(NewGameObject);
+	GameObjectsToAdd.push_back(std::move(NewGameObject));
 	
-	return NewActorWeak;
+	return NewGameObjectWeak;
 }
 
-template <IsActor T>
-std::vector<std::shared_ptr<T>> World::GetAllActorsOfClass()
+template <IsGameObject T>
+std::vector<std::shared_ptr<T>> World::GetAllGameObjectsOfClass()
 {
 	std::type_index TypeIndex = std::type_index(typeid(T));
-	auto it = ActorTypeToActorsMap.find(TypeIndex);
+	auto it = GameObjectTypeToGameObjectsMap.find(TypeIndex);
 
-	if (it != ActorTypeToActorsMap.end()) {
-		auto& WeakActorVector = std::get<std::vector<std::weak_ptr<T>>>(it->second);
+	if (it != GameObjectTypeToGameObjectsMap.end()) {
+		auto& WeakGameObjectVector = std::get<std::vector<std::weak_ptr<T>>>(it->second);
 
-		std::vector<std::shared_ptr<T>> ValidActors;
-		WeakActorVector.erase(std::remove_if(WeakActorVector.begin(), WeakActorVector.end(),
-			[&ValidActors](const std::weak_ptr<T>& WeakPtr)
+		std::vector<std::shared_ptr<T>> ValidGameObjects;
+		WeakGameObjectVector.erase(std::remove_if(WeakGameObjectVector.begin(), WeakGameObjectVector.end(),
+			[&ValidGameObjects](const std::weak_ptr<T>& WeakPtr)
 			{
 				if (auto SharedPtr = WeakPtr.lock())
 				{
-					ValidActors.push_back(SharedPtr);
+					ValidGameObjects.push_back(SharedPtr);
 					return false;
 				}
 				return true; 
-			}), WeakActorVector.end());
+			}), WeakGameObjectVector.end());
 
-		return ValidActors;
+		return ValidGameObjects;
 	}
 
 	return {};
 }
 
-template<IsActor T>
-inline void World::AddActorToMap(std::shared_ptr<T> ActorToAdd)
+template<IsGameObject T>
+inline void World::AddGameObjectToMap(std::shared_ptr<T> GameObjectToAdd)
 {
 	std::type_index TypeIndex = std::type_index(typeid(T));
 
-	auto it = ActorTypeToActorsMap.find(TypeIndex);
-	if (it == ActorTypeToActorsMap.end()) 
+	auto it = GameObjectTypeToGameObjectsMap.find(TypeIndex);
+	if (it == GameObjectTypeToGameObjectsMap.end()) 
 	{
 		std::vector<std::weak_ptr<T>> NewVector;
-		ActorTypeToActorsMap[TypeIndex] = NewVector;
-		it = ActorTypeToActorsMap.find(TypeIndex);
+		GameObjectTypeToGameObjectsMap[TypeIndex] = NewVector;
+		it = GameObjectTypeToGameObjectsMap.find(TypeIndex);
 	}
 
-	auto& ActorVector = std::get<std::vector<std::weak_ptr<T>>>(it->second);
-	ActorVector.push_back(ActorToAdd);
+	auto& GameObjectVector = std::get<std::vector<std::weak_ptr<T>>>(it->second);
+	GameObjectVector.push_back(GameObjectToAdd);
 }
 
-
-
-template<IsController T>
-inline std::weak_ptr<T> World::CreateController()
-{
-	std::shared_ptr<T> NewController = std::make_shared<T>(this);
-
-	std::weak_ptr<T> NewControllerWeakPtr = NewController;
-
-	InstancedControllers.push_back(std::move(NewController));
-
-	return NewControllerWeakPtr;
-}
 
 template<IsSubsystem T>
 inline T* World::GetSubsystem()

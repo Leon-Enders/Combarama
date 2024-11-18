@@ -3,9 +3,9 @@
 #include "../Entity/PlayerCharacter.h"
 
 
-PlayerController::PlayerController(World* InOwningWorld)
+PlayerController::PlayerController(World* OwningWorld)
 	:
-	Controller(InOwningWorld)
+	Controller(OwningWorld)
 {
 	using namespace std::placeholders;
 	ActionContext = std::make_unique<InputActionContext>();
@@ -28,13 +28,10 @@ PlayerController::PlayerController(World* InOwningWorld)
 
 	ShootAction = std::make_shared<InputAction>();
 	ShootAction->BindFunction(std::bind(&PlayerController::Shoot, this, _1));
-
-	Initialize();
 }
 
 void PlayerController::Update(float DeltaTime)
 {	
-
 }
 
 void PlayerController::Initialize()

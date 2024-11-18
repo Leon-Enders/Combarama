@@ -13,16 +13,14 @@ class AIController : public Controller, public std::enable_shared_from_this<AICo
 public:
 	AIController(World* InOwningWorld);
 
+	virtual void Initialize() override;
 	void Update(float DeltaTime);
 
 	virtual void PossessCharacter(std::shared_ptr<Character> CharacterToPossess) override;
-
 	virtual void UnPossessCharacter() override;
 
 	void MoveEnemy();
-protected:
 
-	virtual void Initialize() override;
 
 private:
 

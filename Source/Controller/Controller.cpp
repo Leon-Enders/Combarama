@@ -3,9 +3,9 @@
 #include "../Entity/Character.h"
 
 
-Controller::Controller(World* InOwningWorld)
+Controller::Controller(World* OwningWorld)
 	:
-	OwningWorld(InOwningWorld)
+	GameObject(OwningWorld)
 {
 	Initialize();
 }

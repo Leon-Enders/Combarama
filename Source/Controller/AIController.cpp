@@ -11,7 +11,6 @@ AIController::AIController(World* InOwningWorld)
     :
     Controller(InOwningWorld)
 {
-
 }
 
 void AIController::Update(float DeltaTime)
@@ -46,10 +45,10 @@ void AIController::Initialize()
 void AIController::CheckForTarget()
 {
     if (IsPulled) return;
-
     if (auto sEnemyPtr = ControlledEnemy.lock())
     {
-        auto PlayerCharacters = GetWorld()->GetAllActorsOfClass<PlayerCharacter>();
+     
+        auto PlayerCharacters = GetWorld()->GetAllGameObjectsOfClass<PlayerCharacter>();
 
         for (const auto& PlayerChar : PlayerCharacters)
         {
@@ -81,7 +80,7 @@ void AIController::UnPossessCharacter()
     ControlledEnemy.reset();
 
     //Temp solution: Remove from The world
-    GetWorld()->RemoveController(this);
+    GetWorld()->RemoveGameObject(this);
 }
 
 void AIController::MoveEnemy()

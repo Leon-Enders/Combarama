@@ -44,7 +44,7 @@ void Game::StartGame()
 	PlayerSpawnTransform.Position = { 840.f,1000.f };
 
 	auto SpawnedPlayerPtr = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
-	auto PlayerControllerPtr = GameWorld->CreateController<PlayerController>();
+	auto PlayerControllerPtr = GameWorld->SpawnGameObject<PlayerController>();
 
 	if (auto sPlayerController = PlayerControllerPtr.lock())
 	{

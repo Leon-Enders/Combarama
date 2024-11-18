@@ -2,7 +2,9 @@
 #include "../Event/Delegate.h"
 
 
+
 class World;
+class WaitSeconds;
 
 class GameObject
 {
@@ -16,13 +18,20 @@ public:
 	virtual void LateUpdate(float DeltaTime);
 	virtual void Destroy();
 
+	virtual void DrawDebug();
+
+	void AddAwaitable(WaitSeconds& AwaitableToAdd);
+	void RemoveAwaitable(WaitSeconds& AwaitableToRemove);
 
 protected:
-	inline World* GetWorld()const { return OwningWorld; }
+	inline World* GetWorld() const { return OwningWorld; }
 
 public:
 	MulticastDelegate<void, void> OnDestroyDelegate;
 
 private:
 	World* OwningWorld = nullptr;
+
+
+	std::vector <std::reference_wrapper<WaitSeconds>> AwaitableContainer;
 };

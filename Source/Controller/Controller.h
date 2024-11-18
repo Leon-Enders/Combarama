@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "../Entity/GameObject.h"
 
 
 struct Vector2;
@@ -7,14 +8,15 @@ class Character;
 class World;
 
 
-class Controller 
+class Controller : public GameObject
 {
 public:
 	
-	Controller(World* InOwningWorld);
+	Controller(World* OwningWorld);
+	~Controller()=default;
 
-	virtual void Update(float DeltaTime);
-
+	virtual void Initialize() override;
+	virtual void Update(float DeltaTime) override;
 
 	virtual void PossessCharacter(std::shared_ptr<Character> CharacterToPossess);
 	virtual void UnPossessCharacter();
@@ -22,15 +24,7 @@ public:
 	float GetControlRotation() { return ControlRotation; };
 
 protected:
-	virtual void Initialize();
-	World* GetWorld()const{ return OwningWorld; }
-
-
 
 	float ControlRotation = 0.f;
 	std::weak_ptr<Character> ControlledCharacter;
-
-private:
-	World* OwningWorld;
-	
 };

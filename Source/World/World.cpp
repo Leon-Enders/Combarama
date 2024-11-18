@@ -12,27 +12,8 @@ void World::Initialize()
 	{
 		ActiveSubsystem->Initialize();
 	}
-
-
 }
 
-
-
-void World::LateUpdate(float DeltaTime)
-{
-
-
-
-	for (auto& InstancedActor : InstancedActors)
-	{
-		if (InstancedActor)
-		{
-			InstancedActor->LateUpdate(DeltaTime);
-		}
-	}
-	UpdateInstancedActors();
-	CleanUpInstanceActors();
-}
 
 void World::Update(float DeltaTime)
 {
@@ -41,86 +22,83 @@ void World::Update(float DeltaTime)
 		Subsystem->Update(DeltaTime);
 	}
 
-	for (auto& InstancedActor : InstancedActors)
+	for (auto& InstancedGameObject : InstancedGameObjects)
 	{
-		if (InstancedActor)
+		if (InstancedGameObject)
 		{
-			InstancedActor->Update(DeltaTime);
+			InstancedGameObject->Update(DeltaTime);
 		}
 	}
-
-	for (auto& InstancedController : InstancedControllers)
-	{
-		if (InstancedController)
-		{
-			InstancedController->Update(DeltaTime);
-		}
-	}
-
 }
 
 void World::FixedUpdate(float FixedDeltaTime)
 {
-	for (auto& InstancedActor : InstancedActors)
+	for (auto& InstancedGameObject : InstancedGameObjects)
 	{
-		if (InstancedActor.get())
+		if (InstancedGameObject.get())
 		{
-			InstancedActor->FixedUpdate(FixedDeltaTime);
+			InstancedGameObject->FixedUpdate(FixedDeltaTime);
 		}
 	}
+}
 
+
+void World::LateUpdate(float DeltaTime)
+{
+
+	for (auto& InstancedGameObject : InstancedGameObjects)
+	{
+		if (InstancedGameObject)
+		{
+			InstancedGameObject->LateUpdate(DeltaTime);
+		}
+	}
+	UpdateInstancedGameObjects();
+	CleanUpInstanceGameObjects();
 }
 
 void World::DrawDebug()
 {
-	for (auto& InstancedActor : InstancedActors)
+	for (auto& InstancedGameObject : InstancedGameObjects)
 	{
-		if (InstancedActor)
+		if (InstancedGameObject)
 		{
-			InstancedActor->DrawDebug();
+			InstancedGameObject->DrawDebug();
 		}
 	}
 }
 
-void World::UpdateInstancedActors()
+void World::UpdateInstancedGameObjects()
 {
-	if (ActorsToAdd.size() <= 0)return;
+	if (GameObjectsToAdd.size() <= 0)return;
 
-	for (const auto& ActorToAdd : ActorsToAdd)
+	for (const auto& GameObjectToAdd : GameObjectsToAdd)
 	{
-		InstancedActors.push_back(ActorToAdd);
+		InstancedGameObjects.push_back(GameObjectToAdd);
 	}
 
-	ActorsToAdd.clear();
+	GameObjectsToAdd.clear();
 }
 
-void World::CleanUpInstanceActors()
+void World::CleanUpInstanceGameObjects()
 {
-	if (ActorsToRemove.size() <= 0) return;
+	if (GameObjectsToRemove.size() <= 0) return;
 
-	for (const auto ActorToRemove : ActorsToRemove)
+	for (const auto GameObjectToRemove : GameObjectsToRemove)
 	{
-		std::erase_if(InstancedActors, [&](std::shared_ptr<Actor> InstancedActorPtr)
+		std::erase_if(InstancedGameObjects, [&](std::shared_ptr<GameObject> InstancedGameObjectPtr)
 			{
-				return InstancedActorPtr.get() == ActorToRemove;
+				return InstancedGameObjectPtr.get() == GameObjectToRemove;
 			});
 	}
 
 
-	ActorsToRemove.clear();
+	GameObjectsToRemove.clear();
 }
 
-void World::RemoveActor(Actor* ActorToRemove)
+void World::RemoveGameObject(GameObject* GameObjectToRemove)
 {
-	ActorsToRemove.push_back(ActorToRemove);
-}
-
-void World::RemoveController(Controller* ControllerToRemove)
-{
-	std::erase_if(InstancedControllers, [&](std::shared_ptr<Controller>& InstancedControllerPtr)
-		{
-			return InstancedControllerPtr.get() == ControllerToRemove;
-		});
+	GameObjectsToRemove.push_back(GameObjectToRemove);
 }
 
 void World::FillSubsystemCollection()
@@ -132,15 +110,15 @@ void World::FillSubsystemCollection()
 std::weak_ptr<Obstacle> World::SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor)
 {
 
-	std::shared_ptr<Obstacle> NewActor = std::make_shared<Obstacle>(this, SpawnTransform, RectDimensions, InColor);
-	std::weak_ptr<Obstacle> wNewActor = NewActor;
+	std::shared_ptr<Obstacle> NewGameObject = std::make_shared<Obstacle>(this, SpawnTransform, RectDimensions, InColor);
+	std::weak_ptr<Obstacle> wNewGameObject = NewGameObject;
 
-	NewActor->Initialize();
-
-
-	AddActorToMap(NewActor);
-	InstancedActors.push_back(std::move(NewActor));
+	NewGameObject->Initialize();
 
 
-	return wNewActor;
+	AddGameObjectToMap(NewGameObject);
+	InstancedGameObjects.push_back(std::move(NewGameObject));
+
+
+	return wNewGameObject;
 }

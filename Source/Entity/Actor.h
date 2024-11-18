@@ -1,32 +1,21 @@
 #pragma once
 #include <functional>
 #include <memory>
+#include "GameObject.h"
 #include "../Math/Transform.h"
 #include "../Event/Delegate.h"
 
 
 class Collider;
 class World;
-class WaitSeconds;
 
 
-class Actor
+class Actor : public GameObject
 {
 
 public:
 	Actor(World* GameWorld,const Transform& InTransform);
 	virtual ~Actor() = default;
-
-	virtual void Initialize();
-	virtual void Update(float DeltaTime);
-	virtual void FixedUpdate(float FixedDeltaTime);
-	virtual void LateUpdate(float DeltaTime);
-	virtual void Destroy();
-
-
-
-	virtual void DrawDebug();
-
 
 	inline const Vector2& GetPosition()const { return EntityTransform.Position; }
 	inline const float& GetRotation()const { return EntityTransform.Rotation; }
@@ -41,31 +30,18 @@ public:
 	void SetScale(const Vector2& NewScale) { EntityTransform.Scale = NewScale; }
 	void SetInstigator(std::shared_ptr<Actor> InInstigator) { Instigator = InInstigator; }
 
-
-	void AddAwaitable(WaitSeconds& AwaitableToAdd);
-	void RemoveAwaitable(WaitSeconds& AwaitableToRemove);
-public:
-	
-	MulticastDelegate<void,void> OnDestroyDelegate;
-
-
 protected:
 	virtual void OnOverlapBegin(std::weak_ptr<Collider> OtherCollider);
 
-
-
-	inline World* GetWorld()const { return OwningWorld; }
 	inline std::weak_ptr<Actor> GetInstigator()const { return Instigator; }
 
 	//TODO: Move EntityTransform to private and fix compiler errors
 	Transform EntityTransform;
 
-	std::vector <std::reference_wrapper<WaitSeconds>> AwaitableContainer;
-
 
 private:
 	
-
+	//TODO: Actors should not have a instigator
 	std::weak_ptr<Actor> Instigator;
 	World* OwningWorld = nullptr;
 	
