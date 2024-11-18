@@ -3,7 +3,7 @@
 
 WaitSeconds::~WaitSeconds()
 {
-    OwningActor->RemoveAwaitable(*this);
+    OwningGameObject->RemoveAwaitable(*this);
 }
 
 void WaitSeconds::await_suspend(std::coroutine_handle<Coroutine::promise_type> InHandle)
@@ -16,7 +16,7 @@ void WaitSeconds::await_suspend(std::coroutine_handle<Coroutine::promise_type> I
     SleeperHandle = SleepCoroutine.Handle;
 
     // Add to Awaitable list of the owning actor
-    OwningActor->AddAwaitable(*this);
+    OwningGameObject->AddAwaitable(*this);
 }
 
 void WaitSeconds::Update()

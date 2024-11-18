@@ -5,13 +5,13 @@
 #include "SDL3/SDL_log.h"
 
 
-class Actor;
+class GameObject;
 
 //Awaitable which suspends for the set Delay(in Seconds) on the main thread
 class WaitSeconds
 {
 public:
-    WaitSeconds(float InDuration, Actor* InOwningActor) : Duration(InDuration), OwningActor(InOwningActor) {}
+    WaitSeconds(float InDuration, GameObject* InOwningGameObject) : Duration(InDuration), OwningGameObject(InOwningGameObject) {}
     ~WaitSeconds();
    
   
@@ -24,7 +24,7 @@ public:
 private:
   
     float Duration = 0.f;
-    Actor* OwningActor = nullptr;
+    GameObject* OwningGameObject = nullptr;
   
     std::coroutine_handle<Coroutine::promise_type> Handle;
     std::coroutine_handle<CoroutineSuspended::promise_type> SleeperHandle;
