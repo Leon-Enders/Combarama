@@ -3,7 +3,7 @@
 #include <memory>
 #include <random>
 #include "WorldSubsystem.h"
-#include "../../Controller/AIController.h"
+#include "../../Entity/Controller/AIController.h"
 
 
 

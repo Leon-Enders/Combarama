@@ -19,9 +19,6 @@
     <Filter Include="Source\Entity">
       <UniqueIdentifier>{403113df-b44a-495f-a411-4a83a28b25f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Controller">
-      <UniqueIdentifier>{17707568-380d-4804-9548-a8f4b7a9fa91}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Math">
       <UniqueIdentifier>{ee4f634a-9924-4174-8e9e-95b7cf8cebb3}</UniqueIdentifier>
     </Filter>
@@ -49,8 +46,11 @@
     <Filter Include="Source\Coroutine\Awaitable">
       <UniqueIdentifier>{daa5cb48-76cf-4d23-89f2-4c0e15f4e945}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Timer">
-      <UniqueIdentifier>{ad329942-92d0-43b9-af9d-fbeb5f960e8f}</UniqueIdentifier>
+    <Filter Include="Source\Entity\Controller">
+      <UniqueIdentifier>{1287586b-3c59-49a9-8dbd-3bac2be185ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity\Character">
+      <UniqueIdentifier>{add881c9-d7ed-4e5f-a87a-c68441de60ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,29 +60,11 @@
     <ClCompile Include="Source\Render\Avatar.cpp">
       <Filter>Source\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Entity\Enemy.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\PlayerCharacter.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Entity\Actor.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Entity\Character.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Controller\PlayerController.cpp">
-      <Filter>Source\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Controller\Controller.cpp">
-      <Filter>Source\Controller</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Comborama.cpp">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Controller\AIController.cpp">
-      <Filter>Source\Controller</Filter>
     </ClCompile>
     <ClCompile Include="Source\Render\RenderComponent.cpp">
       <Filter>Source\Render</Filter>
@@ -132,6 +114,24 @@
     <ClCompile Include="Source\Entity\GameObject.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Entity\Controller\AIController.cpp">
+      <Filter>Source\Entity\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Controller\Controller.cpp">
+      <Filter>Source\Entity\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Controller\PlayerController.cpp">
+      <Filter>Source\Entity\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Character\Character.cpp">
+      <Filter>Source\Entity\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Character\Enemy.cpp">
+      <Filter>Source\Entity\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Character\PlayerCharacter.cpp">
+      <Filter>Source\Entity\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -161,26 +161,8 @@
     <ClInclude Include="Source\Math\Vector2.h">
       <Filter>Source\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Entity\Character.h">
-      <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Enemy.h">
-      <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\PlayerCharacter.h">
-      <Filter>Source\Entity</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Entity\Actor.h">
       <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Controller\PlayerController.h">
-      <Filter>Source\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Controller\Controller.h">
-      <Filter>Source\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Controller\AIController.h">
-      <Filter>Source\Controller</Filter>
     </ClInclude>
     <ClInclude Include="Source\Render\RenderComponent.h">
       <Filter>Source\Render</Filter>
@@ -253,6 +235,24 @@
     </ClInclude>
     <ClInclude Include="Source\Entity\GameObject.h">
       <Filter>Source\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Controller\AIController.h">
+      <Filter>Source\Entity\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Controller\Controller.h">
+      <Filter>Source\Entity\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Controller\PlayerController.h">
+      <Filter>Source\Entity\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Character\Character.h">
+      <Filter>Source\Entity\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Character\Enemy.h">
+      <Filter>Source\Entity\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Character\PlayerCharacter.h">
+      <Filter>Source\Entity\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

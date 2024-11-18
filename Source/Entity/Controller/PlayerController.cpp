@@ -1,6 +1,6 @@
 #include "PlayerController.h"
-#include "../Game.h"
-#include "../Entity/PlayerCharacter.h"
+#include "../../Game.h"
+#include "../Character/PlayerCharacter.h"
 
 
 PlayerController::PlayerController(World* OwningWorld)

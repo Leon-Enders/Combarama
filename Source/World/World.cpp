@@ -1,6 +1,13 @@
 #include "World.h"
 #include "../System/WorldSubsystem/AISystem.h"
 #include "../Entity/Obstacle.h"
+#include "../Entity/Actor.h"
+#include "../Entity/Character/Character.h"
+#include "../Entity/Character/Enemy.h"
+#include "../Entity/Character/PlayerCharacter.h"
+#include "../Entity/Weapon.h"
+#include "../Entity/Projectile.h"
+#include "../Entity/Controller/Controller.h"
 
 
 void World::Initialize()

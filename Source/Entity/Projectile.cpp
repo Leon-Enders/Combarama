@@ -1,5 +1,5 @@
 #include "Projectile.h"
-#include "Character.h"
+#include "Character/Character.h"
 #include "../Utility/PrimitiveHelpers.h"
 #include "../Utility/ColorHelper.h"
 

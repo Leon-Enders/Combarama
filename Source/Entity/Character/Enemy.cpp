@@ -1,11 +1,11 @@
 #include "Enemy.h"
-#include "../Utility/ColorHelper.h"
-#include "../World/World.h"
-#include "../Entity/Weapon.h"
-#include "../Render/Avatar.h"
-#include "../Math/ComboramaMath.h"
-#include "../Entity/PlayerCharacter.h"
-#include "../System/CollisionSystem.h"
+#include "../../Utility/ColorHelper.h"
+#include "../../World/World.h"
+#include "../Weapon.h"
+#include "../../Render/Avatar.h"
+#include "../../Math/ComboramaMath.h"
+#include "../Character/PlayerCharacter.h"
+#include "../../System/CollisionSystem.h"
 
 
 Enemy::Enemy(World* GameWorld, const Transform& InTransform)

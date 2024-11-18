@@ -1,11 +1,12 @@
 #include "AIController.h"
 #include <ctime>
 #include <chrono>
-#include "../Entity/Enemy.h"
-#include "../Math/ComboramaMath.h"
-#include "../World/World.h"
-#include "../System/WorldSubsystem/AISystem.h"
-#include "../Utility/ComboramaTime.h"
+#include "../Character/Enemy.h"
+#include "../Character/PlayerCharacter.h"
+#include "../../Math/ComboramaMath.h"
+#include "../../World/World.h"
+#include "../../System/WorldSubsystem/AISystem.h"
+#include "../../Utility/ComboramaTime.h"
 
 AIController::AIController(World* InOwningWorld)
     :

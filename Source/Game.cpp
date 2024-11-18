@@ -8,8 +8,8 @@
 #include "System/RenderSystem.h"
 #include "System/WorldSubsystem/AISystem.h"
 #include "System/CollisionSystem.h"
-#include "Entity/PlayerCharacter.h"
-#include "Controller/PlayerController.h"
+#include "Entity/Character/PlayerCharacter.h"
+#include "Entity/Controller/PlayerController.h"
 #include "Utility/ColorHelper.h"
 #include "Utility/DrawDebugHelpers.h"
 

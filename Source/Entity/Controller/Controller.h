@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "../Entity/GameObject.h"
+#include "../GameObject.h"
 
 
 struct Vector2;

@@ -1,7 +1,7 @@
 #pragma once
 #include "Character.h"
-#include "../Coroutine/Awaitable/WaitSeconds.h"
-#include "../Utility/ColorHelper.h"
+#include "../../Coroutine/Awaitable/WaitSeconds.h"
+#include "../../Utility/ColorHelper.h"
 #include "../Controller/PlayerController.h"
 
 

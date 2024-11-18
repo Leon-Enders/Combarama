@@ -1,7 +1,7 @@
 #include "AISystem.h"
 #include <ctime>
 #include <ranges>
-#include "../../Entity/Enemy.h"
+#include "../../Entity/Character/Enemy.h"
 #include "../../Math/Transform.h"
 #include "../../World/World.h"
 

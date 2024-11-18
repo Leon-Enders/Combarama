@@ -1,11 +1,11 @@
 #pragma once
 #include <memory>
 #include <variant>
-#include "Actor.h"
-#include "../Render/RenderComponent.h"
-#include "../Collision/Collider.h"
-#include "../Event/Delegate.h"
-#include "../Coroutine/Coroutine.h"
+#include "../Actor.h"
+#include "../../Render/RenderComponent.h"
+#include "../../Collision/Collider.h"
+#include "../../Event/Delegate.h"
+#include "../../Coroutine/Coroutine.h"
 #include "../Controller/Controller.h"
 
 

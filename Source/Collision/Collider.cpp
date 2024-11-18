@@ -3,7 +3,7 @@
 #include "SDL3/SDL_log.h"
 #include "../System/CollisionSystem.h"
 #include "../Entity/Actor.h"
-#include "../Entity/Character.h"
+#include "../Entity/Character/Character.h"
 #include "../Entity/Projectile.h"
 
 Collider::Collider(std::shared_ptr<Actor> InOwningActor, float InWidth, float InHeight)

@@ -7,19 +7,22 @@
 #include <variant>
 #include <functional>
 #include "../Entity/GameObject.h"
-#include "../Entity/Actor.h"
-#include "../Entity/Character.h"
-#include "../Entity/Enemy.h"
-#include "../Entity/PlayerCharacter.h"
-#include "../Entity/Weapon.h"
-#include "../Entity/Projectile.h"
-#include "../Controller/Controller.h"
 #include "../Math/Transform.h"
 #include "../System/WorldSubsystem/WorldSubsystem.h"
 
-
+struct SDL_FColor;
+class Controller;
 class AIController;
+class PlayerController;
+class Actor;
+class Weapon;
 class Obstacle;
+class Projectile;
+class Character;
+class Enemy;
+class PlayerCharacter;
+
+
 
 template<typename T>
 concept IsGameObject = std::is_base_of<GameObject, T>::value;

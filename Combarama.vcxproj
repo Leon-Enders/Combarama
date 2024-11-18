@@ -21,16 +21,16 @@
   <ItemGroup>
     <ClCompile Include="Source\Collision\Collider.cpp" />
     <ClCompile Include="Source\Comborama.cpp" />
-    <ClCompile Include="Source\Controller\AIController.cpp" />
-    <ClCompile Include="Source\Controller\Controller.cpp" />
-    <ClCompile Include="Source\Controller\PlayerController.cpp" />
     <ClCompile Include="Source\Coroutine\Awaitable\WaitSeconds.cpp" />
     <ClCompile Include="Source\Entity\Actor.cpp" />
-    <ClCompile Include="Source\Entity\Character.cpp" />
-    <ClCompile Include="Source\Entity\Enemy.cpp" />
+    <ClCompile Include="Source\Entity\Character\Character.cpp" />
+    <ClCompile Include="Source\Entity\Character\Enemy.cpp" />
+    <ClCompile Include="Source\Entity\Character\PlayerCharacter.cpp" />
+    <ClCompile Include="Source\Entity\Controller\AIController.cpp" />
+    <ClCompile Include="Source\Entity\Controller\Controller.cpp" />
+    <ClCompile Include="Source\Entity\Controller\PlayerController.cpp" />
     <ClCompile Include="Source\Entity\GameObject.cpp" />
     <ClCompile Include="Source\Entity\Obstacle.cpp" />
-    <ClCompile Include="Source\Entity\PlayerCharacter.cpp" />
     <ClCompile Include="Source\Entity\Projectile.cpp" />
     <ClCompile Include="Source\Entity\Weapon.cpp" />
     <ClCompile Include="Source\Game.cpp" />
@@ -48,17 +48,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Collision\Collider.h" />
-    <ClInclude Include="Source\Controller\AIController.h" />
-    <ClInclude Include="Source\Controller\Controller.h" />
-    <ClInclude Include="Source\Controller\PlayerController.h" />
     <ClInclude Include="Source\Coroutine\Awaitable\WaitSeconds.h" />
     <ClInclude Include="Source\Coroutine\Coroutine.h" />
     <ClInclude Include="Source\Entity\Actor.h" />
-    <ClInclude Include="Source\Entity\Character.h" />
-    <ClInclude Include="Source\Entity\Enemy.h" />
+    <ClInclude Include="Source\Entity\Character\Character.h" />
+    <ClInclude Include="Source\Entity\Character\Enemy.h" />
+    <ClInclude Include="Source\Entity\Character\PlayerCharacter.h" />
+    <ClInclude Include="Source\Entity\Controller\AIController.h" />
+    <ClInclude Include="Source\Entity\Controller\Controller.h" />
+    <ClInclude Include="Source\Entity\Controller\PlayerController.h" />
     <ClInclude Include="Source\Entity\GameObject.h" />
     <ClInclude Include="Source\Entity\Obstacle.h" />
-    <ClInclude Include="Source\Entity\PlayerCharacter.h" />
     <ClInclude Include="Source\Entity\Projectile.h" />
     <ClInclude Include="Source\Entity\Weapon.h" />
     <ClInclude Include="Source\Event\Delegate.h" />
