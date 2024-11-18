@@ -129,6 +129,9 @@
     <ClCompile Include="Source\Coroutine\Awaitable\WaitSeconds.cpp">
       <Filter>Source\Coroutine\Awaitable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Entity\GameObject.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -247,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="Source\Coroutine\Coroutine.h">
       <Filter>Source\Coroutine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\GameObject.h">
+      <Filter>Source\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
