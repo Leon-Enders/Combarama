@@ -52,6 +52,9 @@
     <Filter Include="Source\Entity\Character">
       <UniqueIdentifier>{add881c9-d7ed-4e5f-a87a-c68441de60ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Component">
+      <UniqueIdentifier>{4fc44e8d-ed0a-48a6-a14c-379f0ebf780f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
@@ -131,6 +134,12 @@
     </ClCompile>
     <ClCompile Include="Source\Entity\Character\PlayerCharacter.cpp">
       <Filter>Source\Entity\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\ActorComponent.cpp">
+      <Filter>Source\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\SceneComponent.cpp">
+      <Filter>Source\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +262,12 @@
     </ClInclude>
     <ClInclude Include="Source\Entity\Character\PlayerCharacter.h">
       <Filter>Source\Entity\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\ActorComponent.h">
+      <Filter>Source\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\SceneComponent.h">
+      <Filter>Source\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

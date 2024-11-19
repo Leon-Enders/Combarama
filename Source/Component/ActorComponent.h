@@ -1,5 +1,7 @@
 #pragma once
-
+#include <memory>
+#include <vector>
+#include "../Math/Transform.h"
 
 
 class Actor;
@@ -15,6 +17,13 @@ public:
 	virtual void FixedUpdate(float FixedDeltaTime);
 	virtual void LateUpdate(float DeltaTime);
 
+
+protected:
+	const Transform& GetWorldTransform()const;
+
 private:
+
 	Actor* Owner;
+	ActorComponent* Parent;
+	std::vector<ActorComponent*> Children;
 };

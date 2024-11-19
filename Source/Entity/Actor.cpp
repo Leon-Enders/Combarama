@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "../World/World.h"
+#include "../Component/SceneComponent.h"
 
 Actor::Actor(World* GameWorld, const Transform& InTransform)
 	:
@@ -7,6 +8,7 @@ Actor::Actor(World* GameWorld, const Transform& InTransform)
 	EntityTransform(InTransform),
 	OwningWorld(GameWorld)
 {
+	RootComponent = CreateComponent<SceneComponent>();
 }
 
 
@@ -37,6 +39,17 @@ void Actor::LateUpdate(float DeltaTime)
 	{
 		Component->LateUpdate(DeltaTime);
 	}
+}
+
+
+const Transform& Actor::GetTransform() const
+{
+	return RootComponent->GetTransform();
+}
+
+void Actor::SetTransform(const Transform& InTransform)
+{
+	RootComponent->SetTransform(InTransform);
 }
 
 void Actor::OnOverlapBegin(std::weak_ptr<Collider> Other)

@@ -27,7 +27,7 @@ void RenderComponent::Draw(SDL_Renderer* GameRenderer)const
 void RenderComponent::Initialize()
 {
 	RenderTriangles.resize(Triangles.size());
-	RenderTransform = OwningActor.get().GetTransform();
+	//RenderTransform = OwningActor.get().GetTransform();
 
 	Matrix3x3 TransformMatrix = Matrix3x3::Transform(RenderTransform);
 		
@@ -42,11 +42,11 @@ void RenderComponent::Initialize()
 
 void RenderComponent::Update()
 {
-	if (RenderTransform == OwningActor.get().GetTransform())
-	{
-		return;
-	}
-	RenderTransform = OwningActor.get().GetTransform();
+	//if (RenderTransform == OwningActor.get().GetTransform())
+	//{
+	//	return;
+	//}
+	//RenderTransform = OwningActor.get().GetTransform();
 	Matrix3x3 TransformMatrix = Matrix3x3::Transform(RenderTransform);
 	
 	

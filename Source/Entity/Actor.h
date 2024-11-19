@@ -6,6 +6,8 @@
 #include "../Event/Delegate.h"
 #include "../Component/ActorComponent.h"
 
+
+class SceneComponent;
 class Collider;
 class World;
 
@@ -28,14 +30,14 @@ public:
 	virtual void LateUpdate(float DeltaTime);
 
 
-	inline const Vector2& GetPosition()const { return EntityTransform.Position; }
-	inline const float& GetRotation()const { return EntityTransform.Rotation; }
-	inline const Vector2& GetScale()const { return EntityTransform.Scale; }
-	inline const Transform& GetTransform()const { return EntityTransform; }
-	inline const Vector2 GetForwardVector()const {	return { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) };}
+	const Vector2& GetPosition()const { return EntityTransform.Position; }
+	const float& GetRotation()const { return EntityTransform.Rotation; }
+	const Vector2& GetScale()const { return EntityTransform.Scale; }
+	const Transform& GetTransform()const;
+	const Vector2 GetForwardVector()const {	return { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) };}
 
 
-	void SetTransform(const Transform& NewTransform) { EntityTransform = NewTransform; }
+	void SetTransform(const Transform& InTransform);
 	void SetPosition(const Vector2& NewPosition) { EntityTransform.Position = NewPosition; }
 	void SetRotation(float NewRotation) { EntityTransform.Rotation = NewRotation; }
 	void SetScale(const Vector2& NewScale) { EntityTransform.Scale = NewScale; }
@@ -50,7 +52,7 @@ protected:
 	Transform EntityTransform;
 
 	template<IsActorComponent T>
-	std::weak_ptr<T> CreateComponent();
+	T* CreateComponent();
 private:
 	
 	//TODO: Actors should not have a instigator
@@ -60,18 +62,20 @@ private:
 
 	//Actor Components
 	std::vector<std::shared_ptr<ActorComponent>> ActorComponents;
+
+	SceneComponent* RootComponent;
 };
 
 template<IsActorComponent T>
-inline std::weak_ptr<T> Actor::CreateComponent()
+inline T* Actor::CreateComponent()
 {
-	auto sComponentPtr = std::make_shared<ActorComponent>();
-	std::weak_ptr<T> wComponentPtr = sComponentPtr;
+	auto sComponentPtr = std::make_shared<T>();
+	T* ComponentPtr = sComponentPtr.get();
 
-	ActorComponent* InitializationPtr = static_cast<ActorComponent*>(sComponentPtr.get());
-	InitializationPtr->Initialize();
+	ActorComponent* InitializationPtr = static_cast<ActorComponent*>(ComponentPtr);
+	InitializationPtr->Initialize(this);
 
 	ActorComponents.push_back(std::move(sComponentPtr));
 
-	return wComponentPtr;
+	return ComponentPtr;
 }
