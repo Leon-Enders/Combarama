@@ -19,6 +19,6 @@ public:
 	void SetScale(const Vector2& InScale);
 	
 
-private:
+protected:
 	Transform ComponentTransform;
 };
