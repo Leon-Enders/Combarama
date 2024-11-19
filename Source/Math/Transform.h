@@ -17,6 +17,11 @@ struct Transform
 		Scale = Other.Scale;
 	}
 
+	Vector2 GetForwardVector()const
+	{
+		return { cos(Rotation), sin(Rotation) };
+	}
+
 	bool operator==(const Transform& Other) const
 	{
 		const float Epsilon = 0.0001f;

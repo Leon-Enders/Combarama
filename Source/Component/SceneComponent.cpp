@@ -22,6 +22,11 @@ const Vector2& SceneComponent::GetScale() const
     return ComponentTransform.Scale;
 }
 
+const Vector2& SceneComponent::GetForwardVector() const
+{
+    return ComponentTransform.GetForwardVector();
+}
+
 
 void SceneComponent::SetTransform(const Transform& InTransform)
 {

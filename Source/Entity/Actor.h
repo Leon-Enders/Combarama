@@ -30,17 +30,17 @@ public:
 	virtual void LateUpdate(float DeltaTime);
 
 
-	const Vector2& GetPosition()const { return EntityTransform.Position; }
-	const float& GetRotation()const { return EntityTransform.Rotation; }
-	const Vector2& GetScale()const { return EntityTransform.Scale; }
 	const Transform& GetTransform()const;
-	const Vector2 GetForwardVector()const {	return { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) };}
+	const Vector2& GetPosition()const;
+	const float GetRotation()const;
+	const Vector2& GetScale()const;
+	const Vector2 GetForwardVector()const;
 
 
 	void SetTransform(const Transform& InTransform);
-	void SetPosition(const Vector2& NewPosition) { EntityTransform.Position = NewPosition; }
-	void SetRotation(float NewRotation) { EntityTransform.Rotation = NewRotation; }
-	void SetScale(const Vector2& NewScale) { EntityTransform.Scale = NewScale; }
+	void SetPosition(const Vector2& InPosition);
+	void SetRotation(float InRotation);
+	void SetScale(const Vector2& InScale);
 	void SetInstigator(std::shared_ptr<Actor> InInstigator) { Instigator = InInstigator; }
 
 protected:
@@ -61,7 +61,7 @@ private:
 	
 
 	//Actor Components
-	std::vector<std::shared_ptr<ActorComponent>> ActorComponents;
+	std::vector<std::unique_ptr<ActorComponent>> ActorComponents;
 
 	SceneComponent* RootComponent;
 };
@@ -69,7 +69,7 @@ private:
 template<IsActorComponent T>
 inline T* Actor::CreateComponent()
 {
-	auto sComponentPtr = std::make_shared<T>();
+	auto sComponentPtr = std::make_unique<T>();
 	T* ComponentPtr = sComponentPtr.get();
 
 	ActorComponent* InitializationPtr = static_cast<ActorComponent*>(ComponentPtr);
