@@ -4,7 +4,7 @@
 
 PrimitiveComponent::~PrimitiveComponent()
 {
-	//RenderSystem::Get().RemoveRenderComponent(*this);
+	RenderSystem::Get().RemoveRenderComponent(*this);
 }
 
 void PrimitiveComponent::Initialize(Actor* Owner)
@@ -12,17 +12,7 @@ void PrimitiveComponent::Initialize(Actor* Owner)
 	ActorComponent::Initialize(Owner);
 
 	
-	//RenderSystem::Get().AddRenderComponent(*this);
-	//TODO: Check how to handle the world transform + the local transform of this component
-	RenderTriangles.resize(Triangles.size());
-	Matrix3x3 TransformMatrix = Matrix3x3::Transform(ComponentTransform);
-
-
-	for (size_t i = 0; i < Triangles.size(); ++i)
-	{
-		RenderTriangles[i].position = TransformMatrix * Triangles[i].position;
-		RenderTriangles[i].color = Triangles[i].color;
-	}
+	RenderSystem::Get().AddRenderComponent(*this);
 }
 
 void PrimitiveComponent::Update(float DeltaTime)
@@ -39,6 +29,16 @@ void PrimitiveComponent::Update(float DeltaTime)
 void PrimitiveComponent::SetVerts(const std::vector<SDL_Vertex>&& InTriangles)
 {
 	Triangles = InTriangles;
+
+	RenderTriangles.resize(Triangles.size());
+	Matrix3x3 TransformMatrix = Matrix3x3::Transform(ComponentTransform);
+
+
+	for (size_t i = 0; i < Triangles.size(); ++i)
+	{
+		RenderTriangles[i].position = TransformMatrix * Triangles[i].position;
+		RenderTriangles[i].color = Triangles[i].color;
+	}
 }
 
 void PrimitiveComponent::SetColor(SDL_FColor NewColor, int Offset)

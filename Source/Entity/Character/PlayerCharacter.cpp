@@ -26,7 +26,7 @@ void PlayerCharacter::Initialize()
 	HeadColor = COLOR_LIGHTBLUE;
 	BodyColor = COLOR_BLUE;
 
-	Avatar::SetColor(BodyColor, HeadColor, CharacterRenderComponent.get());
+	Avatar::SetColor(BodyColor, HeadColor, GetCharacterPrimitive());
 }
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)

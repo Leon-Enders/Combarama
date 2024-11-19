@@ -10,7 +10,7 @@ class Actor;
 class ActorComponent
 {
 public:
-	virtual ~ActorComponent() = default;
+	virtual ~ActorComponent();
 
 	virtual void Initialize(Actor* InOwner);
 	virtual void Update(float DeltaTime);
@@ -23,7 +23,7 @@ protected:
 
 private:
 
-	Actor* Owner;
-	ActorComponent* Parent;
+	Actor* Owner = nullptr;
+	ActorComponent* Parent = nullptr;
 	std::vector<ActorComponent*> Children;
 };

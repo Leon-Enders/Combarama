@@ -2,7 +2,7 @@
 #include <vector>
 #include <functional>
 
-class RenderComponent;
+class PrimitiveComponent;
 struct SDL_Renderer;
 
 class RenderSystem
@@ -10,14 +10,13 @@ class RenderSystem
 public:
 	static RenderSystem& Get() { return Instance; }
 
-	void Update()const;
 	void Draw(SDL_Renderer* GameRenderer)const;
 
-	void AddRenderComponent(RenderComponent& RenderComponentToAdd);
-	void RemoveRenderComponent(RenderComponent& RenderComponentToRemove);
+	void AddRenderComponent(PrimitiveComponent& PrimitiveComponentToAdd);
+	void RemoveRenderComponent(PrimitiveComponent& PrimitiveComponentToRemove);
 
 private:
 	RenderSystem() = default;
 	static RenderSystem Instance;
-	std::vector<std::reference_wrapper<RenderComponent>> RenderComponents;
+	std::vector<std::reference_wrapper<PrimitiveComponent>> PrimitiveComponents;
 };

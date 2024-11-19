@@ -4,7 +4,7 @@
 
 
 
-class PrimitiveComponent : SceneComponent
+class PrimitiveComponent : public SceneComponent
 {
 public:
 

@@ -3,21 +3,25 @@
 #include "../../Render/Avatar.h"
 #include "../../Utility/ColorHelper.h"
 #include "../../Coroutine/Awaitable/WaitSeconds.h"
+#include "../../Component/PrimitiveComponent.h"
 
 Character::Character(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld,InTransform)
 {
-	//Use helper function to generate Avatar Triangles
-	std::vector<SDL_Vertex> AvatarTriangles;
-	Avatar::GenerateVertices(AvatarTriangles, EntityTransform);
-
-	//Move Avatar Triangles into Render Component
-	CharacterRenderComponent = std::make_unique<RenderComponent>(*this, std::move(AvatarTriangles));
 }
 
 void Character::Initialize()
 {
+	std::vector<SDL_Vertex> AvatarTriangles;
+	Avatar::GenerateVertices(AvatarTriangles, EntityTransform);
+
+
+
+	CharacterPrimitive = CreateComponent<PrimitiveComponent>();
+	CharacterPrimitive->SetVerts(std::move(AvatarTriangles));
+
+
 	float ColliderWidth = Avatar::GetRadius() * 2.f;
 	float ColliderHeight = Avatar::GetRadius() * 2.f;
 
@@ -34,7 +38,7 @@ void Character::SetController(std::shared_ptr<Controller> InOwningContoller)
 
 void Character::SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColor)
 {
-	Avatar::SetColor(HeadColor, BodyColor, CharacterRenderComponent.get());
+	Avatar::SetColor(HeadColor, BodyColor, CharacterPrimitive);
 }
 
 void Character::TakeDamage(int Damage)
@@ -77,6 +81,11 @@ Controller* Character::GetController()
 	}
 
 	return nullptr;
+}
+
+PrimitiveComponent* Character::GetCharacterPrimitive() const
+{
+	return CharacterPrimitive;
 }
 
 

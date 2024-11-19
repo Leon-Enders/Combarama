@@ -24,7 +24,7 @@ void Enemy::Initialize()
 	HeadColor = COLOR_LIGHTYELLOW;
 	BodyColor = COLOR_YELLOW;
 
-	Avatar::SetColor(COLOR_YELLOW, COLOR_LIGHTYELLOW, CharacterRenderComponent.get());
+	Avatar::SetColor(COLOR_YELLOW, COLOR_LIGHTYELLOW, GetCharacterPrimitive());
 }
 
 void Enemy::Update(float DeltaTime)

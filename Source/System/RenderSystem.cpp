@@ -1,36 +1,28 @@
 #include "RenderSystem.h"
 #include "SDL3/SDL_render.h"
-#include "../Render/RenderComponent.h"
+#include "../Component/PrimitiveComponent.h"
 
 RenderSystem RenderSystem::Instance;
 
-void RenderSystem::Update()const
-{
-	for (auto& ActiveRenderComponent : RenderComponents)
-	{
-		ActiveRenderComponent.get().Update();
-	}
-}
-
 void RenderSystem::Draw(SDL_Renderer* GameRenderer)const
 {
-	for (auto& ActiveRenderComponent : RenderComponents)
+	for (auto& ActiveRenderComponent : PrimitiveComponents)
 	{
 		ActiveRenderComponent.get().Draw(GameRenderer);
 	}
 }
 
-void RenderSystem::AddRenderComponent(RenderComponent& RenderComponentToAdd)
+void RenderSystem::AddRenderComponent(PrimitiveComponent& PrimitiveComponentToAdd)
 {
 	
-	RenderComponents.push_back(std::ref(RenderComponentToAdd));
+	PrimitiveComponents.push_back(std::ref(PrimitiveComponentToAdd));
 	
 }
 
-void RenderSystem::RemoveRenderComponent(RenderComponent& RenderComponentToRemove)
+void RenderSystem::RemoveRenderComponent(PrimitiveComponent& PrimitiveComponentToRemove)
 {
-	std::erase_if(RenderComponents, [&](std::reference_wrapper<RenderComponent> Component)
+	std::erase_if(PrimitiveComponents, [&](std::reference_wrapper<PrimitiveComponent> Component)
 		{
-			return &Component.get() == &RenderComponentToRemove;
+			return &Component.get() == &PrimitiveComponentToRemove;
 		});
 }

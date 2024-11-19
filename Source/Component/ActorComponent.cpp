@@ -1,6 +1,10 @@
 #include "ActorComponent.h"
 #include "../Entity/Actor.h"
 
+ActorComponent::~ActorComponent()
+{
+}
+
 void ActorComponent::Initialize(Actor* InOwner)
 {
 	Owner = InOwner;

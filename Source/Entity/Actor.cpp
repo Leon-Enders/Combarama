@@ -1,6 +1,7 @@
 #include "Actor.h"
 #include "../World/World.h"
 #include "../Component/SceneComponent.h"
+#include "../Component/PrimitiveComponent.h"
 
 Actor::Actor(World* GameWorld, const Transform& InTransform)
 	:

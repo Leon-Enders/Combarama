@@ -3,13 +3,13 @@
 #include <vector>
 
 struct Transform;
-class RenderComponent;
+class PrimitiveComponent;
 //Helper class generating Vertices for an Avatar shape
 struct Avatar
 {
 	Avatar()=default;
 
-	static void SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor, RenderComponent* InRenderComponent);
+	static void SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor, PrimitiveComponent* InPrimitiveComponent);
 	static void GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& OriginTransform);
 	static const float GetRadius(){ return Radius; }
 

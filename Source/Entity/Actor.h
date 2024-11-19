@@ -6,7 +6,7 @@
 #include "../Event/Delegate.h"
 #include "../Component/ActorComponent.h"
 
-
+class PrimitiveComponent;
 class SceneComponent;
 class Collider;
 class World;

@@ -155,8 +155,6 @@ void Game::Render()
 
 void Game::ComposeFrame()
 {
-	//Update Verts to Render
-	RenderSystem::Get().Update();
 
 	// Clear BackBuffer
 	SDL_SetRenderDrawColor(GameRenderer, 0, 0, 0, 255);

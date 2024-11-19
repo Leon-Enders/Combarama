@@ -1,14 +1,15 @@
 #pragma once
 #include <memory>
 #include <variant>
+#include "SDL3/SDL_pixels.h"
 #include "../Actor.h"
-#include "../../Render/RenderComponent.h"
 #include "../../Collision/Collider.h"
 #include "../../Event/Delegate.h"
 #include "../../Coroutine/Coroutine.h"
 #include "../Controller/Controller.h"
 
 
+class PrimitiveComponent;
 
 //TODO: Create overload for OwningController for PlayerController
 class Character : public Actor , public std::enable_shared_from_this<Character>
@@ -28,7 +29,6 @@ public:
 	void SetController(std::shared_ptr<Controller> InOwningContoller);
 
 	//TODO: Move in protected?
-	
 
 
 	//TODO: CombatInterface or Component
@@ -43,6 +43,7 @@ protected:
 
 
 	Controller* GetController();
+	PrimitiveComponent* GetCharacterPrimitive()const;
 	void SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColor);
 
 protected:
@@ -50,8 +51,6 @@ protected:
 	Vector2 Velocity = { 0.f, 0.f };
 	
 
-
-	std::unique_ptr<RenderComponent> CharacterRenderComponent = nullptr;
 	std::shared_ptr<Collider> CharacterCollider = nullptr;
 
 	int Health = 20;
@@ -61,6 +60,9 @@ protected:
 private:
 
 	std::weak_ptr<Controller> OwningController;
+
+	PrimitiveComponent* CharacterPrimitive = nullptr;
+
 
 	bool IsHit = false;
 	Coroutine ApplyHitEffect(float Duration);

@@ -10,12 +10,12 @@ RenderComponent::RenderComponent(const Actor& InOwningActor, const std::vector<S
 {
 	Initialize();
 
-	RenderSystem::Get().AddRenderComponent(*this);
+	//RenderSystem::Get().AddRenderComponent(*this);
 }
 
 RenderComponent::~RenderComponent()
 {
-	RenderSystem::Get().RemoveRenderComponent(*this);
+	//RenderSystem::Get().RemoveRenderComponent(*this);
 }
 
 void RenderComponent::Draw(SDL_Renderer* GameRenderer)const

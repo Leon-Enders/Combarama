@@ -1,13 +1,13 @@
 #include "Avatar.h"
-#include "RenderComponent.h"
+#include "../Component/PrimitiveComponent.h"
 #include "../Utility/PrimitiveHelpers.h"
 #include "../Math/Transform.h"
 
 
-void Avatar::SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor, RenderComponent* InRenderComponent)
+void Avatar::SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor, PrimitiveComponent* InPrimitiveComponent)
 {
-	InRenderComponent->SetColor(BodyColor);
-	InRenderComponent->SetColor(HeadColor, Circle::GetNumberOfVerts());
+	InPrimitiveComponent->SetColor(BodyColor);
+	InPrimitiveComponent->SetColor(HeadColor, Circle::GetNumberOfVerts());
 }
 
 void Avatar::GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& OriginTransform)
