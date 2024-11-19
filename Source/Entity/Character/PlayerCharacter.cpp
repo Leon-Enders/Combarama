@@ -52,11 +52,12 @@ void PlayerCharacter::Update(float DeltaTime)
 	if (!IsAttacking)
 	{
 
-		EntityTransform.Rotation = ComboramaMath::Slerpf(EntityTransform.Rotation, GetController()->GetControlRotation(), ClampedLerpTime);
-		
+		float NewRotation = ComboramaMath::Slerpf(GetRotation(), GetController()->GetControlRotation(), ClampedLerpTime);
+		SetRotation(NewRotation);
+
 		if (auto sSwordPtr = Sword.lock())
 		{
-			sSwordPtr->SetRotation(EntityTransform.Rotation);
+			sSwordPtr->SetRotation(GetRotation());
 		}
 	}
 	else
@@ -72,7 +73,7 @@ void PlayerCharacter::Update(float DeltaTime)
 				IsAttacking = false;
 
 				// Reset Sword Rotation
-				sSwordPtr->SetRotation(EntityTransform.Rotation);
+				sSwordPtr->SetRotation(GetRotation());
 				sSwordPtr->GetRenderComponent()->SetRenderActive(false);
 				return;
 			}
@@ -95,7 +96,7 @@ void PlayerCharacter::FixedUpdate(float FixedDeltaTime)
 
 void PlayerCharacter::DrawDebug()
 {
-	DrawDebugHelpers::Get().DrawDebugCone(EntityTransform.Position, { cos(EntityTransform.Rotation), sin(EntityTransform.Rotation) }, 135.f, 1.f);
+	DrawDebugHelpers::Get().DrawDebugCone(GetPosition(), GetForwardVector(), 135.f, 1.f);
 }
 
 void PlayerCharacter::Attack()
@@ -108,8 +109,8 @@ void PlayerCharacter::Attack()
 
 		sSwordPtr->GetRenderComponent()->SetRenderActive(true);
 		IsAttacking = true;
-		SwordRotation = -1.25f + EntityTransform.Rotation;
-		DesiredSwordRotation = 1.25f + EntityTransform.Rotation;
+		SwordRotation = -1.25f + GetRotation();
+		DesiredSwordRotation = 1.25f + GetRotation();
 	}
 }
 
@@ -148,7 +149,7 @@ void PlayerCharacter::UpdatePosition(float DeltaTime)
 	//TODO: Create a system in which you can attach actors to actors, so you dont have to manual update the transform
 	if (auto sSwordPtr = Sword.lock())
 	{
-		sSwordPtr->SetPosition(EntityTransform.Position);
+		sSwordPtr->SetPosition(GetPosition());
 	}
 	
 }
@@ -171,7 +172,7 @@ Coroutine PlayerCharacter::Spray()
 
 	for (int i = 0; i < 10; i++)
 	{
-		auto SpawnedProjectilePtr = GetWorld()->SpawnActor<Projectile>(EntityTransform);
+		auto SpawnedProjectilePtr = GetWorld()->SpawnActor<Projectile>(GetTransform());
 
 		// tell the projectile who spawned it
 		if (auto sProjectilePtr = SpawnedProjectilePtr.lock())

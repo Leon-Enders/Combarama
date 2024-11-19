@@ -66,5 +66,5 @@ void Projectile::OnOverlapBegin(std::weak_ptr<Collider> OtherCollider)
 
 void Projectile::UpdatePosition(float DeltaTime)
 {
-	EntityTransform.Position += Velocity * DeltaTime;
+	Vector2 NewPosition = Velocity * DeltaTime + GetPosition();
 }

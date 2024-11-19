@@ -6,10 +6,10 @@
 Actor::Actor(World* GameWorld, const Transform& InTransform)
 	:
 	GameObject(GameWorld),
-	EntityTransform(InTransform),
 	OwningWorld(GameWorld)
 {
 	RootComponent = CreateComponent<SceneComponent>();
+	RootComponent->SetTransform(InTransform);
 }
 
 

@@ -48,8 +48,6 @@ protected:
 
 	inline std::weak_ptr<Actor> GetInstigator()const { return Instigator; }
 
-	//TODO: Move EntityTransform to private and fix compiler errors
-	Transform EntityTransform;
 
 	template<IsActorComponent T>
 	T* CreateComponent();

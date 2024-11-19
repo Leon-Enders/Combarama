@@ -14,7 +14,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 void Character::Initialize()
 {
 	std::vector<SDL_Vertex> AvatarTriangles;
-	Avatar::GenerateVertices(AvatarTriangles, EntityTransform);
+	Avatar::GenerateVertices(AvatarTriangles, GetTransform());
 
 
 
@@ -55,7 +55,8 @@ void Character::TakeDamage(int Damage)
 
 void Character::UpdatePosition(float DeltaTime)
 {
-	EntityTransform.Position += Velocity * DeltaTime;
+	Vector2 NewPosition = Velocity * DeltaTime + GetPosition();
+	SetPosition(NewPosition);
 }
 
 void Character::UpdateRotation()
