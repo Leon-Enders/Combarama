@@ -15,11 +15,13 @@ Actor::Actor(World* GameWorld, const Transform& InTransform)
 
 void Actor::Initialize()
 {
-
+	GameObject::Initialize();
 }
 
 void Actor::Update(float DeltaTime)
 {
+	GameObject::Update(DeltaTime);
+
 	for (const auto& Component : ActorComponents)
 	{
 		Component->Update(DeltaTime);
@@ -28,6 +30,8 @@ void Actor::Update(float DeltaTime)
 
 void Actor::FixedUpdate(float FixedDeltaTime)
 {
+	GameObject::FixedUpdate(FixedDeltaTime);
+
 	for (const auto& Component : ActorComponents)
 	{
 		Component->FixedUpdate(FixedDeltaTime);
@@ -36,6 +40,8 @@ void Actor::FixedUpdate(float FixedDeltaTime)
 
 void Actor::LateUpdate(float DeltaTime)
 {
+	GameObject::LateUpdate(DeltaTime);
+
 	for (const auto& Component : ActorComponents)
 	{
 		Component->LateUpdate(DeltaTime);
