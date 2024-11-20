@@ -9,7 +9,6 @@ class SceneComponent : public ActorComponent
 public:
 	virtual ~SceneComponent();
 	virtual void Initialize(Actor* InOwner) override;
-	virtual void Update(float DeltaTime) override;
 
 	const Transform& GetTransform()const;
 	const Vector2& GetPosition()const;

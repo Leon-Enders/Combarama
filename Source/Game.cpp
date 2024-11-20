@@ -115,9 +115,9 @@ void Game::StartGameLoop()
 void Game::GameLoop()
 {
 	ProcessInput();
-	LateUpdate();
 	Update();
 	FixedUpdate();
+	LateUpdate();
 	Render();
 }
 

@@ -11,12 +11,6 @@ void SceneComponent::Initialize(Actor* InOwner)
     ActorComponent::Initialize(InOwner);
 }
 
-void SceneComponent::Update(float DeltaTime)
-{
-    ActorComponent::Update(DeltaTime);
-
-}
-
 
 const Transform& SceneComponent::GetTransform() const
 {

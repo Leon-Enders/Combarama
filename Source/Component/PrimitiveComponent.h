@@ -10,7 +10,7 @@ public:
 
 	virtual ~PrimitiveComponent();
 	virtual void Initialize(Actor* Owner) override;
-	virtual void Update(float DeltaTime) override;
+	virtual void LateUpdate(float DeltaTime) override;
 
 	void SetVerts(const std::vector<SDL_Vertex>&& InTriangles);
 	void SetColor(SDL_FColor NewColor, int Offset = 0);

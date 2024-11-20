@@ -27,8 +27,10 @@ void PrimitiveComponent::SetVerts(const std::vector<SDL_Vertex>&& InTriangles)
 	}
 }
 
-void PrimitiveComponent::Update(float DeltaTime)
+void PrimitiveComponent::LateUpdate(float DeltaTime)
 {
+	ActorComponent::LateUpdate(DeltaTime);
+
 	//Apply transform to verts to render from the world transform this component is attached to
 	Matrix3x3 WorldTransformMatrix = Matrix3x3::Transform(GetWorldTransform());
 	Matrix3x3 TransformMatrix = WorldTransformMatrix * LocalTransformMatrix;
