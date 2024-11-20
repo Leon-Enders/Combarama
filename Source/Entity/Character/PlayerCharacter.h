@@ -5,7 +5,7 @@
 #include "../Controller/PlayerController.h"
 
 
-class Weapon;
+class WeaponComponent;
 
 class PlayerCharacter : public Character
 {
@@ -55,7 +55,7 @@ private:
 
 	bool IsAttacking = false;
 
-	std::weak_ptr<Weapon> Sword;
+	WeaponComponent* Weapon;
 
 
 

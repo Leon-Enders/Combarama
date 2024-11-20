@@ -2,7 +2,7 @@
 #include "Character.h"
 #include "../../Utility/ColorHelper.h"
 
-class Weapon;
+class WeaponComponent;
 
 class Enemy : public Character
 {
@@ -36,5 +36,5 @@ private:
 	int AttackResetCounter = 60;
 
 	bool IsAttacking = false;
-	std::weak_ptr<Weapon> Sword;
+	WeaponComponent* Weapon;
 };

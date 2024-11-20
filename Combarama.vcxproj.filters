@@ -141,7 +141,9 @@
     <ClCompile Include="Source\PrimitiveFactory\Avatar.cpp">
       <Filter>Source\PrimitiveFactory</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Component\WeaponComponent.cpp" />
+    <ClCompile Include="Source\Component\WeaponComponent.cpp">
+      <Filter>Source\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">

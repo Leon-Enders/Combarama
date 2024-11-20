@@ -47,24 +47,29 @@ const Vector2 SceneComponent::GetForwardVector() const
 void SceneComponent::SetTransform(const Transform& InTransform)
 {
     ComponentTransform = InTransform;
-    LocalTransformMatrix = Matrix3x3::Transform(ComponentTransform);
+    UpdateLocalMatrix();
 }
 
 void SceneComponent::SetPosition(const Vector2& InPosition)
 {
     ComponentTransform.Position = InPosition;
-    LocalTransformMatrix = Matrix3x3::Transform(ComponentTransform);
+    UpdateLocalMatrix();
 
 }
 
 void SceneComponent::SetRotation(float InRotation)
 {
     ComponentTransform.Rotation = InRotation;
-    LocalTransformMatrix = Matrix3x3::Transform(ComponentTransform);
+    UpdateLocalMatrix();
 }
 
 void SceneComponent::SetScale(const Vector2& InScale)
 {
     ComponentTransform.Scale = InScale;
+    UpdateLocalMatrix();
+}
+
+void SceneComponent::UpdateLocalMatrix()
+{
     LocalTransformMatrix = Matrix3x3::Transform(ComponentTransform);
 }

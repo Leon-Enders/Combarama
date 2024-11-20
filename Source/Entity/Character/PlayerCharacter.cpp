@@ -4,11 +4,11 @@
 #include "../../Math/ComboramaMath.h"
 #include "../../PrimitiveFactory/Avatar.h"
 #include "../Projectile.h"
-#include "../Weapon.h"
 #include "../../World/World.h"
 #include "../../Utility/DrawDebugHelpers.h"
 #include "../../System/CollisionSystem.h"
 #include "../../Component/PrimitiveComponent.h"
+#include "../../Component/WeaponComponent.h"
 
 
 //TODO: Refactor Attack functionality and Sword Transform handling
@@ -16,7 +16,8 @@ PlayerCharacter::PlayerCharacter(World* GameWorld, const Transform& InTransform)
 	:
 	Character(GameWorld, InTransform)
 {
-	Sword = GetWorld()->SpawnActor<Weapon>(InTransform);
+	Weapon = CreateComponent<WeaponComponent>();
+	Weapon->SetColor(COLOR_GREY);
 }
 
 
@@ -55,18 +56,14 @@ void PlayerCharacter::Update(float DeltaTime)
 
 		float NewRotation = ComboramaMath::Slerpf(GetRotation(), GetController()->GetControlRotation(), ClampedLerpTime);
 		SetRotation(NewRotation);
-
-		if (auto sSwordPtr = Sword.lock())
-		{
-			sSwordPtr->SetRotation(GetRotation());
-		}
 	}
 	else
 	{
 		// Increment AttackFrameCounter
 		CurrentAttackFrame++;
-		if (auto sSwordPtr = Sword.lock())
+		if (Weapon)
 		{
+
 			// Handle AttackWindow
 			if (ComboramaMath::FIsSame(SwordRotation, DesiredSwordRotation, 0.01f))
 			{
@@ -74,8 +71,8 @@ void PlayerCharacter::Update(float DeltaTime)
 				IsAttacking = false;
 
 				// Reset Sword Rotation
-				sSwordPtr->SetRotation(GetRotation());
-				sSwordPtr->GetWeaponPrimitive()->SetRenderActive(false);
+				Weapon->SetRotation(0.f);
+				Weapon->SetRenderActive(false);
 				return;
 			}
 
@@ -84,7 +81,7 @@ void PlayerCharacter::Update(float DeltaTime)
 
 			//// Handle Sword Rotation
 			SwordRotation = ComboramaMath::Lerp(SwordRotation, DesiredSwordRotation, ClampedSwordLerpTime);
-			sSwordPtr->SetRotation(SwordRotation);
+			Weapon->SetRotation(SwordRotation);
 		}
 	}
 }
@@ -104,14 +101,14 @@ void PlayerCharacter::Attack()
 {
 	if (IsAttacking) return;
 	
-	if (auto sSwordPtr = Sword.lock())
+	if (Weapon)
 	{
 		DealDamageInCone();
 
-		sSwordPtr->GetWeaponPrimitive()->SetRenderActive(true);
+		Weapon->SetRenderActive(true);
 		IsAttacking = true;
-		SwordRotation = -1.25f + GetRotation();
-		DesiredSwordRotation = 1.25f + GetRotation();
+		SwordRotation = -1.25f + Weapon->GetRotation();
+		DesiredSwordRotation = 1.25f + Weapon->GetRotation();
 	}
 }
 
@@ -151,14 +148,6 @@ void PlayerCharacter::DealDamageInCone()
 void PlayerCharacter::UpdatePosition(float DeltaTime)
 {
 	Character::UpdatePosition(DeltaTime);
-
-	//Update the Sword Position with the owning Players Position
-	//TODO: Create a system in which you can attach actors to actors, so you dont have to manual update the transform
-	if (auto sSwordPtr = Sword.lock())
-	{
-		sSwordPtr->SetPosition(GetPosition());
-	}
-	
 }
 
 void PlayerCharacter::UpdateRotation()
@@ -168,10 +157,6 @@ void PlayerCharacter::UpdateRotation()
 
 void PlayerCharacter::OnCharacterDeath()
 {
-	if (auto sSword = Sword.lock())
-	{
-		sSword->Destroy();
-	}
 }
 
 Coroutine PlayerCharacter::Spray()

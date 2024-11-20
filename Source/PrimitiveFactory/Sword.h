@@ -9,7 +9,7 @@ class Sword
 public:
 	Sword()=default;
 
-    static void GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& LocalTransform = {});
+    static void GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& PivotTransform = {});
 private:
 
     static constexpr SDL_Vertex SwordTriangles[15] =

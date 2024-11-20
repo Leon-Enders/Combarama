@@ -27,4 +27,7 @@ protected:
 
 	Transform ComponentTransform;
 	Matrix3x3 LocalTransformMatrix;
+
+private:
+	void UpdateLocalMatrix();
 };

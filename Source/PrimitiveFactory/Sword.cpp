@@ -1,9 +1,9 @@
 #include "Sword.h"
 #include "../Math/Matrix.h"
 
-void Sword::GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& LocalTransform)
+void Sword::GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& PivotTransform)
 {
-	Matrix3x3 TransformMatrix = Matrix3x3::Transform(LocalTransform);
+	Matrix3x3 TransformMatrix = Matrix3x3::Transform(PivotTransform);
 	for (auto Vert : SwordTriangles)
 	{
 		Vert.position = TransformMatrix * Vert.position;

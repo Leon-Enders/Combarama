@@ -1,19 +1,22 @@
 #include "Enemy.h"
 #include "../../Utility/ColorHelper.h"
 #include "../../World/World.h"
-#include "../Weapon.h"
 #include "../../PrimitiveFactory/Avatar.h"
 #include "../../Math/ComboramaMath.h"
 #include "../Character/PlayerCharacter.h"
 #include "../../System/CollisionSystem.h"
 #include "../../Component/PrimitiveComponent.h"
+#include "../../Component/WeaponComponent.h"
 
 
 Enemy::Enemy(World* GameWorld, const Transform& InTransform)
 	:
 	Character(GameWorld, InTransform)
 {
-	Sword = GetWorld()->SpawnActor<Weapon>(InTransform);
+	Weapon = CreateComponent<WeaponComponent>();
+	Weapon->SetTransform({ {75.f,0.f},1.5708f,{1.f,1.f} });
+	Weapon->SetColor(COLOR_GREY);
+
 }
 
 void Enemy::Initialize()
@@ -43,16 +46,16 @@ void Enemy::Update(float DeltaTime)
 		float NewRotation = ComboramaMath::Slerpf(GetRotation(), GetController()->GetControlRotation(), ClampedLerpTime);
 		SetRotation(NewRotation);
 
-		if (auto SwordSharedPtr = Sword.lock())
+		if (Weapon)
 		{
-			SwordSharedPtr->SetRotation(GetRotation());
+			Weapon->SetRotation(GetRotation());
 		}
 	}
 	else
 	{
 		// Increment AttackFrameCounter
 		CurrentAttackFrame++;
-		if (auto SwordSharedPtr = Sword.lock())
+		if (Weapon)
 		{
 			// Handle AttackWindow
 			if (ComboramaMath::FIsSame(SwordRotation, DesiredSwordRotation, 0.01f))
@@ -61,8 +64,8 @@ void Enemy::Update(float DeltaTime)
 				IsAttacking = false;
 
 				// Reset Sword Rotation
-				SwordSharedPtr->SetRotation(GetRotation());
-				SwordSharedPtr->GetWeaponPrimitive()->SetRenderActive(false);
+				Weapon->SetRotation(GetRotation());
+				Weapon->SetRenderActive(false);
 				return;
 			}
 
@@ -71,7 +74,7 @@ void Enemy::Update(float DeltaTime)
 
 			//// Handle Sword Rotation
 			SwordRotation = ComboramaMath::Lerp(SwordRotation, DesiredSwordRotation, ClampedSwordLerpTime);
-			SwordSharedPtr->SetRotation(SwordRotation);
+			Weapon->SetRotation(SwordRotation);
 		}
 	}
 }
@@ -80,10 +83,6 @@ void Enemy::FixedUpdate(float FixedDeltaTime)
 {
 	Character::FixedUpdate(FixedDeltaTime);
 
-	if (auto SwordSharedPtr = Sword.lock())
-	{
-		SwordSharedPtr->SetPosition(GetPosition());
-	}
 }
 
 void Enemy::UpdateVelocity(const Vector2& NewVelocity)
@@ -95,11 +94,11 @@ void Enemy::Attack()
 {
 	if (IsAttacking) return;
 
-	if (auto SwordSharedPtr = Sword.lock())
+	if (Weapon)
 	{
 		DealDamageInCone();
 
-		SwordSharedPtr->GetWeaponPrimitive()->SetRenderActive(true);
+		Weapon->SetRenderActive(true);
 		IsAttacking = true;
 		SwordRotation = -1.25f + GetRotation();
 		DesiredSwordRotation = 1.25f + GetRotation();
@@ -121,8 +120,5 @@ void Enemy::DealDamageInCone()
 
 void Enemy::OnCharacterDeath()
 {
-	if (auto sSword = Sword.lock())
-	{
-		sSword->Destroy();
-	}
+	
 }

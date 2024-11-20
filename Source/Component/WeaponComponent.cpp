@@ -8,7 +8,7 @@ void WeaponComponent::Initialize(Actor* Owner)
 	PrimitiveComponent::Initialize(Owner);
 
 	std::vector<SDL_Vertex> SwordTriangles;
-	Sword::GenerateVertices(SwordTriangles);
+	Sword::GenerateVertices(SwordTriangles, {{ 75.f,0.f }, 1.5708f, { 1.f,1.f }});
 
 	SetVerts(std::move(SwordTriangles));
 	SetColor(COLOR_GREY);
