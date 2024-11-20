@@ -105,8 +105,8 @@ void PlayerCharacter::Attack()
 		DealDamageInCone();
 
 		IsAttacking = true;
-		SwordRotation = -1.25f + Weapon->GetRotation();
-		DesiredSwordRotation = 1.25f + Weapon->GetRotation();
+		SwordRotation = -1.25f;
+		DesiredSwordRotation = 1.25f;
 		Weapon->SetRotation(SwordRotation);
 		Weapon->SetRenderActive(true);
 	}
