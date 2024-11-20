@@ -15,16 +15,6 @@ void PrimitiveComponent::Initialize(Actor* Owner)
 	RenderSystem::Get().AddRenderComponent(*this);
 }
 
-void PrimitiveComponent::Update(float DeltaTime)
-{
-	//Apply transform to verts to render from the world transform this component is attached to
-	Matrix3x3 WorldTransformMatrix = Matrix3x3::Transform(GetWorldTransform());
-
-	for (size_t i = 0; i < Triangles.size(); ++i)
-	{
-		RenderTriangles[i].position = WorldTransformMatrix * Triangles[i].position;
-	}
-}
 
 void PrimitiveComponent::SetVerts(const std::vector<SDL_Vertex>&& InTriangles)
 {
@@ -41,6 +31,18 @@ void PrimitiveComponent::SetVerts(const std::vector<SDL_Vertex>&& InTriangles)
 		RenderTriangles[i].color = Triangles[i].color;
 	}
 }
+
+void PrimitiveComponent::Update(float DeltaTime)
+{
+	//Apply transform to verts to render from the world transform this component is attached to
+	Matrix3x3 WorldTransformMatrix = Matrix3x3::Transform(GetWorldTransform());
+
+	for (size_t i = 0; i < Triangles.size(); ++i)
+	{
+		RenderTriangles[i].position = WorldTransformMatrix * Triangles[i].position;
+	}
+}
+
 
 void PrimitiveComponent::SetColor(SDL_FColor NewColor, int Offset)
 {

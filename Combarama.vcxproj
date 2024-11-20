@@ -24,6 +24,7 @@
     <ClCompile Include="Source\Component\ActorComponent.cpp" />
     <ClCompile Include="Source\Component\PrimitiveComponent.cpp" />
     <ClCompile Include="Source\Component\SceneComponent.cpp" />
+    <ClCompile Include="Source\Component\WeaponComponent.cpp" />
     <ClCompile Include="Source\Coroutine\Awaitable\WaitSeconds.cpp" />
     <ClCompile Include="Source\Entity\Actor.cpp" />
     <ClCompile Include="Source\Entity\Character\Character.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="Source\Component\ActorComponent.h" />
     <ClInclude Include="Source\Component\PrimitiveComponent.h" />
     <ClInclude Include="Source\Component\SceneComponent.h" />
+    <ClInclude Include="Source\Component\WeaponComponent.h" />
     <ClInclude Include="Source\Coroutine\Awaitable\WaitSeconds.h" />
     <ClInclude Include="Source\Coroutine\Coroutine.h" />
     <ClInclude Include="Source\Entity\Actor.h" />
