@@ -6,6 +6,7 @@
 #include "../../Math/ComboramaMath.h"
 #include "../Character/PlayerCharacter.h"
 #include "../../System/CollisionSystem.h"
+#include "../../Component/PrimitiveComponent.h"
 
 
 Enemy::Enemy(World* GameWorld, const Transform& InTransform)
@@ -61,7 +62,7 @@ void Enemy::Update(float DeltaTime)
 
 				// Reset Sword Rotation
 				SwordSharedPtr->SetRotation(GetRotation());
-				SwordSharedPtr->GetRenderComponent()->SetRenderActive(false);
+				SwordSharedPtr->GetWeaponPrimitive()->SetRenderActive(false);
 				return;
 			}
 
@@ -98,7 +99,7 @@ void Enemy::Attack()
 	{
 		DealDamageInCone();
 
-		SwordSharedPtr->GetRenderComponent()->SetRenderActive(true);
+		SwordSharedPtr->GetWeaponPrimitive()->SetRenderActive(true);
 		IsAttacking = true;
 		SwordRotation = -1.25f + GetRotation();
 		DesiredSwordRotation = 1.25f + GetRotation();

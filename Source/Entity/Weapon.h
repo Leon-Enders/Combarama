@@ -9,10 +9,13 @@ public:
 	Weapon(World* GameWorld, const Transform& InTransform);
 	virtual ~Weapon() = default;
 
-	RenderComponent* GetRenderComponent() { return SwordRenderComponent.get(); }
+	virtual void Initialize() override;
+
+	PrimitiveComponent* GetWeaponPrimitive();
+
 private:
 
 	Transform LocalTransform = { {75.f,0.f},1.5708f,{1.f,1.f} };
-	std::unique_ptr<RenderComponent> SwordRenderComponent = nullptr;
+	PrimitiveComponent* WeaponPrimitive = nullptr;
 	
 };

@@ -8,6 +8,7 @@
 #include "../../World/World.h"
 #include "../../Utility/DrawDebugHelpers.h"
 #include "../../System/CollisionSystem.h"
+#include "../../Component/PrimitiveComponent.h"
 
 
 //TODO: Refactor Attack functionality and Sword Transform handling
@@ -74,7 +75,7 @@ void PlayerCharacter::Update(float DeltaTime)
 
 				// Reset Sword Rotation
 				sSwordPtr->SetRotation(GetRotation());
-				sSwordPtr->GetRenderComponent()->SetRenderActive(false);
+				sSwordPtr->GetWeaponPrimitive()->SetRenderActive(false);
 				return;
 			}
 
@@ -107,7 +108,7 @@ void PlayerCharacter::Attack()
 	{
 		DealDamageInCone();
 
-		sSwordPtr->GetRenderComponent()->SetRenderActive(true);
+		sSwordPtr->GetWeaponPrimitive()->SetRenderActive(true);
 		IsAttacking = true;
 		SwordRotation = -1.25f + GetRotation();
 		DesiredSwordRotation = 1.25f + GetRotation();

@@ -28,9 +28,7 @@ public:
 
 	void SetController(std::shared_ptr<Controller> InOwningContoller);
 
-	//TODO: Move in protected?
-
-
+	
 	//TODO: CombatInterface or Component
 	void TakeDamage(int Damage);
 
@@ -55,8 +53,8 @@ protected:
 
 	int Health = 20;
 
-	SDL_FColor HeadColor;
-	SDL_FColor BodyColor;
+	SDL_FColor HeadColor = {1.f,1.f,1.f,1.f};
+	SDL_FColor BodyColor = {1.f,1.f,1.f,1.f};
 private:
 
 	std::weak_ptr<Controller> OwningController;

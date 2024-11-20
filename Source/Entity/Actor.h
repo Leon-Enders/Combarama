@@ -36,7 +36,6 @@ public:
 	const Vector2& GetScale()const;
 	const Vector2 GetForwardVector()const;
 
-
 	void SetTransform(const Transform& InTransform);
 	void SetPosition(const Vector2& InPosition);
 	void SetRotation(float InRotation);
