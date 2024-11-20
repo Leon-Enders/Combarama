@@ -6,6 +6,12 @@ SceneComponent::~SceneComponent()
 {
 }
 
+void SceneComponent::Initialize(Actor* InOwner)
+{
+    ActorComponent::Initialize(InOwner);
+}
+
+
 const Transform& SceneComponent::GetTransform() const
 {
     return ComponentTransform;

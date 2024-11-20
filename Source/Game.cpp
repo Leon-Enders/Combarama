@@ -80,13 +80,13 @@ void Game::StartGame()
 	ObstacleTransform6.Position = { 1320.f,1000.f };
 	ObstacleTransform7.Position = { 840.f, 1050.f };
 
-	GameWorld->SpawnObstacle(ObstacleTransform1, { 25.f,1050.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform2, { 25.f,1050.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform3, { 1680.f,50.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform4, { 800.f,100.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform5, { 700.f,50.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform6, { 800.f,100.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform7, { 1680.f,25.f }, COLOR_PURPLE);
+	//GameWorld->SpawnObstacle(ObstacleTransform1, { 25.f,1050.f }, COLOR_PURPLE);
+	//GameWorld->SpawnObstacle(ObstacleTransform2, { 25.f,1050.f }, COLOR_PURPLE);
+	//GameWorld->SpawnObstacle(ObstacleTransform3, { 1680.f,50.f }, COLOR_PURPLE);
+	//GameWorld->SpawnObstacle(ObstacleTransform4, { 800.f,100.f }, COLOR_PURPLE);
+	//GameWorld->SpawnObstacle(ObstacleTransform5, { 700.f,50.f }, COLOR_PURPLE);
+	//GameWorld->SpawnObstacle(ObstacleTransform6, { 800.f,100.f }, COLOR_PURPLE);
+	//GameWorld->SpawnObstacle(ObstacleTransform7, { 1680.f,25.f }, COLOR_PURPLE);
 
 	StartGameLoop();
 }

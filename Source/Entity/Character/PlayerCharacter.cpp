@@ -126,7 +126,13 @@ void PlayerCharacter::Dash()
 
 void PlayerCharacter::Shoot()
 {
-	Spray();
+	auto SpawnedProjectilePtr = GetWorld()->SpawnActor<Projectile>(GetTransform());
+
+	// tell the projectile who spawned it
+	if (auto sProjectilePtr = SpawnedProjectilePtr.lock())
+	{
+		sProjectilePtr->SetInstigator(shared_from_this());
+	}
 }
 
 void PlayerCharacter::DealDamageInCone()

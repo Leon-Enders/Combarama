@@ -9,7 +9,7 @@ PrimitiveComponent::~PrimitiveComponent()
 
 void PrimitiveComponent::Initialize(Actor* Owner)
 {
-	ActorComponent::Initialize(Owner);
+	SceneComponent::Initialize(Owner);
 
 	
 	RenderSystem::Get().AddRenderComponent(*this);

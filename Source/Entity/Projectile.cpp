@@ -21,6 +21,8 @@ Projectile::Projectile(World* GameWorld, const Transform& InTransform)
 
 void Projectile::Initialize()
 {
+	Actor::Initialize();
+
 	ProjectileCollider = std::make_shared<Collider>(shared_from_this(), ProjectileSize * 2.f, ProjectileSize * 2.f);
 	ProjectileCollider->Initialize();
 	ProjectileCollider->OnOverlapBeginDelegate.BindMemberFunction(shared_from_this(), &Projectile::OnOverlapBegin);
@@ -30,11 +32,13 @@ void Projectile::Initialize()
 
 void Projectile::Update(float DeltaTime)
 {
-
+	Actor::Update(DeltaTime);
 }
 
 void Projectile::FixedUpdate(float FixedDeltaTime)
 {
+	Actor::FixedUpdate(FixedDeltaTime);
+
 	UpdatePosition(FixedDeltaTime);
 
 	LifeTime -= FixedDeltaTime;
@@ -67,4 +71,5 @@ void Projectile::OnOverlapBegin(std::weak_ptr<Collider> OtherCollider)
 void Projectile::UpdatePosition(float DeltaTime)
 {
 	Vector2 NewPosition = Velocity * DeltaTime + GetPosition();
+	SetPosition(NewPosition);
 }
