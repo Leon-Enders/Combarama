@@ -7,14 +7,11 @@ Weapon::Weapon(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld, InTransform)
 {
-	WeaponPrimitive = CreateComponent<PrimitiveComponent>();
-}
-
-void Weapon::Initialize()
-{
 	std::vector<SDL_Vertex> SwordTriangles;
 	Sword::GenerateVertices(SwordTriangles, LocalTransform);
 
+
+	WeaponPrimitive = CreateComponent<PrimitiveComponent>();
 	WeaponPrimitive->SetVerts(std::move(SwordTriangles));
 	WeaponPrimitive->SetColor(COLOR_GREY);
 	WeaponPrimitive->SetRenderActive(false);

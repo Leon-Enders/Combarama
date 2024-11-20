@@ -9,19 +9,15 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld,InTransform)
 {
+	std::vector<SDL_Vertex> AvatarTriangles;
+	Avatar::GenerateVertices(AvatarTriangles, GetTransform());
+
+	CharacterPrimitive = CreateComponent<PrimitiveComponent>();
+	CharacterPrimitive->SetVerts(std::move(AvatarTriangles));
 }
 
 void Character::Initialize()
 {
-	std::vector<SDL_Vertex> AvatarTriangles;
-	Avatar::GenerateVertices(AvatarTriangles, GetTransform());
-
-
-
-	CharacterPrimitive = CreateComponent<PrimitiveComponent>();
-	CharacterPrimitive->SetVerts(std::move(AvatarTriangles));
-
-
 	float ColliderWidth = Avatar::GetRadius() * 2.f;
 	float ColliderHeight = Avatar::GetRadius() * 2.f;
 

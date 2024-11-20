@@ -2,20 +2,21 @@
 #include "Character/Character.h"
 #include "../Utility/PrimitiveHelpers.h"
 #include "../Utility/ColorHelper.h"
+#include "../Component/PrimitiveComponent.h"
 
 
 Projectile::Projectile(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld, InTransform)
 {
+	//TODO: Make these verts static so they dont have to be generated each time a projectile is spawned
 	std::vector<SDL_Vertex> CircleTriangles;
 	Circle NewCircle = Circle(ProjectileSize);
 	NewCircle.GetVerts(CircleTriangles);
 
-
-	ProjectileRenderComponent = std::make_unique<RenderComponent>(*this, std::move(CircleTriangles));
-	
-	
+	ProjectilePrimitive = CreateComponent<PrimitiveComponent>();
+	ProjectilePrimitive->SetVerts(std::move(CircleTriangles));
+	ProjectilePrimitive->SetColor(COLOR_GREEN);
 }
 
 void Projectile::Initialize()
@@ -24,7 +25,6 @@ void Projectile::Initialize()
 	ProjectileCollider->Initialize();
 	ProjectileCollider->OnOverlapBeginDelegate.BindMemberFunction(shared_from_this(), &Projectile::OnOverlapBegin);
 
-	ProjectileRenderComponent->SetColor(COLOR_GREEN);
 	Velocity = GetForwardVector() * ProjectileSpeed;
 }
 

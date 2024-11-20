@@ -33,6 +33,6 @@ private:
 	int ProjectileDamage = 2;
 	Vector2 Velocity = {};
 
-	std::unique_ptr<RenderComponent> ProjectileRenderComponent = nullptr;
+	PrimitiveComponent* ProjectilePrimitive = nullptr;
 	std::shared_ptr<Collider> ProjectileCollider = nullptr;
 };

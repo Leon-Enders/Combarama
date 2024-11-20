@@ -9,8 +9,6 @@ public:
 	Weapon(World* GameWorld, const Transform& InTransform);
 	virtual ~Weapon() = default;
 
-	virtual void Initialize() override;
-
 	PrimitiveComponent* GetWeaponPrimitive();
 
 private:

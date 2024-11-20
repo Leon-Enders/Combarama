@@ -9,20 +9,18 @@ Obstacle::Obstacle(World* GameWorld, const Transform& InTransform, const Vector2
 	RectDimensions(InRectDimensions),
 	ObstacleColour(InColor)
 {
-	
-	ObstaclePrimitive = CreateComponent<PrimitiveComponent>();
-}
-
-void Obstacle::Initialize()
-{
 	std::vector<SDL_Vertex> ObstacleTriangles;
 
 	Rectangle ARect = Rectangle(RectDimensions.X, RectDimensions.Y);
 	ARect.GetVerts(ObstacleTriangles);
 
+	ObstaclePrimitive = CreateComponent<PrimitiveComponent>();
 	ObstaclePrimitive->SetVerts(std::move(ObstacleTriangles));
 	ObstaclePrimitive->SetColor(ObstacleColour);
+}
 
+void Obstacle::Initialize()
+{
 	BoxCollider = std::make_shared<Collider>(shared_from_this(), RectDimensions.X, RectDimensions.Y);
 	BoxCollider->Initialize();
 }
