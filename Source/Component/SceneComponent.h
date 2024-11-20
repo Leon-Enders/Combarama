@@ -1,6 +1,7 @@
 #pragma once
 #include "ActorComponent.h"
-
+#include "../Math/Matrix.h"
+#include "../Event/Delegate.h"
 
 
 class SceneComponent : public ActorComponent
@@ -8,6 +9,7 @@ class SceneComponent : public ActorComponent
 public:
 	virtual ~SceneComponent();
 	virtual void Initialize(Actor* InOwner) override;
+	virtual void Update(float DeltaTime) override;
 
 	const Transform& GetTransform()const;
 	const Vector2& GetPosition()const;
@@ -22,5 +24,7 @@ public:
 	
 
 protected:
+
 	Transform ComponentTransform;
+	Matrix3x3 LocalTransformMatrix;
 };
