@@ -97,10 +97,11 @@ void Enemy::Attack()
 	{
 		DealDamageInCone();
 
-		Weapon->SetRenderActive(true);
 		IsAttacking = true;
 		SwordRotation = -1.25f + Weapon->GetRotation();
 		DesiredSwordRotation = 1.25f + Weapon->GetRotation();
+		Weapon->SetRotation(SwordRotation);
+		Weapon->SetRenderActive(true);
 	}
 }
 

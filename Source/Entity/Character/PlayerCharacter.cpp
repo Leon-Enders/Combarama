@@ -45,7 +45,6 @@ void PlayerCharacter::Update(float DeltaTime)
 {
 	Character::Update(DeltaTime);
 	
-
 	float LerpTime = DeltaTime * RotationSpeed;
 
 	float ClampedLerpTime = ComboramaMath::Clamp(LerpTime, LerpTime, 1.f);
@@ -105,10 +104,11 @@ void PlayerCharacter::Attack()
 	{
 		DealDamageInCone();
 
-		Weapon->SetRenderActive(true);
 		IsAttacking = true;
 		SwordRotation = -1.25f + Weapon->GetRotation();
 		DesiredSwordRotation = 1.25f + Weapon->GetRotation();
+		Weapon->SetRotation(SwordRotation);
+		Weapon->SetRenderActive(true);
 	}
 }
 
