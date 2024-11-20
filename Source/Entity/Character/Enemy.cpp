@@ -14,7 +14,6 @@ Enemy::Enemy(World* GameWorld, const Transform& InTransform)
 	Character(GameWorld, InTransform)
 {
 	Weapon = CreateComponent<WeaponComponent>();
-	Weapon->SetTransform({ {75.f,0.f},1.5708f,{1.f,1.f} });
 	Weapon->SetColor(COLOR_GREY);
 
 }
@@ -48,7 +47,7 @@ void Enemy::Update(float DeltaTime)
 
 		if (Weapon)
 		{
-			Weapon->SetRotation(GetRotation());
+			Weapon->SetRotation(0.f);
 		}
 	}
 	else
@@ -64,7 +63,7 @@ void Enemy::Update(float DeltaTime)
 				IsAttacking = false;
 
 				// Reset Sword Rotation
-				Weapon->SetRotation(GetRotation());
+				Weapon->SetRotation(0.f);
 				Weapon->SetRenderActive(false);
 				return;
 			}
@@ -100,8 +99,8 @@ void Enemy::Attack()
 
 		Weapon->SetRenderActive(true);
 		IsAttacking = true;
-		SwordRotation = -1.25f + GetRotation();
-		DesiredSwordRotation = 1.25f + GetRotation();
+		SwordRotation = -1.25f + Weapon->GetRotation();
+		DesiredSwordRotation = 1.25f + Weapon->GetRotation();
 	}
 }
 
