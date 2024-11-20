@@ -17,8 +17,8 @@ void PrimitiveComponent::Initialize(Actor* Owner)
 
 void PrimitiveComponent::Update(float DeltaTime)
 {
+	//Apply transform to verts to render from the world transform this component is attached to
 	Matrix3x3 WorldTransformMatrix = Matrix3x3::Transform(GetWorldTransform());
-	//TODO: Check how to handle the world transform + the local transform of this component
 
 	for (size_t i = 0; i < Triangles.size(); ++i)
 	{
@@ -29,14 +29,15 @@ void PrimitiveComponent::Update(float DeltaTime)
 void PrimitiveComponent::SetVerts(const std::vector<SDL_Vertex>&& InTriangles)
 {
 	Triangles = InTriangles;
-
 	RenderTriangles.resize(Triangles.size());
+
+	//Create Transformmatrix with the local Transform of this primitive component and apply it to all local verts
 	Matrix3x3 TransformMatrix = Matrix3x3::Transform(ComponentTransform);
 
 
 	for (size_t i = 0; i < Triangles.size(); ++i)
 	{
-		RenderTriangles[i].position = TransformMatrix * Triangles[i].position;
+		Triangles[i].position = TransformMatrix * Triangles[i].position;
 		RenderTriangles[i].color = Triangles[i].color;
 	}
 }
