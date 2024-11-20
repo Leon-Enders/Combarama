@@ -2,7 +2,7 @@
 #include <numbers>
 #include "../../Utility/ColorHelper.h"
 #include "../../Math/ComboramaMath.h"
-#include "../../Render/Avatar.h"
+#include "../../PrimitiveFactory/Avatar.h"
 #include "../Projectile.h"
 #include "../Weapon.h"
 #include "../../World/World.h"

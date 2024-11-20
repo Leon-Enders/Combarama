@@ -1,6 +1,6 @@
 #include "Avatar.h"
 #include "../Component/PrimitiveComponent.h"
-#include "../Utility/PrimitiveHelpers.h"
+#include "../PrimitiveFactory/PrimitiveHelpers.h"
 #include "../Math/Transform.h"
 
 

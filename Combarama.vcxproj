@@ -37,9 +37,8 @@
     <ClCompile Include="Source\Entity\Projectile.cpp" />
     <ClCompile Include="Source\Entity\Weapon.cpp" />
     <ClCompile Include="Source\Game.cpp" />
-    <ClCompile Include="Source\Render\Avatar.cpp" />
-    <ClCompile Include="Source\Render\RenderComponent.cpp" />
-    <ClCompile Include="Source\Render\Sword.cpp" />
+    <ClCompile Include="Source\PrimitiveFactory\Avatar.cpp" />
+    <ClCompile Include="Source\PrimitiveFactory\Sword.cpp" />
     <ClCompile Include="Source\System\CollisionSystem.cpp" />
     <ClCompile Include="Source\System\GameSubsystem\GameSubsystem.cpp" />
     <ClCompile Include="Source\System\InputSystem.cpp" />
@@ -77,9 +76,9 @@
     <ClInclude Include="Source\Math\Matrix.h" />
     <ClInclude Include="Source\Math\Transform.h" />
     <ClInclude Include="Source\Math\Vector2.h" />
-    <ClInclude Include="Source\Render\Avatar.h" />
-    <ClInclude Include="Source\Render\RenderComponent.h" />
-    <ClInclude Include="Source\Render\Sword.h" />
+    <ClInclude Include="Source\PrimitiveFactory\Avatar.h" />
+    <ClInclude Include="Source\PrimitiveFactory\PrimitiveHelpers.h" />
+    <ClInclude Include="Source\PrimitiveFactory\Sword.h" />
     <ClInclude Include="Source\System\CollisionSystem.h" />
     <ClInclude Include="Source\System\GameSubsystem\GameSubsystem.h" />
     <ClInclude Include="Source\System\InputSystem.h" />
@@ -91,7 +90,6 @@
     <ClInclude Include="Source\Utility\CombaramaStructs.h" />
     <ClInclude Include="Source\Utility\ComboramaTime.h" />
     <ClInclude Include="Source\Utility\DrawDebugHelpers.h" />
-    <ClInclude Include="Source\Utility\PrimitiveHelpers.h" />
     <ClInclude Include="Source\World\World.h" />
   </ItemGroup>
   <ItemGroup>

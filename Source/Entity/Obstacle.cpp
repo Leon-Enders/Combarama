@@ -1,5 +1,5 @@
 #include "Obstacle.h"
-#include "../Utility/PrimitiveHelpers.h"
+#include "../PrimitiveFactory/PrimitiveHelpers.h"
 #include "../Component/PrimitiveComponent.h"
 
 

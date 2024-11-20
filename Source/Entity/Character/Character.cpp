@@ -1,6 +1,6 @@
 #include "Character.h"
 #include "SDL3/SDL_log.h"
-#include "../../Render/Avatar.h"
+#include "../../PrimitiveFactory/Avatar.h"
 #include "../../Utility/ColorHelper.h"
 #include "../../Coroutine/Awaitable/WaitSeconds.h"
 #include "../../Component/PrimitiveComponent.h"

@@ -13,9 +13,6 @@
     <Filter Include="Source\Utility">
       <UniqueIdentifier>{c4943f1e-4a27-4789-923c-2e56ae9626a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Render">
-      <UniqueIdentifier>{9c950d23-d930-475c-8257-913f0c57b100}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Entity">
       <UniqueIdentifier>{403113df-b44a-495f-a411-4a83a28b25f6}</UniqueIdentifier>
     </Filter>
@@ -55,25 +52,19 @@
     <Filter Include="Source\Component">
       <UniqueIdentifier>{4fc44e8d-ed0a-48a6-a14c-379f0ebf780f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\PrimitiveFactory">
+      <UniqueIdentifier>{e83feb9b-982d-4a14-a5ed-ce9ba0addea1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Render\Avatar.cpp">
-      <Filter>Source\Render</Filter>
     </ClCompile>
     <ClCompile Include="Source\Entity\Actor.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Source\Comborama.cpp">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Render\RenderComponent.cpp">
-      <Filter>Source\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Render\Sword.cpp">
-      <Filter>Source\Render</Filter>
     </ClCompile>
     <ClCompile Include="Source\Entity\Weapon.cpp">
       <Filter>Source\Entity</Filter>
@@ -144,6 +135,12 @@
     <ClCompile Include="Source\Component\PrimitiveComponent.cpp">
       <Filter>Source\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PrimitiveFactory\Sword.cpp">
+      <Filter>Source\PrimitiveFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PrimitiveFactory\Avatar.cpp">
+      <Filter>Source\PrimitiveFactory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -167,20 +164,11 @@
     <ClInclude Include="Source\Utility\ColorHelper.h">
       <Filter>Source\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Render\Avatar.h">
-      <Filter>Source\Render</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Math\Vector2.h">
       <Filter>Source\Math</Filter>
     </ClInclude>
     <ClInclude Include="Source\Entity\Actor.h">
       <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Render\RenderComponent.h">
-      <Filter>Source\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Render\Sword.h">
-      <Filter>Source\Render</Filter>
     </ClInclude>
     <ClInclude Include="Source\Math\ComboramaMath.h">
       <Filter>Source\Math</Filter>
@@ -223,9 +211,6 @@
     </ClInclude>
     <ClInclude Include="Source\Entity\Obstacle.h">
       <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utility\PrimitiveHelpers.h">
-      <Filter>Source\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utility\DrawDebugHelpers.h">
       <Filter>Source\Utility</Filter>
@@ -274,6 +259,15 @@
     </ClInclude>
     <ClInclude Include="Source\Component\PrimitiveComponent.h">
       <Filter>Source\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PrimitiveFactory\Sword.h">
+      <Filter>Source\PrimitiveFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PrimitiveFactory\PrimitiveHelpers.h">
+      <Filter>Source\PrimitiveFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PrimitiveFactory\Avatar.h">
+      <Filter>Source\PrimitiveFactory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

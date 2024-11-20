@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include "Actor.h"
-#include "../Render/RenderComponent.h"
 #include "../Collision/Collider.h"
 
 

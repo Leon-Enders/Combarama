@@ -2,7 +2,7 @@
 #include "../../Utility/ColorHelper.h"
 #include "../../World/World.h"
 #include "../Weapon.h"
-#include "../../Render/Avatar.h"
+#include "../../PrimitiveFactory/Avatar.h"
 #include "../../Math/ComboramaMath.h"
 #include "../Character/PlayerCharacter.h"
 #include "../../System/CollisionSystem.h"

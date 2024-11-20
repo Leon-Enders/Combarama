@@ -4,7 +4,6 @@
 #include "SDL3/SDL_pixels.h"
 #include "Actor.h"
 #include "../Collision/Collider.h"
-#include "../Render/RenderComponent.h"
 
 class PrimitiveComponent;
 class World;

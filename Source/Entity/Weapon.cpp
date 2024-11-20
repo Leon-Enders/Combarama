@@ -1,5 +1,5 @@
 #include "Weapon.h"
-#include "../Render/Sword.h"
+#include "../PrimitiveFactory/Sword.h"
 #include "../Utility/ColorHelper.h"
 #include "../Component/PrimitiveComponent.h"
 

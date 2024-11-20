@@ -1,7 +1,5 @@
 #pragma once
 #include "Actor.h"
-#include "../Render/RenderComponent.h"
-#include <memory>
 
 class Weapon : public Actor
 {
