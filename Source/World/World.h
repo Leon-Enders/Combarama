@@ -9,6 +9,7 @@
 #include "../Entity/GameObject.h"
 #include "../Math/Transform.h"
 #include "../System/WorldSubsystem/WorldSubsystem.h"
+#include "../Render/CoordinateTransformer.h"
 
 struct SDL_FColor;
 class Controller;
@@ -77,6 +78,7 @@ public:
 	template<IsSubsystem T>
 	T* GetSubsystem();
 
+	const CoordinateTransformer& GetCoordinateTransformer()const { return WorldCoordinateTranformer; }
 
 	void UpdateInstancedGameObjects();
 	void CleanUpInstanceGameObjects();
@@ -97,6 +99,8 @@ private:
 
 	std::vector<GameObject*> GameObjectsToRemove;
 	std::vector<std::shared_ptr<GameObject>> GameObjectsToAdd;
+
+	CoordinateTransformer WorldCoordinateTranformer;
 };
 
 template<IsGameObject T>

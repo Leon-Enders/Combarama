@@ -24,11 +24,11 @@ public:
 
 	virtual void DrawDebug();
 
+	inline World* GetWorld() const { return OwningWorld; }
+
+
 	void AddAwaitable(WaitSeconds& AwaitableToAdd);
 	void RemoveAwaitable(WaitSeconds& AwaitableToRemove);
-
-protected:
-	inline World* GetWorld() const { return OwningWorld; }
 
 public:
 	MulticastDelegate<void, void> OnDestroyDelegate;

@@ -1,5 +1,8 @@
 #include "PrimitiveComponent.h"
 #include "../System/RenderSystem.h"
+#include "../Render/CoordinateTransformer.h"
+#include "../Entity/Actor.h"
+#include "../World/World.h"
 
 
 PrimitiveComponent::~PrimitiveComponent()
@@ -54,6 +57,8 @@ void PrimitiveComponent::SetColor(SDL_FColor NewColor, int Offset)
 void PrimitiveComponent::Draw(SDL_Renderer* GameRenderer) const
 {
 	if (!IsRenderActive) return;
-	SDL_RenderGeometry(GameRenderer, NULL, RenderTriangles.data(), static_cast<int>(RenderTriangles.size()), NULL, 0);
+	
+
+	GetOwner()->GetWorld()->GetCoordinateTransformer().Draw(RenderTriangles, GameRenderer);
 }
 

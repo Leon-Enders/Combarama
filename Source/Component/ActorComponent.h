@@ -19,6 +19,7 @@ public:
 
 
 protected:
+	Actor* GetOwner()const { return Owner; }
 	const Transform& GetWorldTransform()const;
 
 private:
