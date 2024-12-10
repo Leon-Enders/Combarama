@@ -36,15 +36,15 @@ private:
 	void OnCharacterDestroyed();
 
 
-	std::unique_ptr<InputComponent> ControllerInputComponent = nullptr;
-	std::unique_ptr<InputActionContext> ActionContext = nullptr;
+	std::unique_ptr<InputComponent> ControllerInputComponent;
+	std::unique_ptr<InputActionContext> ActionContext;
 
-	std::shared_ptr<InputAction> QuitAction = nullptr;
-	std::shared_ptr<InputAction> MoveAction = nullptr;
-	std::shared_ptr<InputAction> LookAction = nullptr;
-	std::shared_ptr<InputAction> AttackAction = nullptr;
-	std::shared_ptr<InputAction> DashAction = nullptr;
-	std::shared_ptr<InputAction> ShootAction = nullptr;
+	std::shared_ptr<InputAction> QuitAction;
+	std::shared_ptr<InputAction> MoveAction;
+	std::shared_ptr<InputAction> LookAction;
+	std::shared_ptr<InputAction> AttackAction;
+	std::shared_ptr<InputAction> DashAction;
+	std::shared_ptr<InputAction> ShootAction;
 
 	std::weak_ptr<PlayerCharacter> ControlledPlayerCharacter;
 

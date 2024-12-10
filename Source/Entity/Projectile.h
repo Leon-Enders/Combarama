@@ -33,5 +33,5 @@ private:
 	Vector2 Velocity = {};
 
 	PrimitiveComponent* ProjectilePrimitive = nullptr;
-	std::shared_ptr<Collider> ProjectileCollider = nullptr;
+	std::shared_ptr<Collider> ProjectileCollider;
 };

@@ -51,7 +51,7 @@ public:
 	{
 
 	}
-	void AddInputActionBinding(KeycodePackage KeycodePackageToAdd, const std::shared_ptr<InputAction>& InputActionToAdd)
+	void AddInputActionBinding(KeycodePackage KeycodePackageToAdd, const std::shared_ptr<InputAction> InputActionToAdd)
 	{
 		KeycodePackageToInputActions.insert({ KeycodePackageToAdd , InputActionToAdd });
 
@@ -64,22 +64,22 @@ public:
 		}
 	}
 
-	void AddLookInputAction(const std::shared_ptr<InputAction>& InputActionToAdd)
+	void AddLookInputAction(const std::shared_ptr<InputAction> InputActionToAdd)
 	{
 		MouseInputAction = InputActionToAdd;
 	}
 
-	void AddQuitInputAction(const std::shared_ptr<InputAction>& InputActionToAdd)
+	void AddQuitInputAction(const std::shared_ptr<InputAction> InputActionToAdd)
 	{
 		QuitInputAction = InputActionToAdd;
 	}
 
-	void AddAttackInputAction(const std::shared_ptr<InputAction>& InputActionToAdd)
+	void AddAttackInputAction(const std::shared_ptr<InputAction> InputActionToAdd)
 	{
 		AttackInputAction = InputActionToAdd;
 	}
 
-	void AddShootInputAction(const std::shared_ptr<InputAction>& InputActionToAdd)
+	void AddShootInputAction(const std::shared_ptr<InputAction> InputActionToAdd)
 	{
 		ShootInputAction = InputActionToAdd;
 	}

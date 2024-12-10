@@ -49,7 +49,7 @@ protected:
 	Vector2 Velocity = { 0.f, 0.f };
 	
 
-	std::shared_ptr<Collider> CharacterCollider = nullptr;
+	std::shared_ptr<Collider> CharacterCollider;
 
 	int Health = 20;
 
