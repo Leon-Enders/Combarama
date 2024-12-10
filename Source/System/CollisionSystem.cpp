@@ -17,7 +17,7 @@ struct CollisionEventInfo
 
 CollisionSystem CollisionSystem::Instance;
 
-void CollisionSystem::Update(float FixedDeltaTime)
+void CollisionSystem::FixedUpdate(float FixedDeltaTime)
 {
 	for (auto it = ActiveColliders.begin();it != ActiveColliders.end();)
 	{

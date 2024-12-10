@@ -57,9 +57,9 @@ class World
 public:
 	void Initialize();
 	
-	void LateUpdate(float DeltaTime);
-	void Update(float DeltaTime);
 	void FixedUpdate(float FixedDeltaTime);
+	void Update(float DeltaTime);
+	void LateUpdate(float DeltaTime);
 	void DrawDebug();
 
 

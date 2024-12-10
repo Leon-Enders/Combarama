@@ -115,8 +115,8 @@ void Game::StartGameLoop()
 void Game::GameLoop()
 {
 	ProcessInput();
-	Update();
 	FixedUpdate();
+	Update();
 	LateUpdate();
 	Render();
 }
@@ -142,7 +142,7 @@ void Game::FixedUpdate()
 	while (FixedTimeCounter >= FixedDeltaTimeMS)
 	{
 		GameWorld->FixedUpdate(FixedDeltaTimeS);
-		CollisionSystem::Get().Update(FixedDeltaTimeS);
+		CollisionSystem::Get().FixedUpdate(FixedDeltaTimeS);
 		FixedTimeCounter -= FixedDeltaTimeMS;
 	}
 }
