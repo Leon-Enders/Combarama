@@ -11,6 +11,10 @@ class GameObject
 public:
 	GameObject(World* GameWorld);
 	virtual ~GameObject() = default;
+	GameObject(const GameObject& Other) = delete;
+	GameObject(GameObject&& Other) = delete;
+	GameObject& operator=(const GameObject& Other) = delete;
+	GameObject& operator=(GameObject&& Other) = delete;
 
 	virtual void Initialize();
 	virtual void Update(float DeltaTime);
