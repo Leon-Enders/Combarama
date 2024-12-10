@@ -5,6 +5,7 @@
 #include "../Entity/Actor.h"
 #include "../Entity/Character/Character.h"
 #include "../Entity/Projectile.h"
+#include "../CombaramaConstants.h"
 
 Collider::Collider(std::shared_ptr<Actor> InOwningActor, float InWidth, float InHeight)
 	:
@@ -33,7 +34,7 @@ void Collider::FixedUpdate(float FixedDeltaTime)
 	if (auto sOwningActor = OwningActor.lock())
 	{
 		ColliderBox.x = sOwningActor->GetPosition().X - CenterOffset.X;
-		ColliderBox.y = sOwningActor->GetPosition().Y - CenterOffset.Y;
+		ColliderBox.y = sOwningActor->GetPosition().Y + CenterOffset.Y;
 	}
 	
 }
@@ -43,11 +44,22 @@ void Collider::Draw(SDL_Renderer* Renderer)
 	if (auto sOwningActor = OwningActor.lock())
 	{
 		ColliderBox.x = sOwningActor->GetPosition().X - CenterOffset.X;
-		ColliderBox.y = sOwningActor->GetPosition().Y - CenterOffset.Y;
+		ColliderBox.y = sOwningActor->GetPosition().Y + CenterOffset.Y;
 	}
+
+	float ScreenHalfWidth = Combarama::ViewportWidth / 2.f;
+	float ScreenHalfHeight = Combarama::ViewportHeight / 2.f;
+	float HalfWidth = ColliderBox.w/2.f;
+	float HalfHeight = ColliderBox.h / 2.f;
+	
+	SDL_FRect RenderRect = ColliderBox;
+	RenderRect.y *= -1.f;
+	RenderRect.x += ScreenHalfWidth;
+	RenderRect.y += ScreenHalfHeight;
+
 	if (DrawDebug)
 	{
-		SDL_RenderRect(Renderer, &ColliderBox);
+		SDL_RenderRect(Renderer, &RenderRect);
 	}
 }
 

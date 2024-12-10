@@ -40,27 +40,27 @@ void Game::StartGame()
 	IsGameActive = true;
 	LoadBackground();
 
-	Transform PlayerSpawnTransform;
-	PlayerSpawnTransform.Position = { 840.f,1000.f };
+	//Transform PlayerSpawnTransform;
+	//PlayerSpawnTransform.Position = { 840.f,1000.f };
+	//
+	//auto SpawnedPlayerPtr = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
+	//auto PlayerControllerPtr = GameWorld->SpawnGameObject<PlayerController>();
+	//
+	//if (auto sPlayerController = PlayerControllerPtr.lock())
+	//{
+	//	sPlayerController->PossessCharacter(std::shared_ptr<PlayerCharacter>(SpawnedPlayerPtr));
+	//}
 
-	auto SpawnedPlayerPtr = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
-	auto PlayerControllerPtr = GameWorld->SpawnGameObject<PlayerController>();
-
-	if (auto sPlayerController = PlayerControllerPtr.lock())
-	{
-		sPlayerController->PossessCharacter(std::shared_ptr<PlayerCharacter>(SpawnedPlayerPtr));
-	}
 
 
-
-	AISystem* AISubsystem = GameWorld->GetSubsystem<AISystem>();
-	if (AISubsystem)
-	{
-		AISubsystem->SpawnRandomEnemy();
-		AISubsystem->SpawnRandomEnemy();
-		AISubsystem->SpawnRandomEnemy();
-		AISubsystem->SpawnRandomEnemy();
-	}
+	//AISystem* AISubsystem = GameWorld->GetSubsystem<AISystem>();
+	//if (AISubsystem)
+	//{
+	//	AISubsystem->SpawnRandomEnemy();
+	//	AISubsystem->SpawnRandomEnemy();
+	//	AISubsystem->SpawnRandomEnemy();
+	//	AISubsystem->SpawnRandomEnemy();
+	//}
 
 
 	//TODO:: Create a level class which gets managed by world to put this code
@@ -72,21 +72,9 @@ void Game::StartGame()
 	Transform ObstacleTransform6;
 	Transform ObstacleTransform7;
 
-	ObstacleTransform1.Position = { 0.f,525.f };
-	ObstacleTransform2.Position = { 1680.f,525.f };
-	ObstacleTransform3.Position = { 840.f,0.f };
-	ObstacleTransform4.Position = { 360.f,1000.f };
-	ObstacleTransform5.Position = { 840.f,475.f };
-	ObstacleTransform6.Position = { 1320.f,1000.f };
-	ObstacleTransform7.Position = { 840.f, 1050.f };
+	ObstacleTransform1.Position = { 0.f,0.f };
 
-	GameWorld->SpawnObstacle(ObstacleTransform1, { 25.f,1050.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform2, { 25.f,1050.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform3, { 1680.f,50.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform4, { 800.f,100.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform5, { 700.f,50.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform6, { 800.f,100.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform7, { 1680.f,25.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform1, { 50.f,50.f }, COLOR_PURPLE);
 
 	StartGameLoop();
 }
