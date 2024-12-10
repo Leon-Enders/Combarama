@@ -55,6 +55,9 @@
     <Filter Include="Source\PrimitiveFactory">
       <UniqueIdentifier>{e83feb9b-982d-4a14-a5ed-ce9ba0addea1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Render">
+      <UniqueIdentifier>{fb777750-753b-4cb7-9a01-b75d9f6a3b2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
@@ -144,6 +147,7 @@
     <ClCompile Include="Source\Component\WeaponComponent.cpp">
       <Filter>Source\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Render\CoordinateTransformer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -274,6 +278,12 @@
     </ClInclude>
     <ClInclude Include="Source\Component\WeaponComponent.h">
       <Filter>Source\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\CoordinateTransformer.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CombaramaConstants.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

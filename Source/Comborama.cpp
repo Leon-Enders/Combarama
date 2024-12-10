@@ -1,8 +1,12 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #include <iostream>
+#include "CombaramaConstants.h"
 #include "Game.h"
 #include "Utility/CombaramaStructs.h"
+
+
+
 
 
 int main(int argc, char* argv[])
@@ -15,7 +19,7 @@ int main(int argc, char* argv[])
     }
 
 
-    SDL_Window* Window = SDL_CreateWindow("Comborama",1680,900,0);
+    SDL_Window* Window = SDL_CreateWindow("Comborama",Combarama::ViewportWidth,Combarama::ViewportHeight,0);
 
     if (!Window) {
         SDL_Log("SDL_CreateWindow Error: %s", SDL_GetError());

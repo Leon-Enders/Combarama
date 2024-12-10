@@ -40,6 +40,7 @@
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\PrimitiveFactory\Avatar.cpp" />
     <ClCompile Include="Source\PrimitiveFactory\Sword.cpp" />
+    <ClCompile Include="Source\Render\CoordinateTransformer.cpp" />
     <ClCompile Include="Source\System\CollisionSystem.cpp" />
     <ClCompile Include="Source\System\GameSubsystem\GameSubsystem.cpp" />
     <ClCompile Include="Source\System\InputSystem.cpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="Source\Component\PrimitiveComponent.h" />
     <ClInclude Include="Source\Component\SceneComponent.h" />
     <ClInclude Include="Source\Component\WeaponComponent.h" />
+    <ClInclude Include="Source\CombaramaConstants.h" />
     <ClInclude Include="Source\Coroutine\Awaitable\WaitSeconds.h" />
     <ClInclude Include="Source\Coroutine\Coroutine.h" />
     <ClInclude Include="Source\Entity\Actor.h" />
@@ -81,6 +83,7 @@
     <ClInclude Include="Source\PrimitiveFactory\Avatar.h" />
     <ClInclude Include="Source\PrimitiveFactory\PrimitiveHelpers.h" />
     <ClInclude Include="Source\PrimitiveFactory\Sword.h" />
+    <ClInclude Include="Source\Render\CoordinateTransformer.h" />
     <ClInclude Include="Source\System\CollisionSystem.h" />
     <ClInclude Include="Source\System\GameSubsystem\GameSubsystem.h" />
     <ClInclude Include="Source\System\InputSystem.h" />
