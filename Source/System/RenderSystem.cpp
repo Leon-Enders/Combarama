@@ -4,11 +4,11 @@
 
 RenderSystem RenderSystem::Instance;
 
-void RenderSystem::Draw(SDL_Renderer* GameRenderer)const
+void RenderSystem::Draw()const
 {
 	for (auto& ActiveRenderComponent : PrimitiveComponents)
 	{
-		ActiveRenderComponent.get().Draw(GameRenderer);
+		ActiveRenderComponent.get().Draw();
 	}
 }
 

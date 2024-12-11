@@ -10,7 +10,7 @@ class RenderSystem
 public:
 	static RenderSystem& Get() { return Instance; }
 
-	void Draw(SDL_Renderer* GameRenderer)const;
+	void Draw()const;
 
 	void AddRenderComponent(PrimitiveComponent& PrimitiveComponentToAdd);
 	void RemoveRenderComponent(PrimitiveComponent& PrimitiveComponentToRemove);

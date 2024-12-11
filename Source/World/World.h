@@ -56,6 +56,12 @@ using GameObjectVariant = std::variant<
 class World
 {
 public:
+	World(SDL_Renderer* Renderer)
+		:
+		WorldCoordinateTranformer(Renderer)
+	{
+
+	}
 	void Initialize();
 	
 	void FixedUpdate(float FixedDeltaTime);

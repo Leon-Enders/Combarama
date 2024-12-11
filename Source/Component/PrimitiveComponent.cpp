@@ -54,11 +54,11 @@ void PrimitiveComponent::SetColor(SDL_FColor NewColor, int Offset)
 	}
 }
 
-void PrimitiveComponent::Draw(SDL_Renderer* GameRenderer) const
+void PrimitiveComponent::Draw() const
 {
 	if (!IsRenderActive) return;
 	
 
-	GetOwner()->GetWorld()->GetCoordinateTransformer().Draw(RenderTriangles, GameRenderer);
+	GetOwner()->GetWorld()->GetCoordinateTransformer().Draw(RenderTriangles);
 }
 

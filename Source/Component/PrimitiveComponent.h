@@ -16,7 +16,7 @@ public:
 	void SetColor(SDL_FColor NewColor, int Offset = 0);
 	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
 
-	void Draw(SDL_Renderer* GameRenderer)const;
+	void Draw()const;
 private:
 
 	bool IsRenderActive = true;

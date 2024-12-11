@@ -7,10 +7,15 @@
 class CoordinateTransformer
 {
 public:
-	
-	void Draw(std::vector<SDL_Vertex> Model, SDL_Renderer* GameRenderer)const;
+	CoordinateTransformer(SDL_Renderer* Renderer)
+		:
+		Renderer(Renderer)
+	{}
+	void Draw(std::vector<SDL_Vertex> Model)const;
 
 private:
+
+	SDL_Renderer* Renderer = nullptr;
 
 	static constexpr float ViewportHalfWidth = Combarama::ViewportWidth / 2;
 	static constexpr float ViewportHalfHeight = Combarama::ViewportHeight / 2;

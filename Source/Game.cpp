@@ -23,7 +23,7 @@ Game::Game(App& GameApp)
 	const char* BasePath = SDL_GetBasePath();
 	ImagePath = std::string(BasePath) + "../../Assets/BackGround.bmp";
 
-	GameWorld = std::make_unique<World>();
+	GameWorld = std::make_unique<World>(GameRenderer);
 	GameWorld->Initialize();
 	
 	
@@ -130,7 +130,7 @@ void Game::FixedUpdate()
 	while (FixedTimeCounter >= FixedDeltaTimeMS)
 	{
 		GameWorld->FixedUpdate(FixedDeltaTimeS);
-		CollisionSystem::Get().FixedUpdate(FixedDeltaTimeS);
+		//CollisionSystem::Get().FixedUpdate(FixedDeltaTimeS);
 		FixedTimeCounter -= FixedDeltaTimeMS;
 	}
 }
@@ -153,8 +153,8 @@ void Game::ComposeFrame()
 
 	//Draw Verts to Render
 	
-	RenderSystem::Get().Draw(GameRenderer);
-	CollisionSystem::Get().Draw(GameRenderer);
+	RenderSystem::Get().Draw();
+	//CollisionSystem::Get().Draw(GameRenderer);
 	GameWorld->DrawDebug();
 }
 
