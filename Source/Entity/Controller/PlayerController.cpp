@@ -1,6 +1,7 @@
 #include "PlayerController.h"
 #include "../../Game.h"
 #include "../Character/PlayerCharacter.h"
+#include "../../Math/ComboramaMath.h"
 
 
 PlayerController::PlayerController(World* OwningWorld)
@@ -100,10 +101,7 @@ void PlayerController::Attack(const InputActionValue& Value)
 	//{
 	//	sPlayerPtr->Attack();
 	//}
-	Camera& Cam = GetWorld()->GetCamera();
-	Vector2 ScaleVec(1.05f, 1.05f);
-
-	Cam.Scale(ScaleVec);
+	
 }
 
 void PlayerController::Dash(const InputActionValue& Value)
@@ -130,9 +128,12 @@ void PlayerController::Shoot(const InputActionValue& Value)
 	//}
 
 	Camera& Cam = GetWorld()->GetCamera();
-	Vector2 ScaleVec(0.95f, 0.95f);
 
-	Cam.Scale(ScaleVec);
+	float Scale = Value.Get<float>();
+
+	Vector2 ScaleVec(Scale, Scale);
+
+	Cam.SetScale(Cam.GetTransform().Scale + ScaleVec);
 }
 
 void PlayerController::OnCharacterDestroyed()

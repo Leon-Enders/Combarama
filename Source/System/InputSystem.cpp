@@ -21,7 +21,7 @@ void InputSystem::CaptureInput()
 		{
 			DispatchQuitEvent(Event);
 		}
-		else if (Event.type == SDL_EventType::SDL_EVENT_MOUSE_MOTION)
+		else if (Event.type == SDL_EventType::SDL_EVENT_MOUSE_MOTION || Event.type == SDL_EventType::SDL_EVENT_MOUSE_WHEEL)
 		{
 			DispatchMouseEvent(Event);
 		}

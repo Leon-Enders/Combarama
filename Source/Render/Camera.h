@@ -29,7 +29,7 @@ public:
 		CamTransform.Scale = NewScale;
 	}
 
-	void Scale(const Vector2& Scale)
+	void Scale(float Scale)
 	{
 		CamTransform.Scale *= Scale;
 	}

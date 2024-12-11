@@ -81,7 +81,7 @@ public:
 
 	void AddShootInputAction(const std::shared_ptr<InputAction> InputActionToAdd)
 	{
-		ShootInputAction = InputActionToAdd;
+		ScrollAction = InputActionToAdd;
 	}
 
 	void HandleQuitEvent(const SDL_Event& QuitEvent)
@@ -110,6 +110,23 @@ public:
 
 	void HandleMouseEvent(const SDL_Event& MouseEvent)
 	{
+
+		if (MouseEvent.type == SDL_EVENT_MOUSE_WHEEL)
+		{
+			if (ScrollAction)
+			{
+
+				Vector2 ScrollWheel(MouseEvent.wheel.y*0.05f, MouseEvent.wheel.y*0.05f);
+
+
+				ScrollAction->SetActionValue(ScrollWheel);
+				ScrollAction->Execute();
+			}
+
+			return;
+		}
+
+	
 		MouseInput.X = MouseEvent.motion.x;
 		MouseInput.Y = MouseEvent.motion.y;
 
@@ -160,5 +177,6 @@ private:
 	std::shared_ptr<InputAction> QuitInputAction;
 	std::shared_ptr<InputAction> AttackInputAction;
 	std::shared_ptr<InputAction> ShootInputAction;
+	std::shared_ptr<InputAction> ScrollAction;
 	Vector2 MouseInput;
 };
