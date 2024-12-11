@@ -16,7 +16,8 @@ public:
 	void SetColor(SDL_FColor NewColor, int Offset = 0);
 	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
 
-	void Draw()const;
+
+	std::vector<SDL_Vertex> GetModel()const;
 private:
 
 	bool IsRenderActive = true;

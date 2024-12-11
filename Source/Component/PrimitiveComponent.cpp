@@ -7,7 +7,7 @@
 
 PrimitiveComponent::~PrimitiveComponent()
 {
-	RenderSystem::Get().RemoveRenderComponent(*this);
+	RenderSystem::Get().RemovePrimitiveComponent(*this);
 }
 
 void PrimitiveComponent::Initialize(Actor* Owner)
@@ -15,7 +15,7 @@ void PrimitiveComponent::Initialize(Actor* Owner)
 	SceneComponent::Initialize(Owner);
 
 	
-	RenderSystem::Get().AddRenderComponent(*this);
+	RenderSystem::Get().AddPrimitiveComponent(*this);
 }
 
 
@@ -54,11 +54,8 @@ void PrimitiveComponent::SetColor(SDL_FColor NewColor, int Offset)
 	}
 }
 
-void PrimitiveComponent::Draw() const
+std::vector<SDL_Vertex> PrimitiveComponent::GetModel() const
 {
-	if (!IsRenderActive) return;
-	
-
-	GetOwner()->GetWorld()->GetCoordinateTransformer().Draw(RenderTriangles);
+	return RenderTriangles;
 }
 

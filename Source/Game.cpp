@@ -40,16 +40,16 @@ void Game::StartGame()
 	IsGameActive = true;
 	LoadBackground();
 
-	//Transform PlayerSpawnTransform;
-	//PlayerSpawnTransform.Position = { 840.f,1000.f };
-	//
-	//auto SpawnedPlayerPtr = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
-	//auto PlayerControllerPtr = GameWorld->SpawnGameObject<PlayerController>();
-	//
-	//if (auto sPlayerController = PlayerControllerPtr.lock())
-	//{
-	//	sPlayerController->PossessCharacter(std::shared_ptr<PlayerCharacter>(SpawnedPlayerPtr));
-	//}
+	Transform PlayerSpawnTransform;
+	PlayerSpawnTransform.Position = { 840.f,1000.f };
+	
+	auto SpawnedPlayerPtr = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
+	auto PlayerControllerPtr = GameWorld->SpawnGameObject<PlayerController>();
+	
+	if (auto sPlayerController = PlayerControllerPtr.lock())
+	{
+		sPlayerController->PossessCharacter(std::shared_ptr<PlayerCharacter>(SpawnedPlayerPtr));
+	}
 
 
 
@@ -74,7 +74,7 @@ void Game::StartGame()
 
 	ObstacleTransform1.Position = { 0.f,0.f };
 
-	GameWorld->SpawnObstacle(ObstacleTransform1, { 50.f,50.f }, COLOR_PURPLE);
+	GameWorld->SpawnObstacle(ObstacleTransform1, { 50.f,100.f }, COLOR_PURPLE);
 
 	StartGameLoop();
 }

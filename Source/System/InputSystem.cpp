@@ -35,6 +35,8 @@ void InputSystem::CaptureInput()
 		}
 	}
 
+
+
 	const bool* KeyState = SDL_GetKeyboardState(NULL);
 
 	SInputSystem.DispatchKeyState(KeyState);

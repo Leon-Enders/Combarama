@@ -71,6 +71,13 @@ struct Vector2
 		return *this;
 	}
 
+	Vector2& operator*=(const Vector2& Scale)
+	{
+		X *= Scale.X;
+		Y *= Scale.Y;
+		return *this;
+	}
+
 	Vector2 operator*(const float Scale) const
 	{
 		return Vector2(X * Scale, Y * Scale);

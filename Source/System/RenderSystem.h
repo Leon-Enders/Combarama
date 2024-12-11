@@ -3,7 +3,7 @@
 #include <functional>
 
 class PrimitiveComponent;
-struct SDL_Renderer;
+class Camera;
 
 class RenderSystem
 {
@@ -12,11 +12,15 @@ public:
 
 	void Draw()const;
 
-	void AddRenderComponent(PrimitiveComponent& PrimitiveComponentToAdd);
-	void RemoveRenderComponent(PrimitiveComponent& PrimitiveComponentToRemove);
+	void AddCamera(Camera& CameraToAdd);
+	void RemoveCamera(Camera& CameraToRemove);
+
+	void AddPrimitiveComponent(PrimitiveComponent& PrimitiveComponentToAdd);
+	void RemovePrimitiveComponent(PrimitiveComponent& PrimitiveComponentToRemove);
 
 private:
 	RenderSystem() = default;
 	static RenderSystem Instance;
 	std::vector<std::reference_wrapper<PrimitiveComponent>> PrimitiveComponents;
+	std::vector<std::reference_wrapper<Camera>> Cameras;
 };

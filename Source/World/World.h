@@ -10,6 +10,8 @@
 #include "../Math/Transform.h"
 #include "../System/WorldSubsystem/WorldSubsystem.h"
 #include "../Render/CoordinateTransformer.h"
+#include "../Render/Camera.h"
+#include "../System/RenderSystem.h"
 
 struct SDL_FColor;
 class Controller;
@@ -58,9 +60,10 @@ class World
 public:
 	World(SDL_Renderer* Renderer)
 		:
-		WorldCoordinateTranformer(Renderer)
+		WorldCoordinateTranformer(Renderer),
+		PlayerCam(WorldCoordinateTranformer)
 	{
-
+		RenderSystem::Get().AddCamera(PlayerCam);
 	}
 	void Initialize();
 	
@@ -84,7 +87,8 @@ public:
 	template<IsSubsystem T>
 	T* GetSubsystem();
 
-	const CoordinateTransformer& GetCoordinateTransformer()const { return WorldCoordinateTranformer; }
+	Camera& GetCamera() { return PlayerCam; }
+
 
 	void UpdateInstancedGameObjects();
 	void CleanUpInstanceGameObjects();
@@ -106,7 +110,10 @@ private:
 	std::vector<GameObject*> GameObjectsToRemove;
 	std::vector<std::shared_ptr<GameObject>> GameObjectsToAdd;
 
+
+	//Render Pipeline
 	CoordinateTransformer WorldCoordinateTranformer;
+	Camera PlayerCam;
 };
 
 template<IsGameObject T>

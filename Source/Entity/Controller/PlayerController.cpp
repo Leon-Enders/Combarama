@@ -81,11 +81,7 @@ void PlayerController::UnPossessCharacter()
 
 void PlayerController::Move(const InputActionValue& Value)
 {
-	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
-	{
-		sPlayerPtr->UpdateVelocity(Value.Get<Vector2>());
-	}
-	
+	GetWorld()->GetCamera().Translate(Value.Get<Vector2>());
 }
 
 void PlayerController::Look(const InputActionValue& Value)
