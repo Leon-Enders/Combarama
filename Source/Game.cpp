@@ -41,7 +41,7 @@ void Game::StartGame()
 	LoadBackground();
 
 	Transform PlayerSpawnTransform;
-	PlayerSpawnTransform.Position = { 840.f,1000.f };
+	PlayerSpawnTransform.Position = { 50.f,250.f };
 	
 	auto SpawnedPlayerPtr = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
 	auto PlayerControllerPtr = GameWorld->SpawnGameObject<PlayerController>();
@@ -73,9 +73,10 @@ void Game::StartGame()
 	Transform ObstacleTransform7;
 
 	ObstacleTransform1.Position = { 0.f,0.f };
+	ObstacleTransform2.Position = { -100.f,200.f };
 
 	GameWorld->SpawnObstacle(ObstacleTransform1, { 50.f,100.f }, COLOR_PURPLE);
-
+	GameWorld->SpawnObstacle(ObstacleTransform2, { 50.f,100.f }, COLOR_PURPLE);
 	StartGameLoop();
 }
 

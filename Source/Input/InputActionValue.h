@@ -64,10 +64,10 @@ struct InputActionValue
 		switch (AxisToUpdate)
 		{
 		case E_AxisMapping::Up:
-			Value.Y = -1.f;
+			Value.Y = 1.f;
 			break;
 		case E_AxisMapping::Down:
-			Value.Y = 1.f;
+			Value.Y = -1.f;
 			break;
 		case E_AxisMapping::Left:
 			Value.X = -1.f;

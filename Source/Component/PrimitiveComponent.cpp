@@ -14,14 +14,24 @@ void PrimitiveComponent::Initialize(Actor* Owner)
 {
 	SceneComponent::Initialize(Owner);
 
-	
 	RenderSystem::Get().AddPrimitiveComponent(*this);
+
+
+	
 }
 
 
 void PrimitiveComponent::SetVerts(const std::vector<SDL_Vertex>&& InTriangles)
 {
 	Triangles = InTriangles;
+
+	for (size_t i = 0; i < Triangles.size(); ++i)
+	{
+		Triangles[i].position.x += GetWorldTransform().Position.X;
+		Triangles[i].position.y += GetWorldTransform().Position.Y;
+	}
+
+
 	RenderTriangles.resize(Triangles.size());
 
 	for (size_t i = 0; i < Triangles.size(); ++i)
@@ -50,12 +60,12 @@ void PrimitiveComponent::SetColor(SDL_FColor NewColor, int Offset)
 {
 	for (int i = Offset; i < Triangles.size(); i++)
 	{
-		RenderTriangles[i].color = NewColor;
+		Triangles[i].color = NewColor;
 	}
 }
 
 std::vector<SDL_Vertex> PrimitiveComponent::GetModel() const
 {
-	return RenderTriangles;
+	return Triangles;
 }
 

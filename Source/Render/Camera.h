@@ -45,15 +45,25 @@ public:
 	}
 
 
+	const Transform& GetTransform()const { return CamTransform; }
+
+
 	void Draw(std::vector<SDL_Vertex> Model)
 	{
+
 		for (auto& v : Model)
 		{
 			v.position.x *= -1;
 			v.position.y *= -1;
 
+
+			v.position.x *= CamTransform.Scale.X;
+			v.position.y *= CamTransform.Scale.Y;
+
 			v.position.x += CamTransform.Position.X;
 			v.position.y += CamTransform.Position.Y;
+
+			
 
 		}
 		WorldCoordinateTransformer.Draw(Model);

@@ -96,11 +96,14 @@ void PlayerController::Look(const InputActionValue& Value)
 
 void PlayerController::Attack(const InputActionValue& Value)
 {
-	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
-	{
-		sPlayerPtr->Attack();
-	}
-	
+	//if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
+	//{
+	//	sPlayerPtr->Attack();
+	//}
+	Camera& Cam = GetWorld()->GetCamera();
+	Vector2 ScaleVec(1.05f, 1.05f);
+
+	Cam.Scale(ScaleVec);
 }
 
 void PlayerController::Dash(const InputActionValue& Value)
@@ -117,14 +120,19 @@ void PlayerController::Dash(const InputActionValue& Value)
 
 void PlayerController::Shoot(const InputActionValue& Value)
 {
-	if (ShootReady)
-	{
+	//if (ShootReady)
+	//{
+	//
+	//	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
+	//	{
+	//		sPlayerPtr->Shoot();
+	//	}
+	//}
 
-		if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
-		{
-			sPlayerPtr->Shoot();
-		}
-	}
+	Camera& Cam = GetWorld()->GetCamera();
+	Vector2 ScaleVec(0.95f, 0.95f);
+
+	Cam.Scale(ScaleVec);
 }
 
 void PlayerController::OnCharacterDestroyed()
