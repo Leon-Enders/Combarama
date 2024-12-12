@@ -29,22 +29,8 @@ void PrimitiveComponent::SetVerts(const std::vector<SDL_Vertex>&& InTriangles)
 		Triangles[i].position.x += GetWorldTransform().Position.X;
 		Triangles[i].position.y += GetWorldTransform().Position.Y;
 	}
-
-
-	RenderTriangles.resize(Triangles.size());
-
-	for (size_t i = 0; i < Triangles.size(); ++i)
-	{
-		RenderTriangles[i].color = Triangles[i].color;
-	}
 }
 
-void PrimitiveComponent::LateUpdate(float DeltaTime)
-{
-	ActorComponent::LateUpdate(DeltaTime);
-
-
-}
 
 
 void PrimitiveComponent::SetColor(SDL_FColor NewColor, int Offset)
