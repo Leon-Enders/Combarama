@@ -1,7 +1,7 @@
 #pragma once
 #include "CoordinateTransformer.h"
 #include "../Math/Transform.h"
-
+#include "Drawable.h"
 
 class Camera
 {
@@ -45,29 +45,14 @@ public:
 	}
 
 
-	const Transform& GetTransform()const { return CamTransform; }
-
-
-	void Draw(std::vector<SDL_Vertex> Model)
+	void Draw(Drawable InDrawable)const
 	{
-
-		for (auto& v : Model)
-		{
-			v.position.x *= -1;
-			v.position.y *= -1;
-
-
-			v.position.x *= CamTransform.Scale.X;
-			v.position.y *= CamTransform.Scale.Y;
-
-			v.position.x += CamTransform.Position.X;
-			v.position.y += CamTransform.Position.Y;
-
-			
-
-		}
-		WorldCoordinateTransformer.Draw(Model);
+		InDrawable.Translate(CamTransform.Position * -1.f);
+		InDrawable.Scale(CamTransform.Scale);
+		WorldCoordinateTransformer.Draw(InDrawable);
 	}
+
+	const Transform& GetTransform()const { return CamTransform; }
 
 
 private:

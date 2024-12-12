@@ -53,18 +53,12 @@ using GameObjectVariant = std::variant<
 	std::vector<std::weak_ptr<Obstacle>>,
 	std::vector<std::weak_ptr<Projectile>>>;
 
-
+class Game;
 
 class World
 {
 public:
-	World(SDL_Renderer* Renderer)
-		:
-		WorldCoordinateTranformer(Renderer),
-		PlayerCam(WorldCoordinateTranformer)
-	{
-		RenderSystem::Get().AddCamera(PlayerCam);
-	}
+	World(Game* theGame);
 	void Initialize();
 	
 	void FixedUpdate(float FixedDeltaTime);
@@ -87,12 +81,13 @@ public:
 	template<IsSubsystem T>
 	T* GetSubsystem();
 
-	Camera& GetCamera() { return PlayerCam; }
-
 
 	void UpdateInstancedGameObjects();
 	void CleanUpInstanceGameObjects();
 	void RemoveGameObject(GameObject* GameObjectToRemove);
+
+
+	Game* GetGame() { return theGame; }
 
 private:
 	template<IsGameObject T>
@@ -110,10 +105,7 @@ private:
 	std::vector<GameObject*> GameObjectsToRemove;
 	std::vector<std::shared_ptr<GameObject>> GameObjectsToAdd;
 
-
-	//Render Pipeline
-	CoordinateTransformer WorldCoordinateTranformer;
-	Camera PlayerCam;
+	Game* theGame;
 };
 
 template<IsGameObject T>

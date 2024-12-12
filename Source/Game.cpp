@@ -23,7 +23,10 @@ Game::Game(App& GameApp)
 	const char* BasePath = SDL_GetBasePath();
 	ImagePath = std::string(BasePath) + "../../Assets/BackGround.bmp";
 
-	GameWorld = std::make_unique<World>(GameRenderer);
+
+	RS = std::make_unique<RenderSubsystem>(GameRenderer);
+
+	GameWorld = std::make_unique<World>(this);
 	GameWorld->Initialize();
 	
 	
@@ -153,8 +156,7 @@ void Game::ComposeFrame()
 	SDL_RenderTexture(GameRenderer, GameBackground, &BackGround, NULL);
 
 	//Draw Verts to Render
-	
-	RenderSystem::Get().Draw();
+	RS->Draw();
 	//CollisionSystem::Get().Draw(GameRenderer);
 	GameWorld->DrawDebug();
 }

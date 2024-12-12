@@ -3,21 +3,20 @@
 #include "../Render/CoordinateTransformer.h"
 #include "../Entity/Actor.h"
 #include "../World/World.h"
+#include "../Render/Drawable.h"
+#include "../Game.h"
 
 
 PrimitiveComponent::~PrimitiveComponent()
 {
-	RenderSystem::Get().RemovePrimitiveComponent(*this);
+	GetOwner()->GetWorld()->GetGame()->GetRenderSubsystem()->RemovePrimitiveComponent(*this);
 }
 
 void PrimitiveComponent::Initialize(Actor* Owner)
 {
 	SceneComponent::Initialize(Owner);
 
-	RenderSystem::Get().AddPrimitiveComponent(*this);
-
-
-	
+	GetOwner()->GetWorld()->GetGame()->GetRenderSubsystem()->AddPrimitiveComponent(*this);
 }
 
 
@@ -44,15 +43,7 @@ void PrimitiveComponent::LateUpdate(float DeltaTime)
 {
 	ActorComponent::LateUpdate(DeltaTime);
 
-	//Apply transform to verts to render from the world transform this component is attached to
-	Matrix3x3 WorldTransformMatrix = Matrix3x3::Transform(GetWorldTransform());
-	Matrix3x3 TransformMatrix = WorldTransformMatrix * LocalTransformMatrix;
 
-
-	for (size_t i = 0; i < Triangles.size(); ++i)
-	{
-		RenderTriangles[i].position = TransformMatrix * Triangles[i].position;
-	}
 }
 
 
@@ -64,8 +55,15 @@ void PrimitiveComponent::SetColor(SDL_FColor NewColor, int Offset)
 	}
 }
 
-std::vector<SDL_Vertex> PrimitiveComponent::GetModel() const
+Drawable PrimitiveComponent::GetDrawable() const
 {
-	return Triangles;
+	Drawable d = Drawable(Triangles);
+
+	d.Scale(GetScale());
+	d.Translate(GetPosition());
+
+	return d;
 }
+
+
 

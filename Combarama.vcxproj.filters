@@ -22,9 +22,6 @@
     <Filter Include="Source\System">
       <UniqueIdentifier>{2e025957-2763-40fa-b5c3-3cc1a6ea6184}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\System\GameSubsystem">
-      <UniqueIdentifier>{094bc4dc-3f1a-42bb-8059-77d73d7f5634}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\System\WorldSubsystem">
       <UniqueIdentifier>{ea2c99b6-42d6-4f2b-a791-832f17da8acd}</UniqueIdentifier>
     </Filter>
@@ -58,6 +55,9 @@
     <Filter Include="Source\Render">
       <UniqueIdentifier>{fb777750-753b-4cb7-9a01-b75d9f6a3b2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\System\EngineSubsystem">
+      <UniqueIdentifier>{094bc4dc-3f1a-42bb-8059-77d73d7f5634}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game.cpp">
@@ -83,9 +83,6 @@
     </ClCompile>
     <ClCompile Include="Source\System\WorldSubsystem\AISystem.cpp">
       <Filter>Source\System\WorldSubsystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\System\GameSubsystem\GameSubsystem.cpp">
-      <Filter>Source\System\GameSubsystem</Filter>
     </ClCompile>
     <ClCompile Include="Source\World\World.cpp">
       <Filter>Source\World</Filter>
@@ -147,7 +144,10 @@
     <ClCompile Include="Source\Component\WeaponComponent.cpp">
       <Filter>Source\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Render\CoordinateTransformer.cpp" />
+    <ClCompile Include="Source\Render\CoordinateTransformer.cpp">
+      <Filter>Source\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\System\EngineSubsystem\RenderSubsystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -197,9 +197,6 @@
     </ClInclude>
     <ClInclude Include="Source\System\WorldSubsystem\AISystem.h">
       <Filter>Source\System\WorldSubsystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\System\GameSubsystem\GameSubsystem.h">
-      <Filter>Source\System\GameSubsystem</Filter>
     </ClInclude>
     <ClInclude Include="Source\World\World.h">
       <Filter>Source\World</Filter>
@@ -284,6 +281,18 @@
     </ClInclude>
     <ClInclude Include="Source\CombaramaConstants.h">
       <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\System\EngineSubsystem\EngineSubsystem.h">
+      <Filter>Source\System\EngineSubsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\System\EngineSubsystem\RenderSubsystem.h">
+      <Filter>Source\System\EngineSubsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Camera.h">
+      <Filter>Source\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Render\Drawable.h">
+      <Filter>Source\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

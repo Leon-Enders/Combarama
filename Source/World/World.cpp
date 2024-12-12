@@ -10,6 +10,12 @@
 #include "../Entity/Controller/Controller.h"
 
 
+World::World(Game* theGame)
+	:
+	theGame(theGame)
+{
+}
+
 void World::Initialize()
 {
 	// Add all WorldSubsystems and Initialize them

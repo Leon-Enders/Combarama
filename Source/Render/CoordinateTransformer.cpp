@@ -1,17 +1,20 @@
 #include "CoordinateTransformer.h"
-#include "../Math/Vector2.h"
+#include "../Math/Transform.h"
+#include "Drawable.h"
+#include "SDL3/SDL_render.h"
 
-void CoordinateTransformer::Draw(std::vector<SDL_Vertex> Model)const
+CoordinateTransformer::CoordinateTransformer(SDL_Renderer* Renderer)
+	:
+	Renderer(Renderer)
 {
+}
 
-	for (auto& v : Model)
-	{
-		v.position.y *= -1.f;
+void CoordinateTransformer::Draw(Drawable& InDrawable)const
+{
+	Vector2 ViewportCenter = Vector2(ViewportHalfWidth, ViewportHalfHeight);
 
-		v.position.x += ViewportHalfWidth;
-		v.position.y += ViewportHalfHeight;
-	}
+	InDrawable.Scale(Vector2(1.f, -1.f));
+	InDrawable.Translate(ViewportCenter);
 
-
-	SDL_RenderGeometry(Renderer, NULL, Model.data(), static_cast<int>(Model.size()), NULL, 0);
+	InDrawable.Render(Renderer);
 }

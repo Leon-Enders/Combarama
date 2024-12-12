@@ -7,15 +7,6 @@ RenderSystem RenderSystem::Instance;
 
 void RenderSystem::Draw()const
 {
-
-	for (auto& Cam : Cameras)
-	{
-		for (auto& ActiveRenderComponent : PrimitiveComponents)
-		{
-			Cam.get().Draw(ActiveRenderComponent.get().GetModel());
-		}
-	}
-
 	
 }
 

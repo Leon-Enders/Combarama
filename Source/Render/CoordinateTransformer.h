@@ -1,21 +1,19 @@
 #pragma once
 #include <vector>
 #include "../CombaramaConstants.h"
-#include "SDL3/SDL_render.h"
 
+class Drawable;
+struct SDL_Renderer;
 
 class CoordinateTransformer
 {
 public:
-	CoordinateTransformer(SDL_Renderer* Renderer)
-		:
-		Renderer(Renderer)
-	{}
-	void Draw(std::vector<SDL_Vertex> Model)const;
+	CoordinateTransformer(SDL_Renderer* Renderer);
+	void Draw(Drawable& InDrawable)const;
 
 private:
 
-	SDL_Renderer* Renderer = nullptr;
+	SDL_Renderer* Renderer;
 
 	static constexpr float ViewportHalfWidth = Combarama::ViewportWidth / 2;
 	static constexpr float ViewportHalfHeight = Combarama::ViewportHeight / 2;

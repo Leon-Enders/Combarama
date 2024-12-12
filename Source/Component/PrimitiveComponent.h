@@ -1,7 +1,7 @@
 #pragma once
 #include "SDL3/SDL_render.h"
 #include "SceneComponent.h"
-
+#include "../Render/Drawable.h"
 
 
 class PrimitiveComponent : public SceneComponent
@@ -17,7 +17,7 @@ public:
 	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
 
 
-	std::vector<SDL_Vertex> GetModel()const;
+	Drawable GetDrawable()const;
 private:
 
 	bool IsRenderActive = true;

@@ -8,6 +8,7 @@
 #include <SDL3/SDL_events.h>
 #include "Utility/CombaramaStructs.h"
 #include "World/World.h"
+#include "System/EngineSubsystem/RenderSubsystem.h"
 
 
 class Game
@@ -35,6 +36,10 @@ public:
 	//Temp
 	void LoadBackground();
 	void QuitGame();
+
+
+
+	RenderSubsystem* GetRenderSubsystem() { return RS.get(); }
 private:
 
 	SDL_Texture* GameBackground = nullptr;
@@ -60,4 +65,6 @@ private:
 
 	//World
 	std::unique_ptr<World> GameWorld;
+
+	std::unique_ptr<RenderSubsystem> RS;
 };

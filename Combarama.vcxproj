@@ -42,7 +42,7 @@
     <ClCompile Include="Source\PrimitiveFactory\Sword.cpp" />
     <ClCompile Include="Source\Render\CoordinateTransformer.cpp" />
     <ClCompile Include="Source\System\CollisionSystem.cpp" />
-    <ClCompile Include="Source\System\GameSubsystem\GameSubsystem.cpp" />
+    <ClCompile Include="Source\System\EngineSubsystem\RenderSubsystem.cpp" />
     <ClCompile Include="Source\System\InputSystem.cpp" />
     <ClCompile Include="Source\System\RenderSystem.cpp" />
     <ClCompile Include="Source\System\WorldSubsystem\AISystem.cpp" />
@@ -85,8 +85,10 @@
     <ClInclude Include="Source\PrimitiveFactory\Sword.h" />
     <ClInclude Include="Source\Render\Camera.h" />
     <ClInclude Include="Source\Render\CoordinateTransformer.h" />
+    <ClInclude Include="Source\Render\Drawable.h" />
     <ClInclude Include="Source\System\CollisionSystem.h" />
-    <ClInclude Include="Source\System\GameSubsystem\GameSubsystem.h" />
+    <ClInclude Include="Source\System\EngineSubsystem\EngineSubsystem.h" />
+    <ClInclude Include="Source\System\EngineSubsystem\RenderSubsystem.h" />
     <ClInclude Include="Source\System\InputSystem.h" />
     <ClInclude Include="Source\System\RenderSystem.h" />
     <ClInclude Include="Source\System\WorldSubsystem\AISystem.h" />

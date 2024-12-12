@@ -82,7 +82,7 @@ void PlayerController::UnPossessCharacter()
 
 void PlayerController::Move(const InputActionValue& Value)
 {
-	GetWorld()->GetCamera().Translate(Value.Get<Vector2>());
+	GetWorld()->GetGame()->GetRenderSubsystem()->GetCam().Translate(Value.Get<Vector2>());
 }
 
 void PlayerController::Look(const InputActionValue& Value)
@@ -127,7 +127,7 @@ void PlayerController::Shoot(const InputActionValue& Value)
 	//	}
 	//}
 
-	Camera& Cam = GetWorld()->GetCamera();
+	Camera& Cam = GetWorld()->GetGame()->GetRenderSubsystem()->GetCam();
 
 	float Scale = Value.Get<float>();
 
