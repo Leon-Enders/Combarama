@@ -26,8 +26,9 @@ void RenderSubsystem::RemovePrimitiveComponent(PrimitiveComponent& PrimitiveComp
 
 void RenderSubsystem::Draw()
 {
-	for (auto& p : PrimitiveComponents)
+	for (const auto& p : PrimitiveComponents)
 	{
-		cam.Draw(p.get().GetDrawable());
+		Drawable drawable = p.get().GetDrawable();
+		cam.Draw(drawable);
 	}
 }
