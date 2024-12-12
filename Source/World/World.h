@@ -11,7 +11,6 @@
 #include "../System/WorldSubsystem/WorldSubsystem.h"
 #include "../Render/CoordinateTransformer.h"
 #include "../Render/Camera.h"
-#include "../System/RenderSystem.h"
 
 struct SDL_FColor;
 class Controller;

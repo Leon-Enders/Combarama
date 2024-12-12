@@ -1,6 +1,4 @@
 #include "PrimitiveComponent.h"
-#include "../System/RenderSystem.h"
-#include "../Render/CoordinateTransformer.h"
 #include "../Entity/Actor.h"
 #include "../World/World.h"
 #include "../Render/Drawable.h"

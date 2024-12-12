@@ -75,9 +75,6 @@
     <ClCompile Include="Source\System\InputSystem.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
-    <ClCompile Include="Source\System\RenderSystem.cpp">
-      <Filter>Source\System</Filter>
-    </ClCompile>
     <ClCompile Include="Source\System\WorldSubsystem\WorldSubsystem.cpp">
       <Filter>Source\System\WorldSubsystem</Filter>
     </ClCompile>
@@ -185,9 +182,6 @@
     </ClInclude>
     <ClInclude Include="Source\Entity\Weapon.h">
       <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\System\RenderSystem.h">
-      <Filter>Source\System</Filter>
     </ClInclude>
     <ClInclude Include="Source\System\InputSystem.h">
       <Filter>Source\System</Filter>

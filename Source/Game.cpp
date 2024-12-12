@@ -5,7 +5,6 @@
 #include <SDL3/SDL_surface.h>
 #include <SDL3/SDL_filesystem.h>
 #include "System/InputSystem.h"
-#include "System/RenderSystem.h"
 #include "System/WorldSubsystem/AISystem.h"
 #include "System/CollisionSystem.h"
 #include "Entity/Character/PlayerCharacter.h"
