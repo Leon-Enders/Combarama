@@ -28,7 +28,6 @@ void RenderSubsystem::Draw()
 {
 	for (const auto& p : PrimitiveComponents)
 	{
-		Drawable drawable = p.get().GetDrawable();
-		cam.Draw(drawable);
+		cam.Draw(p.get().GetDrawable());
 	}
 }

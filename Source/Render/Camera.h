@@ -45,7 +45,7 @@ public:
 	}
 
 
-	void Draw(Drawable& InDrawable)const
+	void Draw(Drawable InDrawable)const
 	{
 		InDrawable.Translate(CamTransform.Position * -1.f);
 		InDrawable.Scale(CamTransform.Scale);
