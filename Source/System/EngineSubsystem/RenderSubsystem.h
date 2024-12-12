@@ -1,5 +1,8 @@
 #pragma once
 #include "EngineSubsystem.h"
+#include "../../Render/CoordinateTransformer.h"
+#include "../../Render/Camera.h"
+#include <vector>
 
 class SDL_Renderer;
 
@@ -9,8 +12,13 @@ public:
 	RenderSubsystem(SDL_Renderer* Renderer);
 
 	
-
+	void Draw();
 
 private:
-	SDL_Renderer* Renderer = nullptr;
+
+
+
+	CoordinateTransformer ct;
+	Camera cam;
+	//Active Camera Transform Matrix
 };

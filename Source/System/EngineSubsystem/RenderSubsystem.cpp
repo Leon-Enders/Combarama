@@ -3,6 +3,12 @@
 RenderSubsystem::RenderSubsystem(SDL_Renderer* Renderer)
 	:
 	EngineSubsystem(),
-	Renderer(Renderer)
+	ct(Renderer),
+	cam(ct)
 {
+}
+
+void RenderSubsystem::Draw()
+{
+	//cam.Draw()
 }
