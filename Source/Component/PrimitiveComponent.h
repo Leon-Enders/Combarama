@@ -11,7 +11,7 @@ public:
 	virtual ~PrimitiveComponent();
 	virtual void Initialize(Actor* Owner) override;
 
-	void SetVerts(const std::vector<SDL_Vertex>&& InTriangles);
+	void SetVerts(std::vector<SDL_Vertex> InTriangles);
 	void SetColor(SDL_FColor NewColor, int Offset = 0);
 	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
 

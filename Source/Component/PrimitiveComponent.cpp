@@ -18,9 +18,9 @@ void PrimitiveComponent::Initialize(Actor* Owner)
 }
 
 
-void PrimitiveComponent::SetVerts(const std::vector<SDL_Vertex>&& InTriangles)
+void PrimitiveComponent::SetVerts(std::vector<SDL_Vertex> InTriangles)
 {
-	Triangles = InTriangles;
+	Triangles = std::move(InTriangles);
 
 	for (size_t i = 0; i < Triangles.size(); ++i)
 	{
