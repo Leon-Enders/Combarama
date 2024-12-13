@@ -1,7 +1,7 @@
 #include "AISystem.h"
 #include <ctime>
 #include <ranges>
-#include "../../Entity/Character/Enemy.h"
+#include "../../GameObject/Character/Enemy.h"
 #include "../../Math/Transform.h"
 #include "../../World/World.h"
 
@@ -33,7 +33,7 @@ void AISystem::SpawnRandomEnemy()
 	Transform RandomSpawnTransform;
 	RandomSpawnTransform.Position = { DistFloatWidth(RandomGenerator) , DistFloatHeight(RandomGenerator) };
 	
-	auto NewEnemyPtr = GetWorld()->SpawnActor<Enemy>(RandomSpawnTransform);
+	auto NewEnemyPtr = GetWorld()->SpawnGameObject<Enemy>(RandomSpawnTransform);
 	std::weak_ptr<AIController> NewAIController = GetWorld()->SpawnGameObject<AIController>();
 
 	NewAIController.lock()->PossessCharacter(std::shared_ptr<Enemy>(NewEnemyPtr));

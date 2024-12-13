@@ -1,7 +1,7 @@
 #include "PrimitiveComponent.h"
 #include "../Core/CoreMinimal.h"
 #include "../Game.h"
-#include "../Entity/Actor.h"
+#include "../GameObject/Actor.h"
 #include "../World/World.h"
 #include "../Render/Drawable.h"
 

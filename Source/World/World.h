@@ -6,7 +6,7 @@
 #include <typeindex>
 #include <variant>
 #include <functional>
-#include "../Entity/GameObject.h"
+#include "../GameObject/GameObject.h"
 #include "../Math/Transform.h"
 #include "../System/WorldSubsystem/WorldSubsystem.h"
 
@@ -60,12 +60,8 @@ public:
 	void LateUpdate(float DeltaTime);
 	void DrawDebug();
 
-
-	template<IsGameObject T>
-	std::weak_ptr<T> SpawnGameObject();
-
-	template<IsActor T, typename... Args>
-	std::weak_ptr<T> SpawnActor(const Transform& SpawnTransform, Args&& ... args);
+	template<IsGameObject T, typename... Args>
+	std::weak_ptr<T> SpawnGameObject(Args&& ... args);
 
 	template<IsGameObject T>
 	std::vector<std::shared_ptr<T>> GetAllGameObjectsOfClass();
@@ -100,27 +96,10 @@ private:
 	Game* theGame;
 };
 
-template<IsGameObject T>
-inline std::weak_ptr<T> World::SpawnGameObject()
+template<IsGameObject T, typename... Args>
+inline std::weak_ptr<T> World::SpawnGameObject(Args&& ... args)
 {
-	std::shared_ptr<T> NewGameObject = std::make_shared<T>(this);
-	std::weak_ptr<T> NewGameObjectWeak = NewGameObject;
-
-	//Small hack to initialize GameObject
-	GameObject* InitializationPtr = static_cast<GameObject*>(NewGameObject.get());
-	InitializationPtr->Initialize();
-
-
-	AddGameObjectToMap(NewGameObject);
-	GameObjectsToAdd.push_back(std::move(NewGameObject));
-
-	return NewGameObjectWeak;
-}
-
-template<IsActor T, typename... Args>
-inline std::weak_ptr<T> World::SpawnActor(const Transform& SpawnTransform, Args&& ... args)
-{
-	std::shared_ptr<T> NewGameObject = std::make_shared<T>(this, SpawnTransform, std::forward<Args>(args)...);
+	std::shared_ptr<T> NewGameObject = std::make_shared<T>(this, std::forward<Args>(args)...);
 	std::weak_ptr<T> NewGameObjectWeak = NewGameObject;
 
 	//Small hack to initialize GameObject

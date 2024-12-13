@@ -7,9 +7,9 @@
 #include "System/InputSystem.h"
 #include "System/WorldSubsystem/AISystem.h"
 #include "System/CollisionSystem.h"
-#include "Entity/Character/PlayerCharacter.h"
-#include "Entity/Controller/PlayerController.h"
-#include "Entity/Obstacle.h"
+#include "GameObject/Character/PlayerCharacter.h"
+#include "GameObject/Controller/PlayerController.h"
+#include "GameObject/Obstacle.h"
 #include "Utility/ColorHelper.h"
 #include "Utility/DrawDebugHelpers.h"
 
@@ -46,7 +46,7 @@ void Game::StartGame()
 	Transform PlayerSpawnTransform;
 	PlayerSpawnTransform.Position = { 50.f,250.f };
 	
-	auto SpawnedPlayerPtr = GameWorld->SpawnActor<PlayerCharacter>(PlayerSpawnTransform);
+	auto SpawnedPlayerPtr = GameWorld->SpawnGameObject<PlayerCharacter>(PlayerSpawnTransform);
 	auto PlayerControllerPtr = GameWorld->SpawnGameObject<PlayerController>();
 	
 	if (auto sPlayerController = PlayerControllerPtr.lock())
@@ -78,8 +78,8 @@ void Game::StartGame()
 	ObstacleTransform1.Position = { 0.f,0.f };
 	ObstacleTransform2.Position = { -100.f,200.f };
 
-	GameWorld->SpawnActor<Obstacle>(ObstacleTransform1, Vector2(50.f, 100.f), COLOR_PURPLE);
-	GameWorld->SpawnActor<Obstacle>(ObstacleTransform2, Vector2(50.f, 100.f), COLOR_PURPLE);
+	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform1, Vector2(50.f, 100.f), COLOR_PURPLE);
+	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform2, Vector2(50.f, 100.f), COLOR_PURPLE);
 	StartGameLoop();
 }
 

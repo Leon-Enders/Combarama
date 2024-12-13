@@ -2,7 +2,7 @@
 #include <algorithm>
 #include "SDL3/SDL_render.h"
 #include "../Collision/Collider.h"
-#include "../Entity/Actor.h"
+#include "../GameObject/Actor.h"
 
 
 

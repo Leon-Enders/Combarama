@@ -132,7 +132,7 @@ void PlayerCharacter::Dash()
 
 void PlayerCharacter::Shoot()
 {
-	auto SpawnedProjectilePtr = GetWorld()->SpawnActor<Projectile>(GetTransform());
+	auto SpawnedProjectilePtr = GetWorld()->SpawnGameObject<Projectile>(GetTransform());
 
 	// tell the projectile who spawned it
 	if (auto sProjectilePtr = SpawnedProjectilePtr.lock())
@@ -173,7 +173,7 @@ Coroutine PlayerCharacter::Spray()
 
 	for (int i = 0; i < 10; i++)
 	{
-		auto SpawnedProjectilePtr = GetWorld()->SpawnActor<Projectile>(GetTransform());
+		auto SpawnedProjectilePtr = GetWorld()->SpawnGameObject<Projectile>(GetTransform());
 
 		// tell the projectile who spawned it
 		if (auto sProjectilePtr = SpawnedProjectilePtr.lock())

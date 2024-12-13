@@ -6,7 +6,7 @@
 #include "../../Math/ComboramaMath.h"
 #include "../../World/World.h"
 #include "../../System/WorldSubsystem/AISystem.h"
-#include "../../Utility/ComboramaTime.h"
+#include "../../Utility/ComboramaRandom.h"
 
 AIController::AIController(World* InOwningWorld)
     :

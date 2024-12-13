@@ -1,5 +1,5 @@
 #include "ActorComponent.h"
-#include "../Entity/Actor.h"
+#include "../GameObject/Actor.h"
 
 ActorComponent::ActorComponent(Actor* Owner)
 	:

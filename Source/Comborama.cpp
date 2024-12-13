@@ -42,6 +42,7 @@ int main(int argc, char* argv[])
     
     
     Game InstancedGame = Game(GameApp);
+    //Initialize Global Game Accessor
     AGame = &InstancedGame;
 
     InstancedGame.Initialize();
