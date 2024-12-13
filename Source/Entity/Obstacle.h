@@ -6,7 +6,6 @@
 #include "../Collision/Collider.h"
 
 class PrimitiveComponent;
-class World;
 
 class Obstacle : public Actor, public std::enable_shared_from_this<Obstacle>
 {

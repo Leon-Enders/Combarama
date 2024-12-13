@@ -83,7 +83,6 @@
     <ClInclude Include="Source\PrimitiveFactory\Avatar.h" />
     <ClInclude Include="Source\PrimitiveFactory\PrimitiveHelpers.h" />
     <ClInclude Include="Source\PrimitiveFactory\Sword.h" />
-    <ClInclude Include="Source\Render\Camera.h" />
     <ClInclude Include="Source\Render\CoordinateTransformer.h" />
     <ClInclude Include="Source\Render\Drawable.h" />
     <ClInclude Include="Source\System\CollisionSystem.h" />

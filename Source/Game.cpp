@@ -9,6 +9,7 @@
 #include "System/CollisionSystem.h"
 #include "Entity/Character/PlayerCharacter.h"
 #include "Entity/Controller/PlayerController.h"
+#include "Entity/Obstacle.h"
 #include "Utility/ColorHelper.h"
 #include "Utility/DrawDebugHelpers.h"
 
@@ -77,8 +78,8 @@ void Game::StartGame()
 	ObstacleTransform1.Position = { 0.f,0.f };
 	ObstacleTransform2.Position = { -100.f,200.f };
 
-	GameWorld->SpawnObstacle(ObstacleTransform1, { 50.f,100.f }, COLOR_PURPLE);
-	GameWorld->SpawnObstacle(ObstacleTransform2, { 50.f,100.f }, COLOR_PURPLE);
+	GameWorld->SpawnActor<Obstacle>(ObstacleTransform1, Vector2(50.f, 100.f), COLOR_PURPLE);
+	GameWorld->SpawnActor<Obstacle>(ObstacleTransform2, Vector2(50.f, 100.f), COLOR_PURPLE);
 	StartGameLoop();
 }
 

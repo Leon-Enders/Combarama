@@ -9,8 +9,6 @@
 #include "../Entity/GameObject.h"
 #include "../Math/Transform.h"
 #include "../System/WorldSubsystem/WorldSubsystem.h"
-#include "../Render/CoordinateTransformer.h"
-#include "../Render/Camera.h"
 
 struct SDL_FColor;
 class Controller;
@@ -31,9 +29,6 @@ concept IsGameObject = std::is_base_of<GameObject, T>::value;
 
 template<typename T>
 concept IsActor = std::is_base_of<Actor, T>::value;
-
-template<typename T>
-concept IsController = std::is_base_of<Controller, T>::value;
 
 template<typename T>
 concept IsSubsystem = std::is_base_of<WorldSubsystem, T>::value;
@@ -69,10 +64,8 @@ public:
 	template<IsGameObject T>
 	std::weak_ptr<T> SpawnGameObject();
 
-	template<IsActor T>
-	std::weak_ptr<T> SpawnActor(const Transform& SpawnTransform);
-
-	std::weak_ptr<Obstacle> SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor);
+	template<IsActor T, typename... Args>
+	std::weak_ptr<T> SpawnActor(const Transform& SpawnTransform, Args&& ... args);
 
 	template<IsGameObject T>
 	std::vector<std::shared_ptr<T>> GetAllGameObjectsOfClass();
@@ -124,10 +117,10 @@ inline std::weak_ptr<T> World::SpawnGameObject()
 	return NewGameObjectWeak;
 }
 
-template<IsActor T>
-inline std::weak_ptr<T> World::SpawnActor(const Transform& SpawnTransform)
+template<IsActor T, typename... Args>
+inline std::weak_ptr<T> World::SpawnActor(const Transform& SpawnTransform, Args&& ... args)
 {
-	std::shared_ptr<T> NewGameObject = std::make_shared<T>(this, SpawnTransform);
+	std::shared_ptr<T> NewGameObject = std::make_shared<T>(this, SpawnTransform, std::forward<Args>(args)...);
 	std::weak_ptr<T> NewGameObjectWeak = NewGameObject;
 
 	//Small hack to initialize GameObject

@@ -1,12 +1,12 @@
 #include "World.h"
 #include "../System/WorldSubsystem/AISystem.h"
-#include "../Entity/Obstacle.h"
 #include "../Entity/Actor.h"
 #include "../Entity/Character/Character.h"
 #include "../Entity/Character/Enemy.h"
 #include "../Entity/Character/PlayerCharacter.h"
 #include "../Entity/Weapon.h"
 #include "../Entity/Projectile.h"
+#include "../Entity/Obstacle.h"
 #include "../Entity/Controller/Controller.h"
 
 
@@ -117,21 +117,4 @@ void World::RemoveGameObject(GameObject* GameObjectToRemove)
 void World::FillSubsystemCollection()
 {
 	SubsystemCollection.emplace_back(std::make_unique<AISystem>(this));
-}
-
-
-std::weak_ptr<Obstacle> World::SpawnObstacle(const Transform& SpawnTransform, const Vector2 RectDimensions, const SDL_FColor& InColor)
-{
-
-	std::shared_ptr<Obstacle> NewGameObject = std::make_shared<Obstacle>(this, SpawnTransform, RectDimensions, InColor);
-	std::weak_ptr<Obstacle> wNewGameObject = NewGameObject;
-
-	NewGameObject->Initialize();
-
-
-	AddGameObjectToMap(NewGameObject);
-	InstancedGameObjects.push_back(std::move(NewGameObject));
-
-
-	return wNewGameObject;
 }
