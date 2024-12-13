@@ -139,15 +139,15 @@ void PlayerController::Shoot(const InputActionValue& Value)
 void PlayerController::Zoom(const InputActionValue& Value)
 {
 	
-	//if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
-	//{
-	//	CameraComponent* Camera = sPlayerPtr->GetCamera();
-	//	float Scale = Value.Get<float>();
-	//
-	//	Vector2 ScaleVec(Scale, Scale);
-	//
-	//	Camera->SetScale(Camera->GetTransform().Scale + ScaleVec);
-	//}
+	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
+	{
+		CameraComponent* Camera = sPlayerPtr->GetCamera();
+		float Scale = Value.Get<float>();
+	
+		Vector2 ScaleVec(Scale, Scale);
+	
+		Camera->SetScale(Camera->GetTransform().Scale + ScaleVec);
+	}
 
 	
 }
