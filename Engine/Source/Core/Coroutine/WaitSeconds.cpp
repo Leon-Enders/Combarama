@@ -1,5 +1,5 @@
 #include "WaitSeconds.h"
-#include "../../GameObject/Actor.h"
+#include "../../Engine/GameFramework/GameObject/GameObject.h"
 
 WaitSeconds::~WaitSeconds()
 {

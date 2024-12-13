@@ -3,9 +3,9 @@
 #include <variant>
 #include "SDL3/SDL_pixels.h"
 #include "../Actor.h"
-#include "../../Collision/Collider.h"
-#include "../../Event/Delegate.h"
-#include "../../Coroutine/Coroutine.h"
+#include "../../../Physics/Collider.h"
+#include "../../../../Core/Event/Delegate.h"
+#include "../../../../Core//Coroutine/Coroutine.h"
 #include "../Controller/Controller.h"
 
 

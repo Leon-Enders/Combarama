@@ -1,6 +1,6 @@
 #include "Weapon.h"
-#include "../PrimitiveFactory/Sword.h"
-#include "../Utility/ColorHelper.h"
+#include "../../../RenderCore/Misc/Sword.h"
+#include "../../../RenderCore/Misc/ColorHelper.h"
 #include "../Component/PrimitiveComponent.h"
 
 Weapon::Weapon(World* GameWorld, const Transform& InTransform)

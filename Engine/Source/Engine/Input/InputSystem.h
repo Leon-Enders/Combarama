@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <functional>
-#include "../Event/Delegate.h"
+#include "../../Core/Event/Delegate.h"
 
 
 union SDL_Event;

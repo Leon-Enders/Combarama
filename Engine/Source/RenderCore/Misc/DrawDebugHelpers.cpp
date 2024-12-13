@@ -1,7 +1,7 @@
 #include "DrawDebugHelpers.h"
 #include <vector>
 #include "SDL3/SDL_render.h"
-#include "../Math/ComboramaMath.h"
+#include "../../Core/Math/ComboramaMath.h"
 
 DrawDebugHelpers DrawDebugHelpers::Instance;
 

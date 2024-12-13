@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "../Core/CombaramaConstants.h"
+#include "../Core/Misc/CombaramaConstants.h"
 
 class Drawable;
 struct SDL_Renderer;

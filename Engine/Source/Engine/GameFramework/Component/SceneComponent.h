@@ -1,7 +1,7 @@
 #pragma once
 #include "ActorComponent.h"
-#include "../Math/Matrix.h"
-#include "../Event/Delegate.h"
+#include "../../../Core/Math/Matrix.h"
+#include "../../../Core/Event/Delegate.h"
 
 
 class SceneComponent : public ActorComponent

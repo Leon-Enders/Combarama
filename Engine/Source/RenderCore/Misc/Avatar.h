@@ -1,8 +1,9 @@
 #pragma once
-#include "SDL3/SDL_render.h"
 #include <vector>
+#include "SDL3/SDL_pixels.h"
 
 struct Transform;
+struct SDL_Vertex;
 class PrimitiveComponent;
 //Helper class generating Vertices for an Avatar shape
 struct Avatar

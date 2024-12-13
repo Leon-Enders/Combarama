@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include "Actor.h"
-#include "../Collision/Collider.h"
+#include "../../Physics/Collider.h"
 
 
 

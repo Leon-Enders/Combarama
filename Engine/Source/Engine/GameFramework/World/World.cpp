@@ -1,5 +1,5 @@
 #include "World.h"
-#include "../System/WorldSubsystem/AISystem.h"
+#include "AISystem.h"
 #include "../GameObject/Actor.h"
 #include "../GameObject/Character/Character.h"
 #include "../GameObject/Character/Enemy.h"

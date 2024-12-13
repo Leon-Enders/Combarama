@@ -1,7 +1,7 @@
 #pragma once
 #include "SDL3/SDL_render.h"
 #include "SceneComponent.h"
-#include "../Render/Drawable.h"
+#include "../../../RenderCore/Drawable.h"
 
 
 class PrimitiveComponent : public SceneComponent

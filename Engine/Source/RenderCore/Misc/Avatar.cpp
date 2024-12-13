@@ -1,7 +1,8 @@
 #include "Avatar.h"
-#include "../Component/PrimitiveComponent.h"
-#include "../PrimitiveFactory/PrimitiveHelpers.h"
-#include "../Math/Transform.h"
+#include "SDL3/SDL_render.h"
+#include "../../Engine/GameFramework/Component/PrimitiveComponent.h"
+#include "PrimitiveHelpers.h"
+#include "../../Core/Math/Transform.h"
 
 
 void Avatar::SetColor(SDL_FColor BodyColor, SDL_FColor HeadColor, PrimitiveComponent* InPrimitiveComponent)

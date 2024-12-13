@@ -1,6 +1,6 @@
 #include "GameObject.h"
 #include "../World/World.h"
-#include "../Coroutine/Awaitable/WaitSeconds.h"
+#include "../../../Core/Coroutine/WaitSeconds.h"
 
 GameObject::GameObject(World* GameWorld)
 	:

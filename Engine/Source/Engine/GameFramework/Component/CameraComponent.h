@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneComponent.h"
-#include "../Render/Drawable.h"
-#include "../Render/CoordinateTransformer.h"
+#include "../../../RenderCore/Drawable.h"
+#include "../../../RenderCore/CoordinateTransformer.h"
 
 
 

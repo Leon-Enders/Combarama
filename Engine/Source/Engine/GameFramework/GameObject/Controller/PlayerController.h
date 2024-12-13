@@ -1,10 +1,10 @@
 #pragma once
 #include "Controller.h"
 #include <memory>
-#include "../../Input/InputComponent.h"
-#include "../../Input/InputAction.h"
-#include "../../Coroutine/Coroutine.h"
-#include "../../Coroutine/Awaitable/WaitSeconds.h"
+#include "../../../Input/InputComponent.h"
+#include "../../../Input/InputAction.h"
+#include "../../../../Core/Coroutine/Coroutine.h"
+#include "../../../../Core/Coroutine/WaitSeconds.h"
 
 class PlayerCharacter;
 

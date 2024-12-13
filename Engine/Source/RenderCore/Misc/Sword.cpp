@@ -1,5 +1,5 @@
 #include "Sword.h"
-#include "../Math/Matrix.h"
+#include "../../Core/Math/Matrix.h"
 
 void Sword::GenerateVertices(std::vector<SDL_Vertex>& OutVerts, const Transform& PivotTransform)
 {

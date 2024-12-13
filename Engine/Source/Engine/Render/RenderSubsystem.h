@@ -1,7 +1,7 @@
 #pragma once
-#include "EngineSubsystem.h"
-#include "../../Render/CoordinateTransformer.h"
-#include "../../Render/Drawable.h"
+#include "../EngineSubsystem.h"
+#include "../../RenderCore/CoordinateTransformer.h"
+#include "../../RenderCore/Drawable.h"
 #include <vector>
 
 class PrimitiveComponent;

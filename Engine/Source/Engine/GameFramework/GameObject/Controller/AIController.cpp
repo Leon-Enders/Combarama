@@ -3,10 +3,10 @@
 #include <chrono>
 #include "../Character/Enemy.h"
 #include "../Character/PlayerCharacter.h"
-#include "../../Math/ComboramaMath.h"
+#include "../../../../Core/Math/ComboramaMath.h"
 #include "../../World/World.h"
-#include "../../System/WorldSubsystem/AISystem.h"
-#include "../../Utility/ComboramaRandom.h"
+#include "../../World/AISystem.h"
+#include "../../../../Core/Misc/ComboramaRandom.h"
 
 AIController::AIController(World* InOwningWorld)
     :

@@ -14,7 +14,6 @@ public:
 
 	void CheckForPossibleCollisions(float FixedDeltaTime);
 	void FixedUpdate(float FixedDeltaTime);
-	void Draw(SDL_Renderer* GameRenderer);
 
 	void AddCollider(std::shared_ptr<Collider> ColliderToAdd);
 

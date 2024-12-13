@@ -1,6 +1,6 @@
 #pragma once
 #include "Character.h"
-#include "../../Utility/ColorHelper.h"
+#include "../../../../RenderCore/Misc/ColorHelper.h"
 
 
 

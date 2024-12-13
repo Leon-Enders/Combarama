@@ -4,14 +4,14 @@
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_surface.h>
 #include <SDL3/SDL_filesystem.h>
-#include "System/InputSystem.h"
-#include "System/WorldSubsystem/AISystem.h"
-#include "System/CollisionSystem.h"
-#include "GameObject/Character/PlayerCharacter.h"
-#include "GameObject/Controller/PlayerController.h"
-#include "GameObject/Obstacle.h"
-#include "Utility/ColorHelper.h"
-#include "Utility/DrawDebugHelpers.h"
+#include "Input/InputSystem.h"
+#include "GameFramework/World/AISystem.h"
+#include "Physics/CollisionSystem.h"
+#include "GameFramework/GameObject/Character/PlayerCharacter.h"
+#include "GameFramework/GameObject/Controller/PlayerController.h"
+#include "GameFramework/GameObject/Obstacle.h"
+#include "../RenderCore/Misc/ColorHelper.h"
+#include "../RenderCore/Misc/DrawDebugHelpers.h"
 
 Game* AGame = nullptr;
 
@@ -21,7 +21,7 @@ Game::Game(App& GameApp)
 	GameRenderer(GameApp.Renderer)
 {
 	const char* BasePath = SDL_GetBasePath();
-	ImagePath = std::string(BasePath) + "../../Assets/BackGround.bmp";
+	ImagePath = std::string(BasePath) + "../../Engine/Content/BackGround.bmp";
 
 	RS = std::make_unique<RenderSubsystem>(GameRenderer);
 	GameWorld = std::make_unique<World>(this);

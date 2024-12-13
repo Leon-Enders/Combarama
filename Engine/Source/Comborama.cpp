@@ -1,9 +1,10 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
-#include "Core/CombaramaConstants.h"
+#include "Core/Misc/CombaramaConstants.h"
+#include "Core/Misc/CombaramaStructs.h"
 #include "Core/CoreMinimal.h"
-#include "Game.h"
-#include "Utility/CombaramaStructs.h"
+#include "Engine/Game.h"
+
 
 
 

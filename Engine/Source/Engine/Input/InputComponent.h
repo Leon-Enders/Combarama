@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <memory>
 #include <functional>
-#include "../System/InputSystem.h"
+#include "InputSystem.h"
 #include "InputAction.h"
 #include "InputActionContext.h"
 

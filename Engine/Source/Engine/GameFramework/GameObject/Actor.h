@@ -2,8 +2,8 @@
 #include <functional>
 #include <memory>
 #include "GameObject.h"
-#include "../Math/Transform.h"
-#include "../Event/Delegate.h"
+#include "../../../Core/Math/Transform.h"
+#include "../../../Core/Event/Delegate.h"
 #include "../Component/ActorComponent.h"
 
 class PrimitiveComponent;

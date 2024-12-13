@@ -1,5 +1,5 @@
 #include "WorldSubsystem.h"
-#include "../../World/World.h"
+#include "World.h"
 
 
 WorldSubsystem::WorldSubsystem(World* InGameWorld)

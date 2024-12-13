@@ -1,8 +1,8 @@
 #include "CollisionSystem.h"
 #include <algorithm>
 #include "SDL3/SDL_render.h"
-#include "../Collision/Collider.h"
-#include "../GameObject/Actor.h"
+#include "Collider.h"
+#include "../GameFramework/GameObject/Actor.h"
 
 
 
@@ -69,25 +69,6 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 			{
 				sActiveCollider->HandleCollision(sOtherCollider, Event.Intersection);
 			}
-		}
-	}
-}
-
-void CollisionSystem::Draw(SDL_Renderer* GameRenderer)
-{
-	SDL_SetRenderDrawColor(GameRenderer, 255, 0, 0, 255);
-
-
-	for (auto it = ActiveColliders.begin();it != ActiveColliders.end();)
-	{
-		if (auto sActiveCollider = it->lock())
-		{
-			sActiveCollider->Draw(GameRenderer);
-			it++;
-		}
-		else
-		{
-			it = ActiveColliders.erase(it);
 		}
 	}
 }

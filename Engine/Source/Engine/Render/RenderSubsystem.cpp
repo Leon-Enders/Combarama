@@ -1,8 +1,8 @@
 #include "RenderSubsystem.h"
 #include <algorithm>
 #include <iterator>
-#include "../../Component/PrimitiveComponent.h"
-#include "../../Component/CameraComponent.h"
+#include "../GameFramework/Component/PrimitiveComponent.h"
+#include "../GameFramework/Component/CameraComponent.h"
 
 RenderSubsystem::RenderSubsystem(SDL_Renderer* Renderer)
 	:

@@ -7,8 +7,8 @@
 #include <variant>
 #include <functional>
 #include "../GameObject/GameObject.h"
-#include "../Math/Transform.h"
-#include "../System/WorldSubsystem/WorldSubsystem.h"
+#include "../../../Core/Math/Transform.h"
+#include "WorldSubsystem.h"
 
 struct SDL_FColor;
 class Controller;

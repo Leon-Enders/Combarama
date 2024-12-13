@@ -1,5 +1,5 @@
 #pragma once
-#include "../Event/Delegate.h"
+#include "../../../Core/Event/Delegate.h"
 
 
 

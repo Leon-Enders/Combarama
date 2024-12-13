@@ -3,7 +3,7 @@
 #include "SDL3/SDL_rect.h"
 #include "SDL3/SDL_pixels.h"
 #include "Actor.h"
-#include "../Collision/Collider.h"
+#include "../../Physics/Collider.h"
 
 class PrimitiveComponent;
 

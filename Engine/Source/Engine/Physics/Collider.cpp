@@ -1,11 +1,11 @@
 #include "Collider.h"
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_log.h"
-#include "../System/CollisionSystem.h"
-#include "../GameObject/Actor.h"
-#include "../GameObject/Character/Character.h"
-#include "../GameObject/Projectile.h"
-#include "../Core/CombaramaConstants.h"
+#include "CollisionSystem.h"
+#include "../GameFramework/GameObject/Actor.h"
+#include "../GameFramework/GameObject/Character/Character.h"
+#include "../GameFramework/GameObject/Projectile.h"
+#include "../../Core/Misc/CombaramaConstants.h"
 
 Collider::Collider(std::shared_ptr<Actor> InOwningActor, float InWidth, float InHeight)
 	:

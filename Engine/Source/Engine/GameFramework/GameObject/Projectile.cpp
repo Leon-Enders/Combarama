@@ -1,7 +1,7 @@
 #include "Projectile.h"
 #include "Character/Character.h"
-#include "../PrimitiveFactory/PrimitiveHelpers.h"
-#include "../Utility/ColorHelper.h"
+#include "../../../RenderCore/Misc/PrimitiveHelpers.h"
+#include "../../../RenderCore/Misc/ColorHelper.h"
 #include "../Component/PrimitiveComponent.h"
 
 

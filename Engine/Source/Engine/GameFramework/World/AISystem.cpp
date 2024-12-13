@@ -1,9 +1,9 @@
 #include "AISystem.h"
 #include <ctime>
 #include <ranges>
-#include "../../GameObject/Character/Enemy.h"
-#include "../../Math/Transform.h"
-#include "../../World/World.h"
+#include "../GameObject/Character/Enemy.h"
+#include "../../../Core/Math/Transform.h"
+#include "World.h"
 
 
 AISystem::AISystem(World* InGameWorld)

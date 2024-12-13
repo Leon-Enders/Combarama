@@ -3,8 +3,8 @@
 #include <cmath>
 #include <numbers>
 #include <vector>
-#include "../Math/Transform.h"
-#include "../Math/Matrix.h"
+#include "../../Core/Math/Transform.h"
+#include "../../Core/Math//Matrix.h"
 
 class  PrimitiveShape
 {

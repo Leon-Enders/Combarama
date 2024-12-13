@@ -1,7 +1,7 @@
 #include "PlayerController.h"
-#include "../../Core/CoreMinimal.h"
+#include "../../../../Core/CoreMinimal.h"
 #include "../Character/PlayerCharacter.h"
-#include "../../Math/ComboramaMath.h"
+#include "../../../../Core/Math/ComboramaMath.h"
 #include "../../Component/CameraComponent.h"
 
 

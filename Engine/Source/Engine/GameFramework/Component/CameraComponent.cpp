@@ -1,6 +1,6 @@
 #include "CameraComponent.h"
-#include "../Core/CoreMinimal.h"
-#include "../Game.h"
+#include "../../../Core/CoreMinimal.h"
+#include "../../Game.h"
 
 CameraComponent::CameraComponent(Actor* Owner)
 	:

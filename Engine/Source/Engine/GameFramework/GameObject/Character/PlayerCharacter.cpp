@@ -1,15 +1,15 @@
 #include "PlayerCharacter.h"
 #include <numbers>
-#include "../../Utility/ColorHelper.h"
-#include "../../Math/ComboramaMath.h"
-#include "../../PrimitiveFactory/Avatar.h"
+#include "../../../../Core/Math/ComboramaMath.h"
+#include "../../../../RenderCore/Misc/Avatar.h"
+#include "../../../../RenderCore/Misc/Sword.h"
 #include "../Projectile.h"
 #include "../../World/World.h"
-#include "../../Utility/DrawDebugHelpers.h"
-#include "../../System/CollisionSystem.h"
+#include "../../../../RenderCore/Misc/DrawDebugHelpers.h"
+#include "../../../Physics/CollisionSystem.h"
 #include "../../Component/PrimitiveComponent.h"
 #include "../../Component/CameraComponent.h"
-#include "../../PrimitiveFactory/Sword.h"
+
 
 
 //TODO: Refactor Attack functionality and Sword Transform handling

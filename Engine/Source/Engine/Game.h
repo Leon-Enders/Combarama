@@ -2,9 +2,9 @@
 #include <memory>
 #include <vector>
 #include <string>
-#include "Utility/CombaramaStructs.h"
-#include "World/World.h"
-#include "System/EngineSubsystem/RenderSubsystem.h"
+#include "../Core/Misc/CombaramaStructs.h"
+#include "GameFramework/World/World.h"
+#include "Render/RenderSubsystem.h"
 
 
 class Game

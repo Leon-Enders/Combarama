@@ -1,7 +1,8 @@
 #pragma once
+#include <memory>
 #include "SDL3/SDL_rect.h"
-#include "../Math/Vector2.h"
-#include "../Event/Delegate.h"
+#include "../../Core/Math/Vector2.h"
+#include "../../Core/Event/Delegate.h"
 
 struct SDL_Renderer;
 class Actor;

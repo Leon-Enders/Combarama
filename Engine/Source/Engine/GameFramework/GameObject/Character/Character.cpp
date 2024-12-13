@@ -1,8 +1,8 @@
 #include "Character.h"
 #include "SDL3/SDL_log.h"
-#include "../../PrimitiveFactory/Avatar.h"
-#include "../../Utility/ColorHelper.h"
-#include "../../Coroutine/Awaitable/WaitSeconds.h"
+#include "../../../../RenderCore/Misc/ColorHelper.h"
+#include "../../../../RenderCore/Misc/Avatar.h"
+#include "../../../../Core/Coroutine/WaitSeconds.h"
 #include "../../Component/PrimitiveComponent.h"
 
 Character::Character(World* GameWorld, const Transform& InTransform)

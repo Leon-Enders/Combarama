@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
 #include "Controller.h"
-#include "../../Math/Vector2.h"
-#include "../../Coroutine/Coroutine.h"
+#include "../../../../Core/Math/Vector2.h"
+#include "../../../../Core/Coroutine/Coroutine.h"
 	
 
 
