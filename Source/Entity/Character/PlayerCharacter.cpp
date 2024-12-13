@@ -102,7 +102,7 @@ void PlayerCharacter::FixedUpdate(float FixedDeltaTime)
 
 void PlayerCharacter::DrawDebug()
 {
-	DrawDebugHelpers::Get().DrawDebugCone(GetPosition(), GetForwardVector(), 135.f, 1.f);
+	//DrawDebugHelpers::Get().DrawDebugCone(GetPosition(), GetForwardVector(), 135.f, 1.f);
 }
 
 void PlayerCharacter::Attack()
