@@ -7,8 +7,11 @@
 class SceneComponent : public ActorComponent
 {
 public:
+	SceneComponent(Actor* Owner);
 	virtual ~SceneComponent();
-	virtual void Initialize(Actor* InOwner) override;
+
+	virtual void Initialize() override;
+
 
 	const Transform& GetTransform()const;
 	const Vector2& GetPosition()const;

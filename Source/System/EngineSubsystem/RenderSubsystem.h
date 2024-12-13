@@ -16,9 +16,9 @@ public:
 	void RemovePrimitiveComponent(PrimitiveComponent& PrimitiveComponentToRemove);
 
 	void Draw();
-	Camera& GetCam() { return cam; };
+	Camera* GetCam() { return ActiveCamera; };
 private:
 	CoordinateTransformer ct;
-	Camera cam;
+	Camera* ActiveCamera = nullptr;
 	std::vector<std::reference_wrapper<PrimitiveComponent>> PrimitiveComponents;
 };

@@ -83,7 +83,7 @@ void PlayerController::UnPossessCharacter()
 
 void PlayerController::Move(const InputActionValue& Value)
 {
-	AGame->GetRenderSubsystem()->GetCam().Translate(Value.Get<Vector2>());
+	AGame->GetRenderSubsystem()->GetCam()->Translate(Value.Get<Vector2>());
 }
 
 void PlayerController::Look(const InputActionValue& Value)
@@ -128,13 +128,13 @@ void PlayerController::Shoot(const InputActionValue& Value)
 	//	}
 	//}
 
-	Camera& Cam = AGame->GetRenderSubsystem()->GetCam();
+	Camera* Cam = AGame->GetRenderSubsystem()->GetCam();
 
 	float Scale = Value.Get<float>();
 
 	Vector2 ScaleVec(Scale, Scale);
 
-	Cam.SetScale(Cam.GetTransform().Scale + ScaleVec);
+	Cam->SetScale(Cam->GetTransform().Scale + ScaleVec);
 }
 
 void PlayerController::OnCharacterDestroyed()

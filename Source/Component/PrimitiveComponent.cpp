@@ -7,22 +7,12 @@
 
 
 
-PrimitiveComponent::~PrimitiveComponent()
+PrimitiveComponent::PrimitiveComponent(Actor* Owner, std::vector<SDL_Vertex> Triangles)
+	:
+	SceneComponent(Owner),
+	Triangles(std::move(Triangles))
 {
-	AGame->GetRenderSubsystem()->RemovePrimitiveComponent(*this);
-}
-
-void PrimitiveComponent::Initialize(Actor* Owner)
-{
-	SceneComponent::Initialize(Owner);
-
-	AGame->GetRenderSubsystem()->AddPrimitiveComponent(*this);
-}
-
-
-void PrimitiveComponent::SetVerts(std::vector<SDL_Vertex> InTriangles)
-{
-	Triangles = std::move(InTriangles);
+	
 
 	for (size_t i = 0; i < Triangles.size(); ++i)
 	{
@@ -31,6 +21,15 @@ void PrimitiveComponent::SetVerts(std::vector<SDL_Vertex> InTriangles)
 	}
 }
 
+PrimitiveComponent::~PrimitiveComponent()
+{
+	AGame->GetRenderSubsystem()->RemovePrimitiveComponent(*this);
+}
+
+void PrimitiveComponent::Initialize()
+{
+	AGame->GetRenderSubsystem()->AddPrimitiveComponent(*this);
+}
 
 
 void PrimitiveComponent::SetColor(SDL_FColor NewColor, int Offset)

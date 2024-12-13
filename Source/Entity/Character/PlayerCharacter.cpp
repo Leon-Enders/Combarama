@@ -8,7 +8,8 @@
 #include "../../Utility/DrawDebugHelpers.h"
 #include "../../System/CollisionSystem.h"
 #include "../../Component/PrimitiveComponent.h"
-#include "../../Component/WeaponComponent.h"
+
+#include "../../PrimitiveFactory/Sword.h"
 
 
 //TODO: Refactor Attack functionality and Sword Transform handling
@@ -16,7 +17,10 @@ PlayerCharacter::PlayerCharacter(World* GameWorld, const Transform& InTransform)
 	:
 	Character(GameWorld, InTransform)
 {
-	Weapon = CreateComponent<WeaponComponent>();
+	std::vector<SDL_Vertex> SwordTriangles;
+	Sword::GenerateVertices(SwordTriangles, { { 75.f,0.f }, 1.5708f, { 1.f,1.f } });
+
+	Weapon = CreateComponent<PrimitiveComponent>(std::move(SwordTriangles));
 	Weapon->SetColor(COLOR_GREY);
 }
 

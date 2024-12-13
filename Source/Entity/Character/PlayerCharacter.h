@@ -5,7 +5,6 @@
 #include "../Controller/PlayerController.h"
 
 
-class WeaponComponent;
 
 class PlayerCharacter : public Character
 {
@@ -55,7 +54,7 @@ private:
 
 	bool IsAttacking = false;
 
-	WeaponComponent* Weapon;
+	PrimitiveComponent* Weapon;
 
 
 

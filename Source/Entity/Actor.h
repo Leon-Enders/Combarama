@@ -48,8 +48,8 @@ protected:
 	inline std::weak_ptr<Actor> GetInstigator()const { return Instigator; }
 
 
-	template<IsActorComponent T>
-	T* CreateComponent();
+	template<IsActorComponent T, typename... Args>
+	T* CreateComponent(Args&&... args);
 private:
 	
 	//TODO: Actors should not have a instigator
@@ -63,14 +63,14 @@ private:
 	SceneComponent* RootComponent;
 };
 
-template<IsActorComponent T>
-inline T* Actor::CreateComponent()
+template<IsActorComponent T, typename... Args>
+inline T* Actor::CreateComponent(Args&&... args)
 {
-	auto sComponentPtr = std::make_unique<T>();
+	auto sComponentPtr = std::make_unique<T>(this, std::forward<Args>(args)...);
 	T* ComponentPtr = sComponentPtr.get();
 
 	ActorComponent* InitializationPtr = static_cast<ActorComponent*>(ComponentPtr);
-	InitializationPtr->Initialize(this);
+	InitializationPtr->Initialize();
 
 	ActorComponents.push_back(std::move(sComponentPtr));
 

@@ -1,16 +1,19 @@
 #include "SceneComponent.h"
 
 
+SceneComponent::SceneComponent(Actor* Owner)
+    :
+    ActorComponent(Owner)  
+{
+}
 
 SceneComponent::~SceneComponent()
 {
 }
 
-void SceneComponent::Initialize(Actor* InOwner)
+void SceneComponent::Initialize()
 {
-    ActorComponent::Initialize(InOwner);
 }
-
 
 const Transform& SceneComponent::GetTransform() const
 {

@@ -11,9 +11,8 @@ Weapon::Weapon(World* GameWorld, const Transform& InTransform)
 	Sword::GenerateVertices(SwordTriangles);
 
 
-	WeaponPrimitive = CreateComponent<PrimitiveComponent>();
+	WeaponPrimitive = CreateComponent<PrimitiveComponent>(std::move(SwordTriangles));
 	WeaponPrimitive->SetTransform(LocalTransform);
-	WeaponPrimitive->SetVerts(std::move(SwordTriangles));
 	WeaponPrimitive->SetColor(COLOR_GREY);
 	WeaponPrimitive->SetRenderActive(false);
 }

@@ -14,8 +14,7 @@ Obstacle::Obstacle(World* GameWorld, const Transform& InTransform, const Vector2
 	Rectangle ARect = Rectangle(RectDimensions.X, RectDimensions.Y);
 	ARect.GetVerts(ObstacleTriangles);
 
-	ObstaclePrimitive = CreateComponent<PrimitiveComponent>();
-	ObstaclePrimitive->SetVerts(std::move(ObstacleTriangles));
+	ObstaclePrimitive = CreateComponent<PrimitiveComponent>(std::move(ObstacleTriangles));
 	ObstaclePrimitive->SetColor(ObstacleColour);
 }
 

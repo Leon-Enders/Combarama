@@ -12,8 +12,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	std::vector<SDL_Vertex> AvatarTriangles;
 	Avatar::GenerateVertices(AvatarTriangles, GetTransform());
 
-	CharacterPrimitive = CreateComponent<PrimitiveComponent>();
-	CharacterPrimitive->SetVerts(std::move(AvatarTriangles));
+	CharacterPrimitive = CreateComponent<PrimitiveComponent>(std::move(AvatarTriangles));
 }
 
 void Character::Initialize()

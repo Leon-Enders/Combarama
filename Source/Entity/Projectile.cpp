@@ -14,8 +14,7 @@ Projectile::Projectile(World* GameWorld, const Transform& InTransform)
 	Circle NewCircle = Circle(ProjectileSize);
 	NewCircle.GetVerts(CircleTriangles);
 
-	ProjectilePrimitive = CreateComponent<PrimitiveComponent>();
-	ProjectilePrimitive->SetVerts(std::move(CircleTriangles));
+	ProjectilePrimitive = CreateComponent<PrimitiveComponent>(std::move(CircleTriangles));
 	ProjectilePrimitive->SetColor(COLOR_GREEN);
 }
 

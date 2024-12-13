@@ -1,13 +1,18 @@
 #include "ActorComponent.h"
 #include "../Entity/Actor.h"
 
+ActorComponent::ActorComponent(Actor* Owner)
+	:
+	Owner(Owner)
+{
+}
+
 ActorComponent::~ActorComponent()
 {
 }
 
-void ActorComponent::Initialize(Actor* InOwner)
+void ActorComponent::Initialize()
 {
-	Owner = InOwner;
 }
 
 void ActorComponent::Update(float DeltaTime)

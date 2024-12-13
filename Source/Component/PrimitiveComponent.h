@@ -7,11 +7,10 @@
 class PrimitiveComponent : public SceneComponent
 {
 public:
-
+	PrimitiveComponent(Actor* Owner, std::vector<SDL_Vertex> Triangles);
 	virtual ~PrimitiveComponent();
-	virtual void Initialize(Actor* Owner) override;
+	virtual void Initialize() override;
 
-	void SetVerts(std::vector<SDL_Vertex> InTriangles);
 	void SetColor(SDL_FColor NewColor, int Offset = 0);
 	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
 

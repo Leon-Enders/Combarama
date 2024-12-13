@@ -2,7 +2,7 @@
 #include "Character.h"
 #include "../../Utility/ColorHelper.h"
 
-class WeaponComponent;
+
 
 class Enemy : public Character
 {
@@ -36,5 +36,5 @@ private:
 	int AttackResetCounter = 60;
 
 	bool IsAttacking = false;
-	WeaponComponent* Weapon;
+	PrimitiveComponent* Weapon;
 };
