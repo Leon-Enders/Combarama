@@ -12,7 +12,7 @@
 #include "Utility/ColorHelper.h"
 #include "Utility/DrawDebugHelpers.h"
 
-
+Game* AGame = nullptr;
 
 Game::Game(App& GameApp)
 	:
@@ -22,13 +22,13 @@ Game::Game(App& GameApp)
 	const char* BasePath = SDL_GetBasePath();
 	ImagePath = std::string(BasePath) + "../../Assets/BackGround.bmp";
 
-
 	RS = std::make_unique<RenderSubsystem>(GameRenderer);
-
 	GameWorld = std::make_unique<World>(this);
+}
+
+void Game::Initialize()
+{
 	GameWorld->Initialize();
-	
-	
 }
 
 void Game::StartGame()

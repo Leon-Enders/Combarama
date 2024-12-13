@@ -16,8 +16,12 @@ class Game
 public:
 	Game(App& GameApp);
 
+	void Initialize();
 	void StartGame();
+	inline RenderSubsystem* GetRenderSubsystem() { return RS.get(); }
 
+private:
+	
 	//GameLoop
 	void StartGameLoop();
 
@@ -31,16 +35,14 @@ public:
 
 	//Renderer
 	void ComposeFrame();
-	void RenderFrame();	
+	void RenderFrame();
 
 	//Temp
 	void LoadBackground();
 	void QuitGame();
 
-
-
-	RenderSubsystem* GetRenderSubsystem() { return RS.get(); }
 private:
+
 
 	SDL_Texture* GameBackground = nullptr;
 	SDL_Window* GameWindow = nullptr;

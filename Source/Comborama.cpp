@@ -1,7 +1,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
-#include <iostream>
-#include "CombaramaConstants.h"
+#include "Core/CombaramaConstants.h"
+#include "Core/CoreMinimal.h"
 #include "Game.h"
 #include "Utility/CombaramaStructs.h"
 
@@ -41,9 +41,11 @@ int main(int argc, char* argv[])
     GameApp.Renderer = Renderer;
     
     
-    Game NewGame = Game(GameApp);
-    NewGame.StartGame();
+    Game InstancedGame = Game(GameApp);
+    AGame = &InstancedGame;
 
+    InstancedGame.Initialize();
+    InstancedGame.StartGame();
 
     SDL_DestroyWindow(Window);
     SDL_Quit();

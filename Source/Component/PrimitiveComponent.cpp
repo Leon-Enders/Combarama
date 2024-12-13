@@ -1,20 +1,22 @@
 #include "PrimitiveComponent.h"
+#include "../Core/CoreMinimal.h"
+#include "../Game.h"
 #include "../Entity/Actor.h"
 #include "../World/World.h"
 #include "../Render/Drawable.h"
-#include "../Game.h"
+
 
 
 PrimitiveComponent::~PrimitiveComponent()
 {
-	GetOwner()->GetWorld()->GetGame()->GetRenderSubsystem()->RemovePrimitiveComponent(*this);
+	AGame->GetRenderSubsystem()->RemovePrimitiveComponent(*this);
 }
 
 void PrimitiveComponent::Initialize(Actor* Owner)
 {
 	SceneComponent::Initialize(Owner);
 
-	GetOwner()->GetWorld()->GetGame()->GetRenderSubsystem()->AddPrimitiveComponent(*this);
+	AGame->GetRenderSubsystem()->AddPrimitiveComponent(*this);
 }
 
 

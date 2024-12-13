@@ -5,7 +5,7 @@
 #include "../Entity/Actor.h"
 #include "../Entity/Character/Character.h"
 #include "../Entity/Projectile.h"
-#include "../CombaramaConstants.h"
+#include "../Core/CombaramaConstants.h"
 
 Collider::Collider(std::shared_ptr<Actor> InOwningActor, float InWidth, float InHeight)
 	:

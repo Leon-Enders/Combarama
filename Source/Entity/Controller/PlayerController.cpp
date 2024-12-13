@@ -1,4 +1,5 @@
 #include "PlayerController.h"
+#include "../../Core/CoreMinimal.h"
 #include "../../Game.h"
 #include "../Character/PlayerCharacter.h"
 #include "../../Math/ComboramaMath.h"
@@ -82,7 +83,7 @@ void PlayerController::UnPossessCharacter()
 
 void PlayerController::Move(const InputActionValue& Value)
 {
-	GetWorld()->GetGame()->GetRenderSubsystem()->GetCam().Translate(Value.Get<Vector2>());
+	AGame->GetRenderSubsystem()->GetCam().Translate(Value.Get<Vector2>());
 }
 
 void PlayerController::Look(const InputActionValue& Value)
@@ -127,7 +128,7 @@ void PlayerController::Shoot(const InputActionValue& Value)
 	//	}
 	//}
 
-	Camera& Cam = GetWorld()->GetGame()->GetRenderSubsystem()->GetCam();
+	Camera& Cam = AGame->GetRenderSubsystem()->GetCam();
 
 	float Scale = Value.Get<float>();
 
