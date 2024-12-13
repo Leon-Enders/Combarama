@@ -56,6 +56,7 @@
     <ClInclude Include="Source\Component\SceneComponent.h" />
     <ClInclude Include="Source\Component\WeaponComponent.h" />
     <ClInclude Include="Source\CombaramaConstants.h" />
+    <ClInclude Include="Source\Core\CoreMinimal.h" />
     <ClInclude Include="Source\Coroutine\Awaitable\WaitSeconds.h" />
     <ClInclude Include="Source\Coroutine\Coroutine.h" />
     <ClInclude Include="Source\Entity\Actor.h" />
