@@ -2,13 +2,18 @@
 #include <algorithm>
 #include <iterator>
 #include "../../Component/PrimitiveComponent.h"
+#include "../../Component/CameraComponent.h"
 
 RenderSubsystem::RenderSubsystem(SDL_Renderer* Renderer)
 	:
 	EngineSubsystem(),
-	ct(Renderer),
-	cam(ct)
+	ct(Renderer)
 {
+}
+
+void RenderSubsystem::SetActiveCamera(CameraComponent* ActiveCam)
+{
+	ActiveCamera = ActiveCam;
 }
 
 void RenderSubsystem::AddPrimitiveComponent(PrimitiveComponent& PrimitiveComponentToAdd)
@@ -26,8 +31,10 @@ void RenderSubsystem::RemovePrimitiveComponent(PrimitiveComponent& PrimitiveComp
 
 void RenderSubsystem::Draw()
 {
+	if (!ActiveCamera) return;
+
 	for (const auto& p : PrimitiveComponents)
 	{
-		cam.Draw(p.get().GetDrawable());
+		ActiveCamera->Draw(p.get().GetDrawable());
 	}
 }

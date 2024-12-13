@@ -81,6 +81,11 @@ public:
 
 	void AddShootInputAction(const std::shared_ptr<InputAction> InputActionToAdd)
 	{
+		ShootInputAction = InputActionToAdd;
+	}
+
+	void AddScrollInputAction(const std::shared_ptr<InputAction> InputActionToAdd)
+	{
 		ScrollAction = InputActionToAdd;
 	}
 

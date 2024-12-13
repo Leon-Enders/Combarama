@@ -1,8 +1,8 @@
 #include "PlayerController.h"
 #include "../../Core/CoreMinimal.h"
-#include "../../Game.h"
 #include "../Character/PlayerCharacter.h"
 #include "../../Math/ComboramaMath.h"
+#include "../../Component/CameraComponent.h"
 
 
 PlayerController::PlayerController(World* OwningWorld)
@@ -30,6 +30,9 @@ PlayerController::PlayerController(World* OwningWorld)
 
 	ShootAction = std::make_shared<InputAction>();
 	ShootAction->BindFunction(std::bind(&PlayerController::Shoot, this, _1));
+
+	ScrollAction = std::make_shared<InputAction>();
+	ScrollAction->BindFunction(std::bind(&PlayerController::Zoom, this, _1));
 }
 
 void PlayerController::Update(float DeltaTime)
@@ -60,6 +63,7 @@ void PlayerController::Initialize()
 	ActionContext->AddQuitInputAction(QuitAction);
 	ActionContext->AddAttackInputAction(AttackAction);
 	ActionContext->AddShootInputAction(ShootAction);
+	ActionContext->AddScrollInputAction(ScrollAction);
 
 
 	ControllerInputComponent->SetInputActionContext(ActionContext.get());
@@ -83,7 +87,10 @@ void PlayerController::UnPossessCharacter()
 
 void PlayerController::Move(const InputActionValue& Value)
 {
-	AGame->GetRenderSubsystem()->GetCam()->Translate(Value.Get<Vector2>());
+	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
+	{
+		sPlayerPtr->UpdateVelocity(Value.Get<Vector2>());
+	}
 }
 
 void PlayerController::Look(const InputActionValue& Value)
@@ -98,10 +105,10 @@ void PlayerController::Look(const InputActionValue& Value)
 
 void PlayerController::Attack(const InputActionValue& Value)
 {
-	//if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
-	//{
-	//	sPlayerPtr->Attack();
-	//}
+	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
+	{
+		sPlayerPtr->Attack();
+	}
 	
 }
 
@@ -119,22 +126,30 @@ void PlayerController::Dash(const InputActionValue& Value)
 
 void PlayerController::Shoot(const InputActionValue& Value)
 {
-	//if (ShootReady)
-	//{
-	//
-	//	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
-	//	{
-	//		sPlayerPtr->Shoot();
-	//	}
-	//}
+	if (ShootReady)
+	{
+	
+		if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
+		{
+			sPlayerPtr->Shoot();
+		}
+	}
+}
 
-	Camera* Cam = AGame->GetRenderSubsystem()->GetCam();
+void PlayerController::Zoom(const InputActionValue& Value)
+{
+	
+	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
+	{
+		CameraComponent* Camera = sPlayerPtr->GetCamera();
+		float Scale = Value.Get<float>();
 
-	float Scale = Value.Get<float>();
+		Vector2 ScaleVec(Scale, Scale);
 
-	Vector2 ScaleVec(Scale, Scale);
+		Camera->SetScale(Camera->GetTransform().Scale + ScaleVec);
+	}
 
-	Cam->SetScale(Cam->GetTransform().Scale + ScaleVec);
+	
 }
 
 void PlayerController::OnCharacterDestroyed()

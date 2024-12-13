@@ -4,7 +4,7 @@
 #include "../../Utility/ColorHelper.h"
 #include "../Controller/PlayerController.h"
 
-
+class CameraComponent;
 
 class PlayerCharacter : public Character
 {
@@ -27,6 +27,9 @@ public:
 	void DealDamageInCone();
 
 	void UpdateVelocity(const Vector2& NewVelocity);
+
+
+	CameraComponent* GetCamera() { return PlayerCam; }
 
 protected:
 	virtual void UpdatePosition(float DeltaTime)override;
@@ -55,7 +58,7 @@ private:
 	bool IsAttacking = false;
 
 	PrimitiveComponent* Weapon;
-
+	CameraComponent* PlayerCam;
 
 
 

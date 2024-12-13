@@ -8,7 +8,7 @@
 #include "../../Utility/DrawDebugHelpers.h"
 #include "../../System/CollisionSystem.h"
 #include "../../Component/PrimitiveComponent.h"
-
+#include "../../Component/CameraComponent.h"
 #include "../../PrimitiveFactory/Sword.h"
 
 
@@ -22,6 +22,8 @@ PlayerCharacter::PlayerCharacter(World* GameWorld, const Transform& InTransform)
 
 	Weapon = CreateComponent<PrimitiveComponent>(std::move(SwordTriangles));
 	Weapon->SetColor(COLOR_GREY);
+
+	PlayerCam = CreateComponent<CameraComponent>();
 }
 
 
@@ -48,6 +50,9 @@ void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
 void PlayerCharacter::Update(float DeltaTime)
 {
 	Character::Update(DeltaTime);
+	
+	//TODO: make attach mechanism
+	PlayerCam->SetPosition(GetPosition());
 	
 	float LerpTime = DeltaTime * RotationSpeed;
 

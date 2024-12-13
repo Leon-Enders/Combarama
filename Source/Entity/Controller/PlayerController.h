@@ -31,7 +31,7 @@ private:
 	void Attack(const InputActionValue& Value);
 	void Dash(const InputActionValue& Value);
 	void Shoot(const InputActionValue& Value);
-
+	void Zoom(const InputActionValue& Value);
 
 	void OnCharacterDestroyed();
 
@@ -45,6 +45,7 @@ private:
 	std::shared_ptr<InputAction> AttackAction;
 	std::shared_ptr<InputAction> DashAction;
 	std::shared_ptr<InputAction> ShootAction;
+	std::shared_ptr<InputAction> ScrollAction;
 
 	std::weak_ptr<PlayerCharacter> ControlledPlayerCharacter;
 
