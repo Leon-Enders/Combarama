@@ -20,10 +20,13 @@ PlayerCharacter::PlayerCharacter(World* GameWorld, const Transform& InTransform)
 	std::vector<SDL_Vertex> SwordTriangles;
 	Sword::GenerateVertices(SwordTriangles, { { 75.f,0.f }, 1.5708f, { 1.f,1.f } });
 
+	//INFO: PrimitiveComponents need to get attached manually currently
 	Weapon = CreateComponent<PrimitiveComponent>(std::move(SwordTriangles));
+	Weapon->AttachToComponent(GetRootComponent());
 	Weapon->SetColor(COLOR_GREY);
 
 	PlayerCam = CreateComponent<CameraComponent>();
+	PlayerCam->AttachToComponent(GetRootComponent());
 }
 
 
@@ -51,8 +54,7 @@ void PlayerCharacter::Update(float DeltaTime)
 {
 	Character::Update(DeltaTime);
 	
-	//TODO: make attach mechanism
-	PlayerCam->SetPosition(GetPosition());
+
 	
 	float LerpTime = DeltaTime * RotationSpeed;
 

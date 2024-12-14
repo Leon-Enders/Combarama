@@ -18,14 +18,8 @@ public:
 	virtual void FixedUpdate(float FixedDeltaTime);
 	virtual void LateUpdate(float DeltaTime);
 
-
-protected:
-	Actor* GetOwner()const { return Owner; }
-	const Transform& GetWorldTransform()const;
-
+	const Actor* GetOwner()const { return Owner; }
 private:
 
 	Actor* Owner = nullptr;
-	ActorComponent* Parent = nullptr;
-	std::vector<ActorComponent*> Children;
 };

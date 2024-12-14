@@ -18,6 +18,7 @@ Enemy::Enemy(World* GameWorld, const Transform& InTransform)
 	Sword::GenerateVertices(SwordTriangles, { { 75.f,0.f }, 1.5708f, { 1.f,1.f } });
 
 	Weapon = CreateComponent<PrimitiveComponent>(std::move(SwordTriangles));
+	Weapon->AttachToComponent(GetRootComponent());
 	Weapon->SetColor(COLOR_GREY);
 
 }

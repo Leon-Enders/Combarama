@@ -14,7 +14,9 @@ Obstacle::Obstacle(World* GameWorld, const Transform& InTransform, const Vector2
 	Rectangle ARect = Rectangle(RectDimensions.X, RectDimensions.Y);
 	ARect.GetVerts(ObstacleTriangles);
 
+	//INFO: Currently you always need to attach a component to the root to update its transform to the gameobjects root
 	ObstaclePrimitive = CreateComponent<PrimitiveComponent>(std::move(ObstacleTriangles));
+	ObstaclePrimitive->AttachToComponent(GetRootComponent());
 	ObstaclePrimitive->SetColor(ObstacleColour);
 }
 

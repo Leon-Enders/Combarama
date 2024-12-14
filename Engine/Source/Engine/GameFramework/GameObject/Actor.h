@@ -50,6 +50,8 @@ protected:
 
 	template<IsActorComponent T, typename... Args>
 	T* CreateComponent(Args&&... args);
+
+	const SceneComponent* GetRootComponent()const { return RootComponent; }
 private:
 	
 	//TODO: Actors should not have a instigator

@@ -12,7 +12,6 @@ public:
 
 	virtual void Initialize() override;
 
-
 	const Transform& GetTransform()const;
 	const Vector2& GetPosition()const;
 	const float GetRotation()const;
@@ -24,12 +23,15 @@ public:
 	void SetRotation(float InRotation);
 	void SetScale(const Vector2& InScale);
 	
+	void AttachToComponent(const SceneComponent* Component);
 
+	const Transform& GetWorldTransform()const;
 protected:
 
 	Transform ComponentTransform;
-	Matrix3x3 LocalTransformMatrix;
-
 private:
-	void UpdateLocalMatrix();
+	const SceneComponent* ParentComponent = nullptr;
+
+	//TODO: Create SceneGraph setup
+	std::vector<SceneComponent*> Children;
 };

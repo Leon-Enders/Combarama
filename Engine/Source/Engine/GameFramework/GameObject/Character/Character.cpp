@@ -13,6 +13,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	Avatar::GenerateVertices(AvatarTriangles, GetTransform());
 
 	CharacterPrimitive = CreateComponent<PrimitiveComponent>(std::move(AvatarTriangles));
+	CharacterPrimitive->AttachToComponent(GetRootComponent());
 }
 
 void Character::Initialize()
