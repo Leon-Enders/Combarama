@@ -111,7 +111,7 @@ struct Vector2
 		return X * other.X + Y * other.Y;
 	}
 
-	static Vector2 UP()
+	static Vector2 Up()
 	{
 		return Vector2(0.f, -1.f);
 	}
