@@ -123,7 +123,10 @@ public:
 	Vector2	GetNormalized() const
 	{
 		Vector2 Normalized = *this;
-		Normalized.Normalize();
+		if (Normalized != Vector2::Zero())
+		{
+			Normalized.Normalize();
+		}
 		return Normalized;
 	}
 

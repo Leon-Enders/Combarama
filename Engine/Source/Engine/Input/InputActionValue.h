@@ -105,5 +105,5 @@ inline float InputActionValue::Get() const
 template<>
 inline Vector2 InputActionValue::Get() const
 {
-	return Vector2(Value.X, Value.Y).Normalize();
+	return Value.GetNormalized();
 }
