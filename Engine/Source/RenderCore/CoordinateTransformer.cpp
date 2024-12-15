@@ -13,8 +13,10 @@ void CoordinateTransformer::Draw(Drawable& InDrawable)const
 {
 	Vector2 ViewportCenter = Vector2(ViewportHalfWidth, ViewportHalfHeight);
 
-	InDrawable.Scale(Vector2(1.f, -1.f));
-	InDrawable.Translate(ViewportCenter);
+	InDrawable.ApplyTransformation(
+		TMatrix::Translate(ViewportCenter) *
+		TMatrix::FlipY()
+	);
 
 	InDrawable.Render(Renderer);
 }

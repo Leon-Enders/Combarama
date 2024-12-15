@@ -12,7 +12,6 @@ PrimitiveComponent::PrimitiveComponent(Actor* Owner, std::vector<SDL_Vertex> Tri
 	SceneComponent(Owner),
 	Triangles(std::move(Triangles))
 {
-	
 }
 
 PrimitiveComponent::~PrimitiveComponent()
@@ -39,8 +38,11 @@ Drawable PrimitiveComponent::GetDrawable() const
 	Drawable d = Drawable(Triangles);
 
 	//TODO: use component transform in worldspace, currently it takes the roottransform of the owning actor
-	d.Scale(GetWorldTransform().Scale);
-	d.Translate(GetWorldTransform().Position);
+	
+	d.ApplyTransformation(
+		TMatrix::Translate(GetWorldTransform().Position) *
+		TMatrix::Scale(GetWorldTransform().Scale.X)
+		);
 
 	return d;
 }
