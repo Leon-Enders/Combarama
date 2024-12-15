@@ -14,7 +14,7 @@ public:
 	};
 
 
-	static std::vector<SDL_Vertex> Make(float Radius, size_t Segments = 120)
+	static std::vector<SDL_Vertex> Make(float Radius, size_t Segments = 120, SDL_FColor Color = {255.f,255.f,255.f,255.f})
 	{
 		std::vector<SDL_Vertex> Verts = {Segments,SDL_Vertex()};
 		float AngleStep = static_cast<float>(360.f / Segments);
@@ -23,25 +23,27 @@ public:
 		{
 			float CurrentAngle = (AngleStep * i * (std::numbers::pi_v<float> / 180.f));
 		
-		
+			Verts[i].color = Color;
 			Verts[i].position.x = Radius * cos(CurrentAngle);
 			Verts[i].position.y = Radius * sin(CurrentAngle);
 		}
 		
-		Triangulate(Verts);
+		Triangulate(Verts, Color);
 
 		return Verts;
 	}
 
-	static void Triangulate(std::vector<SDL_Vertex>& Verts)
+	static void Triangulate(std::vector<SDL_Vertex>& Verts, const SDL_FColor& Color)
 	{
 		std::vector<SDL_Vertex> VBuffer = Verts;
 		const size_t Segments = Verts.size();
 		const size_t TriangleNum = Segments * 3;
-		Verts.resize(TriangleNum, SDL_Vertex());
+		Verts.resize(TriangleNum);
 
 		for (int i = 0; i < Segments; i++)
 		{
+			Verts[i * 3] = SDL_Vertex();
+			Verts[i * 3].color = Color;
 			Verts[i * 3 + 1] = VBuffer[i];
 			Verts[i * 3 + 2] = VBuffer[(i + 1) % Segments];
 		}
@@ -79,7 +81,7 @@ public:
 	{
 		std::vector<SDL_Vertex> VBuffer = Verts;
 		const size_t TriangleNum = (Verts.size() - 2) * 3;
-		Verts.resize(TriangleNum, SDL_Vertex());
+		Verts.resize(TriangleNum);
 
 		Verts[0] = VBuffer[0];
 		Verts[1] = VBuffer[1];
