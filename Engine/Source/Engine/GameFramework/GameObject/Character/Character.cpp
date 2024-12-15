@@ -33,7 +33,6 @@ void Character::SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColo
 {
 	//TODO: Need way to Colour Body Parts differently, I dont want more than 1 primitive Component for the character..
 	CharacterPrimitive->SetColor(HeadColor);
-	CharacterPrimitive->SetColor(BodyColor,120);
 }
 
 void Character::TakeDamage(int Damage)

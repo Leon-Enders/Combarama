@@ -26,6 +26,11 @@ PlayerCharacter::PlayerCharacter(World* GameWorld, const Transform& InTransform)
 
 	PlayerCam = CreateComponent<CameraComponent>();
 	PlayerCam->AttachToComponent(GetRootComponent());
+
+	HeadColor = COLOR_LIGHTBLUE;
+	BodyColor = COLOR_BLUE;
+
+	SetColor(BodyColor, HeadColor);
 }
 
 
@@ -33,10 +38,6 @@ void PlayerCharacter::Initialize()
 {
 	Character::Initialize();
 
-	HeadColor = COLOR_LIGHTBLUE;
-	BodyColor = COLOR_BLUE;
-
-	SetColor(BodyColor, HeadColor);
 }
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)

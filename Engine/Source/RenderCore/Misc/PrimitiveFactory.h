@@ -38,7 +38,7 @@ public:
 		std::vector<SDL_Vertex> VBuffer = Verts;
 		const size_t Segments = Verts.size();
 		const size_t TriangleNum = Segments * 3;
-		Verts.resize(TriangleNum);
+		Verts.resize(TriangleNum, SDL_Vertex());
 
 		for (int i = 0; i < Segments; i++)
 		{
@@ -79,7 +79,7 @@ public:
 	{
 		std::vector<SDL_Vertex> VBuffer = Verts;
 		const size_t TriangleNum = (Verts.size() - 2) * 3;
-		Verts.resize(TriangleNum);
+		Verts.resize(TriangleNum, SDL_Vertex());
 
 		Verts[0] = VBuffer[0];
 		Verts[1] = VBuffer[1];
