@@ -1,6 +1,6 @@
 #include "Projectile.h"
 #include "Character/Character.h"
-#include "../../../RenderCore/Misc/PrimitiveHelpers.h"
+#include "../../../RenderCore/Misc/PrimitiveFactory.h"
 #include "../../../RenderCore/Misc/ColorHelper.h"
 #include "../Component/PrimitiveComponent.h"
 
@@ -9,12 +9,7 @@ Projectile::Projectile(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld, InTransform)
 {
-	//TODO: Make these verts static so they dont have to be generated each time a projectile is spawned
-	std::vector<SDL_Vertex> CircleTriangles;
-	Circle NewCircle = Circle(ProjectileSize);
-	NewCircle.GetVerts(CircleTriangles);
-
-	ProjectilePrimitive = CreateComponent<PrimitiveComponent>(std::move(CircleTriangles));
+	ProjectilePrimitive = CreateComponent<PrimitiveComponent>(std::move(Circle::Make(ProjectileSize)));
 	ProjectilePrimitive->SetColor(COLOR_GREEN);
 }
 

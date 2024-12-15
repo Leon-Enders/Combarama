@@ -1,7 +1,6 @@
 #include "PlayerCharacter.h"
 #include <numbers>
 #include "../../../../Core/Math/ComboramaMath.h"
-#include "../../../../RenderCore/Misc/Avatar.h"
 #include "../../../../RenderCore/Misc/Sword.h"
 #include "../Projectile.h"
 #include "../../World/World.h"
@@ -37,7 +36,7 @@ void PlayerCharacter::Initialize()
 	HeadColor = COLOR_LIGHTBLUE;
 	BodyColor = COLOR_BLUE;
 
-	Avatar::SetColor(BodyColor, HeadColor, GetCharacterPrimitive());
+	SetColor(BodyColor, HeadColor);
 }
 
 void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)

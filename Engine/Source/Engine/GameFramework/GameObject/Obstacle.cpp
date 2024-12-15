@@ -1,5 +1,5 @@
 #include "Obstacle.h"
-#include "../../../RenderCore/Misc/PrimitiveHelpers.h"
+#include "../../../RenderCore/Misc/PrimitiveFactory.h"
 #include "../Component/PrimitiveComponent.h"
 
 
@@ -9,13 +9,8 @@ Obstacle::Obstacle(World* GameWorld, const Transform& InTransform, const Vector2
 	RectDimensions(InRectDimensions),
 	ObstacleColour(InColor)
 {
-	std::vector<SDL_Vertex> ObstacleTriangles;
-
-	Rectangle ARect = Rectangle(RectDimensions.X, RectDimensions.Y);
-	ARect.GetVerts(ObstacleTriangles);
-
 	//INFO: Currently you always need to attach a component to the root to update its transform to the gameobjects root
-	ObstaclePrimitive = CreateComponent<PrimitiveComponent>(std::move(ObstacleTriangles));
+	ObstaclePrimitive = CreateComponent<PrimitiveComponent>(std::move(Rectangle::Make(RectDimensions.X, RectDimensions.Y)));
 	ObstaclePrimitive->AttachToComponent(GetRootComponent());
 	ObstaclePrimitive->SetColor(ObstacleColour);
 }

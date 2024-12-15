@@ -1,7 +1,7 @@
 #include "Character.h"
 #include "SDL3/SDL_log.h"
 #include "../../../../RenderCore/Misc/ColorHelper.h"
-#include "../../../../RenderCore/Misc/Avatar.h"
+#include "../../../../RenderCore/Misc/PrimitiveFactory.h"
 #include "../../../../Core/Coroutine/WaitSeconds.h"
 #include "../../Component/PrimitiveComponent.h"
 
@@ -9,17 +9,14 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld,InTransform)
 {
-	std::vector<SDL_Vertex> AvatarTriangles;
-	Avatar::GenerateVertices(AvatarTriangles, GetTransform());
-
-	CharacterPrimitive = CreateComponent<PrimitiveComponent>(std::move(AvatarTriangles));
+	CharacterPrimitive = CreateComponent<PrimitiveComponent>(std::move(Avatar::Make()));
 	CharacterPrimitive->AttachToComponent(GetRootComponent());
 }
 
 void Character::Initialize()
 {
-	float ColliderWidth = Avatar::GetRadius() * 2.f;
-	float ColliderHeight = Avatar::GetRadius() * 2.f;
+	float ColliderWidth = 20 * 2.f;
+	float ColliderHeight = 20 * 2.f;
 
 	CharacterCollider = std::make_shared<Collider>(shared_from_this(), ColliderWidth, ColliderHeight);
 	CharacterCollider->Initialize();
@@ -34,7 +31,9 @@ void Character::SetController(std::shared_ptr<Controller> InOwningContoller)
 
 void Character::SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColor)
 {
-	Avatar::SetColor(HeadColor, BodyColor, CharacterPrimitive);
+	//TODO: Need way to Colour Body Parts differently, I dont want more than 1 primitive Component for the character..
+	CharacterPrimitive->SetColor(HeadColor);
+	CharacterPrimitive->SetColor(BodyColor,120);
 }
 
 void Character::TakeDamage(int Damage)

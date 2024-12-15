@@ -1,6 +1,6 @@
 #include "Enemy.h"
+#include "../../../../RenderCore/Misc/ColorHelper.h"
 #include "../../World/World.h"
-#include "../../../../RenderCore/Misc/Avatar.h"
 #include "../../../../RenderCore/Misc/Sword.h"
 #include "../../../../Core/Math/ComboramaMath.h"
 #include "../Character/PlayerCharacter.h"
@@ -32,7 +32,7 @@ void Enemy::Initialize()
 	HeadColor = COLOR_LIGHTYELLOW;
 	BodyColor = COLOR_YELLOW;
 
-	Avatar::SetColor(COLOR_YELLOW, COLOR_LIGHTYELLOW, GetCharacterPrimitive());
+	SetColor(COLOR_YELLOW, COLOR_LIGHTYELLOW);
 }
 
 void Enemy::Update(float DeltaTime)

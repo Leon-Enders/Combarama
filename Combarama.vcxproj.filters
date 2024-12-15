@@ -152,9 +152,6 @@
     <ClCompile Include="Engine\Source\RenderCore\Misc\Sword.cpp">
       <Filter>Source\RenderCore\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Source\RenderCore\Misc\Avatar.cpp">
-      <Filter>Source\RenderCore\Misc</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.cpp">
       <Filter>Source\RenderCore\Misc</Filter>
     </ClCompile>
@@ -286,13 +283,10 @@
     <ClInclude Include="Engine\Source\RenderCore\Drawable.h">
       <Filter>Source\RenderCore</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Source\RenderCore\Misc\PrimitiveHelpers.h">
+    <ClInclude Include="Engine\Source\RenderCore\Misc\PrimitiveFactory.h">
       <Filter>Source\RenderCore\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Source\RenderCore\Misc\Sword.h">
-      <Filter>Source\RenderCore\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Source\RenderCore\Misc\Avatar.h">
       <Filter>Source\RenderCore\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Source\RenderCore\Misc\ColorHelper.h">

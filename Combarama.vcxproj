@@ -48,7 +48,6 @@
     <ClCompile Include="Engine\Source\Engine\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Engine\Source\Engine\Render\RenderSubsystem.cpp" />
     <ClCompile Include="Engine\Source\RenderCore\CoordinateTransformer.cpp" />
-    <ClCompile Include="Engine\Source\RenderCore\Misc\Avatar.cpp" />
     <ClCompile Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.cpp" />
     <ClCompile Include="Engine\Source\RenderCore\Misc\Sword.cpp" />
   </ItemGroup>
@@ -96,10 +95,9 @@
     <ClInclude Include="Engine\Source\PhysicsCore\Misc\CollisionHelper.h" />
     <ClInclude Include="Engine\Source\RenderCore\CoordinateTransformer.h" />
     <ClInclude Include="Engine\Source\RenderCore\Drawable.h" />
-    <ClInclude Include="Engine\Source\RenderCore\Misc\Avatar.h" />
     <ClInclude Include="Engine\Source\RenderCore\Misc\ColorHelper.h" />
     <ClInclude Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.h" />
-    <ClInclude Include="Engine\Source\RenderCore\Misc\PrimitiveHelpers.h" />
+    <ClInclude Include="Engine\Source\RenderCore\Misc\PrimitiveFactory.h" />
     <ClInclude Include="Engine\Source\RenderCore\Misc\Sword.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
