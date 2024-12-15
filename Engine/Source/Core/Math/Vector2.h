@@ -1,91 +1,106 @@
 #pragma once
 #include <cmath>
 
-struct Vector2
+class Vector2
 {
-	Vector2(){}
-
-	Vector2(float InX, float InY)
+public:
+	Vector2()
+	{}
+	Vector2(float X, float Y)
+		:
+		X(X),
+		Y(Y)
 	{
-		X = InX;
-		Y = InY;
 	}
-	Vector2(const Vector2& Other)
+	Vector2(const Vector2& rhs)
+		:
+		Vector2(rhs.X,rhs.Y)
 	{
-		X = Other.X;
-		Y = Other.Y;
 	}
 
-	Vector2& operator=(const Vector2& Other)
+	Vector2& operator=(const Vector2& rhs)
 	{
-		if (this == &Other) return *this;
-
-		X = Other.X;
-		Y = Other.Y;
-
+		X = rhs.X;
+		Y = rhs.Y;
 		return *this;
 	}
 
-	Vector2(int InX, int InY) : X(static_cast<float>(InX)), Y(static_cast<float>(InY)) {}
-
-	~Vector2() = default;
-
-
-	bool operator==(const Vector2& Other) const
+	Vector2& operator+=(const Vector2& rhs)
 	{
-		const float Epsilon = 0.0001f;
-		return (fabs(X - Other.X) < Epsilon) &&
-			(fabs(Y - Other.Y) < Epsilon);
-	}
-	
-	Vector2& operator+=(const Vector2& Other)
-	{
-		X += Other.X;
-		Y += Other.Y;
-
+		X += rhs.X;
+		Y += rhs.Y;
 		return *this;
 	}
 
-	friend Vector2 operator+(const Vector2& A, const Vector2& B)
+	Vector2& operator-=(const Vector2& rhs)
 	{
-		return Vector2(A.X + B.X, A.Y + B.Y);
-	}
-
-	friend Vector2 operator-(const Vector2& A, const Vector2& B)
-	{
-		return Vector2(A.X - B.X, A.Y - B.Y);
-	}
-
-	Vector2& operator-=(const Vector2& Other)
-	{
-		X -= Other.X;
-		Y -= Other.Y;
-
+		X -= rhs.X;
+		Y -= rhs.Y;
 		return *this;
 	}
 
-	Vector2& operator*=(const float Scale)
+	Vector2 operator+(const Vector2& rhs)const
 	{
-		X *= Scale;
-		Y *= Scale;
+		return Vector2(*this) += rhs;
+	}
+
+	Vector2 operator-(const Vector2& rhs)const
+	{
+		return Vector2(*this) -= rhs;
+	}
+
+	Vector2& operator*=(const float& rhs)
+	{
+		X *= rhs;
+		Y *= rhs;
 		return *this;
 	}
 
-	Vector2& operator*=(const Vector2& Scale)
+	Vector2& operator*=(const Vector2& rhs)
 	{
-		X *= Scale.X;
-		Y *= Scale.Y;
+		X *= rhs.X;
+		Y *= rhs.Y;
 		return *this;
 	}
 
-	Vector2 operator*(const float Scale) const
+	//Scalar Product
+	float operator*(const Vector2& rhs) const
 	{
-		return Vector2(X * Scale, Y * Scale);
+		return X * rhs.X + Y * rhs.Y;
 	}
 
-	float Size() const
+	//Scale with float
+	Vector2 operator*(const float& rhs) const
 	{
-		return std::sqrt(X * X + Y * Y);
+		return Vector2(*this) *= rhs;
+	}
+
+	//Scale with Vec
+	Vector2 ScaleVec2(const Vector2& rhs) const
+	{
+		return Vector2(*this) *= rhs;
+	}
+
+	Vector2& operator/=(const float& rhs)
+	{
+		X /= rhs;
+		Y /= rhs;
+		return *this;
+	}
+
+	Vector2 operator/(const float& rhs)const
+	{
+		return Vector2(*this) /= rhs;
+	}
+
+	bool operator==(const Vector2& rhs) const
+	{
+		return X == rhs.X && Y == rhs.Y;
+	}
+
+	bool operator!=(const Vector2& rhs) const
+	{
+		return !(*this == rhs);
 	}
 
 	float SizeSquared() const
@@ -93,22 +108,23 @@ struct Vector2
 		return X * X + Y * Y;
 	}
 
-	
-	Vector2 Normalize() const
+	float Size() const
 	{
-		float Mag = Size();
-
-		if (Mag > 0.0f)
-		{
-			return Vector2(X / Mag, Y / Mag);
-		}
-
-		return Vector2(0, 0);
+		return std::sqrt(SizeSquared());
 	}
-
-	float Dot(const Vector2& other) const
+	
+	Vector2& Normalize()
 	{
-		return X * other.X + Y * other.Y;
+		const float Mag = Size();
+		X /= Mag;
+		Y /= Mag;
+		return *this;
+	}
+	Vector2	GetNormalized() const
+	{
+		Vector2 Normalized = *this;
+		Normalized.Normalize();
+		return Normalized;
 	}
 
 	static Vector2 Up()
@@ -120,6 +136,8 @@ struct Vector2
 	{
 		return Vector2(0.f, 0.f);
 	}
-	float X =0;
-	float Y =0;
+
+public:
+	float X = 0.f;
+	float Y = 0.f;
 };
