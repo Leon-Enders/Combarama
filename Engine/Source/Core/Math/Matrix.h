@@ -25,6 +25,17 @@ public:
 		return OutVector;
 	}
 
+	SDL_FPoint operator*(const Vector3& rhs)const
+	{
+		Vector3 OutVector;
+
+		OutVector.X = Cells[0][0] * rhs.X + Cells[0][1] * rhs.Y + Cells[0][2] + rhs.W;
+		OutVector.Y = Cells[1][0] * rhs.X + Cells[1][1] * rhs.Y + Cells[1][2] + rhs.W;
+		OutVector.W = Cells[2][0] * rhs.X + Cells[2][1] * rhs.Y + Cells[2][2] + rhs.W;
+
+		return OutVector;
+	}
+
 	TMatrix operator*(const TMatrix& rhs)const
 	{
 		TMatrix OutMatrix;

@@ -2,7 +2,7 @@
 #include <vector>
 #include "SDL3/SDL_render.h"
 #include "../Core/Math/Transform.h"
-
+#include "../Core/Math/Matrix.h"
 
 class Drawable
 {
@@ -12,6 +12,12 @@ public:
 		:
 		Model(&Model)
 	{}
+
+
+	void ApplyTransformation(const TMatrix& InTransformation)
+	{
+		Transformation = InTransformation * Transformation;
+	}
 
 	void Translate(const Vector2& translation_in)
 	{
@@ -48,5 +54,6 @@ public:
 
 private:
 	Transform transform;
+	TMatrix Transformation = TMatrix::Identity();
 	const std::vector<SDL_Vertex>* Model;
 };

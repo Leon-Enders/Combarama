@@ -12,6 +12,7 @@
 #include "GameFramework/GameObject/Obstacle.h"
 #include "../RenderCore/Misc/ColorHelper.h"
 #include "../RenderCore/Misc/DrawDebugHelpers.h"
+#include "../Core/Math/Matrix.h"
 
 Game* AGame = nullptr;
 
@@ -30,6 +31,16 @@ Game::Game(App& GameApp)
 void Game::Initialize()
 {
 	GameWorld->Initialize();
+
+	auto Identity = TMatrix::Identity();
+	auto Scale1 = TMatrix::Scale(3.f);
+	auto Scale2 = TMatrix::Scale(5.f);
+	auto Translate = TMatrix::Translate({ 50.f,50.f });
+	auto DoubleScale = Scale2 * Scale1;
+	auto ScaleThenTranslate = Scale2 * Scale1 * Translate;
+
+	Vector3 Test(5.f, 5.f);
+	Vector3 TestWithIdentity = DoubleScale * Test;
 }
 
 void Game::StartGame()
