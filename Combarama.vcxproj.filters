@@ -301,5 +301,8 @@
     <ClInclude Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.h">
       <Filter>Source\RenderCore\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Math\Vector3.h">
+      <Filter>Source\Core\Math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

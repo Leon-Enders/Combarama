@@ -2,10 +2,12 @@
 #include <vector>
 #include <memory>
 
+
+
+class Vector2;
 class Collider;
 class Actor;
 struct SDL_Renderer;
-struct Vector2;
 
 class CollisionSystem
 {

@@ -44,7 +44,7 @@ void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
 {
 	if (!IsDashing)
 	{
-		LastMoveInput = NewVelocity.Normalize();
+		LastMoveInput = NewVelocity.GetNormalized();
 		Velocity = LastMoveInput * Speed;
 	}
 }

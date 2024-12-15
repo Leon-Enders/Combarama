@@ -31,31 +31,31 @@ public:
 		if (Segments <= 0) return;
 
 
-		Matrix3x3 TransformMatrix = Matrix3x3::Transform(LocalTransform);
-
-		// Generate Verts for Circle Properties
-		float AngleStep = 360 / Segments;
-		for (int i = 0; i < Segments; i++)
-		{
-			float CurrentAngle = static_cast<float>(AngleStep * i * (std::numbers::pi_v<float> / 180.f));
-
-
-			Vertices[i].position.x = Radius * cos(CurrentAngle);
-			Vertices[i].position.y = Radius * sin(CurrentAngle);
-		}
-
-		// Triangulate Circle Verts
-		Triangulate();
-		
-		// Populate OutTriangles with triangulated Circle Verts
-		for (auto& Vert : Triangles)
-		{
-			Vert.color = DefaultColor;
-			
-			Vert.position = TransformMatrix * Vert.position;
-
-			OutTriangles.push_back(Vert);
-		}
+		//Matrix3x3 TransformMatrix = Matrix3x3::Transform(LocalTransform);
+		//
+		//// Generate Verts for Circle Properties
+		//float AngleStep = 360 / Segments;
+		//for (int i = 0; i < Segments; i++)
+		//{
+		//	float CurrentAngle = static_cast<float>(AngleStep * i * (std::numbers::pi_v<float> / 180.f));
+		//
+		//
+		//	Vertices[i].position.x = Radius * cos(CurrentAngle);
+		//	Vertices[i].position.y = Radius * sin(CurrentAngle);
+		//}
+		//
+		//// Triangulate Circle Verts
+		//Triangulate();
+		//
+		//// Populate OutTriangles with triangulated Circle Verts
+		//for (auto& Vert : Triangles)
+		//{
+		//	Vert.color = DefaultColor;
+		//	
+		//	Vert.position = TransformMatrix * Vert.position;
+		//
+		//	OutTriangles.push_back(Vert);
+		//}
 	}
 
 	void Triangulate() override
@@ -97,7 +97,7 @@ public:
 
 	virtual void GetVerts(std::vector<SDL_Vertex>& OutTriangles) override
 	{
-		Matrix3x3 TransformMatrix = Matrix3x3::Transform(LocalTransform);
+		//Matrix3x3 TransformMatrix = Matrix3x3::Transform(LocalTransform);
 		//Generate Verts for Rectangle
 		float HalfWidth = Width / 2;
 		float HalfHeight = Height / 2;
@@ -120,12 +120,12 @@ public:
 
 
 		//Populate OutTriangles with triangulated Rectangle Verts
-		for (auto& Vert : Triangles)
-		{
-			Vert.color = DefaultColor;
-			Vert.position = TransformMatrix * Vert.position;
-			OutTriangles.push_back(Vert);
-		}
+		//for (auto& Vert : Triangles)
+		//{
+		//	Vert.color = DefaultColor;
+		//	Vert.position = TransformMatrix * Vert.position;
+		//	OutTriangles.push_back(Vert);
+		//}
 
 	}
 

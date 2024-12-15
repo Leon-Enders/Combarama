@@ -110,21 +110,12 @@ std::vector<Collider> CollisionSystem::GetColliderInCone(std::weak_ptr<Actor> In
 				bool HasOverlap = false;
 				for (const auto& Corner : Corners)
 				{
-
 					Vector2 ToCorner = Corner - ActorPosition;
-
-
 					float distance = ToCorner.Size();
 					if (distance > Height) continue;
 
-
-					Vector2 NormalizedDirection = Direction.Normalize();
-					Vector2 NormalizedToCorner = ToCorner.Normalize();
-
-
-					float DotProduct = NormalizedDirection.Dot(NormalizedToCorner);
+					float DotProduct = Direction.GetNormalized() * ToCorner.Normalize();
 					float AngleToCorner = std::acos(DotProduct);
-
 
 					if (AngleToCorner <= Angle)
 					{

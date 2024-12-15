@@ -1,9 +1,7 @@
 #pragma once
 
-
+class Vector2;
 struct SDL_Renderer;
-struct Vector2;
-
 
 class DrawDebugHelpers
 {

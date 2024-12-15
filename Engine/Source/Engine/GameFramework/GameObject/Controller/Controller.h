@@ -3,7 +3,7 @@
 #include "../GameObject.h"
 
 
-struct Vector2;
+class Vector2;
 class Character;
 class World;
 

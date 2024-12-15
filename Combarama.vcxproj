@@ -61,6 +61,7 @@
     <ClInclude Include="Engine\Source\Core\Math\Matrix.h" />
     <ClInclude Include="Engine\Source\Core\Math\Transform.h" />
     <ClInclude Include="Engine\Source\Core\Math\Vector2.h" />
+    <ClInclude Include="Engine\Source\Core\Math\Vector3.h" />
     <ClInclude Include="Engine\Source\Core\Misc\CombaramaConstants.h" />
     <ClInclude Include="Engine\Source\Core\Misc\CombaramaStructs.h" />
     <ClInclude Include="Engine\Source\Core\Misc\ComboramaRandom.h" />
