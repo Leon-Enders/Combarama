@@ -17,49 +17,49 @@ void SceneComponent::Initialize()
 
 const Transform& SceneComponent::GetTransform() const
 {
-    return ComponentTransform;
+    return LocalTransform;
 }
 
 const Vector2& SceneComponent::GetPosition() const
 {
-    return ComponentTransform.Position;
+    return LocalTransform.Position;
 }
 
 const float SceneComponent::GetRotation() const
 {
-    return ComponentTransform.Rotation;
+    return LocalTransform.Rotation;
 }
 
 const Vector2& SceneComponent::GetScale() const
 {
-    return ComponentTransform.Scale;
+    return LocalTransform.Scale;
 }
 
 const Vector2 SceneComponent::GetForwardVector() const
 {
-    return ComponentTransform.GetForwardVector();
+    return LocalTransform.GetForwardVector();
 }
 
 
 void SceneComponent::SetTransform(const Transform& InTransform)
 {
-    ComponentTransform = InTransform;
+    LocalTransform = InTransform;
 }
 
 void SceneComponent::SetPosition(const Vector2& InPosition)
 {
-    ComponentTransform.Position = InPosition;
+    LocalTransform.Position = InPosition;
 
 }
 
 void SceneComponent::SetRotation(float InRotation)
 {
-    ComponentTransform.Rotation = InRotation;
+    LocalTransform.Rotation = InRotation;
 }
 
 void SceneComponent::SetScale(const Vector2& InScale)
 {
-    ComponentTransform.Scale = InScale;
+    LocalTransform.Scale = InScale;
 }
 
 void SceneComponent::AttachToComponent(const SceneComponent* Component)
@@ -68,13 +68,27 @@ void SceneComponent::AttachToComponent(const SceneComponent* Component)
     ParentComponent = Component;
 }
 
-const Transform& SceneComponent::GetWorldTransform() const
+const TMatrix SceneComponent::GetWorldTransformation() const
 {
-  //TODO: Change when Scene Graph gets implemented. Transforms get returned and added together with their matrices
+    TMatrix LocalTransformation = TMatrix::TransformToMatrix(LocalTransform);
+
     if (!ParentComponent)
     {
-       return ComponentTransform;
+        return LocalTransformation;
     }
-    
-    return ParentComponent->GetWorldTransform();
+
+    return ParentComponent->GetWorldTransformation() * LocalTransformation;
 }
+
+const Transform SceneComponent::GetWorldTransform() const
+{
+    if (!ParentComponent)
+    {
+        return LocalTransform;
+    }
+    TMatrix LocalTransformation = TMatrix::TransformToMatrix(LocalTransform);
+
+    return LocalTransformation * ParentComponent->GetWorldTransform();
+}
+
+

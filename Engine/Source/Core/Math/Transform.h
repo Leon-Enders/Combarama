@@ -17,6 +17,11 @@ struct Transform
 		Scale = Other.Scale;
 	}
 
+	Transform operator*(const Transform& rhs)
+	{
+		
+	}
+
 	Vector2 GetForwardVector()const
 	{
 		return { cos(Rotation), sin(Rotation) };

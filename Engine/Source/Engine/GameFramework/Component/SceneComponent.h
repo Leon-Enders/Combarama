@@ -25,12 +25,14 @@ public:
 	
 	void AttachToComponent(const SceneComponent* Component);
 
-	const Transform& GetWorldTransform()const;
+	const TMatrix GetWorldTransformation()const;
+	const Transform GetWorldTransform()const;
 protected:
-
-	Transform ComponentTransform;
+	Transform LocalTransform;
+	
 private:
 	const SceneComponent* ParentComponent = nullptr;
+
 
 	//TODO: Create SceneGraph setup
 	std::vector<SceneComponent*> Children;

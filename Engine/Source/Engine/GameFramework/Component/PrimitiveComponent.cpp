@@ -39,11 +39,7 @@ Drawable PrimitiveComponent::GetDrawable() const
 
 	//TODO: use component transform in worldspace, currently it takes the roottransform of the owning actor
 	
-	d.ApplyTransformation(
-		TMatrix::Translate(GetWorldTransform().Position) *
-		TMatrix::Rotate(GetWorldTransform().Rotation) *
-		TMatrix::Scale(GetWorldTransform().Scale.X)
-		);
+	d.ApplyTransformation(GetWorldTransformation());
 
 	return d;
 }

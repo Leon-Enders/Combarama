@@ -52,6 +52,24 @@ public:
 		return OutMatrix;
 	}
 
+	Transform operator*(const Transform& rhs)
+	{
+		Transform OutTransform;
+
+		OutTransform.Position = *this * rhs.Position;
+		OutTransform.Rotation += rhs.Rotation;
+		OutTransform.Scale *= rhs.Scale;
+
+		return OutTransform;
+	}
+
+	static TMatrix TransformToMatrix(const Transform& Transformation)
+	{
+		return TMatrix::Translate(Transformation.Position) *
+			TMatrix::Scale(Transformation.Scale.X) *
+			TMatrix::Rotate(Transformation.Rotation);
+	}
+
 	//Create ScaleMatrix
 	static TMatrix Scale(const float Scale)
 	{
