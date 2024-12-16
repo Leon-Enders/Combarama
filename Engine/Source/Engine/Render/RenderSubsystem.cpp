@@ -1,5 +1,6 @@
 #include "RenderSubsystem.h"
 #include <algorithm>
+#include <ranges>
 #include <iterator>
 #include "../GameFramework/Component/PrimitiveComponent.h"
 #include "../GameFramework/Component/CameraComponent.h"
@@ -23,6 +24,8 @@ void RenderSubsystem::AddPrimitiveComponent(PrimitiveComponent& PrimitiveCompone
 
 void RenderSubsystem::RemovePrimitiveComponent(PrimitiveComponent& PrimitiveComponentToRemove)
 {
+	if (PrimitiveComponents.size() == 0) return;
+
 	std::erase_if(PrimitiveComponents, [&](std::reference_wrapper<PrimitiveComponent> Component)
 		{
 			return &Component.get() == &PrimitiveComponentToRemove;
