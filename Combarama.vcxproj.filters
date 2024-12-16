@@ -2,262 +2,289 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source">
-      <UniqueIdentifier>{b2510f81-a5fa-4b87-8d6c-8fa78a0d3ad3}</UniqueIdentifier>
+      <UniqueIdentifier>{e98a16f6-9a0c-4e12-9a37-9f7364f555d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets">
+    <Filter Include="Source\Core">
+      <UniqueIdentifier>{6019a1b1-f056-4edf-964f-632a4e32e819}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\Coroutine">
+      <UniqueIdentifier>{54c0e1aa-c704-4e2d-8992-b7b4ae137bb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\Event">
+      <UniqueIdentifier>{4e77d66e-bb47-4f11-be9f-caa3582dce76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\Math">
+      <UniqueIdentifier>{ad7e455a-d6a0-43cf-a375-cf2211569de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Core\Misc">
+      <UniqueIdentifier>{481ccf66-ad5c-48e0-89a1-41d90b847132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine">
+      <UniqueIdentifier>{9efcd04b-a6bc-446c-a2e5-f742a2a9c514}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\GameFramework">
+      <UniqueIdentifier>{e7e0b21b-cdce-45e0-8bca-f482b2cb8298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\GameFramework\Component">
+      <UniqueIdentifier>{4fdc7f53-703f-4d28-9989-63d5027c9c58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\GameFramework\GameObject">
+      <UniqueIdentifier>{f1f5c6db-2ec9-43b8-a5bd-d94404ced79e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\GameFramework\GameObject\Character">
+      <UniqueIdentifier>{16d3c749-e9e7-42ce-87c5-8ed6bbe9c8ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\GameFramework\GameObject\Controller">
+      <UniqueIdentifier>{9fb111a2-2d86-48b8-b534-75aa0e963e96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\GameFramework\World">
+      <UniqueIdentifier>{71ec609a-03cb-4e01-95f4-a054123d8997}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Input">
+      <UniqueIdentifier>{558f8abc-71d3-4d64-9ecd-f0d003a2ce0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Physics">
+      <UniqueIdentifier>{1918ab9f-2884-4e43-8822-aa954cdf3731}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Render">
+      <UniqueIdentifier>{e305d4e4-3850-4866-b539-d3fc7a6e0fb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PhysicsCore">
+      <UniqueIdentifier>{7cbd95b9-d651-4ad3-b925-cfae09837702}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\PhysicsCore\Misc">
+      <UniqueIdentifier>{642527e6-409d-4d3c-ae66-f70cdf71e0dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RenderCore">
+      <UniqueIdentifier>{3d7e3f4f-ee30-4a29-b594-9a34b20eccbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\RenderCore\Misc">
+      <UniqueIdentifier>{f57362dc-870c-4cf4-887e-06fe3baa4611}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content">
       <UniqueIdentifier>{36462288-7c9a-419b-8113-9e509cb64680}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Input">
-      <UniqueIdentifier>{714c0c4c-f659-4d87-a351-1d011f7f228d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Utility">
-      <UniqueIdentifier>{c4943f1e-4a27-4789-923c-2e56ae9626a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Render">
-      <UniqueIdentifier>{9c950d23-d930-475c-8257-913f0c57b100}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Entity">
-      <UniqueIdentifier>{403113df-b44a-495f-a411-4a83a28b25f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Math">
-      <UniqueIdentifier>{ee4f634a-9924-4174-8e9e-95b7cf8cebb3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\System">
-      <UniqueIdentifier>{2e025957-2763-40fa-b5c3-3cc1a6ea6184}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\System\GameSubsystem">
-      <UniqueIdentifier>{094bc4dc-3f1a-42bb-8059-77d73d7f5634}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\System\WorldSubsystem">
-      <UniqueIdentifier>{ea2c99b6-42d6-4f2b-a791-832f17da8acd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\World">
-      <UniqueIdentifier>{0a860b4a-a36f-476d-9e2c-0bf2a50f56da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Collision">
-      <UniqueIdentifier>{58ff6b6c-5d10-4ffb-a570-e8333b489f83}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Event">
-      <UniqueIdentifier>{b2846484-4436-4ea9-8636-9283817a89e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Coroutine">
-      <UniqueIdentifier>{8cdfbaf9-8054-4574-a775-f74b95bc32ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Coroutine\Awaitable">
-      <UniqueIdentifier>{daa5cb48-76cf-4d23-89f2-4c0e15f4e945}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Entity\Controller">
-      <UniqueIdentifier>{1287586b-3c59-49a9-8dbd-3bac2be185ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Entity\Character">
-      <UniqueIdentifier>{add881c9-d7ed-4e5f-a87a-c68441de60ab}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Source\Game.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Render\Avatar.cpp">
-      <Filter>Source\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\Actor.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Comborama.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Render\RenderComponent.cpp">
-      <Filter>Source\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Render\Sword.cpp">
-      <Filter>Source\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\Weapon.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\System\InputSystem.cpp">
-      <Filter>Source\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\System\RenderSystem.cpp">
-      <Filter>Source\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\System\WorldSubsystem\WorldSubsystem.cpp">
-      <Filter>Source\System\WorldSubsystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\System\WorldSubsystem\AISystem.cpp">
-      <Filter>Source\System\WorldSubsystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\System\GameSubsystem\GameSubsystem.cpp">
-      <Filter>Source\System\GameSubsystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\World\World.cpp">
-      <Filter>Source\World</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Collision\Collider.cpp">
-      <Filter>Source\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\System\CollisionSystem.cpp">
-      <Filter>Source\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\Obstacle.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Utility\DrawDebugHelpers.cpp">
-      <Filter>Source\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\Projectile.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Coroutine\Awaitable\WaitSeconds.cpp">
-      <Filter>Source\Coroutine\Awaitable</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\GameObject.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\Controller\AIController.cpp">
-      <Filter>Source\Entity\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\Controller\Controller.cpp">
-      <Filter>Source\Entity\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\Controller\PlayerController.cpp">
-      <Filter>Source\Entity\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\Character\Character.cpp">
-      <Filter>Source\Entity\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\Character\Enemy.cpp">
-      <Filter>Source\Entity\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity\Character\PlayerCharacter.cpp">
-      <Filter>Source\Entity\Character</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\Game.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Input\InputComponent.h">
-      <Filter>Source\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Input\InputAction.h">
-      <Filter>Source\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Input\InputActionContext.h">
-      <Filter>Source\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Input\InputActionValue.h">
-      <Filter>Source\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utility\CombaramaStructs.h">
-      <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utility\ColorHelper.h">
-      <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Render\Avatar.h">
-      <Filter>Source\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\Vector2.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Actor.h">
-      <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Render\RenderComponent.h">
-      <Filter>Source\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Render\Sword.h">
-      <Filter>Source\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\ComboramaMath.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\Transform.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Weapon.h">
-      <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\System\RenderSystem.h">
-      <Filter>Source\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\System\InputSystem.h">
-      <Filter>Source\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\System\WorldSubsystem\WorldSubsystem.h">
-      <Filter>Source\System\WorldSubsystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\System\WorldSubsystem\AISystem.h">
-      <Filter>Source\System\WorldSubsystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\System\GameSubsystem\GameSubsystem.h">
-      <Filter>Source\System\GameSubsystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\World\World.h">
-      <Filter>Source\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Collision\Collider.h">
-      <Filter>Source\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\System\CollisionSystem.h">
-      <Filter>Source\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Math\Matrix.h">
-      <Filter>Source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utility\CollisionHelper.h">
-      <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Obstacle.h">
-      <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utility\PrimitiveHelpers.h">
-      <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utility\DrawDebugHelpers.h">
-      <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utility\ComboramaTime.h">
-      <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Projectile.h">
-      <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Event\Delegate.h">
-      <Filter>Source\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Coroutine\Awaitable\WaitSeconds.h">
-      <Filter>Source\Coroutine\Awaitable</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Coroutine\Coroutine.h">
-      <Filter>Source\Coroutine</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\GameObject.h">
-      <Filter>Source\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Controller\AIController.h">
-      <Filter>Source\Entity\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Controller\Controller.h">
-      <Filter>Source\Entity\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Controller\PlayerController.h">
-      <Filter>Source\Entity\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Character\Character.h">
-      <Filter>Source\Entity\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Character\Enemy.h">
-      <Filter>Source\Entity\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity\Character\PlayerCharacter.h">
-      <Filter>Source\Entity\Character</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">
-      <Filter>Assets</Filter>
+      <Filter>Content</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\Source\Comborama.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Core\Coroutine\WaitSeconds.cpp">
+      <Filter>Source\Core\Coroutine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\World\World.cpp">
+      <Filter>Source\Engine\GameFramework\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\World\WorldSubsystem.cpp">
+      <Filter>Source\Engine\GameFramework\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\World\AISystem.cpp">
+      <Filter>Source\Engine\GameFramework\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Actor.cpp">
+      <Filter>Source\Engine\GameFramework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\GameObject.cpp">
+      <Filter>Source\Engine\GameFramework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Obstacle.cpp">
+      <Filter>Source\Engine\GameFramework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Projectile.cpp">
+      <Filter>Source\Engine\GameFramework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Character\Enemy.cpp">
+      <Filter>Source\Engine\GameFramework\GameObject\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Character\PlayerCharacter.cpp">
+      <Filter>Source\Engine\GameFramework\GameObject\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Character\Character.cpp">
+      <Filter>Source\Engine\GameFramework\GameObject\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Controller\AIController.cpp">
+      <Filter>Source\Engine\GameFramework\GameObject\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Controller\Controller.cpp">
+      <Filter>Source\Engine\GameFramework\GameObject\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Controller\PlayerController.cpp">
+      <Filter>Source\Engine\GameFramework\GameObject\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\PrimitiveComponent.cpp">
+      <Filter>Source\Engine\GameFramework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\SceneComponent.cpp">
+      <Filter>Source\Engine\GameFramework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\ActorComponent.cpp">
+      <Filter>Source\Engine\GameFramework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\CameraComponent.cpp">
+      <Filter>Source\Engine\GameFramework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\Input\InputSystem.cpp">
+      <Filter>Source\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\Physics\Collider.cpp">
+      <Filter>Source\Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\Physics\CollisionSystem.cpp">
+      <Filter>Source\Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\Render\RenderSubsystem.cpp">
+      <Filter>Source\Engine\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\Game.cpp">
+      <Filter>Source\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\RenderCore\CoordinateTransformer.cpp">
+      <Filter>Source\RenderCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.cpp">
+      <Filter>Source\RenderCore\Misc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\Source\Core\CoreMinimal.h">
+      <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Coroutine\Coroutine.h">
+      <Filter>Source\Core\Coroutine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Coroutine\WaitSeconds.h">
+      <Filter>Source\Core\Coroutine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Event\Delegate.h">
+      <Filter>Source\Core\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Math\Transform.h">
+      <Filter>Source\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Math\Vector2.h">
+      <Filter>Source\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Math\ComboramaMath.h">
+      <Filter>Source\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Math\Matrix.h">
+      <Filter>Source\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Misc\CombaramaStructs.h">
+      <Filter>Source\Core\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Misc\ComboramaRandom.h">
+      <Filter>Source\Core\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Misc\CombaramaConstants.h">
+      <Filter>Source\Core\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\World\World.h">
+      <Filter>Source\Engine\GameFramework\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\World\WorldSubsystem.h">
+      <Filter>Source\Engine\GameFramework\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\World\AISystem.h">
+      <Filter>Source\Engine\GameFramework\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Actor.h">
+      <Filter>Source\Engine\GameFramework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\GameObject.h">
+      <Filter>Source\Engine\GameFramework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Obstacle.h">
+      <Filter>Source\Engine\GameFramework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Projectile.h">
+      <Filter>Source\Engine\GameFramework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Character\Enemy.h">
+      <Filter>Source\Engine\GameFramework\GameObject\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Character\PlayerCharacter.h">
+      <Filter>Source\Engine\GameFramework\GameObject\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Character\Character.h">
+      <Filter>Source\Engine\GameFramework\GameObject\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Controller\AIController.h">
+      <Filter>Source\Engine\GameFramework\GameObject\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Controller\Controller.h">
+      <Filter>Source\Engine\GameFramework\GameObject\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Controller\PlayerController.h">
+      <Filter>Source\Engine\GameFramework\GameObject\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\CameraComponent.h">
+      <Filter>Source\Engine\GameFramework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\PrimitiveComponent.h">
+      <Filter>Source\Engine\GameFramework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\SceneComponent.h">
+      <Filter>Source\Engine\GameFramework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\ActorComponent.h">
+      <Filter>Source\Engine\GameFramework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Input\InputAction.h">
+      <Filter>Source\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Input\InputActionContext.h">
+      <Filter>Source\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Input\InputActionValue.h">
+      <Filter>Source\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Input\InputComponent.h">
+      <Filter>Source\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Input\InputSystem.h">
+      <Filter>Source\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Physics\Collider.h">
+      <Filter>Source\Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Physics\CollisionSystem.h">
+      <Filter>Source\Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Render\RenderSubsystem.h">
+      <Filter>Source\Engine\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\EngineSubsystem.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Game.h">
+      <Filter>Source\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\PhysicsCore\Misc\CollisionHelper.h">
+      <Filter>Source\PhysicsCore\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\RenderCore\CoordinateTransformer.h">
+      <Filter>Source\RenderCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\RenderCore\Drawable.h">
+      <Filter>Source\RenderCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\RenderCore\Misc\PrimitiveFactory.h">
+      <Filter>Source\RenderCore\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\RenderCore\Misc\ColorHelper.h">
+      <Filter>Source\RenderCore\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.h">
+      <Filter>Source\RenderCore\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Core\Math\Vector3.h">
+      <Filter>Source\Core\Math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
