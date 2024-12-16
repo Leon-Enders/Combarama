@@ -23,8 +23,8 @@ void CameraComponent::Initialize()
 void CameraComponent::Draw(Drawable InDrawable) const
 {
 	InDrawable.ApplyTransformation(
-		TMatrix::Scale(GetWorldTransform().Scale.X) *
-		TMatrix::Translate(GetWorldTransform().Position *-1.f)
+		TMatrix::Translate(GetWorldTransform().Position *-1.f) *
+		TMatrix::Scale(GetScale().X)
 	);
 
 	CT.Draw(InDrawable);

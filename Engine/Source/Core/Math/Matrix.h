@@ -57,8 +57,9 @@ public:
 		Transform OutTransform;
 
 		OutTransform.Position = *this * rhs.Position;
-		OutTransform.Rotation += rhs.Rotation;
-		OutTransform.Scale *= rhs.Scale;
+		OutTransform.Rotation = rhs.Rotation * std::asin(Cells[0][1]);
+		OutTransform.Scale.X = rhs.Scale.X * Cells[0][0];
+		OutTransform.Scale.Y = rhs.Scale.Y * Cells[0][1];
 
 		return OutTransform;
 	}
