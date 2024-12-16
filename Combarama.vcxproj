@@ -39,7 +39,6 @@
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\GameObject.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Obstacle.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Projectile.cpp" />
-    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Weapon.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\AISystem.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\World.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\WorldSubsystem.cpp" />
@@ -49,7 +48,6 @@
     <ClCompile Include="Engine\Source\Engine\Render\RenderSubsystem.cpp" />
     <ClCompile Include="Engine\Source\RenderCore\CoordinateTransformer.cpp" />
     <ClCompile Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.cpp" />
-    <ClCompile Include="Engine\Source\RenderCore\Misc\Sword.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Source\Core\CoreMinimal.h" />
@@ -80,7 +78,6 @@
     <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\GameObject.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Obstacle.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Projectile.h" />
-    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Weapon.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\World\AISystem.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\World\World.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\World\WorldSubsystem.h" />
@@ -98,7 +95,6 @@
     <ClInclude Include="Engine\Source\RenderCore\Misc\ColorHelper.h" />
     <ClInclude Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.h" />
     <ClInclude Include="Engine\Source\RenderCore\Misc\PrimitiveFactory.h" />
-    <ClInclude Include="Engine\Source\RenderCore\Misc\Sword.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

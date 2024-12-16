@@ -122,3 +122,47 @@ public:
 		return Verts;
 	}
 };
+
+
+class Sword
+{
+public:
+	static std::vector<SDL_Vertex> Make(const Transform& PivotTransform = {}, SDL_FColor Color = { 255.f,255.f,255.f,255.f })
+	{
+		TMatrix TransformMatrix = TMatrix::TransformToMatrix(PivotTransform);
+		std::vector<SDL_Vertex> OutVerts = { 15,SDL_Vertex() };
+
+		size_t i = 0;
+		for (auto& Vert : Verts)
+		{
+			OutVerts[i].position = TransformMatrix * Vert.position;
+			OutVerts[i].color = Color;
+			i++;
+		}
+		return OutVerts;
+	}
+private:
+
+	static constexpr SDL_Vertex Verts[15] =
+	{
+		  { -7.0f, 62.5f },
+		  { -7.0f, -37.5f },
+		  {  7.0f, -37.5f },
+
+		  { -7.0f, 62.5f },
+		  {  7.0f, -37.5f },
+		  {  7.0f, 62.5f },
+
+		  { -25.0f, 42.5f },
+		  { -25.0f, 32.5f },
+		  {  25.0f, 32.5f },
+
+		  { -25.0f, 42.5f },
+		  {  25.0f, 32.5f },
+		  {  25.0f, 42.5f },
+
+		  { -10.0f, -37.5f },
+		  {  10.0f, -37.5f },
+		  {   0.0f, -62.5f }
+	};
+};

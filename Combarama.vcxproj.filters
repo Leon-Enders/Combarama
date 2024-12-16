@@ -98,9 +98,6 @@
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Projectile.cpp">
       <Filter>Source\Engine\GameFramework\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Weapon.cpp">
-      <Filter>Source\Engine\GameFramework\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Character\Enemy.cpp">
       <Filter>Source\Engine\GameFramework\GameObject\Character</Filter>
     </ClCompile>
@@ -148,9 +145,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Source\RenderCore\CoordinateTransformer.cpp">
       <Filter>Source\RenderCore</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Source\RenderCore\Misc\Sword.cpp">
-      <Filter>Source\RenderCore\Misc</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.cpp">
       <Filter>Source\RenderCore\Misc</Filter>
@@ -209,9 +203,6 @@
       <Filter>Source\Engine\GameFramework\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Projectile.h">
-      <Filter>Source\Engine\GameFramework\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Weapon.h">
       <Filter>Source\Engine\GameFramework\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Character\Enemy.h">
@@ -284,9 +275,6 @@
       <Filter>Source\RenderCore</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Source\RenderCore\Misc\PrimitiveFactory.h">
-      <Filter>Source\RenderCore\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Source\RenderCore\Misc\Sword.h">
       <Filter>Source\RenderCore\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Source\RenderCore\Misc\ColorHelper.h">

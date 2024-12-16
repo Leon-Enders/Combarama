@@ -15,7 +15,6 @@ class Controller;
 class AIController;
 class PlayerController;
 class Actor;
-class Weapon;
 class Obstacle;
 class Projectile;
 class Character;
@@ -43,7 +42,6 @@ using GameObjectVariant = std::variant<
 	std::vector<std::weak_ptr<Character>>,
 	std::vector<std::weak_ptr<Enemy>>,
 	std::vector<std::weak_ptr<PlayerCharacter>>,
-	std::vector<std::weak_ptr<Weapon>>,
 	std::vector<std::weak_ptr<Obstacle>>,
 	std::vector<std::weak_ptr<Projectile>>>;
 

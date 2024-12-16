@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include "../../../../RenderCore/Misc/ColorHelper.h"
 #include "../../World/World.h"
-#include "../../../../RenderCore/Misc/Sword.h"
+#include "../../../../RenderCore/Misc/PrimitiveFactory.h"
 #include "../../../../Core/Math/ComboramaMath.h"
 #include "../Character/PlayerCharacter.h"
 #include "../../../Physics/CollisionSystem.h"
@@ -13,15 +13,10 @@ Enemy::Enemy(World* GameWorld, const Transform& InTransform)
 	:
 	Character(GameWorld, InTransform)
 {
-
-	std::vector<SDL_Vertex> SwordTriangles;
-	Sword::GenerateVertices(SwordTriangles, { { 75.f,0.f }, 1.5708f, { 1.f,1.f } });
-
-	Weapon = CreateComponent<PrimitiveComponent>(std::move(SwordTriangles));
+	Weapon = CreateComponent<PrimitiveComponent>(std::move(Sword::Make({ { 75.f,0.f }, 1.5708f, { 1.f,1.f } })));
 	Weapon->AttachToComponent(GetRootComponent());
 	Weapon->SetColor(COLOR_GREY);
 	Weapon->SetRenderActive(false);
-
 }
 
 void Enemy::Initialize()
