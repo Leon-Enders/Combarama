@@ -10,6 +10,7 @@ Projectile::Projectile(World* GameWorld, const Transform& InTransform)
 	Actor(GameWorld, InTransform)
 {
 	ProjectilePrimitive = CreateComponent<PrimitiveComponent>(std::move(Circle::Make(ProjectileSize)));
+	ProjectilePrimitive->AttachToComponent(GetRootComponent());
 	ProjectilePrimitive->SetColor(COLOR_GREEN);
 }
 
