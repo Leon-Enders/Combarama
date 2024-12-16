@@ -130,6 +130,18 @@ public:
 		return Normalized;
 	}
 
+	float LookAtRotation(const Vector2& Target)const
+	{
+		Vector2 DeltaPosition = *this - Target;
+		return std::atan2f(DeltaPosition.Y, DeltaPosition.X);
+	}
+
+	Vector2 DirectionToTarget(const Vector2& Target) const
+	{
+		Vector2 DeltaPosition = *this - Target;
+		return DeltaPosition.Normalize();
+	}
+
 	static Vector2 Up()
 	{
 		return Vector2(0.f, -1.f);
