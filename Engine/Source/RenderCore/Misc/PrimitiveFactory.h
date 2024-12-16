@@ -3,7 +3,8 @@
 #include <cmath>
 #include <numbers>
 #include <vector>
-
+#include "../../Core/Math/Transform.h"
+#include "../../Core/Math/Matrix.h"
 
 
 class Circle
@@ -14,8 +15,9 @@ public:
 	};
 
 
-	static std::vector<SDL_Vertex> Make(float Radius, size_t Segments = 120, SDL_FColor Color = {255.f,255.f,255.f,255.f})
+	static std::vector<SDL_Vertex> Make(float Radius, const Transform& PivotTransform = Transform(), size_t Segments = 120, SDL_FColor Color = {255.f,255.f,255.f,255.f})
 	{
+		TMatrix TransformMatrix = TMatrix::TransformToMatrix(PivotTransform);
 		std::vector<SDL_Vertex> Verts = {Segments,SDL_Vertex()};
 		float AngleStep = static_cast<float>(360.f / Segments);
 
@@ -29,6 +31,12 @@ public:
 		}
 		
 		Triangulate(Verts, Color);
+
+		//Apply PivotTransform
+		for (auto& Vert : Verts)
+		{
+			Vert.position = TransformMatrix * Vert.position;
+		}
 
 		return Verts;
 	}
@@ -54,8 +62,9 @@ class Rectangle
 {
 public:
 
-	static std::vector<SDL_Vertex> Make(float Width, float Height)
+	static std::vector<SDL_Vertex> Make(float Width, float Height, const Transform& PivotTransform = Transform(),SDL_FColor Color = { 255.f,255.f,255.f,255.f })
 	{
+		TMatrix TransformMatrix = TMatrix::TransformToMatrix(PivotTransform);
 		std::vector<SDL_Vertex> Verts = {4, SDL_Vertex() };
 
 		float HalfWidth = Width / 2;
@@ -74,6 +83,13 @@ public:
 		Verts[3].position.y -= HalfHeight;
 
 		Triangulate(Verts);
+
+		//Apply PivotTransform
+		for (auto& Vert : Verts)
+		{
+			Vert.position = TransformMatrix * Vert.position;
+		}
+
 		return Verts;
 	}
 
@@ -99,7 +115,7 @@ public:
 	static std::vector<SDL_Vertex> Make(float Radius = 25.f, float HeadWidth = 25.f, float HeadHeight = 15.f)
 	{
 		auto Verts = Circle::Make(Radius);
-		auto RectVerts = Rectangle::Make(HeadHeight, HeadWidth);
+		auto RectVerts = Rectangle::Make(HeadHeight, HeadWidth, Transform({ 25.f,0.f },0.f,{1.f,1.f}));
 
 		Verts.insert(Verts.begin(), RectVerts.begin(), RectVerts.end());
 
