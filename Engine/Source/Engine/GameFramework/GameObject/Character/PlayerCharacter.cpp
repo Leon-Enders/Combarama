@@ -40,16 +40,6 @@ void PlayerCharacter::Initialize()
 
 }
 
-void PlayerCharacter::UpdateVelocity(const Vector2& NewVelocity)
-{
-	if (!IsDashing)
-	{
-		LastMoveInput = NewVelocity;
-		Velocity = LastMoveInput * Speed;
-	}
-}
-
-
 void PlayerCharacter::Update(float DeltaTime)
 {
 	Character::Update(DeltaTime);
@@ -128,7 +118,6 @@ void PlayerCharacter::Dash()
 	if (!IsDashing)
 	{
 		ActivateDashCooldown();
-		
 	}
 }
 
@@ -156,15 +145,20 @@ void PlayerCharacter::DealDamageInCone()
 	}
 }
 
+void PlayerCharacter::AddMoveInput(const Vector2& MoveInput)
+{
+	if (!IsDashing)
+	{
+		LastMoveInput = MoveInput.GetNormalized();
+		Velocity = LastMoveInput * Speed;
+	}
+}
+
 void PlayerCharacter::UpdatePosition(float DeltaTime)
 {
 	Character::UpdatePosition(DeltaTime);
 }
 
-void PlayerCharacter::UpdateRotation()
-{
-	 
-}
 
 void PlayerCharacter::OnCharacterDeath()
 {

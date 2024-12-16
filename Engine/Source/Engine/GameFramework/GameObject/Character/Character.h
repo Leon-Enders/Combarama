@@ -23,8 +23,8 @@ public:
 	virtual void FixedUpdate(float FixedDeltaTime) override;
 
 
+	virtual void AddMoveInput(const Vector2& MoveInput)=0;
 	const Vector2& GetVelocity()const { return Velocity; }
-
 
 	void SetController(std::shared_ptr<Controller> InOwningContoller);
 

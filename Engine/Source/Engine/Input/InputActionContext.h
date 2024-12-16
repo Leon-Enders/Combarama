@@ -6,6 +6,7 @@
 #include "InputAction.h"
 #include <vector>
 #include <utility>
+#include "../../Core/Misc/CombaramaConstants.h"
 
 
 
@@ -137,6 +138,11 @@ public:
 
 		if (MouseInputAction)
 		{
+			//Convert Mouse Coords into ScreenCoords (Origin at center)
+			Vector2 ViewportCenter = Vector2(Combarama::ViewportWidth / 2, Combarama::ViewportHeight / 2);
+			
+			MouseInput -= ViewportCenter;
+			MouseInput.Y *= -1.f;
 			MouseInputAction->SetActionValue(MouseInput);
 			MouseInputAction->Execute();
 		}

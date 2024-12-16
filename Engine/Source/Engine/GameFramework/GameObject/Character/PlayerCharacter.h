@@ -26,14 +26,13 @@ public:
 	void Shoot();
 	void DealDamageInCone();
 
-	void UpdateVelocity(const Vector2& NewVelocity);
+	void AddMoveInput(const Vector2& MoveInput) override;
 
 
 	CameraComponent* GetCamera() { return PlayerCam; }
 
 protected:
 	virtual void UpdatePosition(float DeltaTime)override;
-	virtual void UpdateRotation() override;
 
 	virtual void OnCharacterDeath()override;
 

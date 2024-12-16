@@ -89,9 +89,9 @@ void Enemy::FixedUpdate(float FixedDeltaTime)
 
 }
 
-void Enemy::UpdateVelocity(const Vector2& NewVelocity)
+void Enemy::AddMoveInput(const Vector2& MoveInput)
 {
-	Velocity = NewVelocity * Speed;
+	Velocity = MoveInput * Speed;
 }
 
 void Enemy::Attack()

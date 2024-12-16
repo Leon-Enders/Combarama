@@ -89,17 +89,18 @@ void PlayerController::Move(const InputActionValue& Value)
 {
 	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 	{
-		sPlayerPtr->UpdateVelocity(Value.Get<Vector2>());
+		sPlayerPtr->AddMoveInput(Value.Get<Vector2>());
 	}
 }
 
 void PlayerController::Look(const InputActionValue& Value)
 {
-	Vector2 TargetMousePosition = Value.Get<Vector2>();
 	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 	{
-		Vector2 DeltaPosition = TargetMousePosition - sPlayerPtr->GetPosition();
-		ControlRotation = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
+		Vector2 TargetPosition = Value.Get<Vector2>();
+		//Invert InputVector to account for render transforms
+		TargetPosition *= -1.f;
+		ControlRotation = Vector2::Zero().LookAtRotation(TargetPosition);
 	}
 }
 

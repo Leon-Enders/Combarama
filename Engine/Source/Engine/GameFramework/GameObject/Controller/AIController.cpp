@@ -32,7 +32,7 @@ void AIController::PossessCharacter(std::shared_ptr<Character> CharacterToPosses
         sEnemyPtr->SetController(shared_from_this());
 
         StartPosition = sEnemyPtr->GetPosition();
-        sEnemyPtr->UpdateVelocity({ 1.f,0.f });
+        sEnemyPtr->AddMoveInput({ 1.f,0.f });
 
         //Bind Unregistering + (temp) destruction of the controller to the destruction of the possessed character
         sEnemyPtr->OnDestroyDelegate.AddMemberFunction(shared_from_this(), &AIController::UnPossessCharacter);
@@ -90,18 +90,12 @@ void AIController::MoveEnemy()
     {
         if (auto sTargetPtr = Target.lock())
         {
-            Vector2 DeltaPosition = sTargetPtr->GetPosition() - sEnemyPtr->GetPosition();
-            Vector2 TargetDirection = DeltaPosition.Normalize();
-
-            ControlRotation = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
-
-            sEnemyPtr->UpdateVelocity(TargetDirection);
+            Vector2 TargetDirection = sTargetPtr->GetPosition().DirectionToTarget(sEnemyPtr->GetPosition());
+            sEnemyPtr->AddMoveInput(TargetDirection);
         }
         else
         {
-
             VelocityUpdateCounter++;
-
             if (VelocityUpdateCounter > VelocityMaxUpdateCounter)
             {
                 VelocityUpdateCounter = 0;
@@ -110,11 +104,10 @@ void AIController::MoveEnemy()
                 std::uniform_real_distribution<float> DistFloatHeight(-1.f, 1.f);
 
 
-                Vector2 NewVelocity = { DistFloatWidth(RandomGenerator::GetRandomEngine()) , DistFloatHeight(RandomGenerator::GetRandomEngine()) };
+                Vector2 MoveInput = { DistFloatWidth(RandomGenerator::GetRandomEngine()) , DistFloatHeight(RandomGenerator::GetRandomEngine()) };
 
-                sEnemyPtr->UpdateVelocity(NewVelocity);
-                Vector2 DeltaPosition = NewVelocity.Normalize() - sEnemyPtr->GetForwardVector();
-                ControlRotation = std::atan2f(DeltaPosition.Y, DeltaPosition.X);
+                sEnemyPtr->AddMoveInput(MoveInput);
+                ControlRotation = MoveInput.Normalize().LookAtRotation(sEnemyPtr->GetForwardVector());
             }
         }
     }

@@ -14,7 +14,7 @@ public:
 	virtual void Update(float DeltaTime) override;
 	virtual void FixedUpdate(float FixedDeltaTime) override;
 
-	void UpdateVelocity(const Vector2& NewVelocity);
+	virtual void AddMoveInput(const Vector2& MoveInput) override;
 	void SetSpeed(float NewSpeed) { Speed = NewSpeed; }
 
 	void Attack();
