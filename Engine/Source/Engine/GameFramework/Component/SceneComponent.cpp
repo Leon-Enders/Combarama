@@ -68,27 +68,31 @@ void SceneComponent::AttachToComponent(const SceneComponent* Component)
     ParentComponent = Component;
 }
 
-const TMatrix SceneComponent::GetWorldTransformation() const
+const TMatrix SceneComponent::GetLocalMatrix() const
 {
-    TMatrix LocalTransformation = TMatrix::TransformToMatrix(LocalTransform);
+    return TMatrix::TransformToMatrix(LocalTransform);
+}
 
+const TMatrix SceneComponent::GetWorldMatrix() const
+{
+    TMatrix LocalMatrix = GetLocalMatrix();
     if (!ParentComponent)
     {
-        return LocalTransformation;
+        return LocalMatrix;
     }
 
-    return ParentComponent->GetWorldTransformation() * LocalTransformation;
+    return ParentComponent->GetWorldMatrix() * LocalMatrix;
 }
 
 const Transform SceneComponent::GetWorldTransform() const
 {
+    //TODO: Create a system so you dont have to decompose the world matrix each time the world transform gets accessed
     if (!ParentComponent)
     {
         return LocalTransform;
     }
-    TMatrix LocalTransformation = TMatrix::TransformToMatrix(LocalTransform);
 
-    return LocalTransformation * ParentComponent->GetWorldTransform();
+    return GetWorldMatrix().Decompose();
 }
 
 

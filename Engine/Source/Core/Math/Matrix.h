@@ -52,15 +52,23 @@ public:
 		return OutMatrix;
 	}
 
-	Transform operator*(const Transform& rhs)
+	Transform Decompose() const
 	{
 		Transform OutTransform;
+		Vector2 BasisX(Cells[0][0], Cells[1][0]);
+		Vector2 BasisY(Cells[1][0], Cells[1][1]);
 
-		OutTransform.Position = *this * rhs.Position;
-		OutTransform.Rotation = rhs.Rotation * std::asin(Cells[0][1]);
-		OutTransform.Scale.X = rhs.Scale.X * Cells[0][0];
-		OutTransform.Scale.Y = rhs.Scale.Y * Cells[0][1];
+		OutTransform.Position.X = Cells[0][2];
+		OutTransform.Position.Y = Cells[1][2];
+		OutTransform.Scale.X = BasisX.Size();
+		OutTransform.Scale.Y = BasisY.Size();
 
+		float RotationMatrix[2][2] = {
+		{ Cells[0][0] / OutTransform.Scale.X, Cells[0][1] / OutTransform.Scale.Y },
+		{ Cells[1][0] / OutTransform.Scale.X, Cells[1][1] / OutTransform.Scale.Y }
+		};
+
+		OutTransform.Rotation = atan2f(RotationMatrix[1][0], RotationMatrix[0][0]);
 		return OutTransform;
 	}
 

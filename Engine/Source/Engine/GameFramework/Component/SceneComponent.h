@@ -25,7 +25,8 @@ public:
 	
 	void AttachToComponent(const SceneComponent* Component);
 
-	const TMatrix GetWorldTransformation()const;
+	const TMatrix GetLocalMatrix()const;
+	const TMatrix GetWorldMatrix()const;
 	const Transform GetWorldTransform()const;
 protected:
 	Transform LocalTransform;
