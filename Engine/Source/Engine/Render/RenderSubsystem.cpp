@@ -38,6 +38,7 @@ void RenderSubsystem::Draw()
 
 	for (const auto& p : PrimitiveComponents)
 	{
+		if (!p.get().GetRenderActive()) continue;
 		ActiveCamera->Draw(p.get().GetDrawable());
 	}
 }

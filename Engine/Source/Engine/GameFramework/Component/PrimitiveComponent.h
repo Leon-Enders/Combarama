@@ -12,6 +12,7 @@ public:
 	virtual void Initialize() override;
 
 	void SetColor(SDL_FColor NewColor, int Offset = 0);
+	bool GetRenderActive()const { return IsRenderActive; }
 	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
 
 	Drawable GetDrawable()const;

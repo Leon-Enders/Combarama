@@ -23,6 +23,7 @@ PlayerCharacter::PlayerCharacter(World* GameWorld, const Transform& InTransform)
 	Weapon = CreateComponent<PrimitiveComponent>(std::move(SwordTriangles));
 	Weapon->AttachToComponent(GetRootComponent());
 	Weapon->SetColor(COLOR_GREY);
+	Weapon->SetRenderActive(false);
 
 	PlayerCam = CreateComponent<CameraComponent>();
 	PlayerCam->AttachToComponent(GetRootComponent());
