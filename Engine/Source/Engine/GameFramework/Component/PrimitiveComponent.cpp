@@ -41,6 +41,7 @@ Drawable PrimitiveComponent::GetDrawable() const
 	
 	d.ApplyTransformation(
 		TMatrix::Translate(GetWorldTransform().Position) *
+		TMatrix::Rotate(GetWorldTransform().Rotation) *
 		TMatrix::Scale(GetWorldTransform().Scale.X)
 		);
 

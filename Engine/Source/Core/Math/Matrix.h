@@ -86,7 +86,7 @@ public:
 
 		return {
 		cosT, -sinT,0.f,
-		sinT,-cosT,0.f,
+		sinT,cosT,0.f,
 		0.f,0.f,1.f
 		};
 	}
