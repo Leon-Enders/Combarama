@@ -10,6 +10,7 @@
 #include "../../../Core/Math/Transform.h"
 #include "WorldSubsystem.h"
 #include "../Scene/PhysicsScene.h"
+#include "../Scene/RenderScene.h"
 #include "../../../PhysicsCore/Misc/CollisionHelper.h"
 
 struct SDL_FColor;
@@ -86,6 +87,7 @@ public:
 
 	/*Scene*/
 	PhysicsScene& GetPhysicsScene() { return PScene; }
+	RenderScene& GetRenderScene() { return RScene; }
 
 private:
 	/*GameObject*/
@@ -111,6 +113,7 @@ private:
 
 	/*Scene*/
 	PhysicsScene PScene;
+	RenderScene RScene;
 	// TODO Create RenderScene and refactor RenderSubsystems state into here
 };
 
