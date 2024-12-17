@@ -158,6 +158,9 @@
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\CollisionSubsystem.cpp">
       <Filter>Source\Engine\GameFramework\World</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Scene\RenderScene.cpp">
+      <Filter>Source\Engine\GameFramework\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Source\Core\CoreMinimal.h">

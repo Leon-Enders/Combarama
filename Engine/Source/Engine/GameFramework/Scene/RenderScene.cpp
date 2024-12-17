@@ -15,3 +15,8 @@ void RenderScene::UnRegisterPrimitiveComponent(PrimitiveComponent* PrimitiveComp
 			return PrimitiveComp == PrimitiveComponentToRegister;
 		});
 }
+
+const std::vector<PrimitiveComponent*>& RenderScene::GetPrimitiveComponents() const
+{
+	return PrimitiveComponents;
+}

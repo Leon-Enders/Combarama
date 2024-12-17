@@ -30,6 +30,7 @@ Game::Game(App& GameApp)
 
 void Game::Initialize()
 {
+
 	GameWorld->Initialize();
 
 	auto Identity = TMatrix::Identity();
@@ -158,7 +159,6 @@ void Game::Render()
 
 void Game::ComposeFrame()
 {
-
 	// Clear BackBuffer
 	SDL_SetRenderDrawColor(GameRenderer, 0, 0, 0, 255);
 	SDL_RenderClear(GameRenderer);
@@ -166,10 +166,8 @@ void Game::ComposeFrame()
 	//TODO: Refactor this into Level
 	SDL_RenderTexture(GameRenderer, GameBackground, &BackGround, NULL);
 
-	//Draw Verts to Render
-	RS->Draw();
-	//CollisionSystem::Get().Draw(GameRenderer);
-	GameWorld->DrawDebug();
+
+	RS->Draw(GameWorld->GetRenderScene());
 }
 
 void Game::RenderFrame()

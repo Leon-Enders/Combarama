@@ -1,9 +1,7 @@
 #include "RenderSubsystem.h"
-#include <algorithm>
-#include <ranges>
-#include <iterator>
 #include "../GameFramework/Component/PrimitiveComponent.h"
 #include "../GameFramework/Component/CameraComponent.h"
+#include "../GameFramework/Scene/RenderScene.h"
 
 RenderSubsystem::RenderSubsystem(SDL_Renderer* Renderer)
 	:
@@ -17,28 +15,13 @@ void RenderSubsystem::SetActiveCamera(CameraComponent* ActiveCam)
 	ActiveCamera = ActiveCam;
 }
 
-void RenderSubsystem::AddPrimitiveComponent(PrimitiveComponent& PrimitiveComponentToAdd)
-{
-	PrimitiveComponents.push_back(std::ref(PrimitiveComponentToAdd));
-}
-
-void RenderSubsystem::RemovePrimitiveComponent(PrimitiveComponent& PrimitiveComponentToRemove)
-{
-	if (PrimitiveComponents.size() == 0) return;
-
-	std::erase_if(PrimitiveComponents, [&](std::reference_wrapper<PrimitiveComponent> Component)
-		{
-			return &Component.get() == &PrimitiveComponentToRemove;
-		});
-}
-
-void RenderSubsystem::Draw()
+void RenderSubsystem::Draw(const RenderScene& RScene)
 {
 	if (!ActiveCamera) return;
 
-	for (const auto& p : PrimitiveComponents)
+	for (const auto& p : RScene.GetPrimitiveComponents())
 	{
-		if (!p.get().GetRenderActive()) continue;
-		ActiveCamera->Draw(p.get().GetDrawable());
+		if (!p->GetRenderActive()) continue;
+		ActiveCamera->Draw(p->GetDrawable());
 	}
 }

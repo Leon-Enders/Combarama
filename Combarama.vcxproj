@@ -40,6 +40,7 @@
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Obstacle.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Projectile.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\Scene\PhysicsScene.cpp" />
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Scene\RenderScene.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\AISubsystem.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\CollisionSubsystem.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\World.cpp" />

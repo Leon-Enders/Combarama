@@ -58,7 +58,6 @@ void World::FixedUpdate(float FixedDeltaTime)
 
 void World::LateUpdate(float DeltaTime)
 {
-
 	for (auto& InstancedGameObject : InstancedGameObjects)
 	{
 		if (InstancedGameObject)
@@ -104,7 +103,6 @@ void World::CleanUpInstanceGameObjects()
 				return InstancedGameObjectPtr.get() == GameObjectToRemove;
 			});
 	}
-
 
 	GameObjectsToRemove.clear();
 }

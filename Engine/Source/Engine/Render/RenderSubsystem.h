@@ -6,8 +6,8 @@
 
 //TODO: RenderSubsystem should hold no state of the Primitive Components
 //-> Create RenderScene in World which holds state for the things to render
-class PrimitiveComponent;
 class CameraComponent;
+class RenderScene;
 
 class RenderSubsystem : public EngineSubsystem
 {
@@ -15,14 +15,10 @@ public:
 	RenderSubsystem(SDL_Renderer* Renderer);
 
 	void SetActiveCamera(CameraComponent* ActiveCam);
-	void AddPrimitiveComponent(PrimitiveComponent& PrimitiveComponentToAdd);
-	void RemovePrimitiveComponent(PrimitiveComponent& PrimitiveComponentToRemove);
-
-	void Draw();
+	void Draw(const RenderScene& RScene);
 
 	CoordinateTransformer& GetCoordinateTransformer() { return ct; };
 private:
 	CoordinateTransformer ct;
 	CameraComponent* ActiveCamera = nullptr;
-	std::vector<std::reference_wrapper<PrimitiveComponent>> PrimitiveComponents;
 };
