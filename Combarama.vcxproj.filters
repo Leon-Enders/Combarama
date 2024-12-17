@@ -325,5 +325,8 @@
     <ClInclude Include="Engine\Source\RenderCore\Misc\DebugPrimitiveFactory.h">
       <Filter>Source\RenderCore\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Source\RenderCore\DebugDrawable.h">
+      <Filter>Source\RenderCore</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

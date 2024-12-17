@@ -13,13 +13,10 @@ public:
 		Model(&Model)
 	{}
 
-
 	void ApplyTransformation(const TMatrix& InTransformation)
 	{
 		Transformation = InTransformation * Transformation;
 	}
-
-	void SetAsLine(bool AsLine) { RenderAsLine = AsLine; }
 
 	void Render(SDL_Renderer* Renderer)
 	{
@@ -30,25 +27,10 @@ public:
 			v.position = Transformation * v.position;
 		}
 
-		if (!RenderAsLine)
-		{
-			SDL_RenderGeometry(Renderer, NULL, CModel.data(), static_cast<int>(CModel.size()), NULL, 0);
-			return;
-		}
-		
-		std::vector<SDL_FPoint> ModelPoints;
-
-		for (auto& v : CModel)
-		{
-			ModelPoints.push_back(v.position);
-		}
-
-		SDL_RenderLines(Renderer, ModelPoints.data(), static_cast<int>(ModelPoints.size()));
+		SDL_RenderGeometry(Renderer, NULL, CModel.data(), static_cast<int>(CModel.size()), NULL, 0);
 	}
 
 private:
 	TMatrix Transformation = TMatrix::Identity();
 	const std::vector<SDL_Vertex>* Model;
-	//const std::vector<SDL_FPoint>* DebugShape;
-	bool RenderAsLine = false;
 };

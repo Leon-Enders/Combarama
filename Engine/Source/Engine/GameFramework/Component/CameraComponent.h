@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneComponent.h"
 #include "../../../RenderCore/Drawable.h"
+#include "../../../RenderCore/DebugDrawable.h"
 #include "../../../RenderCore/CoordinateTransformer.h"
 
 
@@ -15,6 +16,7 @@ public:
 	virtual void Initialize();
 
 	void Draw(Drawable InDrawable)const;
+	void Draw(DebugDrawable InDrawable)const;
 private:
 
 	CoordinateTransformer& CT;

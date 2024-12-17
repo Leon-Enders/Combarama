@@ -2,7 +2,7 @@
 #include <vector>
 #include "CollisionShape.h"
 #include "Misc/CollisionHelper.h"
-#include "SDL3/SDL_render.h"
+#include "SDL3/SDL_rect.h"
 
 struct BodyInstance
 {
@@ -10,6 +10,6 @@ struct BodyInstance
 	void SetCollisionResponse(const ECollisionResponseType NewCollisionResponse) { CollisionResponse = NewCollisionResponse; }
 
 	CollisionShape Shape;
-	std::vector<SDL_Vertex> DebugShape;
+	std::vector<SDL_FPoint> DebugShape;
 	ECollisionResponseType CollisionResponse;
 };

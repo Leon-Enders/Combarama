@@ -44,11 +44,10 @@ Drawable PrimitiveComponent::GetDrawable() const
 	return d;
 }
 
-Drawable PrimitiveComponent::GetDebugDrawable() const
+DebugDrawable PrimitiveComponent::GetDebugDrawable() const
 {
-	Drawable d = Drawable(BodyProxy.DebugShape);
+	DebugDrawable d = DebugDrawable(BodyProxy.DebugShape);
 	d.ApplyTransformation(GetWorldMatrix());
-	d.SetAsLine(true);
 
 	return d;
 }

@@ -30,3 +30,14 @@ void CameraComponent::Draw(Drawable InDrawable) const
 
 	CT.Draw(InDrawable);
 }
+
+void CameraComponent::Draw(DebugDrawable InDrawable) const
+{
+	Transform WorldTransform = GetWorldTransform();
+	InDrawable.ApplyTransformation(
+		TMatrix::Scale(WorldTransform.Scale.X) *
+		TMatrix::Translate(WorldTransform.Position * -1.f)
+	);
+
+	CT.Draw(InDrawable);
+}

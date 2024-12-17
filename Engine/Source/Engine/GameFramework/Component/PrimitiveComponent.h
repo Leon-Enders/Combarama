@@ -2,6 +2,7 @@
 #include "SDL3/SDL_render.h"
 #include "SceneComponent.h"
 #include "../../../RenderCore/Drawable.h"
+#include "../../../RenderCore/DebugDrawable.h"
 #include "../../../PhysicsCore/BodyInstance.h"
 
 
@@ -13,7 +14,7 @@ public:
 	virtual void Initialize() override;
 
 	Drawable GetDrawable()const;
-	Drawable GetDebugDrawable()const;
+	DebugDrawable GetDebugDrawable()const;
 
 	void SetColor(SDL_FColor NewColor, int Offset = 0);
 	const bool GetRenderActive()const { return IsRenderActive; }

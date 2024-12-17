@@ -1,6 +1,7 @@
 #include "CoordinateTransformer.h"
 #include "../Core/Math/Transform.h"
 #include "Drawable.h"
+#include "DebugDrawable.h"
 #include "SDL3/SDL_render.h"
 
 CoordinateTransformer::CoordinateTransformer(SDL_Renderer* Renderer)
@@ -10,6 +11,18 @@ CoordinateTransformer::CoordinateTransformer(SDL_Renderer* Renderer)
 }
 
 void CoordinateTransformer::Draw(Drawable& InDrawable)const
+{
+	Vector2 ViewportCenter = Vector2(ViewportHalfWidth, ViewportHalfHeight);
+
+	InDrawable.ApplyTransformation(
+		TMatrix::Translate(ViewportCenter) *
+		TMatrix::FlipY()
+	);
+
+	InDrawable.Render(Renderer);
+}
+
+void CoordinateTransformer::Draw(DebugDrawable& InDrawable) const
 {
 	Vector2 ViewportCenter = Vector2(ViewportHalfWidth, ViewportHalfHeight);
 

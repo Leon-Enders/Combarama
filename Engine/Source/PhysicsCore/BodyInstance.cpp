@@ -7,5 +7,5 @@ BodyInstance::BodyInstance(CollisionShape Shape, ECollisionResponseType Collisio
 	Shape(Shape),
 	CollisionResponse(CollisionResponse)
 {
-	DebugShape = DebugCircle::Make(Shape.Radius, 120, COLOR_RED);
+	DebugShape = DebugCircle::Make(Shape.Radius, 120);
 }
