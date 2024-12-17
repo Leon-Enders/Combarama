@@ -12,16 +12,21 @@ public:
 	virtual ~PrimitiveComponent();
 	virtual void Initialize() override;
 
-	void SetColor(SDL_FColor NewColor, int Offset = 0);
-	bool GetRenderActive()const { return IsRenderActive; }
-	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
-
 	Drawable GetDrawable()const;
+	Drawable GetDebugDrawable()const;
+
+	void SetColor(SDL_FColor NewColor, int Offset = 0);
+	const bool GetRenderActive()const { return IsRenderActive; }
+	const bool GetDebugActive()const { return IsDebugActive; }
+
+	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
+	void SetDebugActive(bool DebugActive) { IsDebugActive = DebugActive; }
 private:
 	//Collision
 	BodyInstance BodyProxy;
 
 	//Render
 	bool IsRenderActive = true;
+	bool IsDebugActive = true;
 	std::vector<SDL_Vertex> Triangles;
 };

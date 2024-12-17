@@ -2,14 +2,14 @@
 #include "../../../Core/CoreMinimal.h"
 #include "../GameObject/Actor.h"
 #include "../World/World.h"
-#include "../../../RenderCore/Drawable.h"
 
 
 
 PrimitiveComponent::PrimitiveComponent(Actor* Owner, std::vector<SDL_Vertex> Triangles)
 	:
 	SceneComponent(Owner),
-	Triangles(std::move(Triangles))
+	Triangles(std::move(Triangles)),
+	BodyProxy(CollisionShape(50.f))
 {
 }
 
@@ -39,10 +39,16 @@ void PrimitiveComponent::SetColor(SDL_FColor NewColor, int Offset)
 Drawable PrimitiveComponent::GetDrawable() const
 {
 	Drawable d = Drawable(Triangles);
-
-	//TODO: use component transform in worldspace, currently it takes the roottransform of the owning actor
-	
 	d.ApplyTransformation(GetWorldMatrix());
+
+	return d;
+}
+
+Drawable PrimitiveComponent::GetDebugDrawable() const
+{
+	Drawable d = Drawable(BodyProxy.DebugShape);
+	d.ApplyTransformation(GetWorldMatrix());
+	d.SetAsLine(true);
 
 	return d;
 }

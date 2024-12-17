@@ -15,7 +15,6 @@ public:
 	virtual void Initialize();
 
 	void Draw(Drawable InDrawable)const;
-
 private:
 
 	CoordinateTransformer& CT;

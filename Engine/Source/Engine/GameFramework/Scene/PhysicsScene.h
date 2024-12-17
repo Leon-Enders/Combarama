@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-class BodyInstance;
+struct BodyInstance;
 
 class PhysicsScene
 {

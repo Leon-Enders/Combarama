@@ -1,20 +1,15 @@
 #pragma once
+#include <vector>
 #include "CollisionShape.h"
 #include "Misc/CollisionHelper.h"
+#include "SDL3/SDL_render.h"
 
-class BodyInstance
+struct BodyInstance
 {
-public:
-	BodyInstance(CollisionShape Shape ={}, ECollisionResponseType CollisionResponse = ECollisionResponseType::ECR_None)
-	:
-		Shape(Shape),
-		CollisionResponse(CollisionResponse)
-	{
-	}
-
+	BodyInstance(CollisionShape Shape = {}, ECollisionResponseType CollisionResponse = ECollisionResponseType::ECR_None);
 	void SetCollisionResponse(const ECollisionResponseType NewCollisionResponse) { CollisionResponse = NewCollisionResponse; }
 
-private:
 	CollisionShape Shape;
+	std::vector<SDL_Vertex> DebugShape;
 	ECollisionResponseType CollisionResponse;
 };

@@ -161,6 +161,9 @@
     <ClCompile Include="Engine\Source\Engine\GameFramework\Scene\RenderScene.cpp">
       <Filter>Source\Engine\GameFramework\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Source\PhysicsCore\BodyInstance.cpp">
+      <Filter>Source\PhysicsCore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Source\Core\CoreMinimal.h">
@@ -318,6 +321,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Source\PhysicsCore\CollisionResult.h">
       <Filter>Source\PhysicsCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\RenderCore\Misc\DebugPrimitiveFactory.h">
+      <Filter>Source\RenderCore\Misc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

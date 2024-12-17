@@ -23,5 +23,9 @@ void RenderSubsystem::Draw(const RenderScene& RScene)
 	{
 		if (!p->GetRenderActive()) continue;
 		ActiveCamera->Draw(p->GetDrawable());
+		if (p->GetDebugActive())
+		{
+			ActiveCamera->Draw(p->GetDebugDrawable());
+		}
 	}
 }

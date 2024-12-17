@@ -10,22 +10,16 @@
 class Circle
 {
 public:
-	Circle()
-	{
-	};
-
-
 	static std::vector<SDL_Vertex> Make(float Radius, const Transform& PivotTransform = Transform(), size_t Segments = 120, SDL_FColor Color = {255.f,255.f,255.f,255.f})
 	{
 		TMatrix TransformMatrix = TMatrix::TransformToMatrix(PivotTransform);
-		std::vector<SDL_Vertex> Verts = {Segments,SDL_Vertex()};
+		std::vector<SDL_Vertex> Verts = {Segments,{SDL_FPoint(), Color, SDL_FPoint()} };
 		float AngleStep = static_cast<float>(360.f / Segments);
 
 		for (int i = 0; i < Segments; i++)
 		{
 			float CurrentAngle = (AngleStep * i * (std::numbers::pi_v<float> / 180.f));
 		
-			Verts[i].color = Color;
 			Verts[i].position.x = Radius * cos(CurrentAngle);
 			Verts[i].position.y = Radius * sin(CurrentAngle);
 		}
@@ -65,7 +59,7 @@ public:
 	static std::vector<SDL_Vertex> Make(float Width, float Height, const Transform& PivotTransform = Transform(),SDL_FColor Color = { 255.f,255.f,255.f,255.f })
 	{
 		TMatrix TransformMatrix = TMatrix::TransformToMatrix(PivotTransform);
-		std::vector<SDL_Vertex> Verts = {4, SDL_Vertex() };
+		std::vector<SDL_Vertex> Verts = { 4, {SDL_FPoint(), Color, SDL_FPoint()}};
 
 		float HalfWidth = Width / 2;
 		float HalfHeight = Height / 2;
