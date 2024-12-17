@@ -1,10 +1,8 @@
 #pragma once
 
-enum class ECollisionFlags
+enum class ECollisionResponseType
 {
 	None,
-	Top,
-	Bottom,
-	Left,
-	Right
+	Overlap,
+	Block
 };
