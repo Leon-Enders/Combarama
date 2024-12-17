@@ -5,7 +5,7 @@
 
 
 class Actor;
-
+class World;
 
 class ActorComponent
 {
@@ -19,6 +19,7 @@ public:
 	virtual void LateUpdate(float DeltaTime);
 
 	const Actor* GetOwner()const { return Owner; }
+	World* GetWorld()const;
 private:
 
 	Actor* Owner = nullptr;

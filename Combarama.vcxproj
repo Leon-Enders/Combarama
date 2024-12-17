@@ -39,6 +39,7 @@
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\GameObject.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Obstacle.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Projectile.cpp" />
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Scene\PhysicsScene.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\AISystem.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\World.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\WorldSubsystem.cpp" />
@@ -46,7 +47,6 @@
     <ClCompile Include="Engine\Source\Engine\Physics\Collider.cpp" />
     <ClCompile Include="Engine\Source\Engine\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Engine\Source\Engine\Render\RenderSubsystem.cpp" />
-    <ClCompile Include="Engine\Source\Engine\Scene\PhysicsScene.cpp" />
     <ClCompile Include="Engine\Source\RenderCore\CoordinateTransformer.cpp" />
     <ClCompile Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.cpp" />
   </ItemGroup>
@@ -79,6 +79,9 @@
     <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\GameObject.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Obstacle.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Projectile.h" />
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Scene\PhysicsScene.h" />
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Scene\RenderScene.h" />
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Scene\Scene.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\World\AISystem.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\World\World.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\World\WorldSubsystem.h" />
@@ -90,9 +93,6 @@
     <ClInclude Include="Engine\Source\Engine\Physics\Collider.h" />
     <ClInclude Include="Engine\Source\Engine\Physics\CollisionSystem.h" />
     <ClInclude Include="Engine\Source\Engine\Render\RenderSubsystem.h" />
-    <ClInclude Include="Engine\Source\Engine\Scene\PhysicsScene.h" />
-    <ClInclude Include="Engine\Source\Engine\Scene\RenderScene.h" />
-    <ClInclude Include="Engine\Source\Engine\Scene\Scene.h" />
     <ClInclude Include="Engine\Source\PhysicsCore\BodyInstance.h" />
     <ClInclude Include="Engine\Source\PhysicsCore\CollisionShape.h" />
     <ClInclude Include="Engine\Source\PhysicsCore\Misc\CollisionHelper.h" />

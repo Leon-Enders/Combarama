@@ -17,13 +17,13 @@ PrimitiveComponent::PrimitiveComponent(Actor* Owner, std::vector<SDL_Vertex> Tri
 PrimitiveComponent::~PrimitiveComponent()
 {
 	AGame->GetRenderSubsystem()->RemovePrimitiveComponent(*this);
-	//Register BodyInstance with PhsyicsScene
+	GetWorld()->GetPhysicsScene().UnRegisterBodyInstance(&BodyProxy);
 }
 
 void PrimitiveComponent::Initialize()
 {
 	AGame->GetRenderSubsystem()->AddPrimitiveComponent(*this);
-	//UnRegister BodyInstance with PhsyicsScene
+	GetWorld()->GetPhysicsScene().RegisterBodyInstance(&BodyProxy);
 }
 
 

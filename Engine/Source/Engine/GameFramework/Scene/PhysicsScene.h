@@ -7,7 +7,7 @@ class PhysicsScene
 {
 public:
 	void RegisterBodyInstance(BodyInstance* BodyInstanceProxy);
-	void RemoveBodyInstance(BodyInstance* BodyInstanceProxy);
+	void UnRegisterBodyInstance(BodyInstance* BodyInstanceProxy);
 
 private:
 	std::vector<BodyInstance*> BodyProxies;

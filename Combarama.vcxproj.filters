@@ -152,7 +152,7 @@
     <ClCompile Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.cpp">
       <Filter>Source\RenderCore\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Source\Engine\Scene\PhysicsScene.cpp">
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Scene\PhysicsScene.cpp">
       <Filter>Source\Engine\GameFramework\Scene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -292,19 +292,19 @@
     <ClInclude Include="Engine\Source\Core\Math\Vector3.h">
       <Filter>Source\Core\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Source\Engine\Scene\Scene.h">
-      <Filter>Source\Engine\GameFramework\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Source\Engine\Scene\PhysicsScene.h">
-      <Filter>Source\Engine\GameFramework\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Source\PhysicsCore\BodyInstance.h">
       <Filter>Source\PhysicsCore</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Source\PhysicsCore\CollisionShape.h">
       <Filter>Source\PhysicsCore</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Source\Engine\Scene\RenderScene.h">
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Scene\PhysicsScene.h">
+      <Filter>Source\Engine\GameFramework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Scene\RenderScene.h">
+      <Filter>Source\Engine\GameFramework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Scene\Scene.h">
       <Filter>Source\Engine\GameFramework\Scene</Filter>
     </ClInclude>
   </ItemGroup>

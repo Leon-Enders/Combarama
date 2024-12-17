@@ -9,6 +9,7 @@
 #include "../GameObject/GameObject.h"
 #include "../../../Core/Math/Transform.h"
 #include "WorldSubsystem.h"
+#include "../Scene/PhysicsScene.h"
 
 struct SDL_FColor;
 class Controller;
@@ -75,24 +76,36 @@ public:
 
 	Game* GetGame() { return theGame; }
 
+	PhysicsScene& GetPhysicsScene(){ return PScene; }
+
 private:
 	template<IsGameObject T>
 	void AddGameObjectToMap(std::shared_ptr<T> GameObjectToAdd);
 
 	void FillSubsystemCollection();
 
+private:
+	// General
+	Game* theGame;
 
 private:
-
+	// GameObjects
 	std::unordered_map<std::type_index, GameObjectVariant> GameObjectTypeToGameObjectsMap;
 	std::vector<std::unique_ptr<WorldSubsystem>> SubsystemCollection;
 	std::vector<std::shared_ptr<GameObject>> InstancedGameObjects;
 
 	std::vector<GameObject*> GameObjectsToRemove;
 	std::vector<std::shared_ptr<GameObject>> GameObjectsToAdd;
-
-	Game* theGame;
+private:
+	// Scene
+	PhysicsScene PScene;
+	// TODO Create RenderScene and refactor RenderSubsystems state into here
 };
+
+
+
+/* Template Definitions
+*/
 
 template<IsGameObject T, typename... Args>
 inline std::weak_ptr<T> World::SpawnGameObject(Args&& ... args)
