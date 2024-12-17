@@ -1,6 +1,5 @@
 #include "PrimitiveComponent.h"
 #include "../../../Core/CoreMinimal.h"
-#include "../../Game.h"
 #include "../GameObject/Actor.h"
 #include "../World/World.h"
 #include "../../../RenderCore/Drawable.h"
@@ -16,13 +15,15 @@ PrimitiveComponent::PrimitiveComponent(Actor* Owner, std::vector<SDL_Vertex> Tri
 
 PrimitiveComponent::~PrimitiveComponent()
 {
-	AGame->GetRenderSubsystem()->RemovePrimitiveComponent(*this);
+	GetWorld()->GetRenderScene().UnRegisterPrimitiveComponent(this);
 	GetWorld()->GetPhysicsScene().UnRegisterBodyInstance(&BodyProxy);
+	
 }
 
 void PrimitiveComponent::Initialize()
 {
-	AGame->GetRenderSubsystem()->AddPrimitiveComponent(*this);
+
+	GetWorld()->GetRenderScene().RegisterPrimitiveComponent(this);
 	GetWorld()->GetPhysicsScene().RegisterBodyInstance(&BodyProxy);
 }
 
