@@ -7,7 +7,7 @@
 #include "../../Core/Math/Matrix.h"
 
 
-class Circle
+class CirclePrimitive
 {
 public:
 	static std::vector<SDL_Vertex> Make(float Radius, const Transform& PivotTransform = Transform(), size_t Segments = 120, SDL_FColor Color = {255.f,255.f,255.f,255.f})
@@ -52,7 +52,7 @@ public:
 	}
 };
 
-class Rectangle
+class RectPrimitive
 {
 public:
 
@@ -99,14 +99,14 @@ public:
 	}
 };
 
-class Avatar
+class AvatarPrimitive
 {
 public:
 
 	static std::vector<SDL_Vertex> Make(float Radius = 25.f, float HeadWidth = 25.f, float HeadHeight = 15.f)
 	{
-		auto Verts = Circle::Make(Radius);
-		auto RectVerts = Rectangle::Make(HeadHeight, HeadWidth, Transform({ 25.f,0.f },0.f,{1.f,1.f}));
+		auto Verts = CirclePrimitive::Make(Radius);
+		auto RectVerts = RectPrimitive::Make(HeadHeight, HeadWidth, Transform({ 25.f,0.f },0.f,{1.f,1.f}));
 
 		Verts.insert(Verts.begin(), RectVerts.begin(), RectVerts.end());
 
@@ -115,7 +115,7 @@ public:
 };
 
 
-class Sword
+class SwordPrimitive
 {
 public:
 	static std::vector<SDL_Vertex> Make(const Transform& PivotTransform = {}, SDL_FColor Color = { 255.f,255.f,255.f,255.f })

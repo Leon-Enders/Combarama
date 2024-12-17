@@ -9,7 +9,7 @@ Obstacle::Obstacle(World* GameWorld, const Transform& InTransform, const Vector2
 	ObstacleColour(InColor)
 {
 	//INFO: Currently you always need to attach a component to the root to update its transform to the gameobjects root
-	ObstaclePrimitive = CreateComponent<PrimitiveComponent>(std::move(Rectangle::Make(RectHalfExtent.X, RectHalfExtent.Y)));
+	ObstaclePrimitive = CreateComponent<PrimitiveComponent>(std::move(RectPrimitive::Make(RectHalfExtent.X, RectHalfExtent.Y)));
 	ObstaclePrimitive->AttachToComponent(GetRootComponent());
 	ObstaclePrimitive->SetColor(ObstacleColour);
 	ObstaclePrimitive->SetCollisionShape(CollisionShape::MakeRect(RectHalfExtent));

@@ -9,7 +9,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	:
 	Actor(GameWorld,InTransform)
 {
-	CharacterPrimitive = CreateComponent<PrimitiveComponent>(std::move(Avatar::Make()));
+	CharacterPrimitive = CreateComponent<PrimitiveComponent>(std::move(AvatarPrimitive::Make()));
 	CharacterPrimitive->AttachToComponent(GetRootComponent());
 }
 

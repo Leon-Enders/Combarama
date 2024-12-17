@@ -13,7 +13,7 @@ Enemy::Enemy(World* GameWorld, const Transform& InTransform)
 	:
 	Character(GameWorld, InTransform)
 {
-	Weapon = CreateComponent<PrimitiveComponent>(std::move(Sword::Make({ { 75.f,0.f }, 1.5708f, { 1.f,1.f } })));
+	Weapon = CreateComponent<PrimitiveComponent>(std::move(SwordPrimitive::Make({ { 75.f,0.f }, 1.5708f, { 1.f,1.f } })));
 	Weapon->AttachToComponent(GetRootComponent());
 	Weapon->SetColor(COLOR_GREY);
 	Weapon->SetRenderActive(false);
