@@ -17,6 +17,7 @@ public:
 	DebugDrawable GetDebugDrawable()const;
 
 	void SetColor(SDL_FColor NewColor, int Offset = 0);
+	void SetCollisionShape(const CollisionShape& Shape);
 	const bool GetRenderActive()const { return IsRenderActive; }
 	const bool GetDebugActive()const { return IsDebugActive; }
 

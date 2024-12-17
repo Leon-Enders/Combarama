@@ -1,5 +1,6 @@
 #pragma once
 #include <variant>
+#include "SDL3/SDL_rect.h"
 #include "../Core/Math/Vector2.h"
 
 struct CollisionShape

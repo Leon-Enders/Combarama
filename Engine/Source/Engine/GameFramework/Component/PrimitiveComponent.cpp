@@ -10,6 +10,7 @@ PrimitiveComponent::PrimitiveComponent(Actor* Owner, std::vector<SDL_Vertex> Tri
 	SceneComponent(Owner),
 	Triangles(std::move(Triangles))
 {
+	BodyProxy.SetCollisionShape(CollisionShape::MakeCircle(50.f));
 }
 
 PrimitiveComponent::~PrimitiveComponent()
@@ -35,6 +36,11 @@ void PrimitiveComponent::SetColor(SDL_FColor NewColor, int Offset)
 	}
 }
 
+void PrimitiveComponent::SetCollisionShape(const CollisionShape& Shape)
+{
+	BodyProxy.SetCollisionShape(Shape);
+}
+
 Drawable PrimitiveComponent::GetDrawable() const
 {
 	Drawable d = Drawable(Triangles);
@@ -45,7 +51,7 @@ Drawable PrimitiveComponent::GetDrawable() const
 
 DebugDrawable PrimitiveComponent::GetDebugDrawable() const
 {
-	DebugDrawable d = DebugDrawable(BodyProxy.DebugShape);
+	DebugDrawable d = DebugDrawable(BodyProxy.GetDebugShape());
 	d.ApplyTransformation(GetWorldMatrix());
 
 	return d;
