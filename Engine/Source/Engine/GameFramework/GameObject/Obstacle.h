@@ -15,9 +15,6 @@ public:
 	virtual void Initialize() override;
 
 private:
-	
-	Vector2 RectDimensions;
-
 	SDL_FColor ObstacleColour;
 
 	PrimitiveComponent* ObstaclePrimitive = nullptr;

@@ -56,25 +56,22 @@ class Rectangle
 {
 public:
 
-	static std::vector<SDL_Vertex> Make(float Width, float Height, const Transform& PivotTransform = Transform(),SDL_FColor Color = { 255.f,255.f,255.f,255.f })
+	static std::vector<SDL_Vertex> Make(float HalfExtentX, float HalfExtentY, const Transform& PivotTransform = Transform(),SDL_FColor Color = { 255.f,255.f,255.f,255.f })
 	{
 		TMatrix TransformMatrix = TMatrix::TransformToMatrix(PivotTransform);
 		std::vector<SDL_Vertex> Verts = { 4, {SDL_FPoint(), Color, SDL_FPoint()}};
-
-		float HalfWidth = Width / 2;
-		float HalfHeight = Height / 2;
 		
-		Verts[0].position.x -= HalfWidth;
-		Verts[0].position.y += HalfHeight;
+		Verts[0].position.x = -HalfExtentX;
+		Verts[0].position.y = HalfExtentY;
 	
-		Verts[1].position.x += HalfWidth;
-		Verts[1].position.y += HalfHeight;
+		Verts[1].position.x = HalfExtentX;
+		Verts[1].position.y = HalfExtentY;
 	
-		Verts[2].position.x -= HalfWidth;
-		Verts[2].position.y -= HalfHeight;
+		Verts[2].position.x = -HalfExtentX;
+		Verts[2].position.y = -HalfExtentY;
 	
-		Verts[3].position.x += HalfWidth;
-		Verts[3].position.y -= HalfHeight;
+		Verts[3].position.x = HalfExtentX;
+		Verts[3].position.y = -HalfExtentY;
 
 		Triangulate(Verts);
 

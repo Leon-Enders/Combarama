@@ -10,7 +10,7 @@ PrimitiveComponent::PrimitiveComponent(Actor* Owner, std::vector<SDL_Vertex> Tri
 	SceneComponent(Owner),
 	Triangles(std::move(Triangles))
 {
-	BodyProxy.SetCollisionShape(CollisionShape::MakeCircle(50.f));
+	BodyProxy.SetCollisionShape(CollisionShape::MakeCircle(25.f));
 }
 
 PrimitiveComponent::~PrimitiveComponent()

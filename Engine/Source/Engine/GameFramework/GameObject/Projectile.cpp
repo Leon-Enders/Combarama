@@ -12,6 +12,7 @@ Projectile::Projectile(World* GameWorld, const Transform& InTransform)
 	ProjectilePrimitive = CreateComponent<PrimitiveComponent>(std::move(Circle::Make(ProjectileSize)));
 	ProjectilePrimitive->AttachToComponent(GetRootComponent());
 	ProjectilePrimitive->SetColor(COLOR_GREEN);
+	ProjectilePrimitive->SetCollisionShape(CollisionShape::MakeCircle(ProjectileSize));
 }
 
 void Projectile::Initialize()

@@ -28,7 +28,6 @@ public:
 		}
 		SDL_SetRenderDrawColorFloat(Renderer, 255.f, 0.f, 0.f, 255.f);
 		SDL_RenderLines(Renderer, CShape.data(), static_cast<int>(CShape.size()));
-		SDL_RenderLine(Renderer, CShape.back().x, CShape.back().y, CShape.front().x, CShape.front().y);
 	}
 
 private:
