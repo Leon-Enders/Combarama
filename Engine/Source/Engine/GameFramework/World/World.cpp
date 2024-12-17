@@ -116,7 +116,7 @@ void World::RemoveGameObject(GameObject* GameObjectToRemove)
 
 bool World::SweepByChannel(const Vector2& StartLocation, CollisionResult& OutCollisionResult, ECollisionChannel CollisionChannel)
 {
-	return false;
+	return GetSubsystem<CollisionSubsystem>()->SweepByChannel(PScene, StartLocation, OutCollisionResult, CollisionChannel);
 }
 
 void World::CreateSubsystemCollection()
