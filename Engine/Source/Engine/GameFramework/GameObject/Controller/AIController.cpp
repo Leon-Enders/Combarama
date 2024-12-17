@@ -5,7 +5,6 @@
 #include "../Character/PlayerCharacter.h"
 #include "../../../../Core/Math/ComboramaMath.h"
 #include "../../World/World.h"
-#include "../../World/AISystem.h"
 #include "../../../../Core/Misc/ComboramaRandom.h"
 
 AIController::AIController(World* InOwningWorld)

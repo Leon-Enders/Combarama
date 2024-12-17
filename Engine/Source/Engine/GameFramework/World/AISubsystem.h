@@ -6,15 +6,11 @@
 #include "../GameObject/Controller/AIController.h"
 
 
-
-class Game;
-
-class AISystem : public WorldSubsystem
+class AISubsystem : public WorldSubsystem
 {
 public:
-	AISystem(World* InGameWorld);
+	AISubsystem(World* GameWorld);
 	virtual void Initialize();
-	virtual void Update(float DeltaTime);
 	void SpawnRandomEnemy();
 
 private:

@@ -12,6 +12,8 @@
 #include "../Scene/PhysicsScene.h"
 
 struct SDL_FColor;
+
+/*Game Objects*/
 class Controller;
 class AIController;
 class PlayerController;
@@ -23,7 +25,7 @@ class Enemy;
 class PlayerCharacter;
 
 
-
+/*Concepts*/
 template<typename T>
 concept IsGameObject = std::is_base_of<GameObject, T>::value;
 
@@ -34,6 +36,7 @@ template<typename T>
 concept IsSubsystem = std::is_base_of<WorldSubsystem, T>::value;
 
 
+/*Variants*/
 using GameObjectVariant = std::variant<
 	std::vector<std::weak_ptr<GameObject>>,
 	std::vector<std::weak_ptr<Controller>>,

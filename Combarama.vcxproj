@@ -40,7 +40,8 @@
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Obstacle.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Projectile.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\Scene\PhysicsScene.cpp" />
-    <ClCompile Include="Engine\Source\Engine\GameFramework\World\AISystem.cpp" />
+    <ClCompile Include="Engine\Source\Engine\GameFramework\World\AISubsystem.cpp" />
+    <ClCompile Include="Engine\Source\Engine\GameFramework\World\CollisionSubsystem.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\World.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\WorldSubsystem.cpp" />
     <ClCompile Include="Engine\Source\Engine\Input\InputSystem.cpp" />
@@ -82,7 +83,8 @@
     <ClInclude Include="Engine\Source\Engine\GameFramework\Scene\PhysicsScene.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\Scene\RenderScene.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\Scene\Scene.h" />
-    <ClInclude Include="Engine\Source\Engine\GameFramework\World\AISystem.h" />
+    <ClInclude Include="Engine\Source\Engine\GameFramework\World\AISubsystem.h" />
+    <ClInclude Include="Engine\Source\Engine\GameFramework\World\CollisionSubsystem.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\World\World.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\World\WorldSubsystem.h" />
     <ClInclude Include="Engine\Source\Engine\Input\InputAction.h" />

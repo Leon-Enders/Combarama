@@ -1,5 +1,6 @@
 #include "World.h"
-#include "AISystem.h"
+#include "AISubsystem.h"
+#include "CollisionSubsystem.h"
 #include "../GameObject/Actor.h"
 #include "../GameObject/Character/Character.h"
 #include "../GameObject/Character/Enemy.h"
@@ -115,5 +116,6 @@ void World::RemoveGameObject(GameObject* GameObjectToRemove)
 
 void World::FillSubsystemCollection()
 {
-	SubsystemCollection.emplace_back(std::make_unique<AISystem>(this));
+	SubsystemCollection.emplace_back(std::make_unique<AISubsystem>(this));
+	SubsystemCollection.emplace_back(std::make_unique<CollisionSubsystem>(this));
 }

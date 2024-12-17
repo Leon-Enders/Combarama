@@ -1,4 +1,4 @@
-#include "AISystem.h"
+#include "AISubsystem.h"
 #include <ctime>
 #include <ranges>
 #include "../GameObject/Character/Enemy.h"
@@ -6,24 +6,19 @@
 #include "World.h"
 
 
-AISystem::AISystem(World* InGameWorld)
+AISubsystem::AISubsystem(World* GameWorld)
 	:
-	WorldSubsystem(InGameWorld)
+	WorldSubsystem(GameWorld)
 {
 
 }
 
-void AISystem::Initialize()
+void AISubsystem::Initialize()
 {
 	RandomGenerator = std::mt19937(static_cast<unsigned int>(std::time(nullptr)));
 }
 
-void AISystem::Update(float DeltaTime)
-{
-
-}
-
-void AISystem::SpawnRandomEnemy()
+void AISubsystem::SpawnRandomEnemy()
 {
 	//TODO: Create viewport constant and it use here
 	// Create distribution for width and height where enemies can spawn with some padding

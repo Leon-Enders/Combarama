@@ -5,7 +5,7 @@ class World;
 class WorldSubsystem
 {
 public:
-	WorldSubsystem(World* InGameWorld);
+	WorldSubsystem(World* GameWorld);
 	virtual void Initialize();
 	virtual void Update(float DeltaTime);
 

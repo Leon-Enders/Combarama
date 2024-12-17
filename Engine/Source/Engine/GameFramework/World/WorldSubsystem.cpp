@@ -2,15 +2,14 @@
 #include "World.h"
 
 
-WorldSubsystem::WorldSubsystem(World* InGameWorld)
+WorldSubsystem::WorldSubsystem(World* GameWorld)
 	:
-	GameWorld(InGameWorld)
+	GameWorld(GameWorld)
 {
 }
 
 void WorldSubsystem::Initialize()
 {
-
 }
 
 void WorldSubsystem::Update(float DeltaTime)
