@@ -12,8 +12,9 @@
 #include "../Scene/PhysicsScene.h"
 
 struct SDL_FColor;
+class Game;
 
-/*Game Objects*/
+/*GameObject*/
 class Controller;
 class AIController;
 class PlayerController;
@@ -25,7 +26,7 @@ class Enemy;
 class PlayerCharacter;
 
 
-/*Concepts*/
+/*Concept*/
 template<typename T>
 concept IsGameObject = std::is_base_of<GameObject, T>::value;
 
@@ -36,7 +37,7 @@ template<typename T>
 concept IsSubsystem = std::is_base_of<WorldSubsystem, T>::value;
 
 
-/*Variants*/
+/*Variant*/
 using GameObjectVariant = std::variant<
 	std::vector<std::weak_ptr<GameObject>>,
 	std::vector<std::weak_ptr<Controller>>,
@@ -49,11 +50,11 @@ using GameObjectVariant = std::variant<
 	std::vector<std::weak_ptr<Obstacle>>,
 	std::vector<std::weak_ptr<Projectile>>>;
 
-class Game;
 
 class World
 {
 public:
+	/*General*/
 	World(Game* theGame);
 	void Initialize();
 	
@@ -62,54 +63,55 @@ public:
 	void LateUpdate(float DeltaTime);
 	void DrawDebug();
 
+	Game* GetGame() { return theGame; }
+	
+	/*GameObject*/
 	template<IsGameObject T, typename... Args>
 	std::weak_ptr<T> SpawnGameObject(Args&& ... args);
 
 	template<IsGameObject T>
 	std::vector<std::shared_ptr<T>> GetAllGameObjectsOfClass();
 
-	template<IsSubsystem T>
-	T* GetSubsystem();
-
-
 	void UpdateInstancedGameObjects();
 	void CleanUpInstanceGameObjects();
 	void RemoveGameObject(GameObject* GameObjectToRemove);
 
+	/*Subsystem*/
+	template<IsSubsystem T>
+	T* GetSubsystem();
 
-	Game* GetGame() { return theGame; }
-
-	PhysicsScene& GetPhysicsScene(){ return PScene; }
+	/*Scene*/
+	PhysicsScene& GetPhysicsScene() { return PScene; }
 
 private:
+	/*GameObject*/
 	template<IsGameObject T>
 	void AddGameObjectToMap(std::shared_ptr<T> GameObjectToAdd);
 
-	void FillSubsystemCollection();
+	/*Subsystem*/
+	void CreateSubsystemCollection();
 
 private:
-	// General
+	/*General*/
 	Game* theGame;
 
 private:
-	// GameObjects
+	/*GameObject*/
 	std::unordered_map<std::type_index, GameObjectVariant> GameObjectTypeToGameObjectsMap;
-	std::vector<std::unique_ptr<WorldSubsystem>> SubsystemCollection;
 	std::vector<std::shared_ptr<GameObject>> InstancedGameObjects;
-
 	std::vector<GameObject*> GameObjectsToRemove;
 	std::vector<std::shared_ptr<GameObject>> GameObjectsToAdd;
-private:
-	// Scene
+
+	/*Subsystem*/
+	std::vector<std::unique_ptr<WorldSubsystem>> SubsystemCollection;
+
+	/*Scene*/
 	PhysicsScene PScene;
 	// TODO Create RenderScene and refactor RenderSubsystems state into here
 };
 
 
-
-/* Template Definitions
-*/
-
+/* Template Definitions*/
 template<IsGameObject T, typename... Args>
 inline std::weak_ptr<T> World::SpawnGameObject(Args&& ... args)
 {

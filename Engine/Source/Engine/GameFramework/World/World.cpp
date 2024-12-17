@@ -18,8 +18,8 @@ World::World(Game* theGame)
 
 void World::Initialize()
 {
-	// Add all WorldSubsystems and Initialize them
-	FillSubsystemCollection();
+	// Create all WorldSubsystems and Initialize them
+	CreateSubsystemCollection();
 
 	for (const auto& ActiveSubsystem : SubsystemCollection)
 	{
@@ -114,7 +114,7 @@ void World::RemoveGameObject(GameObject* GameObjectToRemove)
 	GameObjectsToRemove.push_back(GameObjectToRemove);
 }
 
-void World::FillSubsystemCollection()
+void World::CreateSubsystemCollection()
 {
 	SubsystemCollection.emplace_back(std::make_unique<AISubsystem>(this));
 	SubsystemCollection.emplace_back(std::make_unique<CollisionSubsystem>(this));
