@@ -10,6 +10,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	Actor(GameWorld,InTransform)
 {
 	CharacterPrimitive = CreateComponent<PrimitiveComponent>(std::move(AvatarPrimitive::Make()));
+	CharacterPrimitive->SetCollisionShape(CollisionShape::MakeCircle(25.f));
 	CharacterPrimitive->AttachToComponent(GetRootComponent());
 }
 
