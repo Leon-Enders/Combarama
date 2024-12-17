@@ -25,27 +25,25 @@ public:
 	}
 };
 
-class DebugRectangle
+class DebugRect
 {
 public:
 
-	static std::vector<SDL_FPoint> Make(float Width, float Height)
+	static std::vector<SDL_FPoint> Make(float HalfExtentX, float HalfExtentY)
 	{
 		std::vector<SDL_FPoint> Points = { 4,SDL_FPoint() };
-		float HalfWidth = Width / 2;
-		float HalfHeight = Height / 2;
+	
+		Points[0].x -= HalfExtentX;
+		Points[0].y += HalfExtentY;
 
-		Points[0].x -= HalfWidth;
-		Points[0].y += HalfHeight;
+		Points[1].x += HalfExtentX;
+		Points[1].y += HalfExtentY;
 
-		Points[1].x += HalfWidth;
-		Points[1].y += HalfHeight;
+		Points[2].x -= HalfExtentX;
+		Points[2].y -= HalfExtentY;
 
-		Points[2].x -= HalfWidth;
-		Points[2].y -= HalfHeight;
-
-		Points[3].x += HalfWidth;
-		Points[3].y -= HalfHeight;
+		Points[3].x += HalfExtentX;
+		Points[3].y -= HalfExtentY;
 
 		return Points;
 	}

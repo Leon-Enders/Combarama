@@ -8,8 +8,7 @@
 PrimitiveComponent::PrimitiveComponent(Actor* Owner, std::vector<SDL_Vertex> Triangles)
 	:
 	SceneComponent(Owner),
-	Triangles(std::move(Triangles)),
-	BodyProxy(CollisionShape(50.f))
+	Triangles(std::move(Triangles))
 {
 }
 
