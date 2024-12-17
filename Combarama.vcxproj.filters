@@ -86,9 +86,6 @@
     <ClCompile Include="Engine\Source\Engine\GameFramework\World\WorldSubsystem.cpp">
       <Filter>Source\Engine\GameFramework\World</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Source\Engine\GameFramework\World\AISystem.cpp">
-      <Filter>Source\Engine\GameFramework\World</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Actor.cpp">
       <Filter>Source\Engine\GameFramework\GameObject</Filter>
     </ClCompile>
@@ -155,6 +152,12 @@
     <ClCompile Include="Engine\Source\Engine\GameFramework\Scene\PhysicsScene.cpp">
       <Filter>Source\Engine\GameFramework\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\World\AISubsystem.cpp">
+      <Filter>Source\Engine\GameFramework\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\World\CollisionSubsystem.cpp">
+      <Filter>Source\Engine\GameFramework\World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Source\Core\CoreMinimal.h">
@@ -194,9 +197,6 @@
       <Filter>Source\Engine\GameFramework\World</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Source\Engine\GameFramework\World\WorldSubsystem.h">
-      <Filter>Source\Engine\GameFramework\World</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Source\Engine\GameFramework\World\AISystem.h">
       <Filter>Source\Engine\GameFramework\World</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Actor.h">
@@ -306,6 +306,15 @@
     </ClInclude>
     <ClInclude Include="Engine\Source\Engine\GameFramework\Scene\Scene.h">
       <Filter>Source\Engine\GameFramework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\World\AISubsystem.h">
+      <Filter>Source\Engine\GameFramework\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\World\CollisionSubsystem.h">
+      <Filter>Source\Engine\GameFramework\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\PhysicsCore\CollisionResult.h">
+      <Filter>Source\PhysicsCore</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
