@@ -64,6 +64,9 @@
     <Filter Include="Content">
       <UniqueIdentifier>{36462288-7c9a-419b-8113-9e509cb64680}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\GameFramework\Scene">
+      <UniqueIdentifier>{84ebe2aa-adf4-4ddf-9199-18c4863e6ec2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.cpp">
       <Filter>Source\RenderCore\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\Scene\PhysicsScene.cpp">
+      <Filter>Source\Engine\GameFramework\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +291,21 @@
     </ClInclude>
     <ClInclude Include="Engine\Source\Core\Math\Vector3.h">
       <Filter>Source\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Scene\Scene.h">
+      <Filter>Source\Engine\GameFramework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Scene\PhysicsScene.h">
+      <Filter>Source\Engine\GameFramework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\PhysicsCore\BodyInstance.h">
+      <Filter>Source\PhysicsCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\PhysicsCore\CollisionShape.h">
+      <Filter>Source\PhysicsCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\Scene\RenderScene.h">
+      <Filter>Source\Engine\GameFramework\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

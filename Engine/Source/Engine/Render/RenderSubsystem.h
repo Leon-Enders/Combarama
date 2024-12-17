@@ -4,6 +4,8 @@
 #include "../../RenderCore/Drawable.h"
 #include <vector>
 
+//TODO: RenderSubsystem should hold no state of the Primitive Components
+//-> Create RenderScene in World which holds state for the things to render
 class PrimitiveComponent;
 class CameraComponent;
 

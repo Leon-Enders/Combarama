@@ -46,6 +46,7 @@
     <ClCompile Include="Engine\Source\Engine\Physics\Collider.cpp" />
     <ClCompile Include="Engine\Source\Engine\Physics\CollisionSystem.cpp" />
     <ClCompile Include="Engine\Source\Engine\Render\RenderSubsystem.cpp" />
+    <ClCompile Include="Engine\Source\Engine\Scene\PhysicsScene.cpp" />
     <ClCompile Include="Engine\Source\RenderCore\CoordinateTransformer.cpp" />
     <ClCompile Include="Engine\Source\RenderCore\Misc\DrawDebugHelpers.cpp" />
   </ItemGroup>
@@ -89,6 +90,11 @@
     <ClInclude Include="Engine\Source\Engine\Physics\Collider.h" />
     <ClInclude Include="Engine\Source\Engine\Physics\CollisionSystem.h" />
     <ClInclude Include="Engine\Source\Engine\Render\RenderSubsystem.h" />
+    <ClInclude Include="Engine\Source\Engine\Scene\PhysicsScene.h" />
+    <ClInclude Include="Engine\Source\Engine\Scene\RenderScene.h" />
+    <ClInclude Include="Engine\Source\Engine\Scene\Scene.h" />
+    <ClInclude Include="Engine\Source\PhysicsCore\BodyInstance.h" />
+    <ClInclude Include="Engine\Source\PhysicsCore\CollisionShape.h" />
     <ClInclude Include="Engine\Source\PhysicsCore\Misc\CollisionHelper.h" />
     <ClInclude Include="Engine\Source\RenderCore\CoordinateTransformer.h" />
     <ClInclude Include="Engine\Source\RenderCore\Drawable.h" />

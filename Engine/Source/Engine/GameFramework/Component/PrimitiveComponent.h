@@ -2,6 +2,7 @@
 #include "SDL3/SDL_render.h"
 #include "SceneComponent.h"
 #include "../../../RenderCore/Drawable.h"
+#include "../../../PhysicsCore/BodyInstance.h"
 
 
 class PrimitiveComponent : public SceneComponent
@@ -17,7 +18,10 @@ public:
 
 	Drawable GetDrawable()const;
 private:
+	//Collision
+	BodyInstance BodyProxy;
 
+	//Render
 	bool IsRenderActive = true;
 	std::vector<SDL_Vertex> Triangles;
 };
