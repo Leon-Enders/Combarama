@@ -96,6 +96,7 @@
     <ClInclude Include="Engine\Source\Engine\Physics\CollisionSystem.h" />
     <ClInclude Include="Engine\Source\Engine\Render\RenderSubsystem.h" />
     <ClInclude Include="Engine\Source\PhysicsCore\BodyInstance.h" />
+    <ClInclude Include="Engine\Source\PhysicsCore\CollisionResult.h" />
     <ClInclude Include="Engine\Source\PhysicsCore\CollisionShape.h" />
     <ClInclude Include="Engine\Source\PhysicsCore\Misc\CollisionHelper.h" />
     <ClInclude Include="Engine\Source\RenderCore\CoordinateTransformer.h" />

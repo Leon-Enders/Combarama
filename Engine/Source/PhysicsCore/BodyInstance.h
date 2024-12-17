@@ -5,7 +5,7 @@
 class BodyInstance
 {
 public:
-	BodyInstance(CollisionShape Shape ={}, ECollisionResponseType CollisionResponse = ECollisionResponseType::None)
+	BodyInstance(CollisionShape Shape ={}, ECollisionResponseType CollisionResponse = ECollisionResponseType::ECR_None)
 	:
 		Shape(Shape),
 		CollisionResponse(CollisionResponse)

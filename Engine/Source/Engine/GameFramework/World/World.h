@@ -10,9 +10,11 @@
 #include "../../../Core/Math/Transform.h"
 #include "WorldSubsystem.h"
 #include "../Scene/PhysicsScene.h"
+#include "../../../PhysicsCore/Misc/CollisionHelper.h"
 
 struct SDL_FColor;
 class Game;
+class CollisionResult;
 
 /*GameObject*/
 class Controller;
@@ -79,6 +81,8 @@ public:
 	/*Subsystem*/
 	template<IsSubsystem T>
 	T* GetSubsystem();
+	
+	bool SweepByChannel(const Vector2& StartLocation, CollisionResult& OutCollisionResult, ECollisionChannel CollisionChannel);
 
 	/*Scene*/
 	PhysicsScene& GetPhysicsScene() { return PScene; }

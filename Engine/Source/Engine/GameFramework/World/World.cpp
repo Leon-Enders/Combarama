@@ -114,6 +114,11 @@ void World::RemoveGameObject(GameObject* GameObjectToRemove)
 	GameObjectsToRemove.push_back(GameObjectToRemove);
 }
 
+bool World::SweepByChannel(const Vector2& StartLocation, CollisionResult& OutCollisionResult, ECollisionChannel CollisionChannel)
+{
+	return false;
+}
+
 void World::CreateSubsystemCollection()
 {
 	SubsystemCollection.emplace_back(std::make_unique<AISubsystem>(this));
