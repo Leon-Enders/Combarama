@@ -4,7 +4,7 @@
 class ProjectileMovementComponent : public MovementComponent
 {
 public:
-	ProjectileMovementComponent(Actor* Owner);
+	ProjectileMovementComponent(Actor* Owner, PrimitiveComponent* CollisionPrimitive);
 	virtual void Update(float DeltaTime);
 
 	void SetProjectileSpeed(float Speed) { ProjectileSpeed = Speed; }

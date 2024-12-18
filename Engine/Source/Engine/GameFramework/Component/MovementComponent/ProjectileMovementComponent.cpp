@@ -2,9 +2,9 @@
 #include "../../GameObject/Actor.h"
 
 
-ProjectileMovementComponent::ProjectileMovementComponent(Actor* Owner)
+ProjectileMovementComponent::ProjectileMovementComponent(Actor* Owner, PrimitiveComponent* CollisionPrimitive)
 	:
-	MovementComponent(Owner)
+	MovementComponent(Owner,CollisionPrimitive)
 {
 	MoveDirection = GetOwner()->GetTransform().GetForwardVector();
 }

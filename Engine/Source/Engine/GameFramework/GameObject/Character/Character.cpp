@@ -13,7 +13,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	CharacterPrimitive = CreateComponent<PrimitiveComponent>(std::move(AvatarPrimitive::Make()));
 	CharacterPrimitive->SetCollisionShape(CollisionShape::MakeCircle(25.f));
 	CharacterPrimitive->AttachToComponent(GetRootComponent());
-	CharacterMovement = CreateComponent<CharacterMovementComponent>();
+	CharacterMovement = CreateComponent<CharacterMovementComponent>(CharacterPrimitive);
 }
 
 void Character::Initialize()

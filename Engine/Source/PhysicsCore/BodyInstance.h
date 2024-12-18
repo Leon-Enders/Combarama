@@ -11,6 +11,7 @@ public:
 	void SetCollisionResponse(const ECollisionResponseType NewCollisionResponse) { CollisionResponse = NewCollisionResponse; }
 	void SetCollisionShape(const CollisionShape& ShapeToSet);
 	const std::vector<SDL_FPoint>& GetDebugShape()const;
+	const CollisionShape& GetCollisionShape()const;
 
 private:
 	CollisionShape Shape;

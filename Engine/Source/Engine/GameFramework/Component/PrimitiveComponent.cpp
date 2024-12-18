@@ -41,6 +41,11 @@ void PrimitiveComponent::SetCollisionShape(const CollisionShape& Shape)
 	BodyProxy.SetCollisionShape(Shape);
 }
 
+const CollisionShape& PrimitiveComponent::GetCollisionShape() const
+{
+	return BodyProxy.GetCollisionShape();
+}
+
 Drawable PrimitiveComponent::GetDrawable() const
 {
 	Drawable d = Drawable(Triangles);

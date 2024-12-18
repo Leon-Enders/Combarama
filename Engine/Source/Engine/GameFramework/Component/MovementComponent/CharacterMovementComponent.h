@@ -6,7 +6,7 @@ class Character;
 class CharacterMovementComponent : public MovementComponent
 {
 public:
-	CharacterMovementComponent(Actor* Owner);
+	CharacterMovementComponent(Actor* Owner, PrimitiveComponent* CollisionPrimitive);
 	virtual void Update(float DeltaTime);
 
 private:

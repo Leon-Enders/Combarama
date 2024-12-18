@@ -50,3 +50,8 @@ const std::vector<SDL_FPoint>& BodyInstance::GetDebugShape()const
 {
     return DebugShape;
 }
+
+const CollisionShape& BodyInstance::GetCollisionShape() const
+{
+    return Shape;
+}
