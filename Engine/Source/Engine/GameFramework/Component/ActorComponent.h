@@ -18,7 +18,7 @@ public:
 	virtual void FixedUpdate(float FixedDeltaTime);
 	virtual void LateUpdate(float DeltaTime);
 
-	const Actor* GetOwner()const { return Owner; }
+	Actor* GetOwner()const { return Owner; }
 	World* GetWorld()const;
 private:
 

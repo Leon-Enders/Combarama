@@ -9,7 +9,7 @@
 #include "../Controller/Controller.h"
 
 class PrimitiveComponent;
-class MovementComponent;
+class CharacterMovementComponent;
 
 class Character : public Actor , public std::enable_shared_from_this<Character>
 {
@@ -50,7 +50,7 @@ private:
 	
 	std::weak_ptr<Controller> OwningController;
 	PrimitiveComponent* CharacterPrimitive = nullptr;
-	MovementComponent* CharacterMovementComponent = nullptr;
+	CharacterMovementComponent* CharacterMovement = nullptr;
 
 	bool IsHit = false;
 	Coroutine ApplyHitEffect(float Duration);

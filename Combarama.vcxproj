@@ -27,7 +27,9 @@
     <ClCompile Include="Engine\Source\Engine\Game.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\Component\ActorComponent.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\Component\CameraComponent.cpp" />
-    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\MovementComponent.cpp" />
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\CharacterMovementComponent.cpp" />
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\MovementComponent.cpp" />
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\ProjectileMovementComponent.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\Component\PrimitiveComponent.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\Component\SceneComponent.cpp" />
     <ClCompile Include="Engine\Source\Engine\GameFramework\GameObject\Actor.cpp" />
@@ -71,7 +73,9 @@
     <ClInclude Include="Engine\Source\Engine\Game.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\Component\ActorComponent.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\Component\CameraComponent.h" />
-    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\MovementComponent.h" />
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\CharacterMovementComponent.h" />
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\MovementComponent.h" />
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\ProjectileMovementComponent.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\Component\PrimitiveComponent.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\Component\SceneComponent.h" />
     <ClInclude Include="Engine\Source\Engine\GameFramework\GameObject\Actor.h" />

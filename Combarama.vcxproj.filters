@@ -67,6 +67,9 @@
     <Filter Include="Source\Engine\GameFramework\Scene">
       <UniqueIdentifier>{84ebe2aa-adf4-4ddf-9199-18c4863e6ec2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\GameFramework\Component\MovementComponent">
+      <UniqueIdentifier>{7f8c4885-a4b9-4e4e-813c-f096327a3add}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BackGround.bmp">
@@ -164,8 +167,14 @@
     <ClCompile Include="Engine\Source\PhysicsCore\BodyInstance.cpp">
       <Filter>Source\PhysicsCore</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\MovementComponent.cpp">
-      <Filter>Source\Engine\GameFramework\Component</Filter>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\MovementComponent.cpp">
+      <Filter>Source\Engine\GameFramework\Component\MovementComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\CharacterMovementComponent.cpp">
+      <Filter>Source\Engine\GameFramework\Component\MovementComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\ProjectileMovementComponent.cpp">
+      <Filter>Source\Engine\GameFramework\Component\MovementComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -331,8 +340,14 @@
     <ClInclude Include="Engine\Source\RenderCore\DebugDrawable.h">
       <Filter>Source\RenderCore</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\MovementComponent.h">
-      <Filter>Source\Engine\GameFramework\Component</Filter>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\MovementComponent.h">
+      <Filter>Source\Engine\GameFramework\Component\MovementComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\CharacterMovementComponent.h">
+      <Filter>Source\Engine\GameFramework\Component\MovementComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\MovementComponent\ProjectileMovementComponent.h">
+      <Filter>Source\Engine\GameFramework\Component\MovementComponent</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

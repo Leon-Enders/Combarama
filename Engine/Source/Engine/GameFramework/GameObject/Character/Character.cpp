@@ -4,7 +4,7 @@
 #include "../../../../RenderCore/Misc/PrimitiveFactory.h"
 #include "../../../../Core/Coroutine/WaitSeconds.h"
 #include "../../Component/PrimitiveComponent.h"
-#include "../../Component/MovementComponent.h"
+#include "../../Component/MovementComponent/CharacterMovementComponent.h"
 
 Character::Character(World* GameWorld, const Transform& InTransform)
 	:
@@ -13,7 +13,7 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	CharacterPrimitive = CreateComponent<PrimitiveComponent>(std::move(AvatarPrimitive::Make()));
 	CharacterPrimitive->SetCollisionShape(CollisionShape::MakeCircle(25.f));
 	CharacterPrimitive->AttachToComponent(GetRootComponent());
-	CharacterMovementComponent = CreateComponent<MovementComponent>();
+	CharacterMovement = CreateComponent<CharacterMovementComponent>();
 }
 
 void Character::Initialize()

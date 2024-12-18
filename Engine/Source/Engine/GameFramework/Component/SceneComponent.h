@@ -3,7 +3,7 @@
 #include "../../../Core/Math/Matrix.h"
 #include "../../../Core/Event/Delegate.h"
 
-
+//TODO: Construct SceneComponent with Transform
 class SceneComponent : public ActorComponent
 {
 public:
