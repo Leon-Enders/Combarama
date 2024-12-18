@@ -10,5 +10,5 @@ public:
 	void SetProjectileSpeed(float Speed) { ProjectileSpeed = Speed; }
 private:
 	Vector2 MoveDirection;
-	float ProjectileSpeed = 250.f;
+	float ProjectileSpeed = 1000.f;
 };
