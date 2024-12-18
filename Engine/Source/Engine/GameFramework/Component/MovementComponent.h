@@ -6,11 +6,12 @@ class Character;
 class MovementComponent : public ActorComponent
 {
 public:
-	MovementComponent();
+	MovementComponent(Actor* Owner);
 	virtual ~MovementComponent();
 	virtual void Update(float DeltaTime);
 
-	void MoveUpdatedComponent(const Vector2& DeltaMove);
+	void MoveUpdatedComponent(const Vector2& DeltaMove, bool Sweep = false);
 private:
 	Character* OwningCharacter = nullptr;
+	float MovementSpeed = 250.f;
 };

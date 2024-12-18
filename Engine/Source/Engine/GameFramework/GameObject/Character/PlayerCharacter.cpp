@@ -142,21 +142,6 @@ void PlayerCharacter::DealDamageInCone()
 	}
 }
 
-void PlayerCharacter::AddMoveInput(const Vector2& MoveInput)
-{
-	if (!IsDashing)
-	{
-		LastMoveInput = MoveInput.GetNormalized();
-		Velocity = LastMoveInput * Speed;
-	}
-}
-
-void PlayerCharacter::UpdatePosition(float DeltaTime)
-{
-	Character::UpdatePosition(DeltaTime);
-}
-
-
 void PlayerCharacter::OnCharacterDeath()
 {
 }

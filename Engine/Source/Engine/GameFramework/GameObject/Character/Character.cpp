@@ -4,6 +4,7 @@
 #include "../../../../RenderCore/Misc/PrimitiveFactory.h"
 #include "../../../../Core/Coroutine/WaitSeconds.h"
 #include "../../Component/PrimitiveComponent.h"
+#include "../../Component/MovementComponent.h"
 
 Character::Character(World* GameWorld, const Transform& InTransform)
 	:
@@ -12,16 +13,13 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	CharacterPrimitive = CreateComponent<PrimitiveComponent>(std::move(AvatarPrimitive::Make()));
 	CharacterPrimitive->SetCollisionShape(CollisionShape::MakeCircle(25.f));
 	CharacterPrimitive->AttachToComponent(GetRootComponent());
+	CharacterMovementComponent = CreateComponent<MovementComponent>();
 }
 
 void Character::Initialize()
 {
 	float ColliderWidth = 20 * 2.f;
 	float ColliderHeight = 20 * 2.f;
-
-	CharacterCollider = std::make_shared<Collider>(shared_from_this(), ColliderWidth, ColliderHeight);
-	CharacterCollider->Initialize();
-	CharacterCollider->OnOverlapBeginDelegate.BindMemberFunction<Character>(shared_from_this(), &Character::OnOverlapBegin);
 }
 
 
@@ -48,20 +46,8 @@ void Character::TakeDamage(int Damage)
 	}
 }
 
-void Character::UpdatePosition(float DeltaTime)
-{
-	Vector2 NewPosition = Velocity * DeltaTime + GetPosition();
-	SetPosition(NewPosition);
-}
-
-void Character::UpdateRotation()
-{
-
-}
-
 void Character::OnOverlapBegin(std::weak_ptr<Collider> Other)
 {
-	CharacterCollider->OnOverlapBeginDelegate.Clear();
 }
 
 void Character::OnCharacterDeath()
@@ -85,7 +71,6 @@ PrimitiveComponent* Character::GetCharacterPrimitive() const
 }
 
 
-
 void Character::Update(float DeltaTime)
 {
 	Actor::Update(DeltaTime);
@@ -94,9 +79,18 @@ void Character::Update(float DeltaTime)
 void Character::FixedUpdate(float FixedDeltaTime)
 {
 	Actor::FixedUpdate(FixedDeltaTime);
+}
 
-	UpdatePosition(FixedDeltaTime);
-	UpdateRotation();
+void Character::AddMoveInput(const Vector2& MoveInput)
+{
+	PendingInputVector += MoveInput.GetNormalized();
+}
+
+Vector2 Character::ConsumeInputVector()
+{
+	Vector2 CachedInputVector = PendingInputVector;
+	PendingInputVector = Vector2::Zero();
+	return CachedInputVector;
 }
 
 Coroutine Character::ApplyHitEffect(float Duration)

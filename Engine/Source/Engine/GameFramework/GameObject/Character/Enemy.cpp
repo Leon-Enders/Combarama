@@ -23,8 +23,6 @@ void Enemy::Initialize()
 {
 	Character::Initialize();
 
-	Speed = 125.f;
-
 	HeadColor = COLOR_LIGHTYELLOW;
 	BodyColor = COLOR_YELLOW;
 
@@ -83,11 +81,6 @@ void Enemy::FixedUpdate(float FixedDeltaTime)
 {
 	Character::FixedUpdate(FixedDeltaTime);
 
-}
-
-void Enemy::AddMoveInput(const Vector2& MoveInput)
-{
-	Velocity = MoveInput * Speed;
 }
 
 void Enemy::Attack()

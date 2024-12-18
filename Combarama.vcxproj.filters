@@ -164,6 +164,9 @@
     <ClCompile Include="Engine\Source\PhysicsCore\BodyInstance.cpp">
       <Filter>Source\PhysicsCore</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Source\Engine\GameFramework\Component\MovementComponent.cpp">
+      <Filter>Source\Engine\GameFramework\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Source\Core\CoreMinimal.h">
@@ -327,6 +330,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Source\RenderCore\DebugDrawable.h">
       <Filter>Source\RenderCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Source\Engine\GameFramework\Component\MovementComponent.h">
+      <Filter>Source\Engine\GameFramework\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

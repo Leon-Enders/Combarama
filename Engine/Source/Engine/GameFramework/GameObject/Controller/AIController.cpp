@@ -58,7 +58,6 @@ void AIController::CheckForTarget()
             {
                 IsPulled = true;
                 Target = PlayerChar;
-                sEnemyPtr->SetSpeed(275.f);
             }
         }
     }

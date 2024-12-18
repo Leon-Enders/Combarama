@@ -6,6 +6,7 @@
 
 class CameraComponent;
 
+
 class PlayerCharacter : public Character
 {
 public:
@@ -26,25 +27,15 @@ public:
 	void Shoot();
 	void DealDamageInCone();
 
-	void AddMoveInput(const Vector2& MoveInput) override;
-
-
 	CameraComponent* GetCamera() { return PlayerCam; }
 
 protected:
-	virtual void UpdatePosition(float DeltaTime)override;
-
 	virtual void OnCharacterDeath()override;
 
 	
 private:
 	float RotationSpeed = 20.f;
 	float DesiredRotation = 0.f;
-	
-	Vector2 LastMoveInput = {};
-
-
-
 
 	//Attack
 	float AttackSpeed = 1.f;
@@ -58,7 +49,6 @@ private:
 
 	PrimitiveComponent* Weapon;
 	CameraComponent* PlayerCam;
-
 
 
 	//Dash
@@ -77,9 +67,9 @@ private:
 
 		for (int i = 0; i < 2; i++)
 		{
-			Velocity = GetForwardVector() * DashSpeed;
+			AddMoveInput(GetForwardVector() * DashSpeed);
 			co_await WaitSeconds(0.1f, this);
-			Velocity = Vector2::Zero();
+			//Velocity = Vector2::Zero();
 			co_await WaitSeconds(0.1f, this);
 		}
 		IsDashing = false;

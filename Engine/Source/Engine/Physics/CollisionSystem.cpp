@@ -60,17 +60,6 @@ void CollisionSystem::CheckForPossibleCollisions(float FixedDeltaTime)
 		}
 		
 	}
-
-	for (auto& Event : CollisionEvents)
-	{
-		if (auto sActiveCollider = Event.wActiveCollider.lock())
-		{
-			if (auto sOtherCollider = Event.wOtherCollider.lock())
-			{
-				sActiveCollider->HandleCollision(sOtherCollider, Event.Intersection);
-			}
-		}
-	}
 }
 
 

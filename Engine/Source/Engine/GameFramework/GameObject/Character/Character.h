@@ -8,10 +8,9 @@
 #include "../../../../Core//Coroutine/Coroutine.h"
 #include "../Controller/Controller.h"
 
-
 class PrimitiveComponent;
+class MovementComponent;
 
-//TODO: Create overload for OwningController for PlayerController
 class Character : public Actor , public std::enable_shared_from_this<Character>
 {
 public:
@@ -23,19 +22,15 @@ public:
 	virtual void FixedUpdate(float FixedDeltaTime) override;
 
 
-	virtual void AddMoveInput(const Vector2& MoveInput)=0;
-	const Vector2& GetVelocity()const { return Velocity; }
+	void AddMoveInput(const Vector2& MoveInput);
+	
+	Vector2 ConsumeInputVector();
 
 	void SetController(std::shared_ptr<Controller> InOwningContoller);
-
-	
 	//TODO: CombatInterface or Component
 	void TakeDamage(int Damage);
 
 protected:
-	virtual void UpdatePosition(float DeltaTime);
-	virtual void UpdateRotation();
-
 	virtual void OnOverlapBegin(std::weak_ptr<Collider> OtherCollider) override;
 	virtual void OnCharacterDeath();
 
@@ -45,22 +40,17 @@ protected:
 	void SetColor(const SDL_FColor& HeadColor, const SDL_FColor& BodyColor);
 
 protected:
-	float Speed = 250.f;
-	Vector2 Velocity = { 0.f, 0.f };
-	
-
-	std::shared_ptr<Collider> CharacterCollider;
+	Vector2 PendingInputVector;
 
 	int Health = 20;
 
 	SDL_FColor HeadColor = {1.f,1.f,1.f,1.f};
 	SDL_FColor BodyColor = {1.f,1.f,1.f,1.f};
 private:
-
+	
 	std::weak_ptr<Controller> OwningController;
-
 	PrimitiveComponent* CharacterPrimitive = nullptr;
-
+	MovementComponent* CharacterMovementComponent = nullptr;
 
 	bool IsHit = false;
 	Coroutine ApplyHitEffect(float Duration);

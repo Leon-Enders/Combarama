@@ -14,9 +14,6 @@ public:
 	virtual void Update(float DeltaTime) override;
 	virtual void FixedUpdate(float FixedDeltaTime) override;
 
-	virtual void AddMoveInput(const Vector2& MoveInput) override;
-	void SetSpeed(float NewSpeed) { Speed = NewSpeed; }
-
 	void Attack();
 	void DealDamageInCone();
 
