@@ -63,14 +63,6 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 			}
 		}
 
-		//if (PotentialTargets.size() > 0)
-		//{
-		//	SDL_Log("PotentialTargets!");
-		//}
-		//else
-		//{
-		//	SDL_Log("NoPotentialTargets!");
-		//}
 		Vector2 DirectionToEnd = DeltaLocationSE.GetNormalized();
 		int MaxSweepSteps = static_cast<int>(PotentialRadius / (CircleShape->Radius / 2.f));
 
@@ -83,9 +75,7 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 				for (int i = 0; i <= MaxSweepSteps; i++)
 				{
 					Vector2 OtherLocation = OtherPrimitiveComponent->GetWorldTransform().Position;
-					Vector2 DirectionToOtherOrigin = StartLocation.DirectionToTarget(OtherLocation) * -1.f;
-
-					Vector2 SweptLocation = StartLocation + DirectionToEnd * i;
+					Vector2 SweptLocation = StartLocation + DirectionToEnd * static_cast<float>(i);
 
 					Vector2 DeltaLocationSO = OtherLocation - SweptLocation;
 					float DistanceShapeToComponent = DeltaLocationSO.Size();
@@ -93,13 +83,16 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 
 					if (DistanceShapeToComponent < RadiusSum)
 					{
-						//This is our hit
+						//Hit something
+						Vector2 DirectionToOtherOrigin = StartLocation.DirectionToTarget(OtherLocation);
 						Vector2 ImpactPoint = OtherLocation - (DirectionToOtherOrigin * (RadiusSum+1));
 
 						OutCollisionResult.ImpactPoint = ImpactPoint;
 						OutCollisionResult.Position = OtherLocation;
 						OutCollisionResult.bBlockingHit = true;
 						
+
+						//TODO: Queue CollisionEvent
 						return true;
 					}
 				}

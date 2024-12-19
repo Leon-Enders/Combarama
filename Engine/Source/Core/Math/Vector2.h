@@ -138,7 +138,7 @@ public:
 
 	Vector2 DirectionToTarget(const Vector2& Target) const
 	{
-		Vector2 DeltaPosition = *this - Target;
+		Vector2 DeltaPosition = Target - *this;
 		return DeltaPosition.Normalize();
 	}
 
