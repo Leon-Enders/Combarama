@@ -9,6 +9,7 @@ public:
 	void RegisterBodyInstance(BodyInstance* BodyInstanceProxy);
 	void UnRegisterBodyInstance(BodyInstance* BodyInstanceProxy);
 
+	const std::vector<BodyInstance*>& GetBodyProxies()const;
 private:
 	std::vector<BodyInstance*> BodyProxies;
 };

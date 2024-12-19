@@ -14,3 +14,8 @@ void PhysicsScene::UnRegisterBodyInstance(BodyInstance* BodyInstanceProxy)
 			return BodyInstance == BodyInstanceProxy;
 		});
 }
+
+const std::vector<BodyInstance*>& PhysicsScene::GetBodyProxies() const
+{
+	return BodyProxies;
+}

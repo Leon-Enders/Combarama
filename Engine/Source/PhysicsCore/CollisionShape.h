@@ -25,7 +25,7 @@ struct CollisionShape
 	using ShapeVariant = std::variant<Line,Rect,Circle>;
 	ShapeVariant Shape;
 
-	auto GetShape()
+	auto GetShapeVariant()const
 	{
 		return Shape;
 	}
