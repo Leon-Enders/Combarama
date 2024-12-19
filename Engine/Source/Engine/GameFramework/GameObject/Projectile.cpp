@@ -14,6 +14,7 @@ Projectile::Projectile(World* GameWorld, const Transform& InTransform)
 	ProjectilePrimitive->AttachToComponent(GetRootComponent());
 	ProjectilePrimitive->SetColor(COLOR_GREEN);
 	ProjectilePrimitive->SetCollisionShape(CollisionShape::MakeCircle(ProjectileSize));
+	ProjectilePrimitive->SetCollisionResponse(ECollisionResponseType::ECR_Overlap);
 
 	MovementComponent = CreateComponent<ProjectileMovementComponent>(ProjectilePrimitive);
 }

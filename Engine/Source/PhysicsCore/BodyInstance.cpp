@@ -2,11 +2,12 @@
 #include "../RenderCore/Misc/DebugPrimitiveFactory.h"
 #include "../RenderCore/Misc/ColorHelper.h"
 
-BodyInstance::BodyInstance(PrimitiveComponent* Owner, CollisionShape Shape, ECollisionResponseType CollisionResponse)
+BodyInstance::BodyInstance(PrimitiveComponent* Owner, CollisionShape Shape, ECollisionResponseType CollisionResponse, ECollisionChannel CollisionChannel)
 	:
     Owner(Owner),
 	Shape(Shape),
-	CollisionResponse(CollisionResponse)
+	CollisionResponse(CollisionResponse),
+    CollisionChannel(CollisionChannel)
 {
     const auto& ShapeVariant = Shape.GetShapeVariant();
 

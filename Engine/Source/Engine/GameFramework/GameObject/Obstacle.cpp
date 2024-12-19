@@ -13,6 +13,7 @@ Obstacle::Obstacle(World* GameWorld, const Transform& InTransform, const Vector2
 	ObstaclePrimitive->AttachToComponent(GetRootComponent());
 	ObstaclePrimitive->SetColor(ObstacleColour);
 	ObstaclePrimitive->SetCollisionShape(CollisionShape::MakeCircle(75.f));
+	ObstaclePrimitive->SetCollisionResponse(ECollisionResponseType::ECR_Block);
 }
 
 void Obstacle::Initialize()

@@ -45,6 +45,8 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 
 		for (const auto& OtherBody : PScene.GetBodyProxies())
 		{
+			//TODO: Remove this comment for filtering
+			//if (OtherBody->GetCollisionChannel() != CollisionChannel) continue;
 			const PrimitiveComponent* OtherPrimitiveComponent = OtherBody->GetOwningPrimitiveComponent();
 			if (OtherPrimitiveComponent->GetOwner() == ActorToIgnore) continue;
 
@@ -83,17 +85,25 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 
 					if (DistanceShapeToComponent < RadiusSum)
 					{
-						//Hit something
 						Vector2 DirectionToOtherOrigin = StartLocation.DirectionToTarget(OtherLocation);
-						Vector2 ImpactPoint = OtherLocation - (DirectionToOtherOrigin * (RadiusSum+1));
+						Vector2 ImpactPoint = OtherLocation - (DirectionToOtherOrigin * (RadiusSum + 1));
 
-						OutCollisionResult.ImpactPoint = ImpactPoint;
-						OutCollisionResult.Position = OtherLocation;
-						OutCollisionResult.bBlockingHit = true;
-						
-
-						//TODO: Queue CollisionEvent
-						return true;
+						//Handle Hit or Overlap
+						switch (OtherBody->GetCollisionResponseType())
+						{
+						case ECollisionResponseType::ECR_Overlap:
+							//Handle Queue OverlapEvent
+							break;
+						case ECollisionResponseType::ECR_Block:
+							OutCollisionResult.ImpactPoint = ImpactPoint;
+							OutCollisionResult.Position = OtherLocation;
+							OutCollisionResult.bBlockingHit = true;
+							return true;
+							//TODO: Queue CollisionEvents
+							break;
+						default:
+							break;
+						}
 					}
 				}
 			}
