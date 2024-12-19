@@ -1,6 +1,8 @@
 #include "ProjectileMovementComponent.h"
 #include "../../GameObject/Actor.h"
 
+#include "../../../../PhysicsCore/Misc/CollisionHelper.h"
+
 
 ProjectileMovementComponent::ProjectileMovementComponent(Actor* Owner, PrimitiveComponent* CollisionPrimitive)
 	:

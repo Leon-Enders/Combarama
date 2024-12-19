@@ -1,5 +1,6 @@
 #include "CharacterMovementComponent.h"
 #include "../../GameObject/Character/Character.h"
+#include "../../../../PhysicsCore/Misc/CollisionHelper.h"
 
 CharacterMovementComponent::CharacterMovementComponent(Actor* Owner, PrimitiveComponent* CollisionPrimitive)
 	:
@@ -13,5 +14,5 @@ void CharacterMovementComponent::Update(float DeltaTime)
 	Vector2 InputVector = OwningCharacter->ConsumeInputVector();
 	Vector2 DeltaMove = InputVector * DeltaTime * MovementSpeed;
 
-	if (DeltaMove != Vector2::Zero()) MoveUpdatedComponent(DeltaMove, true);
+	if (DeltaMove != Vector2::Zero()) MoveUpdatedComponent(DeltaMove, true, ECollisionChannel::ECC_WorldDynamic);
 }

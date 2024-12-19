@@ -84,7 +84,7 @@ public:
 	template<IsSubsystem T>
 	T* GetSubsystem();
 	
-	bool SweepByChannel(const Vector2& StartLocation, const Vector2& EndLocation, CollisionResult& OutCollisionResult,const CollisionShape& Shape, ECollisionChannel CollisionChannel, Actor* ActorToIgnore);
+	bool SweepByChannel(const Vector2& StartLocation, const Vector2& EndLocation, CollisionResult& OutCollisionResult, const CollisionShape& Shape, const ECollisionChannel& CollisionChannel, Actor* ActorToIgnore);
 
 	/*Scene*/
 	PhysicsScene& GetPhysicsScene() { return PScene; }

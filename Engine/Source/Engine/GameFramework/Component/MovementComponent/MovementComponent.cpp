@@ -15,7 +15,7 @@ void MovementComponent::Update(float DeltaTime)
 {
 }
 
-void MovementComponent::MoveUpdatedComponent(const Vector2& DeltaMove, bool Sweep)
+void MovementComponent::MoveUpdatedComponent(const Vector2& DeltaMove, bool Sweep, const ECollisionChannel& CollisionChannel)
 {
 	Vector2 StartLocation = GetOwner()->GetPosition();
 	Vector2 EndLocation = StartLocation + DeltaMove;
@@ -23,10 +23,13 @@ void MovementComponent::MoveUpdatedComponent(const Vector2& DeltaMove, bool Swee
 	if (Sweep)
 	{
 		CollisionResult CResult;
-		if (GetWorld()->SweepByChannel(StartLocation, EndLocation, CResult, CollisionPrimitive->GetCollisionShape(), ECollisionChannel::ECC_Visibility, GetOwner()))
+		if (GetWorld()->SweepByChannel(StartLocation, EndLocation, CResult, CollisionPrimitive->GetCollisionShape(), CollisionChannel, GetOwner()))
 		{
-			GetOwner()->SetPosition(CResult.ImpactPoint);
-			return;
+			if (CResult.bBlockingHit)
+			{
+				GetOwner()->SetPosition(CResult.ImpactPoint);
+				return;
+			}
 		}
 	}
 	

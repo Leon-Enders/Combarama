@@ -2,7 +2,7 @@
 #include "../RenderCore/Misc/DebugPrimitiveFactory.h"
 #include "../RenderCore/Misc/ColorHelper.h"
 
-BodyInstance::BodyInstance(PrimitiveComponent* Owner, CollisionShape Shape = {})
+BodyInstance::BodyInstance(PrimitiveComponent* Owner, CollisionShape Shape)
 	:
     Owner(Owner),
 	Shape(Shape)
@@ -28,7 +28,8 @@ BodyInstance::BodyInstance(PrimitiveComponent* Owner, CollisionShape Shape = {})
 
     //Initialize ResponsesForChannels
     ResponseForChannel.insert({ ECollisionChannel::ECC_None, ECollisionResponseType::ECR_Ignore });
-    ResponseForChannel.insert({ ECollisionChannel::ECC_Visibility, ECollisionResponseType::ECR_Ignore });
+    ResponseForChannel.insert({ ECollisionChannel::ECC_WorldStatic, ECollisionResponseType::ECR_Ignore });
+    ResponseForChannel.insert({ ECollisionChannel::ECC_WorldDynamic, ECollisionResponseType::ECR_Ignore });
     ResponseForChannel.insert({ ECollisionChannel::ECC_Projectile, ECollisionResponseType::ECR_Ignore });
 }
 

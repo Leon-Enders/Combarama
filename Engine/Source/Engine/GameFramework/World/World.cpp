@@ -112,7 +112,7 @@ void World::RemoveGameObject(GameObject* GameObjectToRemove)
 	GameObjectsToRemove.push_back(GameObjectToRemove);
 }
 
-bool World::SweepByChannel(const Vector2& StartLocation, const Vector2& EndLocation, CollisionResult& OutCollisionResult, const CollisionShape& Shape, ECollisionChannel CollisionChannel, Actor* ActorToIgnore)
+bool World::SweepByChannel(const Vector2& StartLocation, const Vector2& EndLocation, CollisionResult& OutCollisionResult, const CollisionShape& Shape, const ECollisionChannel& CollisionChannel, Actor* ActorToIgnore)
 {
 	return GetSubsystem<CollisionSubsystem>()->SweepByChannel(PScene, StartLocation, EndLocation, OutCollisionResult, Shape, CollisionChannel, ActorToIgnore);
 }

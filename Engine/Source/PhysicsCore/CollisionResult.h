@@ -5,5 +5,5 @@ struct CollisionResult
 {
 	Vector2 Position;
 	Vector2 ImpactPoint;
-	bool bBlockingHit;
+	bool bBlockingHit = false;
 };

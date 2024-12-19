@@ -23,7 +23,7 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 	const Vector2& EndLocation, 
 	CollisionResult& OutCollisionResult, 
 	const CollisionShape& Shape, 
-	ECollisionChannel CollisionChannel, 
+	const ECollisionChannel& CollisionChannel, 
 	Actor* ActorToIgnore)const
 {
 	//TODO: Handle CollisionQuery
