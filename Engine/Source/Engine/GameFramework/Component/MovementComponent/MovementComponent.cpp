@@ -19,18 +19,16 @@ void MovementComponent::MoveUpdatedComponent(const Vector2& DeltaMove, bool Swee
 {
 	Vector2 StartLocation = GetOwner()->GetPosition();
 	Vector2 EndLocation = StartLocation + DeltaMove;
-	if (!Sweep)
-	{
-		GetOwner()->SetPosition(EndLocation);
-		return;
-	}
 
-	CollisionResult CResult;
-	if (GetWorld()->SweepByChannel(StartLocation, EndLocation, CResult,CollisionPrimitive->GetCollisionShape(), ECollisionChannel::ECC_Visibility,GetOwner()))
+	if (Sweep)
 	{
-		//GetOwner()->SetPosition(CResult.ImpactPoint);
-		
+		CollisionResult CResult;
+		if (GetWorld()->SweepByChannel(StartLocation, EndLocation, CResult, CollisionPrimitive->GetCollisionShape(), ECollisionChannel::ECC_Visibility, GetOwner()))
+		{
+			GetOwner()->SetPosition(CResult.ImpactPoint);
+			return;
+		}
 	}
+	
 	GetOwner()->SetPosition(EndLocation);
-
 }

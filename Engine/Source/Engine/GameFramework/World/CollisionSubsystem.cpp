@@ -87,11 +87,12 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 					Vector2 OtherLocation = OtherPrimitiveComponent->GetWorldTransform().Position;
 					Vector2 DeltaLocationSO = OtherLocation - SweptLocation;
 					float DistanceShapeToComponent = DeltaLocationSO.Size();
+					float RadiusSum = CircleShape->Radius + OtherCircleShape->Radius;
 
-					if (DistanceShapeToComponent < CircleShape->Radius + OtherCircleShape->Radius)
+					if (DistanceShapeToComponent < RadiusSum)
 					{
 						//This is our hit
-						Vector2 ImpactPoint = SweptLocation - (DirectionToEnd*OtherCircleShape->Radius);
+						Vector2 ImpactPoint = OtherLocation - (DirectionToEnd* (RadiusSum));
 
 						OutCollisionResult.ImpactPoint = ImpactPoint;
 						OutCollisionResult.Position = OtherLocation;
@@ -103,10 +104,6 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 			}
 		}
 	}
-
-
-	
-
 
 	return false;
 }
