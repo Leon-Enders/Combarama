@@ -13,5 +13,5 @@ void CharacterMovementComponent::Update(float DeltaTime)
 	Vector2 InputVector = OwningCharacter->ConsumeInputVector();
 	Vector2 DeltaMove = InputVector * DeltaTime * MovementSpeed;
 
-	MoveUpdatedComponent(DeltaMove, true);
+	if (DeltaMove != Vector2::Zero()) MoveUpdatedComponent(DeltaMove, true);
 }

@@ -6,6 +6,7 @@
 #include "../../../PhysicsCore/CollisionResult.h"
 #include "../../../PhysicsCore/CollisionShape.h"
 #include "../../../PhysicsCore/BodyInstance.h"
+#include "SDL3/SDL_log.h"
 
 CollisionSubsystem::CollisionSubsystem(World* GameWorld)
 	:
@@ -62,7 +63,14 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 		}
 	}
 
-
+	if (PotentialTargets.size() > 0)
+	{
+		SDL_Log("PotentialTargets!");
+	}
+	else
+	{
+		SDL_Log("NoPotentialTargets!");
+	}
 
 
 	

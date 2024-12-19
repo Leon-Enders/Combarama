@@ -26,16 +26,11 @@ BodyInstance::BodyInstance(PrimitiveComponent* Owner, CollisionShape Shape, ECol
         DebugShape = DebugCircle::Make(CircleShape->Radius);
     }
 }
-
-BodyInstance::BodyInstance(PrimitiveComponent* Owner, CollisionShape Shape, ECollisionResponseType CollisionResponse)
-{
-}
-
 void BodyInstance::SetCollisionShape(const CollisionShape& ShapeToSet)
 {
     Shape = ShapeToSet;
 
-    const auto& ShapeVariant = Shape.GetShape();
+    const auto& ShapeVariant = Shape.GetShapeVariant();
 
     if (const auto* LineShape = std::get_if<CollisionShape::Line>(&ShapeVariant))
     {

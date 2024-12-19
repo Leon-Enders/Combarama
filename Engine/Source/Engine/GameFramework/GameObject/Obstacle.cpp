@@ -12,7 +12,7 @@ Obstacle::Obstacle(World* GameWorld, const Transform& InTransform, const Vector2
 	ObstaclePrimitive = CreateComponent<PrimitiveComponent>(std::move(RectPrimitive::Make(RectHalfExtent.X, RectHalfExtent.Y)));
 	ObstaclePrimitive->AttachToComponent(GetRootComponent());
 	ObstaclePrimitive->SetColor(ObstacleColour);
-	ObstaclePrimitive->SetCollisionShape(CollisionShape::MakeRect(RectHalfExtent));
+	ObstaclePrimitive->SetCollisionShape(CollisionShape::MakeCircle(75.f));
 }
 
 void Obstacle::Initialize()

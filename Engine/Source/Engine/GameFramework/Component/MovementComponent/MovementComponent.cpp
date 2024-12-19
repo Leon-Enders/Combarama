@@ -28,8 +28,9 @@ void MovementComponent::MoveUpdatedComponent(const Vector2& DeltaMove, bool Swee
 	CollisionResult CResult;
 	if (GetWorld()->SweepByChannel(StartLocation, EndLocation, CResult,CollisionPrimitive->GetCollisionShape(), ECollisionChannel::ECC_Visibility,GetOwner()))
 	{
-		GetOwner()->SetPosition(CResult.ImpactPoint);
+		//GetOwner()->SetPosition(CResult.ImpactPoint);
+		
 	}
-	
+	GetOwner()->SetPosition(EndLocation);
 
 }
