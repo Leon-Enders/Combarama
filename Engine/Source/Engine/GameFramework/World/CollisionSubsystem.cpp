@@ -40,7 +40,7 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 	if (const auto* CircleShape = std::get_if<CollisionShape::Circle>(&ShapeVariant))
 	{
 		// Calcuate the maximum Distance
-		Vector2 DeltaLocationSE = StartLocation - EndLocation;
+		Vector2 DeltaLocationSE = EndLocation-StartLocation;
 		float PotentialRadius = DeltaLocationSE.Size()+ CircleShape->Radius;
 
 		for (const auto& OtherBody : PScene.GetBodyProxies())
@@ -51,6 +51,7 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 			auto OtherShapeVariant = OtherBody->GetCollisionShape().GetShapeVariant();
 			if (const auto* OtherCircleShape = std::get_if<CollisionShape::Circle>(&OtherShapeVariant))
 			{
+				//TODO: Create Helper method to check overlap for 2 circles
 				Vector2 OtherLocation = OtherPrimitiveComponent->GetWorldTransform().Position;
 				Vector2 DeltaLocationSO = OtherLocation - StartLocation;
 				float DistanceShapeToComponent = DeltaLocationSO.Size();
@@ -61,15 +62,46 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 				}
 			}
 		}
-	}
 
-	if (PotentialTargets.size() > 0)
-	{
-		SDL_Log("PotentialTargets!");
-	}
-	else
-	{
-		SDL_Log("NoPotentialTargets!");
+		//if (PotentialTargets.size() > 0)
+		//{
+		//	SDL_Log("PotentialTargets!");
+		//}
+		//else
+		//{
+		//	SDL_Log("NoPotentialTargets!");
+		//}
+
+		Vector2 DirectionToEnd = DeltaLocationSE.GetNormalized();
+		int MaxSweepSteps = static_cast<int>(PotentialRadius / (CircleShape->Radius / 2.f));
+
+		for (const auto& OtherBody : PotentialTargets)
+		{
+			const PrimitiveComponent* OtherPrimitiveComponent = OtherBody->GetOwningPrimitiveComponent();
+			auto OtherShapeVariant = OtherBody->GetCollisionShape().GetShapeVariant();
+			if (const auto* OtherCircleShape = std::get_if<CollisionShape::Circle>(&OtherShapeVariant))
+			{
+				for (int i = 0; i <= MaxSweepSteps; i++)
+				{
+					Vector2 SweptLocation = StartLocation + DirectionToEnd * i;
+					Vector2 OtherLocation = OtherPrimitiveComponent->GetWorldTransform().Position;
+					Vector2 DeltaLocationSO = OtherLocation - SweptLocation;
+					float DistanceShapeToComponent = DeltaLocationSO.Size();
+
+					if (DistanceShapeToComponent < CircleShape->Radius + OtherCircleShape->Radius)
+					{
+						//This is our hit
+						Vector2 ImpactPoint = SweptLocation - (DirectionToEnd*OtherCircleShape->Radius);
+
+						OutCollisionResult.ImpactPoint = ImpactPoint;
+						OutCollisionResult.Position = OtherLocation;
+						OutCollisionResult.bBlockingHit = true;
+						
+						return true;
+					}
+				}
+			}
+		}
 	}
 
 
