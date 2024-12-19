@@ -32,7 +32,7 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 	// sweep the shape against each valid target
 	// Read how about how you would sweep?
 	//First iteration only for circles
-
+	bool HasCollided = false;
 
 	std::vector<BodyInstance*> PotentialTargets;
 	auto ShapeVariant = Shape.GetShapeVariant();
@@ -45,8 +45,9 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 
 		for (const auto& OtherBody : PScene.GetBodyProxies())
 		{
-			//TODO: Remove this comment for filtering
-			//if (OtherBody->GetCollisionChannel() != CollisionChannel) continue;
+			// Skip this body if it ignores the current CollisionChannel
+			if (OtherBody->GetCollisionResponseForChannel(CollisionChannel) == ECollisionResponseType::ECR_Ignore) continue;
+
 			const PrimitiveComponent* OtherPrimitiveComponent = OtherBody->GetOwningPrimitiveComponent();
 			if (OtherPrimitiveComponent->GetOwner() == ActorToIgnore) continue;
 
@@ -89,16 +90,17 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 						Vector2 ImpactPoint = OtherLocation - (DirectionToOtherOrigin * (RadiusSum + 1));
 
 						//Handle Hit or Overlap
-						switch (OtherBody->GetCollisionResponseType())
+						switch (OtherBody->GetCollisionResponseForChannel(CollisionChannel))
 						{
 						case ECollisionResponseType::ECR_Overlap:
+							HasCollided = true;
 							//Handle Queue OverlapEvent
 							break;
 						case ECollisionResponseType::ECR_Block:
 							OutCollisionResult.ImpactPoint = ImpactPoint;
 							OutCollisionResult.Position = OtherLocation;
 							OutCollisionResult.bBlockingHit = true;
-							return true;
+							HasCollided = true;
 							//TODO: Queue CollisionEvents
 							break;
 						default:
@@ -110,5 +112,5 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 		}
 	}
 
-	return false;
+	return HasCollided;
 }

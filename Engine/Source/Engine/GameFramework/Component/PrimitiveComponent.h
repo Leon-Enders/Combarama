@@ -13,24 +13,27 @@ public:
 	virtual ~PrimitiveComponent();
 	virtual void Initialize() override;
 
+	/*Render*/
 	Drawable GetDrawable()const;
 	DebugDrawable GetDebugDrawable()const;
-
-	void SetColor(SDL_FColor NewColor, int Offset = 0);
-	void SetCollisionShape(const CollisionShape& Shape);
-	void SetCollisionResponse(const ECollisionResponseType CollisionResponse);
-	const CollisionShape& GetCollisionShape()const;
 	const bool GetRenderActive()const { return IsRenderActive; }
 	const bool GetDebugActive()const { return IsDebugActive; }
 
 	void SetRenderActive(bool RenderActive) { IsRenderActive = RenderActive; }
 	void SetDebugActive(bool DebugActive) { IsDebugActive = DebugActive; }
-private:
-	//Collision
-	BodyInstance BodyProxy;
+	void SetColor(SDL_FColor NewColor, int Offset = 0);
 
-	//Render
+	/*Collision*/
+	void SetCollisionShape(const CollisionShape& Shape);
+	void SetCollisionResponseForChannel(ECollisionChannel CollisionChannel, ECollisionResponseType NewCollisionResponse);
+	const CollisionShape& GetCollisionShape()const;
+	
+private:
+	/*Render*/
 	bool IsRenderActive = true;
 	bool IsDebugActive = true;
 	std::vector<SDL_Vertex> Triangles;
+
+	/*Collision*/
+	BodyInstance BodyProxy;
 };

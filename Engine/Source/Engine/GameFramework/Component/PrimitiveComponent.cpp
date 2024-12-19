@@ -42,9 +42,9 @@ void PrimitiveComponent::SetCollisionShape(const CollisionShape& Shape)
 	BodyProxy.SetCollisionShape(Shape);
 }
 
-void PrimitiveComponent::SetCollisionResponse(const ECollisionResponseType CollisionResponse)
+void PrimitiveComponent::SetCollisionResponseForChannel(ECollisionChannel CollisionChannel, ECollisionResponseType NewCollisionResponse)
 {
-	BodyProxy.SetCollisionResponse(CollisionResponse);
+	BodyProxy.SetCollisionResponseForChannel(CollisionChannel, NewCollisionResponse);
 }
 
 const CollisionShape& PrimitiveComponent::GetCollisionShape() const

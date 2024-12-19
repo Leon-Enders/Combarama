@@ -11,8 +11,11 @@ Character::Character(World* GameWorld, const Transform& InTransform)
 	Actor(GameWorld,InTransform)
 {
 	CharacterPrimitive = CreateComponent<PrimitiveComponent>(std::move(AvatarPrimitive::Make()));
+
 	CharacterPrimitive->SetCollisionShape(CollisionShape::MakeCircle(25.f));
-	CharacterPrimitive->SetCollisionResponse(ECollisionResponseType::ECR_Block);
+	CharacterPrimitive->SetCollisionResponseForChannel(ECollisionChannel::ECC_WorldDynamic, ECollisionResponseType::ECR_Block);
+	CharacterPrimitive->SetCollisionResponseForChannel(ECollisionChannel::ECC_Projectile, ECollisionResponseType::ECR_Overlap);
+
 	CharacterPrimitive->AttachToComponent(GetRootComponent());
 	CharacterMovement = CreateComponent<CharacterMovementComponent>(CharacterPrimitive);
 }

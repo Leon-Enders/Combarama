@@ -2,13 +2,12 @@
 #include "../RenderCore/Misc/DebugPrimitiveFactory.h"
 #include "../RenderCore/Misc/ColorHelper.h"
 
-BodyInstance::BodyInstance(PrimitiveComponent* Owner, CollisionShape Shape, ECollisionResponseType CollisionResponse, ECollisionChannel CollisionChannel)
+BodyInstance::BodyInstance(PrimitiveComponent* Owner, CollisionShape Shape = {})
 	:
     Owner(Owner),
-	Shape(Shape),
-	CollisionResponse(CollisionResponse),
-    CollisionChannel(CollisionChannel)
+	Shape(Shape)
 {
+    //Set DebugShape
     const auto& ShapeVariant = Shape.GetShapeVariant();
 
     //Default to Circle DebugShape
@@ -26,7 +25,13 @@ BodyInstance::BodyInstance(PrimitiveComponent* Owner, CollisionShape Shape, ECol
     {
         DebugShape = DebugCircle::Make(CircleShape->Radius);
     }
+
+    //Initialize ResponsesForChannels
+    ResponseForChannel.insert({ ECollisionChannel::ECC_None, ECollisionResponseType::ECR_Ignore });
+    ResponseForChannel.insert({ ECollisionChannel::ECC_Visibility, ECollisionResponseType::ECR_Ignore });
+    ResponseForChannel.insert({ ECollisionChannel::ECC_Projectile, ECollisionResponseType::ECR_Ignore });
 }
+
 void BodyInstance::SetCollisionShape(const CollisionShape& ShapeToSet)
 {
     Shape = ShapeToSet;
@@ -45,6 +50,16 @@ void BodyInstance::SetCollisionShape(const CollisionShape& ShapeToSet)
     {
         DebugShape = DebugCircle::Make(CircleShape->Radius);
     }
+}
+
+void BodyInstance::SetCollisionResponseForChannel(ECollisionChannel CollisionChannel, ECollisionResponseType NewCollisionResponse)
+{
+    ResponseForChannel[CollisionChannel] = NewCollisionResponse;
+}
+
+const ECollisionResponseType& BodyInstance::GetCollisionResponseForChannel(const ECollisionChannel& CollisionChannel) const
+{
+    return ResponseForChannel.at(CollisionChannel);
 }
 
 const std::vector<SDL_FPoint>& BodyInstance::GetDebugShape()const

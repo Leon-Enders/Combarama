@@ -2,7 +2,7 @@
 
 enum class ECollisionResponseType
 {
-	ECR_None,
+	ECR_Ignore,
 	ECR_Overlap,
 	ECR_Block
 };
@@ -10,5 +10,7 @@ enum class ECollisionResponseType
 enum class ECollisionChannel
 {
 	ECC_None,
-	ECC_Visibility
+	ECC_WorldStatic,
+	ECC_WorldDynamic,
+	ECC_Projectile
 };
