@@ -87,12 +87,12 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 				Vector2 OtherLocation = OtherPrimitiveComponent->GetWorldTransform().Position;
 				Vector2 SweptLocation = StartLocation + DirectionToEnd * static_cast<float>(i);
 
-				Vector2 DeltaLocationSO = SweptLocation -OtherLocation;
-				float DistanceShapeToComponent = DeltaLocationSO.Size();
-
+				
 				if (const auto* OtherCircleShape = std::get_if<CollisionShape::Circle>(&OtherShapeVariant))
 				{
-
+					//TODO: Is this correct order?
+					Vector2 DeltaLocationSO = OtherLocation - SweptLocation;
+					float DistanceShapeToComponent = DeltaLocationSO.Size();
 					float RadiusSum = CircleShape->Radius + OtherCircleShape->Radius;
 
 					if (DistanceShapeToComponent < RadiusSum)
@@ -123,6 +123,7 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 
 				if (const auto* OtherBoxShape = std::get_if<CollisionShape::Rect>(&OtherShapeVariant))
 				{
+					Vector2 DeltaLocationSO = SweptLocation-OtherLocation;
 					float ClampedX = ComboramaMath::Clamp(DeltaLocationSO.X, -OtherBoxShape->HalfExtentX, OtherBoxShape->HalfExtentX);
 					float ClampedY = ComboramaMath::Clamp(DeltaLocationSO.Y, -OtherBoxShape->HalfExtentY, OtherBoxShape->HalfExtentY);
 
