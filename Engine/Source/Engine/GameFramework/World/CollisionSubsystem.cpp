@@ -87,7 +87,7 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 				Vector2 OtherLocation = OtherPrimitiveComponent->GetWorldTransform().Position;
 				Vector2 SweptLocation = StartLocation + DirectionToEnd * static_cast<float>(i);
 
-				Vector2 DeltaLocationSO = OtherLocation - SweptLocation;
+				Vector2 DeltaLocationSO = SweptLocation -OtherLocation;
 				float DistanceShapeToComponent = DeltaLocationSO.Size();
 
 				if (const auto* OtherCircleShape = std::get_if<CollisionShape::Circle>(&OtherShapeVariant))
