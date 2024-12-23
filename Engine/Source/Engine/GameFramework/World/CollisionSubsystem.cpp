@@ -124,39 +124,68 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 
 				if (const auto* OtherBoxShape = std::get_if<CollisionShape::Rect>(&OtherShapeVariant))
 				{
-					Vector2 DeltaLocationSO = SweptLocation-OtherLocation;
-					float ClampedX = ComboramaMath::Clamp(DeltaLocationSO.X, -OtherBoxShape->HalfExtentX, OtherBoxShape->HalfExtentX);
-					float ClampedY = ComboramaMath::Clamp(DeltaLocationSO.Y, -OtherBoxShape->HalfExtentY, OtherBoxShape->HalfExtentY);
+					Transform OtherWorldTransform = OtherPrimitiveComponent->GetWorldTransform();
 
-					Vector2 ClosestPoint = OtherLocation + Vector2(ClampedX, ClampedY);
-					Vector2 DeltaLocationCirToPoint = ClosestPoint - SweptLocation;
-					float Distance = DeltaLocationCirToPoint.Size();
+					// Rotate the swept location to align with the rectangles local space
+					float CosTheta = std::cos(-OtherWorldTransform.Rotation); // Rotation in local space
+					float SinTheta = std::sin(-OtherWorldTransform.Rotation);
 
-					if (Distance < CircleShape->Radius)
+					float RotatedCX = CosTheta * (SweptLocation.X - OtherLocation.X) -
+						SinTheta * (SweptLocation.Y - OtherLocation.Y);
+					float RotatedCY = SinTheta * (SweptLocation.X - OtherLocation.X) +
+						CosTheta * (SweptLocation.Y - OtherLocation.Y);
+
+					// Find the closest point on the rectangle in local space
+					float ClosestX = std::max(-OtherBoxShape->HalfExtentX, std::min(RotatedCX, OtherBoxShape->HalfExtentX));
+					float ClosestY = std::max(-OtherBoxShape->HalfExtentY, std::min(RotatedCY, OtherBoxShape->HalfExtentY));
+
+					// Calculate the squared distance between the rotated circle center and the closest point
+					float DistanceSquared = std::pow(RotatedCX - ClosestX, 2) + std::pow(RotatedCY - ClosestY, 2);
+
+					// Check if the circle is colliding with the rectangle
+					if (DistanceSquared < std::pow(CircleShape->Radius, 2)) // Use squared radius for efficiency
 					{
-						Vector2 DirectionToOtherPoint = StartLocation.DirectionToTarget(ClosestPoint);
-						Vector2 ImpactPoint = ClosestPoint - (DirectionToOtherPoint * (CircleShape->Radius + 1));
+						// Calculate the direction from the circle center to the closest point
+						Vector2 ClosestPoint(ClosestX, ClosestY);
+						Vector2 RotatedCircleCenter(RotatedCX, RotatedCY);
+						Vector2 DirectionToOtherPoint = (ClosestPoint - RotatedCircleCenter).Normalize(); // Ensure it's a unit vector
 
-						//Handle Hit or Overlap
+						// Calculate the impact point on the circle's boundary
+						Vector2 ImpactPoint = ClosestPoint - (DirectionToOtherPoint * CircleShape->Radius);
+
+						// Transform the impact point back to world space
+						float CosWorldTheta = std::cos(OtherWorldTransform.Rotation); // Use positive rotation for world space
+						float SinWorldTheta = std::sin(OtherWorldTransform.Rotation);
+
+						float WorldImpactX = CosWorldTheta * ImpactPoint.X - SinWorldTheta * ImpactPoint.Y + OtherLocation.X;
+						float WorldImpactY = SinWorldTheta * ImpactPoint.X + CosWorldTheta * ImpactPoint.Y + OtherLocation.Y;
+
+						Vector2 WorldImpactPoint(WorldImpactX, WorldImpactY);
+
+						Vector2 DirectionToImpactPoint = SweptLocation.DirectionToTarget(WorldImpactPoint);
+						WorldImpactPoint += DirectionToImpactPoint * 1.1f;
+
+						// Handle the collision or overlap event
 						switch (OtherBody->GetCollisionResponseForChannel(CollisionChannel))
 						{
 						case ECollisionResponseType::ECR_Overlap:
 							HasCollided = true;
-							//Handle Queue OverlapEvent
+							// TODO: Handle queue overlap event
 							break;
+
 						case ECollisionResponseType::ECR_Block:
-							OutCollisionResult.ImpactPoint = ImpactPoint;
+							OutCollisionResult.ImpactPoint = WorldImpactPoint;
 							OutCollisionResult.Position = OtherLocation;
 							OutCollisionResult.bBlockingHit = true;
 							HasCollided = true;
-							//TODO: Queue CollisionEvents
+							// TODO: Queue collision events
 							break;
+
 						default:
 							break;
 						}
 					}
 				}
-
 			}
 
 		}

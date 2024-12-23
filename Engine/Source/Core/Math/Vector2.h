@@ -142,6 +142,18 @@ public:
 		return DeltaPosition.Normalize();
 	}
 
+	Vector2& Rotate(const float Theta)
+	{
+		float cosTheta = std::cos(Theta);
+		float sinTheta = std::sin(Theta);
+		 
+		const float NewX = X * cosTheta - Y * sinTheta;
+		Y = X * sinTheta + Y * cosTheta;
+		X = NewX;
+
+		return *this;
+	}
+
 	static Vector2 Up()
 	{
 		return Vector2(0.f, -1.f);

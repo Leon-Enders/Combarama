@@ -88,6 +88,7 @@ void Game::StartGame()
 	Transform ObstacleTransform7;
 
 	ObstacleTransform1.Position = { 0.f,0.f };
+	ObstacleTransform1.Rotation = 1.f;
 	ObstacleTransform2.Position = { -100.f,200.f };
 
 	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform1, Vector2(50.f, 100.f), COLOR_PURPLE);
