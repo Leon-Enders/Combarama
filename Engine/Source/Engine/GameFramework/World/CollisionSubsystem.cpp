@@ -65,7 +65,8 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 				Vector2 OtherLocation = OtherPrimitiveComponent->GetWorldTransform().Position;
 				Vector2 DeltaLocationSO = OtherLocation - StartLocation;
 				float DistanceShapeToComponent = DeltaLocationSO.Size();
-				float BoundingCircleRadius = std::max(OtherRectShape->HalfExtentX, OtherRectShape->HalfExtentY);
+				float BoundingCircleRadius = Vector2(OtherRectShape->HalfExtentX, OtherRectShape->HalfExtentY).Size();
+
 
 				if (DistanceShapeToComponent < PotentialRadius + BoundingCircleRadius)
 				{
