@@ -30,18 +30,8 @@ Game::Game(App& GameApp)
 
 void Game::Initialize()
 {
-
 	GameWorld->Initialize();
 
-	auto Identity = TMatrix::Identity();
-	auto Scale1 = TMatrix::Scale(3.f);
-	auto Scale2 = TMatrix::Scale(5.f);
-	auto Translate = TMatrix::Translate({ 50.f,50.f });
-	auto DoubleScale = Scale2 * Scale1;
-	auto ScaleThenTranslate = Scale2 * Scale1 * Translate;
-
-	Vector3 Test(5.f, 5.f);
-	Vector3 TestWithIdentity = DoubleScale * Test;
 }
 
 void Game::StartGame()
@@ -68,14 +58,14 @@ void Game::StartGame()
 
 
 
-	//AISystem* AISubsystem = GameWorld->GetSubsystem<AISystem>();
-	//if (AISubsystem)
-	//{
-	//	AISubsystem->SpawnRandomEnemy();
-	//	AISubsystem->SpawnRandomEnemy();
-	//	AISubsystem->SpawnRandomEnemy();
-	//	AISubsystem->SpawnRandomEnemy();
-	//}
+	AISubsystem* AISystem = GameWorld->GetSubsystem<AISubsystem>();
+	if (AISystem)
+	{
+		AISystem->SpawnRandomEnemy();
+		AISystem->SpawnRandomEnemy();
+		AISystem->SpawnRandomEnemy();
+		AISystem->SpawnRandomEnemy();
+	}
 
 
 	//TODO:: Create a level class which gets managed by world to put this code
@@ -87,12 +77,25 @@ void Game::StartGame()
 	Transform ObstacleTransform6;
 	Transform ObstacleTransform7;
 
-	ObstacleTransform1.Position = { 0.f,0.f };
-	ObstacleTransform1.Rotation = 1.f;
-	ObstacleTransform2.Position = { -100.f,200.f };
 
-	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform1, Vector2(50.f, 100.f), COLOR_PURPLE);
-	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform2, Vector2(50.f, 100.f), COLOR_PURPLE);
+
+
+
+	ObstacleTransform1.Position = { -1000.f,0.f };
+	ObstacleTransform2.Position = {1000.f,0.f };
+	ObstacleTransform3.Position = { 0.f,1000.f};
+	ObstacleTransform4.Position = { 0.f,-1000.f};
+	ObstacleTransform5.Position = { 0.f,0.f };
+	ObstacleTransform6.Position = { -200.f,50.f};
+	ObstacleTransform7.Position = { 400.f,-300.f };
+
+	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform1, Vector2(50.f, 1000.f), COLOR_PURPLE);
+	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform2, Vector2(50.f, 1000.f), COLOR_PURPLE);
+	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform3, Vector2(1000.f, 50.f), COLOR_PURPLE);
+	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform4, Vector2(1000.f, 50.f), COLOR_PURPLE);
+	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform5, Vector2(25.f, 50.f), COLOR_PURPLE);
+	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform6, Vector2(50.f, 100.f), COLOR_PURPLE);
+	GameWorld->SpawnGameObject<Obstacle>(ObstacleTransform7, Vector2(300.f, 50.f), COLOR_PURPLE);
 	StartGameLoop();
 }
 
@@ -147,7 +150,6 @@ void Game::FixedUpdate()
 	while (FixedTimeCounter >= FixedDeltaTimeMS)
 	{
 		GameWorld->FixedUpdate(FixedDeltaTimeS);
-		//CollisionSystem::Get().FixedUpdate(FixedDeltaTimeS);
 		FixedTimeCounter -= FixedDeltaTimeMS;
 	}
 }
@@ -166,8 +168,6 @@ void Game::ComposeFrame()
 
 	//TODO: Refactor this into Level
 	SDL_RenderTexture(GameRenderer, GameBackground, &BackGround, NULL);
-
-
 	RS->Draw(GameWorld->GetRenderScene());
 }
 
