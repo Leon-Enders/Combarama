@@ -10,6 +10,7 @@ void RenderScene::RegisterPrimitiveComponent(PrimitiveComponent* PrimitiveCompon
 
 void RenderScene::UnRegisterPrimitiveComponent(PrimitiveComponent* PrimitiveComponentToRegister)
 {
+	if (PrimitiveComponents.size() == 0) return;
 	std::erase_if(PrimitiveComponents, [&](PrimitiveComponent* PrimitiveComp)
 		{
 			return PrimitiveComp == PrimitiveComponentToRegister;

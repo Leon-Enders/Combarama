@@ -9,6 +9,7 @@ void PhysicsScene::RegisterBodyInstance(BodyInstance* BodyInstanceProxy)
 
 void PhysicsScene::UnRegisterBodyInstance(BodyInstance* BodyInstanceProxy)
 {
+	if (BodyProxies.size() == 0) return;
 	std::erase_if(BodyProxies, [&](BodyInstance* BodyInstance)
 		{
 			return BodyInstance == BodyInstanceProxy;
