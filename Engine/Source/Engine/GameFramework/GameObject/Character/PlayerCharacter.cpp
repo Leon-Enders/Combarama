@@ -5,7 +5,6 @@
 #include "../Projectile.h"
 #include "../../World/World.h"
 #include "../../../../RenderCore/Misc/DrawDebugHelpers.h"
-#include "../../../Physics/CollisionSystem.h"
 #include "../../Component/PrimitiveComponent.h"
 #include "../../Component/CameraComponent.h"
 

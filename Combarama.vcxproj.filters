@@ -134,12 +134,6 @@
     <ClCompile Include="Engine\Source\Engine\Input\InputSystem.cpp">
       <Filter>Source\Engine\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Source\Engine\Physics\Collider.cpp">
-      <Filter>Source\Engine\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Source\Engine\Physics\CollisionSystem.cpp">
-      <Filter>Source\Engine\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Source\Engine\Render\RenderSubsystem.cpp">
       <Filter>Source\Engine\Render</Filter>
     </ClCompile>
@@ -273,12 +267,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Source\Engine\Input\InputSystem.h">
       <Filter>Source\Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Source\Engine\Physics\Collider.h">
-      <Filter>Source\Engine\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Source\Engine\Physics\CollisionSystem.h">
-      <Filter>Source\Engine\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Source\Engine\Render\RenderSubsystem.h">
       <Filter>Source\Engine\Render</Filter>

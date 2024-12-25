@@ -6,7 +6,6 @@
 #include <SDL3/SDL_filesystem.h>
 #include "Input/InputSystem.h"
 #include "GameFramework/World/AISubsystem.h"
-#include "Physics/CollisionSystem.h"
 #include "GameFramework/GameObject/Character/PlayerCharacter.h"
 #include "GameFramework/GameObject/Controller/PlayerController.h"
 #include "GameFramework/GameObject/Obstacle.h"

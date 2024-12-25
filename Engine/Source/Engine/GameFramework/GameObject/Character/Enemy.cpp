@@ -4,7 +4,6 @@
 #include "../../../../RenderCore/Misc/PrimitiveFactory.h"
 #include "../../../../Core/Math/ComboramaMath.h"
 #include "../Character/PlayerCharacter.h"
-#include "../../../Physics/CollisionSystem.h"
 #include "../../Component/PrimitiveComponent.h"
 
 
