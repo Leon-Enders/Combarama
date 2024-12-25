@@ -193,3 +193,33 @@ bool CollisionSubsystem::SweepByChannel(const PhysicsScene& PScene,
 
 	return HasCollided;
 }
+
+std::vector<Actor*> CollisionSubsystem::GetAllActorsInCone(const PhysicsScene& PScene, std::weak_ptr<Actor> Instigator, const Vector2& Direction, float Height, float Angle)
+{
+	std::vector<Actor*> OverlappingActors;
+
+	if (auto sInstigator = Instigator.lock())
+	{
+		//Cache Actor Position
+		Vector2 ActorPosition = sInstigator->GetPosition();
+
+		for (const auto& BodyProxy : PScene.GetBodyProxies())
+		{
+			const PrimitiveComponent* OtherPrimitiveComponent = BodyProxy->GetOwningPrimitiveComponent();
+			Vector2 DeltaLocation = OtherPrimitiveComponent->GetWorldTransform().Position - ActorPosition;
+
+			float distance = DeltaLocation.Size();
+			if (distance > Height) continue;
+
+			float DotProduct = Direction.GetNormalized() * DeltaLocation.Normalize();
+			float AngleToPoint = std::acos(DotProduct);
+
+			if (AngleToPoint <= Angle)
+			{
+				OverlappingActors.push_back(OtherPrimitiveComponent->GetOwner());
+			}
+		}
+	}
+
+	return OverlappingActors;
+}

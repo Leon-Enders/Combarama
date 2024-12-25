@@ -98,8 +98,6 @@ void PlayerController::Look(const InputActionValue& Value)
 	if (auto sPlayerPtr = ControlledPlayerCharacter.lock())
 	{
 		Vector2 TargetPosition = Value.Get<Vector2>();
-		//Invert InputVector to account for render transforms
-		TargetPosition *= -1.f;
 		ControlRotation = Vector2::Zero().LookAtRotation(TargetPosition);
 	}
 }

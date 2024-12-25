@@ -86,6 +86,9 @@ public:
 	
 	bool SweepByChannel(const Vector2& StartLocation, const Vector2& EndLocation, CollisionResult& OutCollisionResult, const CollisionShape& Shape, const ECollisionChannel& CollisionChannel, Actor* ActorToIgnore);
 
+
+	std::vector<Actor*> GetAllActorsInCone(std::weak_ptr<Actor> Instigator, const Vector2& Direction, float Height, float Angle);
+
 	/*Scene*/
 	PhysicsScene& GetPhysicsScene() { return PScene; }
 	RenderScene& GetRenderScene() { return RScene; }

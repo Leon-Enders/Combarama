@@ -117,6 +117,11 @@ bool World::SweepByChannel(const Vector2& StartLocation, const Vector2& EndLocat
 	return GetSubsystem<CollisionSubsystem>()->SweepByChannel(PScene, StartLocation, EndLocation, OutCollisionResult, Shape, CollisionChannel, ActorToIgnore);
 }
 
+std::vector<Actor*> World::GetAllActorsInCone(std::weak_ptr<Actor> Instigator, const Vector2& Direction, float Height, float Angle)
+{
+	return GetSubsystem<CollisionSubsystem>()->GetAllActorsInCone(PScene, Instigator, Direction, Height, Angle);
+}
+
 
 
 void World::CreateSubsystemCollection()
