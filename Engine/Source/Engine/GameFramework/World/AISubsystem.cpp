@@ -3,6 +3,7 @@
 #include <ranges>
 #include "../GameObject/Character/Enemy.h"
 #include "../../../Core/Math/Transform.h"
+#include "../../../Core/Misc/CombaramaConstants.h"
 #include "World.h"
 
 
@@ -20,10 +21,9 @@ void AISubsystem::Initialize()
 
 void AISubsystem::SpawnRandomEnemy()
 {
-	//TODO: Create viewport constant and it use here
-	// Create distribution for width and height where enemies can spawn with some padding
-	std::uniform_real_distribution<float> DistFloatWidth(50.f, 1100.f);
-	std::uniform_real_distribution<float> DistFloatHeight(50.f, 600.f);
+
+	std::uniform_real_distribution<float> DistFloatWidth(-800.f, 800.f);
+	std::uniform_real_distribution<float> DistFloatHeight(-800.f, 800.f);
 
 	Transform RandomSpawnTransform;
 	RandomSpawnTransform.Position = { DistFloatWidth(RandomGenerator) , DistFloatHeight(RandomGenerator) };

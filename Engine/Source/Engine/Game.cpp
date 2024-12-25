@@ -55,15 +55,15 @@ void Game::StartGame()
 		sPlayerController->PossessCharacter(std::shared_ptr<PlayerCharacter>(SpawnedPlayerPtr));
 	}
 
-
+	int MaxEnemies = 10;
 
 	AISubsystem* AISystem = GameWorld->GetSubsystem<AISubsystem>();
 	if (AISystem)
 	{
-		AISystem->SpawnRandomEnemy();
-		AISystem->SpawnRandomEnemy();
-		AISystem->SpawnRandomEnemy();
-		AISystem->SpawnRandomEnemy();
+		for (int i = 0; i < MaxEnemies; i++)
+		{
+			AISystem->SpawnRandomEnemy();
+		}
 	}
 
 
