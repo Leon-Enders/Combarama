@@ -88,8 +88,11 @@ void AIController::MoveEnemy()
     {
         if (auto sTargetPtr = Target.lock())
         {
-            Vector2 TargetDirection = sTargetPtr->GetPosition().DirectionToTarget(sEnemyPtr->GetPosition());
+            Vector2 TargetDirection = sEnemyPtr->GetPosition().DirectionToTarget(sTargetPtr->GetPosition());
+            
             sEnemyPtr->AddMoveInput(TargetDirection);
+            ControlRotation = sEnemyPtr->GetPosition().LookAtRotation(sTargetPtr->GetPosition());
+
         }
         else
         {

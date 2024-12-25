@@ -132,7 +132,7 @@ public:
 
 	float LookAtRotation(const Vector2& Target)const
 	{
-		Vector2 DeltaPosition = *this - Target;
+		Vector2 DeltaPosition = Target - *this;
 		return std::atan2f(DeltaPosition.Y, DeltaPosition.X);
 	}
 
